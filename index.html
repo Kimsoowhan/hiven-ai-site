@@ -1,0 +1,20 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow,noarchive,nosnippet,noimageindex"><title>HIVEN AI · 통합 관리 대시보드</title>
+<style>:root{--ink:#E6E9F5;--sub:#B4BAD3;--faint:#8A90AA;--line:#2A3160;--bg:#0B1036;--bg2:#121947;--c1:#088CF5;--c2:#4A86DB;--ok:#3BD38A;--ng:#F06A6A}
+*{box-sizing:border-box}body{margin:0;font-family:Pretendard,-apple-system,"Malgun Gothic",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid var(--line)}header b{font-size:18px}header a{color:var(--sub);font-size:14px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+main{padding:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px}.card h3{margin:0 0 10px;font-size:14px;color:var(--sub);font-weight:600}.big{font-size:28px;font-weight:800}.w2{grid-column:span 2}.w4{grid-column:1/-1}
+.site{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:14px}.site a{color:var(--ink);text-decoration:none}.st{font-weight:700}.ok{color:var(--ok)}.ng{color:var(--ng)}
+.note{color:var(--faint);font-size:12px;margin-top:8px}@media(max-width:900px){main{grid-template-columns:1fr 1fr}.w2{grid-column:1/-1}}@media(max-width:560px){main{grid-template-columns:1fr}}</style></head><body>
+<header><b>HIVEN AI · 통합 관리 대시보드 <small style="color:#8A90AA;font-weight:500">Test-bed</small></b><a href="career.html">대표자 소개 →</a></header>
+<main>
+<div class="card"><h3>운영 사이트</h3><div class="big" id="n">4</div><div class="note">hiven.co.kr · hicoffer.ai · hisilver.ai · hiven.ai.kr</div></div>
+<div class="card"><h3>운영 언어</h3><div class="big">5</div><div class="note">KO · EN · RU · ZH · JA</div></div>
+<div class="card"><h3>접속 정책</h3><div class="big">KR only</div><div class="note">Cloudflare 국가 차단 규칙</div></div>
+<div class="card"><h3>AI 에이전트</h3><div class="big">2</div><div class="note">Hi Coffer · Hi Silver (베타)</div></div>
+<div class="card w2"><h3>사이트 응답 상태 (실시간 확인)</h3><div id="sites"></div><div class="note">브라우저에서 각 사이트에 접속해 응답 여부만 확인합니다.</div></div>
+<div class="card w2"><h3>배포 일정</h3><div class="site"><span>Hi Coffer 1차 · Windows PC 베타</span><span>2026년 연내</span></div><div class="site"><span>Hi Coffer 2차 · Android 베타</span><span>2027년 연초</span></div><div class="site"><span>hiven.ai.kr 시범 운영</span><span>11/2~11/8</span></div></div>
+<div class="card w4"><h3>안내</h3><div class="note">이 대시보드는 시험(Test-bed) 단계이며, 운영 지표·보고서 화면은 단계적으로 추가됩니다.</div></div>
+</main>
+<script>const S=['https://hiven.co.kr/','https://hicoffer.ai/','https://hisilver.ai/','https://hiven.ai.kr/'];const el=document.getElementById('sites');
+S.forEach(u=>{const d=document.createElement('div');d.className='site';d.innerHTML=`<a href="${u}">${u.slice(8,-1)}</a><span class="st">확인 중</span>`;el.appendChild(d);const t=performance.now();fetch(u,{mode:'no-cors',cache:'no-store'}).then(()=>{d.lastChild.textContent='응답 '+Math.round(performance.now()-t)+'ms';d.lastChild.className='st ok'}).catch(()=>{d.lastChild.textContent='응답 없음';d.lastChild.className='st ng'})});</script>
+</body></html>
