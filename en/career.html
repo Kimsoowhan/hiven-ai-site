@@ -27,7 +27,7 @@ footer.hfoot .hf-brand .kn{font-size:15px;line-height:1}
 @media (max-width:760px){footer.hfoot .wrap.hf{grid-template-columns:1fr;justify-items:center;text-align:center;gap:10px}
 footer.hfoot .hf-l,footer.hfoot .hf-r{display:contents}
 footer.hfoot .hf-brand{order:1}footer.hfoot .hf-copy{order:2}footer.hfoot .hf-pol{order:3}footer.hfoot .hf-m{order:4}footer.hfoot .hf-site{order:5}footer.hfoot .hf-mail{order:6}footer.hfoot }
-</style><style id="mvn-css">.mvn{position:fixed;right:14px;bottom:50%;transform:translateY(50%);display:flex;flex-direction:column;gap:8px;z-index:50}.mvn button{width:40px;height:40px;border:0;border-radius:50%;background:#2343D7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;box-shadow:0 4px 12px rgba(35,67,215,.3);-webkit-user-select:none;user-select:none;touch-action:none;-webkit-touch-callout:none}</style></head><body id="top">
+</style><style id="mvn-css">.mvn{position:fixed;right:14px;bottom:50%;transform:translateY(50%);display:flex;flex-direction:column;gap:8px;z-index:50}.mvn button{width:40px;height:40px;border:0;border-radius:50%;background:#2343D7;color:#fff;display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;box-shadow:0 4px 12px rgba(35,67,215,.3);-webkit-user-select:none;user-select:none;touch-action:none;-webkit-touch-callout:none}</style><style id="pd-css">td.pd{font-variant-numeric:tabular-nums;font-feature-settings:"tnum";text-align:center;white-space:nowrap}table tr>th:nth-child(2){text-align:center}</style></head><body id="top">
 <section class="wrap hero">
 <img src="/assets/img/founder.jpg" alt="Kim Soowhan" width="200" height="200" style="display:block;width:200px;height:200px;object-fit:cover;border-radius:50%">
 <div><div class="kicker" style="display:flex;align-items:center;gap:8px"><img src="/assets/img/hiven-logo-h.png" alt="HIVEN" style="height:2.1em;width:auto;display:block"><span>·</span>Founder &amp; CEO</div><h1>Kim Soo Whan</h1>
@@ -49,7 +49,7 @@ const J=[['Korea Firstec Co., Ltd.','2024.06','2024.09','Executive Director','PM
 const m=s=>{const[a,b]=s.split('.').map(Number);return a*12+b-1},S=m('2000.01'),E=m('2024.09');let tl='',tb='';
 [...J].reverse().forEach((j,i)=>{});
 let cur=S;[...J].reverse().forEach((j,i)=>{const a=m(j[1]),b=m(j[2]);if(a>cur)tl+=`<i style="flex:${a-cur};background:#EEF0F6"></i>`;tl+=`<i title="${j[0]}" style="flex:${b-a+1};background:${C[i%6]}"></i>`;cur=b+1});
-J.forEach((j,i)=>{const n=m(j[2])-m(j[1])+1,y=Math.floor(n/12),mo=n%12;tb+=`<tr><td><span class="dot" style="background:${C[(J.length-1-i)%6]}"></span>${j[0]}</td><td>${j[1]} ~ ${j[2]}</td><td class="p">${j[3]}</td><td>${j[4]}</td></tr>`});
+J.forEach((j,i)=>{const n=m(j[2])-m(j[1])+1,y=Math.floor(n/12),mo=n%12;tb+=`<tr><td><span class="dot" style="background:${C[(J.length-1-i)%6]}"></span>${j[0]}</td><td class="pd">${j[1]} ~ ${j[2]}</td><td class="p">${j[3]}</td><td>${j[4]}</td></tr>`});
 document.getElementById('tl').innerHTML=tl;document.getElementById('tb').innerHTML=tb;
 const P=[
 ['2024','Supreme Prosecutors\' Office digital investigation support system maintenance','NDFC · Korea Firstec · PMO',['Public','Security']],
