@@ -38,7 +38,7 @@ footer.hfoot .hf-brand{order:1}footer.hfoot .hf-copy{order:2}footer.hfoot .hf-po
 <section class="alt"><div class="wrap"><div class="kicker">Career Timeline</div><h2>근무 이력</h2>
 <div class="tl" id="tl"></div><div class="tl-l"><span>2000</span><span>2008</span><span>2015</span><span>2020</span><span>2024</span></div>
 <table><thead><tr><th>기업</th><th>기간</th><th class="p">직위</th><th>담당</th></tr></thead><tbody id="tb"></tbody></table>
-<p style="font-size:13px;color:#7A8099">네이버시스템㈜에서 가장 오래(6년 6개월) 근무했습니다.</p></div></section>
+<p style="font-size:13px;color:#7A8099">네이버시스템㈜에서 가장 오래 근무했습니다.</p></div></section>
 <section><div class="wrap"><div class="kicker">Roles · Fields</div><h2>주로 맡은 역할과 분야</h2>
 <div class="bars" id="bars"></div><p style="font-size:13px;color:#7A8099">아래 대표 프로젝트 15건 기준 집계(한 건이 여러 분야에 해당할 수 있음)</p></div></section>
 <section class="alt"><div class="wrap"><div class="kicker">Key Projects</div><h2>대표 프로젝트 (최신순)</h2><div class="feat" id="ft"></div></div></section>
@@ -46,11 +46,11 @@ footer.hfoot .hf-brand{order:1}footer.hfoot .hf-copy{order:2}footer.hfoot .hf-po
 <footer class="hfoot"><div class="wrap hf"><div class="hf-l"><a class="hf-brand" href="https://hiven.co.kr/#top" aria-label="HIVEN"><img src="/assets/img/hiven-footer-logo.png" alt="HIVEN · 하이븐" width="116" height="19" style="display:block;height:19px;width:auto"></a><a class="hf-pol" href="https://hiven.co.kr/policies.html">이용약관 및 정책</a></div><div class="hf-m"><a href="https://hicoffer.ai/">Hi Coffer</a> · <a href="https://hisilver.ai/">Hi Silver</a></div><div class="hf-r"><span class="hf-copy">© 2026 HIVEN · HIVE-Group</span><a class="hf-site" href="https://hiven.co.kr/">hiven.co.kr</a><a class="hf-mail" href="mailto:contact@hiven.co.kr">contact@hiven.co.kr</a></div></div></footer>
 <script>
 const C=['#088CF5','#2343D7','#7711FC','#4A86DB','#6FA9E6','#9CC9EF'];
-const J=[['㈜코리아퍼스텍','2024.06','2024.09','상무','사업관리(PMO)·운영개선 기획'],['㈜아이티아이즈','2022.01','2023.01','이사','사업총괄·제안·수행(PM/PMO)'],['KCC정보통신㈜','2020.12','2021.12','전문위원','사업총괄·프리세일즈·제안'],['세아네트웍스㈜','2020.10','2020.12','—','ICT 공공사업 발굴·제안(PM)'],['㈜동해종합기술공사','2019.03','2020.08','상무','사업총괄·제안·수행(PM/PMO)'],['AKT공간정보㈜','2018.06','2018.12','상무','사업총괄·수행(PM/PMO)'],['㈜인터프로','2017.01','2017.03','사장','사업총괄·경영'],['㈜엘솔컴퍼니','2015.11','2016.02','수석','사업총괄·제안·수행'],['네이버시스템㈜','2008.10','2015.03','부장','사업관리·프리세일즈·수행(PM)'],['유플리트㈜','2008.06','2008.08','차장','사업·서비스 기획, 제안'],['휴미트㈜','2004.03','2006.05','과장','사업·서비스 기획, 제안, 수행(PM/PL)'],['㈜인터미디어파크','2001.08','2003.01','과장','사업·서비스 기획, 제안, 수행(PM/PL)'],['㈜제이케이디소프트','2000.01','2001.05','대리','제품·서비스 기획, 제안, 수행(PM/PL)']];
+const J=[['㈜코리아퍼스텍','2024.06','2024.09','상무','사업관리(PMO)·운영개선 기획'],['㈜아이티아이즈','2022.01','2023.01','이사','사업총괄·제안·수행(PM/PMO)'],['KCC정보통신㈜','2020.12','2021.12','전문위원','사업총괄·프리세일즈·제안'],['세아네트웍스㈜','2020.10','2020.12','전문위원','ICT 공공사업 발굴·제안(PM)'],['㈜동해종합기술공사','2019.03','2020.08','상무','사업총괄·제안·수행(PM/PMO)'],['AKT공간정보㈜','2018.06','2018.12','상무','사업총괄·수행(PM/PMO)'],['㈜인터프로','2017.01','2017.03','사장','사업총괄·경영'],['㈜엘솔컴퍼니','2015.11','2016.02','수석','사업총괄·제안·수행'],['네이버시스템㈜','2008.10','2015.03','부장','사업관리·프리세일즈·수행(PM)'],['유플리트㈜','2008.06','2008.08','차장','사업·서비스 기획, 제안'],['휴미트㈜','2004.03','2006.05','과장','사업·서비스 기획, 제안, 수행(PM/PL)'],['㈜인터미디어파크','2001.08','2003.01','과장','사업·서비스 기획, 제안, 수행(PM/PL)'],['㈜제이케이디소프트','2000.01','2001.05','대리','제품·서비스 기획, 제안, 수행(PM/PL)']];
 const m=s=>{const[a,b]=s.split('.').map(Number);return a*12+b-1},S=m('2000.01'),E=m('2024.09');let tl='',tb='';
 [...J].reverse().forEach((j,i)=>{});
 let cur=S;[...J].reverse().forEach((j,i)=>{const a=m(j[1]),b=m(j[2]);if(a>cur)tl+=`<i style="flex:${a-cur};background:#EEF0F6"></i>`;tl+=`<i title="${j[0]}" style="flex:${b-a+1};background:${C[i%6]}"></i>`;cur=b+1});
-J.forEach((j,i)=>{const n=m(j[2])-m(j[1])+1,y=Math.floor(n/12),mo=n%12;tb+=`<tr><td><span class="dot" style="background:${C[(J.length-1-i)%6]}"></span>${j[0]}</td><td>${j[1]} ~ ${j[2]} (${y?y+'년 ':''}${mo?mo+'개월':''})</td><td class="p">${j[3]}</td><td>${j[4]}</td></tr>`});
+J.forEach((j,i)=>{const n=m(j[2])-m(j[1])+1,y=Math.floor(n/12),mo=n%12;tb+=`<tr><td><span class="dot" style="background:${C[(J.length-1-i)%6]}"></span>${j[0]}</td><td>${j[1]} ~ ${j[2]}</td><td class="p">${j[3]}</td><td>${j[4]}</td></tr>`});
 document.getElementById('tl').innerHTML=tl;document.getElementById('tb').innerHTML=tb;
 const P=[
 ['2024','대검찰청 디지털수사지원시스템 통합유지관리','대검찰청 국가디지털포렌식센터 · ㈜코리아퍼스텍 · PMO',['공공','정보보안']],
