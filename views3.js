@@ -145,7 +145,7 @@ function hvTrBody(){var d=hvTRd;if(!d)return '';
  var g='<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">선 기준</span>'+btn('tv',['구분별','모델별'])+'</div><div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">모델</span>'+ms.map(function(x){var on=hvF13.tm===x,c=hvTRM[x];return '<button type="button" class="'+(on?'on':'')+'" style="'+(c?(on?'background:'+c+';border-color:'+c+';color:#fff':'border-color:'+c+';color:'+c):'')+'" onclick="hvTrSet(\'tm\',\''+x+'\')">'+hvEsc(x)+'</button>'}).join('')+'</div>'
  +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">값</span>'+btn('tc',['구간','누적'])+'</div>'
  +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">구분</span>'+hvTY13.map(function(t){var off=!!hvF13.th[t];return '<button type="button" class="'+(off?'':'on')+'" style="'+(off?'':'background:'+hvTRC[t]+';border-color:'+hvTRC[t]+';color:#fff')+'" onclick="hvTrTog(\''+t+'\')">'+hvEsc(t)+'</button>'}).join('')+'</div>';
- var W=1000,H=290,L=34,R=40,T=28,B2=40,pw=W-L-R,ph=H-T-B2,X=function(i){return L+i*pw/(B.length-1)},Y=function(v){return T+ph-v*ph/mx};
+ var W=1000,H=304,L=34,R=40,T=28,B2=54,pw=W-L-R,ph=H-T-B2,X=function(i){return L+i*pw/(B.length-1)},Y=function(v){return T+ph-v*ph/mx};
  var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="min-width:640px;font:11px sans-serif;display:block" role="img" aria-label="구분별 변동 추이">';
  var step=Math.max(1,Math.ceil(mx/5));for(var y=0;y<=mx;y+=step)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y)+'" y2="'+Y(y)+'" stroke="#e3e8f0"/><text x="'+(L-6)+'" y="'+(Y(y)+4)+'" text-anchor="end" fill="#667">'+y+'</text>';
  var ni=-1;B.forEach(function(b,i){var e2=i<B.length-1?B[i+1]:Bend;if(now>=b&&now<e2)ni=i});
@@ -154,6 +154,8 @@ function hvTrBody(){var d=hvTRd;if(!d)return '';
  B.forEach(function(b,i){if(i%4===0||i===ni)s+='<text x="'+X(i)+'" y="'+(H-B2+16)+'" text-anchor="middle" fill="'+(i===ni?'#16234d':'#556')+'"'+(i===ni?' font-weight="700"':'')+'>'+hvTrLb(b,u)+'</text>'});
  vis.forEach(function(sr){var c=COL[sr.t],pts=[];sr.v.forEach(function(v,i){if(v!==null)pts.push(X(i)+','+Y(v))});if(pts.length)s+='<polyline fill="none" stroke="'+c+'" stroke-width="2.2" points="'+pts.join(' ')+'"/>';
   sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLb(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
+ var ai=ni>=0?ni:B.length-1,ax=X(ai),ay=T+ph+21,lbA=(ni>=0?'▲ 현재 ':'▲ 기준 ')+hvTrLb(ni>=0?now:B[ai],u);
+ s+='<polygon points="'+ax+','+ay+' '+(ax-7)+','+(ay+11)+' '+(ax+7)+','+(ay+11)+'" fill="'+(ni>=0?'#c62828':'#16234d')+'"/><text x="'+Math.min(ax,W-R)+'" y="'+(H-4)+'" text-anchor="end" fill="'+(ni>=0?'#c62828':'#16234d')+'" font-weight="700">'+hvEsc(lbA)+'</text>';
  s+='</svg>';
  var nav='<div class="sc13-f sc13-l" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:space-between"><span style="display:flex;gap:4px;flex-wrap:wrap">'+ub()+'</span>'
  +'<span style="display:flex;gap:4px"><button type="button" onclick="hvTrMove(-'+(hvTRN-1)+')">◀◀</button><button type="button" onclick="hvTrMove(-1)">◀ 이전</button><button type="button" class="'+(hvF13.toff?'':'on')+'" onclick="hvTrMove(0)">현재</button><button type="button" onclick="hvTrMove(1)">다음 ▶</button><button type="button" onclick="hvTrMove('+(hvTRN-1)+')">▶▶</button></span>'
