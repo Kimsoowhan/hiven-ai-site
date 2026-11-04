@@ -115,7 +115,7 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
 
 /* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:30): 현재 시점을 가운데 두고 좌(이전)·우(다음)로 이동, 단위(30초·분·시간·일·월·년) 토글,
    30초마다 현재 시점이 이동하며 자동으로 흐름. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
-var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#6a1b9a','개선요청':'#1565c0','유휴':'#78909c','장애':'#000000'};
+var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#6a1b9a','개선요청':'#1565c0','유휴':'#00897b','장애':'#d81b60'};
 var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12,hvTRD0=-9;/* 기본: 현재 시점을 오른쪽 끝에서 3칸 앞에 둠(대표님 02:33) */
 var hvTRS={'30초':30e3,'분':60e3,'시간':3600e3,'일':86400e3};
 function hvTrFloor(t,u){if(hvTRS[u])return Math.floor((t+hvTRZ)/hvTRS[u])*hvTRS[u]-hvTRZ;var d=new Date(t+hvTRZ),y=d.getUTCFullYear(),m=u==='월'?d.getUTCMonth():0;return Date.UTC(y,m,1)-hvTRZ}
@@ -147,7 +147,7 @@ function hvTrIn(){var d=hvTRD;if(!d)return '';
  
  if(nowI>=0){var nx2=X(nowI);s+='<line x1="'+nx2+'" x2="'+nx2+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#2a52be" stroke-width="2"/><text x="'+nx2+'" y="'+(H-6)+'" text-anchor="middle" fill="#2a52be" font-weight="700">현재 '+hvTrLbl(now,'30초')+'</text>'}
  vis.slice().sort(function(a,b){return Math.max.apply(null,b.v.map(function(x){return x||0}))-Math.max.apply(null,a.v.map(function(x){return x||0}))}).forEach(function(sr){var c=hvTRC[sr.t],pts=[],xi=[];sr.v.forEach(function(v,i){if(v!==null){pts.push(X(i)+','+Y(v));xi.push(i)}});
-  if(pts.length){s+='<polygon fill="'+c+'" fill-opacity="0.22" stroke="none" points="'+X(xi[0])+','+Y(0)+' '+pts.join(' ')+' '+X(xi[xi.length-1])+','+Y(0)+'"/>';s+='<polyline fill="none" stroke="'+c+'" stroke-width="2" stroke-opacity="0.9" points="'+pts.join(' ')+'"/>'}
+  if(pts.length){s+='<polygon fill="'+c+'" fill-opacity="0.12" stroke="none" points="'+X(xi[0])+','+Y(0)+' '+pts.join(' ')+' '+X(xi[xi.length-1])+','+Y(0)+'"/>';s+='<polyline fill="none" stroke="'+c+'" stroke-width="2" stroke-opacity="0.9" points="'+pts.join(' ')+'"/>'}
   sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLbl(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
  s+='</svg>';
  var tot=hvTY13.map(function(t){var n=all.filter(function(e){return e.type===t}).length;return '<span style="display:inline-block;margin:2px 10px 2px 0;white-space:nowrap"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+hvTRC[t]+';margin-right:4px"></i>'+hvEsc(t)+' '+n+'</span>'}).join('');
