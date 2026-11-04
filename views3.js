@@ -113,56 +113,51 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
   +'</tbody></table></div>'+hvPager(PG,'건','hvSC13Paint')}
  return g}
 
-/* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:23): 현재 시점이 맨 오른쪽(02:26 정정), 좌 = 이전. 단위(30초·분·시간·일·월·년)를 양 끝에서 고르고,
-   ◀ ▶로 좌우 이동, 30초마다 현재 시점이 오른쪽으로 흐르며 칸이 자동으로 이어진다. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
+/* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:30): 현재 시점을 가운데 두고 좌(이전)·우(다음)로 이동, 단위(30초·분·시간·일·월·년) 토글,
+   30초마다 현재 시점이 이동하며 자동으로 흐름. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
 var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#6a1b9a','개선요청':'#1565c0','유휴':'#78909c','장애':'#000000'};
-var hvTRM={'Fable':'#0d47a1','Opus':'#d84315','Sonnet':'#2e7d32','Haiku':'#8e24aa','미상':'#9e9e9e'};
-var hvTRU=['30초','분','시간','일','월','년'],hvTRN=25,hvTRd=null,hvTRt=null;
-function hvTrMs(e){var m=hvHm(e);var s=e.date+'T'+(m||'00:00')+':00+09:00';var t=Date.parse(s);return isNaN(t)?null:{t:t,exact:!!m}}
-function hvTrK(t){var d=new Date(t+9*3600000);return {y:d.getUTCFullYear(),mo:d.getUTCMonth(),d:d.getUTCDate(),h:d.getUTCHours(),mi:d.getUTCMinutes(),s:d.getUTCSeconds()}}
-function hvTrStart(t,u){var k=hvTrK(t),Z=function(y,mo,d,h,mi,s){return Date.UTC(y,mo,d,h,mi,s)-9*3600000};
- if(u==='30초')return Z(k.y,k.mo,k.d,k.h,k.mi,k.s<30?0:30);if(u==='분')return Z(k.y,k.mo,k.d,k.h,k.mi,0);if(u==='시간')return Z(k.y,k.mo,k.d,k.h,0,0);if(u==='일')return Z(k.y,k.mo,k.d,0,0,0);if(u==='월')return Z(k.y,k.mo,1,0,0,0);return Z(k.y,0,1,0,0,0)}
-function hvTrAdd(t,u,n){var k=hvTrK(t),Z=function(y,mo,d,h,mi,s){return Date.UTC(y,mo,d,h,mi,s)-9*3600000};
- if(u==='30초')return t+n*30000;if(u==='분')return t+n*60000;if(u==='시간')return t+n*3600000;if(u==='일')return Z(k.y,k.mo,k.d+n,0,0,0);if(u==='월')return Z(k.y,k.mo+n,1,0,0,0);return Z(k.y+n,0,1,0,0,0)}
-function hvTrLb(t,u){var k=hvTrK(t),p2=function(x){return (x<10?'0':'')+x};
- if(u==='30초')return p2(k.h)+':'+p2(k.mi)+':'+p2(k.s);if(u==='분')return p2(k.h)+':'+p2(k.mi);if(u==='시간')return p2(k.mo+1)+'/'+p2(k.d)+' '+p2(k.h)+'시';if(u==='일')return p2(k.mo+1)+'/'+p2(k.d);if(u==='월')return k.y+'/'+p2(k.mo+1);return k.y+'년'}
-function hvTrend(d){hvTRd=d;if(!hvTRt)hvTRt=setInterval(function(){var el=document.getElementById('hvtr');if(!el){clearInterval(hvTRt);hvTRt=null;return}if(!hvF13.toff)el.innerHTML=hvTrBody()},30000);
- return '<h3>구분별 변동 추이</h3><div id="hvtr">'+hvTrBody()+'</div>'}
-function hvTrBody(){var d=hvTRd;if(!d)return '';
- if(!hvF13.tu||hvTRU.indexOf(hvF13.tu)<0)hvF13.tu='시간';if(!hvF13.tm)hvF13.tm='모델 전체';if(!hvF13.tc)hvF13.tc='구간';if(!hvF13.th)hvF13.th={};if(!hvF13.toff)hvF13.toff=0;if(!hvF13.tv)hvF13.tv='구분별';
+var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12;
+var hvTRS={'30초':30e3,'분':60e3,'시간':3600e3,'일':86400e3};
+function hvTrFloor(t,u){if(hvTRS[u])return Math.floor((t+hvTRZ)/hvTRS[u])*hvTRS[u]-hvTRZ;var d=new Date(t+hvTRZ),y=d.getUTCFullYear(),m=u==='월'?d.getUTCMonth():0;return Date.UTC(y,m,1)-hvTRZ}
+function hvTrStep(t,u,k){if(hvTRS[u])return t+k*hvTRS[u];var d=new Date(t+hvTRZ);return u==='월'?Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+k,1)-hvTRZ:Date.UTC(d.getUTCFullYear()+k,0,1)-hvTRZ}
+function hvTrLbl(t,u){var d=new Date(t+hvTRZ),p=function(n){return String(n).padStart(2,'0')},M=p(d.getUTCMonth()+1),D=p(d.getUTCDate()),h=p(d.getUTCHours()),mi=p(d.getUTCMinutes()),s=p(d.getUTCSeconds());
+ return u==='30초'?h+':'+mi+':'+s:u==='분'?h+':'+mi:u==='시간'?M+'/'+D+' '+h+'시':u==='일'?M+'/'+D:u==='월'?d.getUTCFullYear()+'/'+M:d.getUTCFullYear()+'년'}
+function hvTrT(e){var m=hvHm(e);return Date.parse(e.date+'T'+(m||'12:00')+':00+09:00')}
+function hvTrend(d){hvTRD=d;return '<h3>구분별 변동 추이</h3><div id="hvTrBox">'+hvTrIn()+'</div>'}
+function hvTrIn(){var d=hvTRD;if(!d)return '';
+ if(!hvF13.tu||hvTRU.indexOf(hvF13.tu)<0)hvF13.tu='시간';if(!hvF13.tm)hvF13.tm='모델 전체';if(!hvF13.tc)hvF13.tc='구간';if(!hvF13.th)hvF13.th={};if(typeof hvF13.to!=='number')hvF13.to=0;
  var u=hvF13.tu,ms=['모델 전체'].concat(d.models.map(function(m){return m.name}));if(ms.indexOf(hvF13.tm)<0)hvF13.tm='모델 전체';
- var now=Date.now(),half=Math.floor(hvTRN/2),c0=hvTrAdd(hvTrStart(now,u),u,hvF13.toff),B=[];for(var i=-(hvTRN-1);i<=0;i++)B.push(hvTrAdd(c0,u,i));var Bend=hvTrAdd(B[B.length-1],u,1);
- var fine=(u==='30초'||u==='분'||u==='시간');
- var ev=d.events.filter(function(e){return hvF13.tm==='모델 전체'||e.model===hvF13.tm}).map(function(e){var x=hvTrMs(e);return x?{e:e,t:x.t,exact:x.exact}:null}).filter(function(x){return x&&(x.exact||!fine)});
- var nx=d.events.length-ev.length;
- var BYM=hvF13.tv==='모델별',ON=hvTY13.filter(function(t){return !hvF13.th[t]}),evA=BYM?d.events.map(function(e){var x=hvTrMs(e);return x?{e:e,t:x.t,exact:x.exact}:null}).filter(function(x){return x&&(x.exact||!fine)&&ON.indexOf(x.e.type)>=0}):ev;
- var KEYS=BYM?d.models.map(function(m){return m.name}).filter(function(m){return hvF13.tm==='모델 전체'||m===hvF13.tm}):hvTY13,COL=BYM?hvTRM:hvTRC,F=function(x,k){return BYM?x.e.model===k:x.e.type===k};
- var S=KEYS.map(function(ty){var c=hvF13.tc==='누적'?evA.filter(function(x){return F(x,ty)&&x.t<B[0]}).length:0;
-  return {t:ty,v:B.map(function(b,i){var e2=i<B.length-1?B[i+1]:Bend;var n=evA.filter(function(x){return F(x,ty)&&x.t>=b&&x.t<e2}).length;c+=n;return b>now?null:(hvF13.tc==='누적'?c:n)})}});
- var vis=S.filter(function(s){return BYM||!hvF13.th[s.t]}),mx=1;vis.forEach(function(s){s.v.forEach(function(x){if(x!==null&&x>mx)mx=x})});
- var ub=function(){return hvTRU.map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvTrSet(\'tu\',\''+x+'\')">'+x+'</button>'}).join('')};
+ var sub=!!hvTRS[u]&&u!=='일',all=d.events.filter(function(e){return hvF13.tm==='모델 전체'||e.model===hvF13.tm}),nx=sub?all.filter(function(e){return !hvHm(e)}).length:0;
+ var ev=all.filter(function(e){return !sub||hvHm(e)}).map(function(e){return {t:hvTrT(e),y:e.type}});
+ var now=Date.now(),c0=hvTrStep(hvTrFloor(now,u),u,hvF13.to),B=[];for(var i=-hvTRN;i<=hvTRN;i++)B.push(hvTrStep(c0,u,i));
+ var nb=hvTrFloor(now,u),nowI=-1;B.forEach(function(b,i){if(b===nb)nowI=i});
+ var S=hvTY13.map(function(ty){var cum=hvF13.tc==='누적'?ev.filter(function(e){return e.y===ty&&e.t<B[0]}).length:0;
+  return {t:ty,v:B.map(function(b,i){if(b>nb)return null;var n=ev.filter(function(e){return e.y===ty&&e.t>=b&&e.t<hvTrStep(b,u,1)}).length;cum+=n;return hvF13.tc==='누적'?cum:n})}});
+ var vis=S.filter(function(s){return !hvF13.th[s.t]}),mx=1;vis.forEach(function(s){s.v.forEach(function(x){if(x>mx)mx=x})});
  var btn=function(key,list){return list.map(function(x){return '<button type="button" class="'+(hvF13[key]===x?'on':'')+'" onclick="hvTrSet(\''+key+'\',\''+x+'\')">'+hvEsc(x)+'</button>'}).join('')};
- var g='<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">선 기준</span>'+btn('tv',['구분별','모델별'])+'</div><div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">모델</span>'+ms.map(function(x){var on=hvF13.tm===x,c=hvTRM[x];return '<button type="button" class="'+(on?'on':'')+'" style="'+(c?(on?'background:'+c+';border-color:'+c+';color:#fff':'border-color:'+c+';color:'+c):'')+'" onclick="hvTrSet(\'tm\',\''+x+'\')">'+hvEsc(x)+'</button>'}).join('')+'</div>'
+ var tg='<span style="white-space:nowrap">'+hvTRU.map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvTrSet(\'tu\',\''+x+'\')">'+x+'</button>'}).join('')+'</span>';
+ var g='<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">모델</span>'+btn('tm',ms)+'</div>'
  +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">값</span>'+btn('tc',['구간','누적'])+'</div>'
  +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">구분</span>'+hvTY13.map(function(t){var off=!!hvF13.th[t];return '<button type="button" class="'+(off?'':'on')+'" style="'+(off?'':'background:'+hvTRC[t]+';border-color:'+hvTRC[t]+';color:#fff')+'" onclick="hvTrTog(\''+t+'\')">'+hvEsc(t)+'</button>'}).join('')+'</div>';
- var W=1000,H=304,L=34,R=40,T=28,B2=54,pw=W-L-R,ph=H-T-B2,X=function(i){return L+i*pw/(B.length-1)},Y=function(v){return T+ph-v*ph/mx};
- var s='<svg viewBox="0 0 '+W+' '+H+'" width="100%" style="min-width:640px;font:11px sans-serif;display:block" role="img" aria-label="구분별 변동 추이">';
- var step=Math.max(1,Math.ceil(mx/5));for(var y=0;y<=mx;y+=step)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y)+'" y2="'+Y(y)+'" stroke="#e3e8f0"/><text x="'+(L-6)+'" y="'+(Y(y)+4)+'" text-anchor="end" fill="#667">'+y+'</text>';
- var ni=-1;B.forEach(function(b,i){var e2=i<B.length-1?B[i+1]:Bend;if(now>=b&&now<e2)ni=i});
- s+='<rect x="'+L+'" y="'+T+'" width="'+(ni>=0?X(ni)-L:(B[0]>now?0:pw))+'" height="'+ph+'" fill="#f4f7fc"/>';
- if(ni>=0)s+='<line x1="'+X(ni)+'" x2="'+X(ni)+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#16234d" stroke-width="1.6" stroke-dasharray="4 3"/><text x="'+X(ni)+'" y="'+(T-10)+'" text-anchor="middle" fill="#16234d" font-weight="700">현재 '+hvTrLb(now,u==='30초'?'30초':u==='분'?'30초':u)+'</text>';
- B.forEach(function(b,i){if(i%4===0||i===ni)s+='<text x="'+X(i)+'" y="'+(H-B2+16)+'" text-anchor="middle" fill="'+(i===ni?'#16234d':'#556')+'"'+(i===ni?' font-weight="700"':'')+'>'+hvTrLb(b,u)+'</text>'});
- vis.forEach(function(sr){var c=COL[sr.t],pts=[];sr.v.forEach(function(v,i){if(v!==null)pts.push(X(i)+','+Y(v))});if(pts.length)s+='<polyline fill="none" stroke="'+c+'" stroke-width="2.2" points="'+pts.join(' ')+'"/>';
-  sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLb(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
- var ai=ni>=0?ni:B.length-1,ax=X(ai),ay=T+ph+21,lbA=(ni>=0?'▲ 현재 ':'▲ 기준 ')+hvTrLb(ni>=0?now:B[ai],u);
- s+='<polygon points="'+ax+','+ay+' '+(ax-7)+','+(ay+11)+' '+(ax+7)+','+(ay+11)+'" fill="'+(ni>=0?'#c62828':'#16234d')+'"/><text x="'+Math.min(ax,W-R)+'" y="'+(H-4)+'" text-anchor="end" fill="'+(ni>=0?'#c62828':'#16234d')+'" font-weight="700">'+hvEsc(lbA)+'</text>';
+ g+='<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0"><span style="white-space:nowrap"><button type="button" onclick="hvTrPan(-1)">◀ 이전</button> '+tg+'</span><span style="white-space:nowrap">'+(hvF13.to?'<button type="button" class="on" onclick="hvTrPan(0)">현재로</button> ':'')+tg+' <button type="button" onclick="hvTrPan(1)">다음 ▶</button></span></div>';
+ var W=760,H=250,L=36,R=16,T=14,BT=40,pw=W-L-R,ph=H-T-BT,X=function(i){return L+i*pw/(B.length-1)},Y=function(v){return T+ph-v*ph/mx};
+ var s='<svg id="hvTrSvg" viewBox="0 0 '+W+' '+H+'" width="100%" style="max-width:'+W+'px;font:11px sans-serif;touch-action:pan-y;cursor:grab" role="img" aria-label="구분별 변동 추이">';
+ var st=Math.max(1,Math.ceil(mx/5));for(var y=0;y<=mx;y+=st)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y)+'" y2="'+Y(y)+'" stroke="#e3e8f0"/><text x="'+(L-6)+'" y="'+(Y(y)+4)+'" text-anchor="end" fill="#667">'+y+'</text>';
+ B.forEach(function(b,i){if(i%4===0)s+='<text x="'+X(i)+'" y="'+(H-BT+16)+'" text-anchor="middle" fill="#445">'+hvTrLbl(b,u)+'</text>'});
+ var cx=X(hvTRN);s+='<line x1="'+cx+'" x2="'+cx+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#9aa6b8" stroke-dasharray="3 3"/>';
+ if(nowI>=0){var nx2=X(nowI);s+='<line x1="'+nx2+'" x2="'+nx2+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#2a52be" stroke-width="2"/><text x="'+nx2+'" y="'+(H-6)+'" text-anchor="middle" fill="#2a52be" font-weight="700">현재 '+hvTrLbl(now,'30초')+'</text>'}
+ vis.forEach(function(sr){var c=hvTRC[sr.t],pts=[];sr.v.forEach(function(v,i){if(v!==null)pts.push(X(i)+','+Y(v))});if(pts.length)s+='<polyline fill="none" stroke="'+c+'" stroke-width="2.2" points="'+pts.join(' ')+'"/>';
+  sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLbl(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
  s+='</svg>';
- var nav='<div class="sc13-f sc13-l" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap;justify-content:space-between"><span style="display:flex;gap:4px;flex-wrap:wrap">'+ub()+'</span>'
- +'<span style="display:flex;gap:4px"><button type="button" onclick="hvTrMove(-'+(hvTRN-1)+')">◀◀</button><button type="button" onclick="hvTrMove(-1)">◀ 이전</button><button type="button" class="'+(hvF13.toff?'':'on')+'" onclick="hvTrMove(0)">현재</button><button type="button" onclick="hvTrMove(1)">다음 ▶</button><button type="button" onclick="hvTrMove('+(hvTRN-1)+')">▶▶</button></span>'
- +'<span style="display:flex;gap:4px;flex-wrap:wrap">'+ub()+'</span></div>';
- var lg=function(c,t,n){return '<span style="display:inline-block;margin:2px 12px 2px 0;white-space:nowrap"><i style="display:inline-block;width:18px;height:3px;vertical-align:middle;background:'+c+';margin-right:5px"></i>'+hvEsc(t)+' '+n+'건</span>'};
- var tot='<b>범례 · '+(BYM?'선 = 모델('+hvEsc(ON.join('·')||'구분 없음')+' 합계)':'선 = 구분 · 모델 '+hvEsc(hvF13.tm))+'</b><br>'+S.map(function(sr){var n=evA.filter(function(x){return F(x,sr.t)&&x.t>=B[0]&&x.t<Bend}).length;return BYM||!hvF13.th[sr.t]?lg(COL[sr.t],sr.t,n):''}).join('');
- return g+nav+'<div class="tw" style="overflow-x:auto">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · '+u+' 단위 '+B.length+'칸(현재 시점 = 맨 오른쪽 · 왼쪽 = 이전) · '+(hvF13.toff?'이동 중(자동 흐름 멈춤 — 「현재」를 누르면 다시 흐름)':'30초마다 현재 시점이 맨 오른쪽에 붙고 지난 칸이 왼쪽으로 밀리며 자동 갱신')+' · '+(hvF13.tc==='누적'?'누적 건수':'구간별 건수')+(fine&&nx?' · 시각 미기재 '+nx+'건은 일·월·년 단위에서 보임':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
-function hvTrSet(k,v){hvF13[k]=v;if(k==='tu')hvF13.toff=0;var el=document.getElementById('hvtr');if(el)el.innerHTML=hvTrBody()}
-function hvTrTog(t){if(!hvF13.th)hvF13.th={};hvF13.th[t]=!hvF13.th[t];var el=document.getElementById('hvtr');if(el)el.innerHTML=hvTrBody()}
-function hvTrMove(n){hvF13.toff=n===0?0:Math.min(0,(hvF13.toff||0)+n);var el=document.getElementById('hvtr');if(el)el.innerHTML=hvTrBody()}
+ var tot=hvTY13.map(function(t){var n=all.filter(function(e){return e.type===t}).length;return '<span style="display:inline-block;margin:2px 10px 2px 0;white-space:nowrap"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+hvTRC[t]+';margin-right:4px"></i>'+hvEsc(t)+' '+n+'</span>'}).join('');
+ return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 가운데 점선 = 보는 기준, 파란 선 = 현재 시점 · 30초마다 현재 시점이 오른쪽(다음)으로 흐름 · 그래프를 끌거나 ◀ ▶로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
+function hvTrDraw(){var b=document.getElementById('hvTrBox');if(b){b.innerHTML=hvTrIn();hvTrDrag()}}
+function hvTrSet(k,v){hvF13[k]=v;if(k==='tu')hvF13.to=0;hvTrDraw()}
+function hvTrTog(t){if(!hvF13.th)hvF13.th={};hvF13.th[t]=!hvF13.th[t];hvTrDraw()}
+function hvTrPan(k){hvF13.to=k===0?0:(hvF13.to||0)+k*Math.ceil(hvTRN/2);hvTrDraw()}
+function hvTrDrag(){var s=document.getElementById('hvTrSvg');if(!s||s._dg)return;s._dg=1;var x0=null,dx=0;
+ s.addEventListener('pointerdown',function(e){x0=e.clientX;dx=0;s.setPointerCapture(e.pointerId);s.style.cursor='grabbing'});
+ s.addEventListener('pointermove',function(e){if(x0===null)return;dx=e.clientX-x0;s.style.transform='translateX('+dx+'px)'});
+ s.addEventListener('pointerup',function(){if(x0===null)return;var w=s.getBoundingClientRect().width,k=Math.round(-dx/(w/(2*hvTRN)));x0=null;s.style.transform='';s.style.cursor='grab';if(k){hvF13.to=(hvF13.to||0)+k;hvTrDraw()}})}
+setInterval(function(){if(document.getElementById('hvTrBox'))hvTrDraw()},30000);
+new MutationObserver(function(){if(document.getElementById('hvTrSvg'))hvTrDrag()}).observe(document.documentElement,{childList:true,subtree:true});
