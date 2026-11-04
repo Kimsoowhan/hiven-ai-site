@@ -24,9 +24,22 @@ function tbl(h,rows){
  rows.forEach(function(r){s+='<tr>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'});
  return s+'</tbody></table></div>';
 }
-function card(k,v,s,to){
- return '<div class="card'+(to?' link" onclick="hvgo(\''+to+'\')"':'"')+'><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+(s||'')+'</div></div>';
+/* 요약 상자 공통 인터페이스(대표님 11/04 17:27·17:35): 모든 상자는 누르는 버튼. 누르면 상자 묶음 바로 아래에 그 값의 근거 데이터(항목·원천·확인 시각)를 펼치고, 다시 누르면 닫음.
+   다른 화면으로 가던 상자는 펼친 내용 안의 「SC-xx에서 자세히」 버튼으로 이동. 근거: det 인자(문자열·함수) → HV_CDET[이름] → 기본(이 화면의 원천). */
+var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};
+function hvIsTest(){return /\/test\//.test(location.pathname)}
+function card(k,v,s,to,det){var id='cd'+(++HVCDn),key=(typeof cur!=='undefined'?cur:'')+'|'+k;HVCD[id]={k:k,v:v,s:s,to:to,det:det,key:key};
+ var on=HVCDo===key;if(on)setTimeout(function(){hvCardPanel(id)},0);
+ return '<button type="button" class="card cbtn'+(on?' on':'')+'" data-cd="'+id+'" aria-expanded="'+(on?'true':'false')+'" onclick="hvCardOpen(\''+id+'\')"><span class="k">'+k+'</span><span class="v">'+v+'</span><span class="s">'+(s||'')+'</span></button>';
 }
+function hvCardOpen(id){var c=HVCD[id];if(!c)return;if(HVCDo===c.key){HVCDo='';hvCardClose();return}HVCDo=c.key;hvCardPanel(id)}
+function hvCardClose(){document.querySelectorAll('.cd-panel').forEach(function(x){x.remove()});document.querySelectorAll('.cbtn.on').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-expanded','false')})}
+function hvCardPanel(id){var c=HVCD[id],b=document.querySelector('[data-cd="'+id+'"]');if(!c||!b)return;hvCardClose();b.classList.add('on');b.setAttribute('aria-expanded','true');
+ var gr=b.parentElement,d=c.det;if(typeof d==='function')d=d();if(d==null&&HV_CDET[c.k])d=HV_CDET[c.k]();
+ if(d==null)d='<p class="note">'+(hvIsTest()?'<b>시험 데이터</b> — 이 값은 시험·샘플 값이며 원본 대시보드에는 싣지 않습니다(대표님 지시 11/04 15:56). 세부 항목 목록 없음.':'이 상자의 세부 항목 목록은 원천에 없습니다. 원천·확인 시각은 화면 아래 안내를 따릅니다.')+'</p>';
+ var p=document.createElement('div');p.className='cd-panel';
+ p.innerHTML='<div class="cd-h"><span class="tag sel">'+c.k+'</span><b class="cd-v">'+c.v+'</b><button type="button" class="cd-x" onclick="HVCDo=\'\';hvCardClose()">닫기</button></div>'+(c.s?'<div class="cd-s">'+c.s+'</div>':'')+'<div class="cd-b">'+d+'</div>'+(c.to?'<div class="cd-go"><button type="button" onclick="HVCDo=\'\';hvgo(\''+c.to+'\')">'+c.to+'에서 자세히 ▶</button></div>':'');
+ gr.parentNode.insertBefore(p,gr.nextSibling)}
 var V={};
 /* 공통 표 규칙(대표님 11/04 14:29~14:33 지시): 모든 표는 ① 맨 위가 가장 최근(최신순) ② 한 쪽 줄 수는 화면 크기에 맞춰 자동 계산(폰·태블릿·PC 공통: 화면 높이에서 머리글·필터 몫을 뺀 뒤 기준 줄 높이(폰 58·PC 44)로 나눔, 같은 화면의 모든 표가 같은 줄 수, 최대 15줄(대표님 11/04 14:41 지시: 15줄을 넘지 않음), 최소 4줄) ③ 표 아래 「◀ 이전 · 쪽 번호 · 다음 ▶」 토글(현재 쪽/전체 쪽 표시). 창 크기·방향이 바뀌면 다시 계산해 다시 그린다. */
 var HV_PG_MAX=15,HV_PG_MIN=4,hvPgS={},hvRowH={};

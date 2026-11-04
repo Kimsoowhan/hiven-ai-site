@@ -8,7 +8,7 @@ V['SC-01']=function(){
   card('7개 사업군','7','정상 5 · 구성 중 2 · '+tag('샘플','smp'),'SC-02')+
   card('경보','2건','주의 2 · 위험 0 · '+tag('샘플','smp'),'SC-10')+'</div>';
  g+='<h3>사업군 한눈에</h3><div class="grid">'+BG.map(function(b){
-  return '<div class="card link" onclick="hvgo(\'SC-02\')"><div class="k">'+b[0]+' · 통제 접점 '+b[3]+'</div><div class="v" style="font-size:19px">'+b[1]+'</div><div class="s">'+b[2]+'<br>'+tag(b[4],b[5])+'</div></div>'}).join('')+'</div>';
+  return card(b[0]+' · 통제 접점 '+b[3],b[1],tag(b[4],b[5]),'SC-02',function(){return '<p class="note">'+b[2]+' · 시험 데이터(원본에 싣지 않음)</p>'})}).join('')+'</div>';
  g+='<h3>경보 상위</h3>'+tbl(['시각','심각도','대상','내용'],[
   ['08:10',tag('주의','warn'),'HiClo','클로 단계 4(맥박) — 기억 회복 확인 중'],
   ['08:05',tag('주의','warn'),'HiServe','통합 서비스 플랫폼 연계 일부 구성 중']]);
