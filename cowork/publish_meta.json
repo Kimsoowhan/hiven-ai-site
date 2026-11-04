@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 08:00",
- "by": "Fable",
- "history_rows": 230,
- "lifecycle_rows": 230,
+ "published": "2026-11-05 08:22",
+ "by": "Opus",
+ "history_rows": 234,
+ "lifecycle_rows": 234,
  "consistent": true,
  "files": [
   {
@@ -10,16 +10,16 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "ba9d3c75c7f42078",
-   "mtime": "2026-11-05 08:00"
+   "sha16": "eeb4a0f1b7b6ce34",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "81bff960e925362d",
-   "mtime": "2026-11-05 08:00"
+   "sha16": "d757713b72ed8a76",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "log.tsv",
@@ -34,16 +34,16 @@
    "source": "COM\\일일보고\\",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "bf9c8bb827418223",
-   "mtime": "2026-11-05 08:00"
+   "sha16": "7a714f128841b011",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 230,
-   "sha16": "792d35b98b8e0fd6",
-   "mtime": "2026-11-05 08:00"
+   "rows": 234,
+   "sha16": "28f0158584da6ca2",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -57,25 +57,25 @@
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 230,
-   "sha16": "b5b595a39c51ff29",
-   "mtime": "2026-11-05 08:00"
+   "rows": 234,
+   "sha16": "6e99b1a0ce0f0e9d",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-01·SC-04",
    "rows": null,
-   "sha16": "4fe12ba54cc30d0f",
-   "mtime": "2026-11-05 08:00"
+   "sha16": "dde57b1c8cafc414",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
    "screen": "SC-04",
-   "rows": 427,
-   "sha16": "6d62f545cc555836",
-   "mtime": "2026-11-05 08:00"
+   "rows": 429,
+   "sha16": "b7fd7f597928dd33",
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "ctl/qa_checks.tsv",
