@@ -90,7 +90,7 @@ var hvRe13=false;
 /* 11/04 17:27·17:28 대표님 지시: 요약 상자 버튼화 + 지시 추적 매트릭스 종단·횡단 교차 검사 결과값 표시 */
 var HV_CB={'':'전체 이력',vi:'위반',jj:'지적',rb:'대표님 질타',op:'조치 진행 중',fw:'Fable 확인 대기'};/* 상자 값 = 대기(안 읽음) 건수 */
 function hvCF(e){var c=hvF13.c;if(!c)return true;if(c==='vi')return e.type==='위반';if(c==='jj')return /^지적/.test(e.type);if(c==='rb')return e.type==='질타';if(c==='op')return e.status!=='조치 완료';if(c==='fw')return e.fable==='대기';return true}
-function hvCB(k,lb,n,sub){var on=hvF13.c===k;return '<button type="button" class="card sc13-cb'+(on?' on':'')+(k==='vi'&&n?' hot':'')+(k==='fw'?' lsky':'')+'" aria-pressed="'+(on?'true':'false')+'" onclick="hvCBgo(\''+k+'\')"><span class="k">'+lb+'</span><span class="v">'+n+'건</span><span class="s">'+sub+'</span></button>'}
+function hvCB(k,lb,n,sub){var on=hvF13.c===k;return '<button type="button" class="card sc13-cb'+(on?' on':'')+(k==='vi'&&n?' hot':'')+(k==='fw'?' lsky':'')+(k===''?' navy':'')+'" aria-pressed="'+(on?'true':'false')+'" onclick="hvCBgo(\''+k+'\')"><span class="k">'+lb+'</span><span class="v">'+n+'건</span><span class="s">'+sub+'</span></button>'}
 function hvCBgo(k){hvF13.c=(hvF13.c===k?'':k);hvF13.m='전체';hvF13.t='전체';hvF13.f='전체';hvPgReset('13h');hvSC13Paint(false);var h=$('sc13-hist');if(h&&hvF13.c){var y=h.getBoundingClientRect().top+scrollY-120;scrollTo({top:y,behavior:'smooth'})}}
 function hvLinkDt(e){var k='이력'+e.no,L=hvTR13.v.filter(function(r){return (r[6]||'').split('; ').indexOf(k)>=0}),H=hvTR13.h.filter(function(r){return r[0]===k})[0];
  var g='<div class="sc13-lk"><b>조치 결과</b> '+hvEsc(e.status)+(e.action?' — '+hvEsc(e.action):'')+'<br><b>연결 지시</b> ';
