@@ -58,6 +58,10 @@ V['SC-01']=function(){
   card('경보',HVR.issues.length+'건','경고 3 · 불명확 1','SC-10')+
   card('AICS','확인 안 됨','상태 원천 없음','SC-03')+card('HIVEN.app 구동','확인 안 됨','신호 '+HVR.hiven.last.slice(5,16),'SC-03')+card('HiClo.app 판정',HVR.hiclo.last.slice(5,16),'「'+HVR.hiclo.verdict+'」 · '+tag('실측','ok'),'SC-03')+card('HiClo.app 구동','확인 안 됨',hvAge().replace(/ \d+분$/,'')+' 갱신 없음','SC-03')+card('모델통제 이력',L?'…':E.length+'건',(function(){var d=E.map(function(e){return e.date}).sort();return d.length?d[0].slice(5)+' ~ '+d[d.length-1].slice(5)+' 누적':'-'})(),'SC-13').replace('class="card cbtn','class="card cbtn sky')+
   '</div>';
+ /* 18:08 대표님: 조치 생명주기·장애 경로는 가장 많이 보는 부분 → 상자 바로 밑 */
+ var ST=['1 감지','2 경고·알람','3 조치 착수','4 조치 중','5 해제','6 보고서 이관','7 통제 확인'],SN=ST.map(function(x,i){return LC.filter(function(r){return r[6+i]!=='아니오'&&r[6+i]!=='대기'}).length});
+ g+='<h3>조치 생명주기(백오피스 흐름)</h3><ol class="sc01-flow sc01-lc">'+ST.map(function(x,i){return '<li><b>'+x.slice(2)+'</b> '+(L?'…':SN[i])+'</li>'}).join('')+'</ol><p class="note">감지(이력 기록) → 경고·알람(대시보드 표출) → 조치 착수 → 조치 중 → 해제(조치 완료) → 보고서 이관(일일보고·검수대기열·별도지시대장에 이력 번호 기재) → 통제 확인(Fable 「체크」·자동화 통합 통제 시스템). 숫자 = 그 단계까지 온 건수. 보고서 기준 '+hvEsc(hv01.lcs?JSON.stringify(hv01.lcs['보고서 기준']).replace(/[{}"]/g,'').replace(/,/g,' · '):'확인 안 됨')+'.</p>';
+ g+='<h3>장애 경로(심각도 순)</h3>'+HV_PATH.map(function(x,i){return '<div class="sc01-path"><div class="sc01-ph"><span class="tag '+(i?'warn':'bad')+'">'+(i+1)+'순위</span><b>'+hvEsc(x.t)+'</b><span class="tag warn">'+hvEsc(x.st)+'</span></div><ol class="sc01-flow">'+x.p.map(function(s){return '<li>'+hvEsc(s)+'</li>'}).join('')+'</ol><div class="sc01-r"><b>조치 결과</b> '+hvEsc(x.r)+'</div><div class="note">근거: '+hvEsc(x.ref)+'</div></div>'}).join('');
  /* 17:49·17:50·17:52 대표님: 상자 1~10 순서대로 아래에 표(같은 표 기준 5줄·쪽 넘김). 데이터가 아직 연동되지 않은 표도 미리 구성해 두고 「연동 전」으로 자리 확보 */
  var NC='<span class="tag gray">연동 전</span>';
  var T10=function(n,t,h,rows,src){return '<div class="sc01-tb'+(n===11?' sky':'')+'"><h3>'+(n===11?'':'#'+n+'. ')+t+'</h3>'+tbl(h,rows.length?rows:[h.map(function(x,i){return i?(i===1?'데이터 연동 전 — 연동되면 여기에 표출':''):NC})])+'<p class="note">'+src+'</p></div>'};
@@ -75,9 +79,6 @@ V['SC-01']=function(){
  g+=T10(9,'HiClo.app 판정',['항목','값','원천'],HV_KV['HiClo.app 마지막 판정'](),'원천 '+HVR.src);
  g+=T10(10,'HiClo.app 구동',['항목','값','원천'],HV_KV['HiClo.app 지금 구동'](),'판정 파일이 다시 갱신되면 「구동」으로 바뀜');
  g+=T10(11,'모델통제 이력',['#','시각','모델','구분','내용','상태'],L?[]:rv(E).map(function(e){return [hvEsc(e.no),hvEsc(e.time),hvEsc(e.model),hvEsc(e.type),hvEsc(e.content),tag(hvEsc(e.status),done(e)?'ok':'warn')]}),'최신순 · 상세·필터는 SC-13');
- var ST=['1 감지','2 경고·알람','3 조치 착수','4 조치 중','5 해제','6 보고서 이관','7 통제 확인'],SN=ST.map(function(x,i){return LC.filter(function(r){return r[6+i]!=='아니오'&&r[6+i]!=='대기'}).length});
- g+='<h3>조치 생명주기(백오피스 흐름)</h3><ol class="sc01-flow sc01-lc">'+ST.map(function(x,i){return '<li><b>'+x.slice(2)+'</b> '+(L?'…':SN[i])+'</li>'}).join('')+'</ol><p class="note">감지(이력 기록) → 경고·알람(대시보드 표출) → 조치 착수 → 조치 중 → 해제(조치 완료) → 보고서 이관(일일보고·검수대기열·별도지시대장에 이력 번호 기재) → 통제 확인(Fable 「체크」·자동화 통합 통제 시스템). 숫자 = 그 단계까지 온 건수. 보고서 기준 '+hvEsc(hv01.lcs?JSON.stringify(hv01.lcs['보고서 기준']).replace(/[{}"]/g,'').replace(/,/g,' · '):'확인 안 됨')+'.</p>';
- g+='<h3>장애 경로(심각도 순)</h3>'+HV_PATH.map(function(x,i){return '<div class="sc01-path"><div class="sc01-ph"><span class="tag '+(i?'warn':'bad')+'">'+(i+1)+'순위</span><b>'+hvEsc(x.t)+'</b><span class="tag warn">'+hvEsc(x.st)+'</span></div><ol class="sc01-flow">'+x.p.map(function(s){return '<li>'+hvEsc(s)+'</li>'}).join('')+'</ol><div class="sc01-r"><b>조치 결과</b> '+hvEsc(x.r)+'</div><div class="note">근거: '+hvEsc(x.ref)+'</div></div>'}).join('');
  return g+'<p class="note">핵심 4가지는 모델통제 이력 게시본을 읽은 값입니다(읽은 시각 '+hvEsc(hv01.ok||'불러오는 중')+'). 장애 경로는 기록·문서로 확인한 사실만 적었습니다.</p>'+hvChk()+'</div>'};
 V['SC-02']=function(){
  var g='<h2>SC-02 사업군 통제</h2><p class="lead">7개 사업군 번호·이름·통제 접점(고정 정의)만 봅니다. 사업군별 운영 상태는 실측 원천이 없어 싣지 않습니다.</p>';
