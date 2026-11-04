@@ -235,3 +235,7 @@ button.card.cbtn.sky{background:#16234d;border-color:#16234d}.cbtn.sky .k,.cbtn.
 .cbtn.on,.sc13-cb.on,.sc13-cb.lsky.on,.cbtn.sky.on{background:#2a52be;border-color:#2a52be;box-shadow:none}
 .cbtn.on .k,.cbtn.on .s,.sc13-cb.on .k,.sc13-cb.on .s{color:#dbe6ff}.cbtn.on .v,.sc13-cb.on .v{color:#fff}
 .sc13-cb.navy{background:#16234d;border-color:#16234d}.sc13-cb.navy .k,.sc13-cb.navy .s{color:#c9d3ea}.sc13-cb.navy .v{color:#fff}
+/* 11/04 18:05 SC-01 상자 번호 #1.~#11.(표 제목과 같은 형태) — 윗줄·아랫줄 이어서 셈 */
+#sc01{counter-reset:sc01b}.sc01-key .cbtn{counter-increment:sc01b}.sc01-key .cbtn .k::before{content:'#' counter(sc01b) '. ';font-weight:700}
+/* 18:07 모델통제 이력 상자는 번호 없이 독립(#1~#10만 번호) */
+.sc01-key .cbtn.sky{counter-increment:none}.sc01-key .cbtn.sky .k::before{content:none}
