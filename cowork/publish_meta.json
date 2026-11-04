@@ -1,5 +1,5 @@
 {
- "published": "2026-11-05 02:12",
+ "published": "2026-11-05 02:48",
  "by": "Opus 5.5",
  "history_rows": 181,
  "lifecycle_rows": 181,
@@ -10,16 +10,16 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "ac654415178360b4",
-   "mtime": "2026-11-05 02:12"
+   "sha16": "b0fd2f3f94401438",
+   "mtime": "2026-11-05 02:48"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "dc5d9e13e4b9d60a",
-   "mtime": "2026-11-05 02:12"
+   "sha16": "48192dd7ab9204f7",
+   "mtime": "2026-11-05 02:48"
   },
   {
    "file": "log.tsv",
@@ -27,7 +27,7 @@
    "screen": "SC-12",
    "rows": 18,
    "sha16": "4e076ab2c18435c4",
-   "mtime": "2026-11-05 02:12"
+   "mtime": "2026-11-05 02:46"
   },
   {
    "file": "reports/index.json",
@@ -35,7 +35,7 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "f6174dd6efdb3af2",
-   "mtime": "2026-11-05 02:12"
+   "mtime": "2026-11-05 02:48"
   },
   {
    "file": "ctl/model_control_history.tsv",
@@ -51,7 +51,7 @@
    "screen": "SC-13",
    "rows": 5,
    "sha16": "d1b0291e06a2bd7b",
-   "mtime": "2026-11-05 02:12"
+   "mtime": "2026-11-05 02:46"
   },
   {
    "file": "ctl/action_lifecycle.tsv",
@@ -59,7 +59,7 @@
    "screen": "SC-01",
    "rows": 181,
    "sha16": "5c52f2a3103dfbec",
-   "mtime": "2026-11-05 02:12"
+   "mtime": "2026-11-05 02:46"
   },
   {
    "file": "ctl/trace_sum.json",
@@ -67,7 +67,7 @@
    "screen": "SC-01·SC-04",
    "rows": null,
    "sha16": "01a2a15dad4a7793",
-   "mtime": "2026-11-05 02:12"
+   "mtime": "2026-11-05 02:46"
   },
   {
    "file": "ctl/trace_v.tsv",
@@ -83,7 +83,7 @@
    "screen": "SC-01·SC-09",
    "rows": 9,
    "sha16": "54a1dd336bb5cbc9",
-   "mtime": "2026-11-05 02:12"
+   "mtime": "2026-11-05 02:46"
   },
   {
    "file": "ctl/bg_lifecycle.tsv",
@@ -91,7 +91,7 @@
    "screen": "SC-02",
    "rows": 0,
    "sha16": "8367be15586663ab",
-   "mtime": "2026-11-05 02:09"
+   "mtime": "2026-11-05 02:46"
   }
  ]
 }
