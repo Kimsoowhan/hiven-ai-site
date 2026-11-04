@@ -65,5 +65,5 @@ V['SC-10']=function(){
  return g+hvChk()};
 V['SC-11']=hvTestOnly('SC-11','형상·변경');
 /* 머리띠(상단 칩): 원본은 실측만 — 대응 모드는 원천 없음, 데이터 신선도는 HiClo 마지막 판정 기준, 갱신은 원천 확인 시각 */
-function hvHdr(){try{var c=document.getElementById('chip-mode');if(c)c.innerHTML='<span class="dot" style="background:#9e9e9e"></span>대응 모드 <b>확인 안 됨</b>';var f=document.getElementById('ftxt');if(f)f.textContent='데이터 신선도 · HiClo 판정 '+hvAge()+' 전(끊김)';var u=document.getElementById('upd');if(u)u.textContent=HVR.chk+' (원천 확인)'}catch(e){}}
+function hvHdr(){try{var c=document.getElementById('chip-mode');if(c)c.innerHTML='<span class="dot" style="background:#9e9e9e"></span>대응 모드 <b>확인 안 됨</b>';var f=document.getElementById('ftxt');if(f)f.textContent='신선도 · 판정 '+Math.floor((Date.now()-HVST)/3600000)+'시간 전 끊김';var u=document.getElementById('upd');if(u)u.textContent=HVR.chk+' (원천 확인)'}catch(e){}}
 function hvWrap(){var o=render;render=function(id){o(id);hvHdr()};hvHdr();setInterval(hvHdr,5000)}
