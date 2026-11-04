@@ -242,3 +242,12 @@ button.card.cbtn.sky{background:#16234d;border-color:#16234d}.cbtn.sky .k,.cbtn.
 /* 11/04 18:10 고정 남색 상자(모델통제 이력·SC-13 전체 이력)는 눌림(설명 펼침) 때 남색 바탕 유지 + 하늘색 테두리 */
 .cbtn.sky.on,.sc13-cb.navy.on{background:#16234d;border-color:#16234d;box-shadow:0 0 0 3px var(--sky)}
 .cbtn.sky.on .k,.cbtn.sky.on .s,.sc13-cb.navy.on .k,.sc13-cb.navy.on .s{color:#c9d3ea}
+/* 11/04 18:16 SC-01 상자 색 계열: 장애 상태=빨강 진함, 경보=빨강 약함, 위험 요소·자가 검수=주황, 조치 중=노랑, 조치 완료(해소)=초록 (눌림은 공통 밝은 파랑) */
+button.card.cbtn.c-red{background:#c62828;border-color:#c62828}.cbtn.c-red .k,.cbtn.c-red .s{color:#ffe1e1}.cbtn.c-red .v{color:#fff}
+button.card.cbtn.c-red2{background:#fdecec;border-color:#f3b6b6}.cbtn.c-red2 .v{color:#a32020}
+button.card.cbtn.c-org{background:#fff1e3;border-color:#f6c48f}.cbtn.c-org .v{color:#b35400}
+button.card.cbtn.c-yel{background:#fff9d9;border-color:#ecd66a}.cbtn.c-yel .v{color:#7a6200}
+button.card.cbtn.c-grn{background:#e7f6ec;border-color:#9fd4b0}.cbtn.c-grn .v{color:#17703d}
+.cbtn.c-red.on,.cbtn.c-red2.on,.cbtn.c-org.on,.cbtn.c-yel.on,.cbtn.c-grn.on{background:#2a52be;border-color:#2a52be}
+.cbtn.c-red.on .v,.cbtn.c-red2.on .v,.cbtn.c-org.on .v,.cbtn.c-yel.on .v,.cbtn.c-grn.on .v{color:#fff}
+.cbtn.c-red2.on .k,.cbtn.c-red2.on .s,.cbtn.c-org.on .k,.cbtn.c-org.on .s,.cbtn.c-yel.on .k,.cbtn.c-yel.on .s,.cbtn.c-grn.on .k,.cbtn.c-grn.on .s,.cbtn.c-red.on .k,.cbtn.c-red.on .s{color:#dbe6ff}
