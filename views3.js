@@ -78,4 +78,6 @@ function hvSC13Paint(fail,err){
  g+='</tbody></table></div>'+hvPager(PGH,'건','hvSC13Paint')+'<p class="note">기록 규칙: 질타·개선요청·지적·위반·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항).</p>';
  g+=hvBan();
  b.innerHTML=g;
+ if(!fail&&hvPgMeasure()&&!hvRe13){hvRe13=true;hvSC13Paint(false);hvRe13=false}
 }
+var hvRe13=false;

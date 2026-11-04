@@ -118,6 +118,7 @@ function hvSC12Paint(fail,err){
  }
  g+=hvBan();
  b.innerHTML=g;
+ if(!fail&&hvPgMeasure()&&!hvRe12){hvRe12=true;hvSC12Paint(false);hvRe12=false}
  Object.keys(hvOpen).forEach(function(f){if(hvOpen[f]){var h=b.querySelector('.sc12-rh[data-f="'+f.replace(/"/g,'')+'"]');if(h)hvRepLoad(h)}});
 }
 function hvBan(){return '<h3>금지 4조항 (전 모델 · 위반 시 즉시 중단)</h3><ol class="sc12-ban"><li>작업이 끝나기 전에 대화를 종료하지 않는다.</li><li>막히면 보고하고 기다린다(추측 진행 금지).</li><li>대표님께 일을 넘기지 않는다.</li><li>자동 실행·예약작업·훅·외부 설정(Cloudflare·GitHub·사이트 설정) 생성·변경 금지. 파일 이름 변경·복사·이동·삭제 금지. 산출물은 새 파일로 저장.</li></ol>'}
@@ -130,3 +131,5 @@ function hvRepLoad(btn){
  var f=btn.getAttribute('data-f'),pre=btn.nextElementSibling;
  hvFetch('cowork/reports/'+encodeURIComponent(f),'text').then(function(t){pre.textContent=t},function(e){pre.textContent='읽지 못했습니다 ('+e.message+')'});
 }
+
+var hvRe12=false;
