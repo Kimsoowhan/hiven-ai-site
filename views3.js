@@ -1,6 +1,8 @@
 var hvTY13=['위반','지적','지적(자가 발견)','질타','개선요청','유휴','장애'];/* 11/04 15:32 대표님 지시: 심각도 순서(위반 > 지적 > 지적(자가 발견) > 질타 > 개선요청 > 유휴, 장애는 빨간 바탕) */
 /* SC-13 모델 통제 상황 — 데이터 연동 경로(대표님 지시 11/04 13:56·13:58): 원천 HiBiz\01_클로_소통(COM)\모델통제(CTL)\모델통제_통합이력.tsv·모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv·model_control_status.tsv(원천 그대로 복사·푸시) → 화면 10초마다 읽음 */
-var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체',u:'전체',p:'전체',c:'',x:''};var hvTR13={v:[],h:[],s:null,ok:''};
+var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체',u:'전체',p:'전체',c:'',x:'',f:'전체'};
+/* 11/04 18:00 대표님: Fable 단계 = 대기(안 읽음) · 읽음 · 처리 중 · 처리 완료 — 이력 「Fable 확인」 칸 값은 Fable만 바꾼다 */
+var HV_FB=['대기','읽음','처리 중','처리 완료'];var hvTR13={v:[],h:[],s:null,ok:''};
 V['SC-13']=function(){
  setTimeout(hvSC13Start,0);
  return '<div id="sc13"><h2>SC-13 모델 통제 상황</h2><p class="lead">Fable · Opus · Sonnet · Haiku(그리고 기록상 모델 미상)의 지시 이행, 대표님 질타·개선요청·지적, 위반, 유휴(멈춤·불이행), 장애 이력입니다. 범위: HiBiz 관련 기록만(Mbiz 시기 기록은 원천 폴더 「보관_Mbiz이전(비반영)」에 보관, 이 화면에 반영하지 않음).</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv (모델별 상세: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: hiven-ai-site /cowork/ctl/model_control_history.tsv · model_control_status.tsv (원천 파일을 그대로 복사해 푸시) → ③ 표시: 이 화면이 10초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
@@ -21,7 +23,7 @@ function hvSC13Load(){
   hvLast13={types:T,events:ev,models:ms,updated:(ms[0]&&ms[0].updated)||''};hvLastOk13=kst();hvSC13Paint(false);
  },function(e){if($('sc13'))hvSC13Paint(true,e)});
 }
-function hvSC13Set(k,v){hvF13[k]=v;if(k==='m'||k==='t')hvF13.c='';if(k==='u')hvF13.p='전체';hvPgReset('13');hvSC13Paint(false)}
+function hvSC13Set(k,v){hvF13[k]=v;if(k==='m'||k==='t'||k==='f')hvF13.c='';if(k==='u')hvF13.p='전체';hvPgReset('13');hvSC13Paint(false)}
 function hvWk(d){var x=new Date(d+'T00:00:00'),w=(x.getDay()+6)%7,m=new Date(x);m.setDate(x.getDate()-w);var e=new Date(m);e.setDate(m.getDate()+6);var f=function(z){return (z.getMonth()+1)+'/'+z.getDate()};return m.getFullYear()+'-'+pad(m.getMonth()+1)+'-'+pad(m.getDate())+'|'+f(m)+'~'+f(e)+' 주간'}
 function hvKey(e,u){if(u==='시간별')return e.hour?(e.date+' '+e.hour+'시|'+e.date.slice(5).replace('-','/')+' '+e.hour+'시'):(e.date+' 99|'+e.date.slice(5).replace('-','/')+' 시각 미기재');if(u==='일별')return e.date+'|'+e.date.slice(5).replace('-','/');if(u==='주간별')return hvWk(e.date);if(u==='연별')return e.date.slice(0,4)+'|'+e.date.slice(0,4)+'년';if(u==='전체')return 'ALL|전체 누적';return e.date.slice(0,7)+'|'+e.date.slice(0,4)+'년 '+(+e.date.slice(5,7))+'월'}
 /* 구간(하위) 버튼: 시간별→일, 일별·주간별→월, 월별·연별→연 */
@@ -64,7 +66,7 @@ function hvSC13Paint(fail,err){
  else st.innerHTML='<span class="tag ok">게시본 읽음</span> 확인 '+hvEsc(hvLastOk13)+' · 원천 갱신 '+hvEsc(hvLast13.updated)+' · 10초마다 자동 새로고침';
  var d=hvLast13,T=d.types||[],ev=d.events,g='';
  var dts=ev.map(function(e){return e.date}).sort(),tot=ev.length,open=ev.filter(function(e){return e.status!=='조치 완료'}).length,rb=ev.filter(function(e){return e.type==='질타'}).length,vi=ev.filter(function(e){return e.type==='위반'}).length,jj=ev.filter(function(e){return /^지적/.test(e.type)}).length,fw=ev.filter(function(e){return e.fable==='대기'}).length;
- g+='<div class="grid sc13-cards">'+hvCB('','전체 이력',tot,(dts.length?dts[0].slice(5)+' ~ '+dts[dts.length-1].slice(5):'-')+' 누적')+hvCB('vi','위반',vi,'가장 심각')+hvCB('jj','지적',jj,'자가 발견 포함')+hvCB('rb','대표님 질타',rb,'「질타」 구분')+hvCB('op','조치 진행 중',open,open?'처리 중·결과 미확정':'모두 조치 완료')+hvCB('fw','Fable 확인 대기',fw,'「체크」 때 판정')+'</div><p class="note">상자를 누르면 아래 「이력」 표에 해당 기록만 보입니다. 한 번 더 누르거나 「전체 보기」를 누르면 해제됩니다.</p>';
+ g+='<div class="grid sc13-cards">'+hvCB('','전체 이력',tot,(dts.length?dts[0].slice(5)+' ~ '+dts[dts.length-1].slice(5):'-')+' 누적')+hvCB('vi','위반',vi,'가장 심각')+hvCB('jj','지적',jj,'자가 발견 포함')+hvCB('rb','대표님 질타',rb,'「질타」 구분')+hvCB('op','조치 진행 중',open,open?'처리 중·결과 미확정':'모두 조치 완료')+hvCB('fw','Fable 확인','대기 '+fw,'읽음 '+ev.filter(function(e){return e.fable==='읽음'}).length+' · 처리 중 '+ev.filter(function(e){return e.fable==='처리 중'}).length+' · 완료 '+ev.filter(function(e){return e.fable==='처리 완료'}).length)+'</div><p class="note">상자를 누르면 아래 「이력」 표에 해당 기록만 보입니다. 한 번 더 누르거나 「전체 보기」를 누르면 해제됩니다.</p>';
  g+=hvX13();
  g+=hvAgg(d);
  g+='<h3>모델별 현황</h3><div class="tw"><table class="sc13-t"><thead><tr><th>모델</th><th>역할</th><th>오늘 배포 작업</th><th>완료</th><th>남은 일</th>'+T.map(function(t){return '<th>'+hvEsc(t)+'</th>'}).join('')+'<th>합계</th></tr></thead><tbody>';
@@ -72,12 +74,12 @@ function hvSC13Paint(fail,err){
   g+='<tr><td><b>'+hvEsc(m.name)+'</b></td><td>'+hvEsc(m.role)+'</td><td>'+hvEsc(m.assigned)+'</td><td>'+hvEsc(m.done)+'</td><td>'+hvEsc(m.pending)+'</td>'+T.map(function(t){var n=+c[t]||0;return '<td class="sc13-n'+(n&&(t==='위반'||t==='장애')?' sc13-hot':'')+'">'+n+'</td>'}).join('')+'<td class="sc13-n"><b>'+s+'</b></td></tr>'});
  g+='</tbody></table></div>'+hvPager(PGM,'개 모델','hvSC13Paint');
  var ms=['전체'].concat(d.models.map(function(m){return m.name})),ts=['전체'].concat(T);
- g+='<h3>이력</h3><div class="sc13-f sc13-l"><span class="sc13-lb">모델</span>'+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f sc13-l"><span class="sc13-lb">구분</span>'+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>';
+ g+='<h3>이력</h3><div class="sc13-f sc13-l"><span class="sc13-lb">모델</span>'+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f sc13-l"><span class="sc13-lb">구분</span>'+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>'+'<div class="sc13-f sc13-l"><span class="sc13-lb">Fable</span>'+['전체'].concat(HV_FB,['조치 완료']).map(function(x){var n=x==='전체'?ev.length:x==='조치 완료'?ev.filter(function(e){return e.status==='조치 완료'}).length:ev.filter(function(e){return e.fable===x}).length;return '<button type="button" class="'+(hvF13.f===x?'on':'')+'" onclick="hvSC13Set(\'f\',\''+x+'\')">'+x+' '+n+'</button>'}).join('')+'</div>';
  var tg={'위반':'v1','지적':'v2','지적(자가 발견)':'v3','질타':'v4','개선요청':'v5','유휴':'v6','장애':'v7'};
- var rows=ev.filter(function(e){return (hvF13.m==='전체'||e.model===hvF13.m)&&(hvF13.t==='전체'||e.type===hvF13.t)&&hvCF(e)}).slice().reverse(),PGH=hvPage(rows,'13h');rows=PGH.rows;
+ var rows=ev.filter(function(e){return (hvF13.m==='전체'||e.model===hvF13.m)&&(hvF13.t==='전체'||e.type===hvF13.t)&&hvCF(e)&&(hvF13.f==='전체'||(hvF13.f==='조치 완료'?e.status==='조치 완료':e.fable===hvF13.f))}).slice().reverse(),PGH=hvPage(rows,'13h');rows=PGH.rows;
  if(hvF13.c)g+='<div class="sc13-sel"><span class="tag sel">선택: '+hvEsc(HV_CB[hvF13.c])+' '+PGH.tot+'건</span><button type="button" onclick="hvCBgo(\'\')">전체 보기</button></div>';
  g+='<div class="tw" id="sc13-hist"><table class="sc13-t"><thead><tr><th>#</th><th>날짜</th><th>시각</th><th>모델</th><th>구분</th><th>대표님 지시·질타 요지</th><th>원인</th><th>조치</th><th>상태</th><th>Fable</th></tr></thead><tbody>';
- g+=rows.length?rows.map(function(e){return '<tr class="sc13-r" onclick="this.classList.toggle(\'sc13-open\')"><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.date)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(e.type)+'</span></td><td class="sc13-cl"><div title="'+hvEsc(e.content)+'">'+hvEsc(e.content)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.cause)+'">'+hvEsc(e.cause)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.action)+'">'+hvEsc(e.action)+'</div></td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'">'+hvEsc(e.status)+'</span></td><td>'+hvEsc(e.fable)+'</td></tr><tr class="sc13-dt"><td colspan="10">'+hvLinkDt(e)+'</td></tr>'}).join(''):'<tr><td colspan="10">해당 이력이 없습니다.</td></tr>';
+ g+=rows.length?rows.map(function(e){return '<tr class="sc13-r" onclick="this.classList.toggle(\'sc13-open\')"><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.date)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(e.type)+'</span></td><td class="sc13-cl"><div title="'+hvEsc(e.content)+'">'+hvEsc(e.content)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.cause)+'">'+hvEsc(e.cause)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.action)+'">'+hvEsc(e.action)+'</div></td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'">'+hvEsc(e.status)+'</span></td><td><span class="tag '+({'대기':'gray','읽음':'smp','처리 중':'warn','처리 완료':'ok'}[e.fable]||'gray')+'">'+hvEsc(e.fable)+'</span></td></tr><tr class="sc13-dt"><td colspan="10">'+hvLinkDt(e)+'</td></tr>'}).join(''):'<tr><td colspan="10">해당 이력이 없습니다.</td></tr>';
  g+='</tbody></table></div>'+hvPager(PGH,'건','hvSC13Paint')+'<p class="note">긴 글은 2줄까지 보이고 「…」로 줄입니다. 줄을 누르면 전문과 함께 「연결 지시·처리 결과」(지시 추적 매트릭스)가 펼쳐집니다. 기록 규칙: 질타·개선요청·지적·위반·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항).</p>';
  g+=hvBan();
  b.innerHTML=g;
@@ -86,10 +88,10 @@ function hvSC13Paint(fail,err){
 var hvRe13=false;
 
 /* 11/04 17:27·17:28 대표님 지시: 요약 상자 버튼화 + 지시 추적 매트릭스 종단·횡단 교차 검사 결과값 표시 */
-var HV_CB={'':'전체 이력',vi:'위반',jj:'지적',rb:'대표님 질타',op:'조치 진행 중',fw:'Fable 확인 대기'};
+var HV_CB={'':'전체 이력',vi:'위반',jj:'지적',rb:'대표님 질타',op:'조치 진행 중',fw:'Fable 확인 대기'};/* 상자 값 = 대기(안 읽음) 건수 */
 function hvCF(e){var c=hvF13.c;if(!c)return true;if(c==='vi')return e.type==='위반';if(c==='jj')return /^지적/.test(e.type);if(c==='rb')return e.type==='질타';if(c==='op')return e.status!=='조치 완료';if(c==='fw')return e.fable==='대기';return true}
 function hvCB(k,lb,n,sub){var on=hvF13.c===k;return '<button type="button" class="card sc13-cb'+(on?' on':'')+(k==='vi'&&n?' hot':'')+(k==='fw'?' lsky':'')+'" aria-pressed="'+(on?'true':'false')+'" onclick="hvCBgo(\''+k+'\')"><span class="k">'+lb+'</span><span class="v">'+n+'건</span><span class="s">'+sub+'</span></button>'}
-function hvCBgo(k){hvF13.c=(hvF13.c===k?'':k);hvF13.m='전체';hvF13.t='전체';hvPgReset('13h');hvSC13Paint(false);var h=$('sc13-hist');if(h&&hvF13.c){var y=h.getBoundingClientRect().top+scrollY-120;scrollTo({top:y,behavior:'smooth'})}}
+function hvCBgo(k){hvF13.c=(hvF13.c===k?'':k);hvF13.m='전체';hvF13.t='전체';hvF13.f='전체';hvPgReset('13h');hvSC13Paint(false);var h=$('sc13-hist');if(h&&hvF13.c){var y=h.getBoundingClientRect().top+scrollY-120;scrollTo({top:y,behavior:'smooth'})}}
 function hvLinkDt(e){var k='이력'+e.no,L=hvTR13.v.filter(function(r){return (r[6]||'').split('; ').indexOf(k)>=0}),H=hvTR13.h.filter(function(r){return r[0]===k})[0];
  var g='<div class="sc13-lk"><b>조치 결과</b> '+hvEsc(e.status)+(e.action?' — '+hvEsc(e.action):'')+'<br><b>연결 지시</b> ';
  if(!hvTR13.ok)return g+'지시 추적 매트릭스 게시본을 읽지 못함</div>';
