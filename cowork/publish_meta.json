@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 07:01",
+ "published": "2026-11-05 07:03",
  "by": "Opus",
- "history_rows": 220,
- "lifecycle_rows": 220,
+ "history_rows": 221,
+ "lifecycle_rows": 221,
  "consistent": true,
  "files": [
   {
@@ -10,8 +10,8 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "b4783f69ccac7017",
-   "mtime": "2026-11-05 07:01"
+   "sha16": "6e196a59721ac417",
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "board.md",
@@ -19,7 +19,7 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "229c2a48cac71ca6",
-   "mtime": "2026-11-05 07:01"
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "log.tsv",
@@ -35,15 +35,15 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "470e9456a5e52c51",
-   "mtime": "2026-11-05 07:01"
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 220,
-   "sha16": "1e7f49ef181a1206",
-   "mtime": "2026-11-05 06:37"
+   "rows": 221,
+   "sha16": "de846d55b4b8616d",
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -57,33 +57,33 @@
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 220,
-   "sha16": "4f37f8dccb6c3e3f",
-   "mtime": "2026-11-05 06:37"
+   "rows": 221,
+   "sha16": "973774fd5d1ade1e",
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-01·SC-04",
    "rows": null,
-   "sha16": "8902efc9e550563e",
-   "mtime": "2026-11-05 06:56"
+   "sha16": "c30728f00fa2cfc1",
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
    "screen": "SC-04",
-   "rows": 417,
-   "sha16": "4c2b8908b270d8fe",
-   "mtime": "2026-11-05 06:55"
+   "rows": 418,
+   "sha16": "aa300a90f9421866",
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "ctl/qa_checks.tsv",
    "source": "승인전재검 xlsx(91_Fable)",
    "screen": "SC-01·SC-09",
-   "rows": 13,
-   "sha16": "e58030294fe2962b",
-   "mtime": "2026-11-05 06:55"
+   "rows": 14,
+   "sha16": "874eb910f32a347a",
+   "mtime": "2026-11-05 07:03"
   },
   {
    "file": "ctl/bg_lifecycle.tsv",
