@@ -152,3 +152,11 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc13-f.sc13-l.sc13-lw{padding-left:70px}
 .sc13-f.sc13-l>.sc13-lb{position:absolute;left:0;top:4px;width:44px}
 .sc13-f.sc13-l>.sc13-lb.w{width:64px}
+
+/* 공통 표 쪽 넘김(모든 화면 공통: 14줄·2주 단위, ◀ 이전 · 쪽 번호 · 다음 ▶) */
+.hv-pg{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:4px;margin:8px 0 6px;font-size:12.5px;color:var(--sub)}
+.hv-pg button{border:1px solid var(--line);background:#fff;border-radius:6px;min-width:30px;padding:3px 8px;font-size:12.5px;cursor:pointer}
+.hv-pg button.on{background:#16234d;color:#fff;border-color:#16234d}
+.hv-pg button[disabled]{opacity:.4;cursor:default}
+.hv-pg .hv-pg-a{border-radius:999px;padding:3px 12px}
+.hv-pg .hv-pg-i{flex-basis:100%;text-align:center;margin-top:2px}

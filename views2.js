@@ -89,14 +89,14 @@ function hvSC12Paint(fail,err){
  g+='<div class="grid">'+card('주간 진척도',hvEsc(p.week)+'%','전체 '+it.length+'건 평균 · 화 18:00 마감')+card('모델별 진척도','<div class="sc12-ms">'+ms+'</div>','담당 W# 평균')+card('완료·검수 대기',wait+'건','Fable 통과 '+pass+'건 · 승인 반영 '+it.filter(function(x){return x.score>=100}).length+'건')+card('마지막 갱신',hvEsc(String(p.updated||'-').replace('T',' ').replace(/:\d\d(\+.*)?$/,'')),'progress.json updated')+'</div>';
  g+='<h3>W1~W'+it.length+' 진척도</h3><div class="tw"><table class="sc12-t"><thead><tr><th>#</th><th>일</th><th>담당</th><th>마감</th><th>상태</th><th class="sc12-bc">진척도</th><th>태스크</th><th>산출물</th><th>자가검수</th><th>Fable 판정</th><th>승인</th></tr></thead><tbody>';
  var tg={'대기':'smp','진행 가능':'gray','진행 중':'warn','완료·검수 대기':'ok','Fable 통과':'ok','통과':'ok','완료·승인':'ok','승인·반영':'ok','재작업':'bad','위반':'bad'};
- it.forEach(function(x){
+ var PG12=hvPage(it.slice().reverse(),'12w');PG12.rows.forEach(function(x){
   var d=hvDue(x.due),od=d&&now>d&&x.score<70,tk=x.tasks||[],dn=tk.filter(function(t){return /완료|검수|통과/.test(t.status)}).length,k=tg[x.status];
   g+='<tr'+(od?' class="sc12-od"':'')+'><td><b>'+hvEsc(x.id)+'</b></td><td>'+hvEsc(x.title)+'<div class="sc12-d">난이도 '+hvEsc(x.difficulty||'-')+'</div></td><td>'+hvEsc(x.owner)+'</td><td>'+hvEsc(x.due)+(od?' <span class="tag bad">기한 지남</span>':'')+'</td><td>'+(k?'<span class="tag '+k+'">'+hvEsc(x.status)+'</span>':hvEsc(x.status))+'</td>'
   +'<td class="sc12-bc"><div class="sc12-bar"><i class="'+hvStage(x.score)+'" style="width:'+Math.max(0,Math.min(100,+x.score||0))+'%"></i></div><span class="sc12-n">'+hvEsc(x.score)+'</span></td>'
   +'<td>'+(tk.length?'<div class="sc12-bar sm"><i class="s70" style="width:'+Math.round(dn*100/tk.length)+'%"></i></div><span class="sc12-n">'+dn+'/'+tk.length+'</span>':'<span class="sc12-n">-</span>')+'</td>'
   +'<td class="sc12-o">'+hvEsc(x.output||'-')+'</td><td>'+hvEsc(x.self_check||'-')+'</td><td>'+hvEsc(x.fable||'-')+'</td><td>'+hvEsc(x.approved||'-')+'</td></tr>';
  });
- g+='</tbody></table></div><p class="note"><span class="sc12-lg"><i class="s0"></i>0 대기</span><span class="sc12-lg"><i class="s30"></i>30 진행 중</span><span class="sc12-lg"><i class="s70"></i>70 완료·검수 대기</span><span class="sc12-lg"><i class="s90"></i>90 Fable 통과</span><span class="sc12-lg"><i class="s100"></i>100 승인·반영</span> · 마감 지난 미완은 빨간 테두리</p>';
+ g+='</tbody></table></div>'+hvPager(PG12,'건','hvSC12Paint')+'<p class="note"><span class="sc12-lg"><i class="s0"></i>0 대기</span><span class="sc12-lg"><i class="s30"></i>30 진행 중</span><span class="sc12-lg"><i class="s70"></i>70 완료·검수 대기</span><span class="sc12-lg"><i class="s90"></i>90 Fable 통과</span><span class="sc12-lg"><i class="s100"></i>100 승인·반영</span> · 마감 지난 미완은 빨간 테두리</p>';
  g+='<h3>일일보고</h3>';
  var R=hvLast.rep;
  if(!R.ok||!Array.isArray(R.d))g+='<p class="note">reports/index.json 을 읽지 못했습니다.</p>';
