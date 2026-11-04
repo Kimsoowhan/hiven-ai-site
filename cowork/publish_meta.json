@@ -1,5 +1,5 @@
 {
- "published": "2026-11-05 07:03",
+ "published": "2026-11-05 07:05",
  "by": "Opus",
  "history_rows": 221,
  "lifecycle_rows": 221,
@@ -10,24 +10,24 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "6e196a59721ac417",
-   "mtime": "2026-11-05 07:03"
+   "sha16": "c4f2e0e949cb58e1",
+   "mtime": "2026-11-05 07:05"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "229c2a48cac71ca6",
-   "mtime": "2026-11-05 07:03"
+   "sha16": "85868c034dc94ac8",
+   "mtime": "2026-11-05 07:05"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-12",
-   "rows": 33,
-   "sha16": "a3174725360b462c",
-   "mtime": "2026-11-05 06:57"
+   "rows": 34,
+   "sha16": "1327bb7c839b5efa",
+   "mtime": "2026-11-05 07:05"
   },
   {
    "file": "reports/index.json",
@@ -35,7 +35,7 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "470e9456a5e52c51",
-   "mtime": "2026-11-05 07:03"
+   "mtime": "2026-11-05 07:05"
   },
   {
    "file": "ctl/model_control_history.tsv",
@@ -73,9 +73,9 @@
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
    "screen": "SC-04",
-   "rows": 418,
-   "sha16": "aa300a90f9421866",
-   "mtime": "2026-11-05 07:03"
+   "rows": 419,
+   "sha16": "278464da03ae2586",
+   "mtime": "2026-11-05 07:05"
   },
   {
    "file": "ctl/qa_checks.tsv",
