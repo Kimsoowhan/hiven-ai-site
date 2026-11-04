@@ -116,7 +116,7 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
 /* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:30): 현재 시점을 가운데 두고 좌(이전)·우(다음)로 이동, 단위(30초·분·시간·일·월·년) 토글,
    30초마다 현재 시점이 이동하며 자동으로 흐름. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
 var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#c9a400','개선요청':'#43a047','유휴':'#1e88e5','장애':'#7b1fa2'};
-var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12,hvTRD0=-9;/* 기본: 현재 시점을 오른쪽 끝에서 3칸 앞에 둠(대표님 02:33) */
+var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12,hvTRD0=-12;/* 기본: 현재 시점을 오른쪽 끝에서 3칸 앞에 둠(대표님 02:33) */
 var hvTRS={'30초':30e3,'분':60e3,'시간':3600e3,'일':86400e3};
 function hvTrFloor(t,u){if(hvTRS[u])return Math.floor((t+hvTRZ)/hvTRS[u])*hvTRS[u]-hvTRZ;var d=new Date(t+hvTRZ),y=d.getUTCFullYear(),m=u==='월'?d.getUTCMonth():0;return Date.UTC(y,m,1)-hvTRZ}
 function hvTrStep(t,u,k){if(hvTRS[u])return t+k*hvTRS[u];var d=new Date(t+hvTRZ);return u==='월'?Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+k,1)-hvTRZ:Date.UTC(d.getUTCFullYear()+k,0,1)-hvTRZ}
@@ -151,7 +151,7 @@ function hvTrIn(){var d=hvTRD;if(!d)return '';
   sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLbl(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
  s+='</svg>';
  var tot=hvTY13.map(function(t){var n=all.filter(function(e){return e.type===t}).length;return '<span style="display:inline-block;margin:2px 10px 2px 0;white-space:nowrap"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+hvTRC[t]+';margin-right:4px"></i>'+hvEsc(t)+' '+n+'</span>'}).join('');
- return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 색 면 = 구분별 건수(투명하게 겹쳐 보임, 구분 버튼으로 켜고 끔) · 빨간 화살표·짙은 회색 선 = 현재 시점(기본 위치: 오른쪽 끝에서 3칸 앞) · 30초마다 그래프가 왼쪽(이전)으로 흐르며 현재 시점 갱신 · 그래프를 끌거나 &lt; &gt;로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
+ return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 색 면 = 구분별 건수(투명하게 겹쳐 보임, 구분 버튼으로 켜고 끔) · 빨간 화살표·짙은 회색 선 = 현재 시점(기본 위치: 오른쪽 끝) · 30초마다 그래프가 왼쪽(이전)으로 흐르며 현재 시점 갱신 · 그래프를 끌거나 &lt; &gt;로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
 function hvTrDraw(){var b=document.getElementById('hvTrBox');if(b){b.innerHTML=hvTrIn();hvTrDrag()}}
 function hvTrSet(k,v){hvF13[k]=v;if(k==='tu')hvF13.to=hvTRD0;hvTrDraw()}
 function hvTrTog(t){if(!hvF13.th)hvF13.th={};hvF13.th[t]=!hvF13.th[t];hvTrDraw()}
