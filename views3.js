@@ -115,7 +115,7 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
 
 /* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:30): 현재 시점을 가운데 두고 좌(이전)·우(다음)로 이동, 단위(30초·분·시간·일·월·년) 토글,
    30초마다 현재 시점이 이동하며 자동으로 흐름. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
-var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#6a1b9a','개선요청':'#1565c0','유휴':'#00897b','장애':'#d81b60'};
+var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#c9a400','개선요청':'#43a047','유휴':'#1e88e5','장애':'#7b1fa2'};
 var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12,hvTRD0=-9;/* 기본: 현재 시점을 오른쪽 끝에서 3칸 앞에 둠(대표님 02:33) */
 var hvTRS={'30초':30e3,'분':60e3,'시간':3600e3,'일':86400e3};
 function hvTrFloor(t,u){if(hvTRS[u])return Math.floor((t+hvTRZ)/hvTRS[u])*hvTRS[u]-hvTRZ;var d=new Date(t+hvTRZ),y=d.getUTCFullYear(),m=u==='월'?d.getUTCMonth():0;return Date.UTC(y,m,1)-hvTRZ}
