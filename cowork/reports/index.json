@@ -1,1 +1,20 @@
-[]
+[
+ {
+  "file": "일일보고_Opus_261104.txt",
+  "model": "Opus",
+  "date": "2026-11-04",
+  "title": "일일보고_Opus_261104"
+ },
+ {
+  "file": "일일보고_Sonnet_261104.txt",
+  "model": "Sonnet",
+  "date": "2026-11-04",
+  "title": "일일보고_Sonnet_261104"
+ },
+ {
+  "file": "일일보고_Haiku_261104_1.4_작업.txt",
+  "model": "Haiku",
+  "date": "2026-11-04",
+  "title": "일일보고_Haiku_261104_1.4_작업"
+ }
+]
