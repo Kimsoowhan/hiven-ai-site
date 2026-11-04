@@ -57,7 +57,7 @@ function hvAgg(d){
   +'<td class="sc13-n"><b>'+r.a.length+'</b></td><td class="sc13-n">'+r.cum+'</td>'
   +'<td class="sc13-bc"><div class="sc13-bar"><i style="width:'+Math.round(r.a.length*100/mx)+'%"></i></div><div class="sc13-bar cum"><i style="width:'+Math.round(r.cum*100/ALLCUM)+'%"></i></div></td></tr>'});
  g+='</tbody></table></div>'+hvPager(PGA,'개 구간','hvSC13Paint')+'<p class="note">막대 위: 그 기간 건수(가장 많은 기간 = 100%) · 막대 아래: 누적 건수(전체 = 100%). 시각이 없는 기록은 시간별에서 「시각 미기재」로 묶습니다.</p>';
- return g;
+ return g+hvTrend(d);
 }
 
 function hvSC13Paint(fail,err){
@@ -112,3 +112,32 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
   +(PG.rows.length?PG.rows.map(function(r){return '<tr class="sc13-r" onclick="this.classList.toggle(\'sc13-open\')">'+(dir==='v'?'<td>'+hvEsc(r[0])+'</td><td class="sc13-nw">'+hvEsc(r[2])+'</td><td class="sc13-cl"><div>'+hvEsc(r[3])+'</div></td><td>'+hvEsc(r[6])+'</td><td>'+hvEsc(r[5])+'</td><td class="sc13-cl"><div>'+hvEsc(r[8])+'</div></td><td class="sc13-cl"><div>'+hvEsc(r[9]||r[7])+'</div></td><td class="sc13-nw">'+hvEsc(r[10])+'</td>':'<td class="sc13-nw">'+hvEsc(r[0])+'</td><td class="sc13-nw">'+hvEsc(r[2])+'</td><td class="sc13-nw">'+hvEsc(r[3])+'</td><td class="sc13-cl"><div>'+hvEsc(r[4])+'</div></td><td class="sc13-cl"><div>'+hvEsc(r[6])+'</div></td><td>'+hvEsc(r[7])+'</td><td class="sc13-nw">'+hvEsc(SH[r[8]]||r[8])+'</td>')+'</tr>'}).join(''):'<tr><td colspan="8">해당 건이 없습니다.</td></tr>')
   +'</tbody></table></div>'+hvPager(PG,'건','hvSC13Paint')}
  return g}
+
+/* 구분별 변동 추이 그래프(대표님 11/05 02:16): 시간별·일별 × 모델 전체·모델별 × 구간·누적. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
+var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#6a1b9a','개선요청':'#1565c0','유휴':'#78909c','장애':'#000000'};
+function hvTrend(d){
+ if(!hvF13.tu)hvF13.tu='일별';if(!hvF13.tm)hvF13.tm='모델 전체';if(!hvF13.tc)hvF13.tc='구간';if(!hvF13.th)hvF13.th={};
+ var ms=['모델 전체'].concat(d.models.map(function(m){return m.name}));if(ms.indexOf(hvF13.tm)<0)hvF13.tm='모델 전체';
+ var ev=d.events.filter(function(e){return hvF13.tm==='모델 전체'||e.model===hvF13.tm});
+ var K=[],G={};ev.forEach(function(e){var k=hvKey(e,hvF13.tu);if(!G[k]){G[k]=[];K.push(k)}G[k].push(e)});K.sort();
+ if(hvF13.tu==='시간별')K=K.filter(function(k){return k.indexOf(' 99|')<0});
+ var S=hvTY13.map(function(t){var c=0;return {t:t,v:K.map(function(k){var n=G[k].filter(function(e){return e.type===t}).length;c+=n;return hvF13.tc==='누적'?c:n})}});
+ var vis=S.filter(function(s){return !hvF13.th[s.t]}),mx=1;vis.forEach(function(s){s.v.forEach(function(x){if(x>mx)mx=x})});
+ var btn=function(key,list){return list.map(function(x){return '<button type="button" class="'+(hvF13[key]===x?'on':'')+'" onclick="hvTrSet(\''+key+'\',\''+x+'\')">'+hvEsc(x)+'</button>'}).join('')};
+ var g='<h3>구분별 변동 추이</h3>'
+ +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">단위</span>'+btn('tu',['시간별','일별'])+'</div>'
+ +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">모델</span>'+btn('tm',ms)+'</div>'
+ +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">값</span>'+btn('tc',['구간','누적'])+'</div>'
+ +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">구분</span>'+hvTY13.map(function(t){var off=!!hvF13.th[t];return '<button type="button" class="'+(off?'':'on')+'" style="'+(off?'':'background:'+hvTRC[t]+';border-color:'+hvTRC[t]+';color:#fff')+'" onclick="hvTrTog(\''+t+'\')">'+hvEsc(t)+'</button>'}).join('')+'</div>';
+ if(!K.length)return g+'<p class="note">해당 기록 없음</p>';
+ var W=Math.max(640,K.length*(hvF13.tu==='시간별'?34:90)),H=260,L=36,R=28,T=12,B=46,pw=W-L-R,ph=H-T-B,X=function(i){return L+(K.length===1?pw/2:i*pw/(K.length-1))},Y=function(v){return T+ph-v*ph/mx};
+ var s='<svg viewBox="0 0 '+W+' '+H+'" width="'+W+'" height="'+H+'" role="img" aria-label="구분별 변동 추이" style="font:11px sans-serif">';
+ var step=Math.max(1,Math.ceil(mx/5));for(var y=0;y<=mx;y+=step){s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y)+'" y2="'+Y(y)+'" stroke="#e3e8f0"/><text x="'+(L-6)+'" y="'+(Y(y)+4)+'" text-anchor="end" fill="#667">'+y+'</text>'}
+ var ev2=Math.max(1,Math.ceil(K.length/ (hvF13.tu==='시간별'?24:12)));K.forEach(function(k,i){if(i%ev2===0||i===K.length-1)s+='<text x="'+X(i)+'" y="'+(H-B+16)+'" text-anchor="middle" fill="#445">'+hvEsc(k.split('|')[1])+'</text>'});
+ vis.forEach(function(sr){var c=hvTRC[sr.t];s+='<polyline fill="none" stroke="'+c+'" stroke-width="2.2" points="'+sr.v.map(function(v,i){return X(i)+','+Y(v)}).join(' ')+'"/>';
+  sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(K[i].split('|')[1]+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
+ s+='</svg>';
+ var tot=hvTY13.map(function(t){var n=ev.filter(function(e){return e.type===t}).length;return '<span style="display:inline-block;margin:2px 10px 2px 0;white-space:nowrap"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+hvTRC[t]+';margin-right:4px"></i>'+hvEsc(t)+' '+n+'</span>'}).join('');
+ return g+'<div class="tw" style="overflow-x:auto">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · '+hvF13.tu+' · '+(hvF13.tc==='누적'?'누적 건수':'구간별 건수')+' · 점에 마우스를 올리면 건수 · 구분 버튼을 누르면 선을 끄고 켬 · 원천 cowork/ctl/model_control_history.tsv</p>'}
+function hvTrSet(k,v){hvF13[k]=v;hvSC13Paint(false)}
+function hvTrTog(t){if(!hvF13.th)hvF13.th={};hvF13.th[t]=!hvF13.th[t];hvSC13Paint(false)}
