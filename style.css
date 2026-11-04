@@ -256,3 +256,9 @@ button.card.cbtn.c-red2{background:#8e2457;border-color:#8e2457}.cbtn.c-red2 .k,
 button.card.cbtn.c-red.on,button.card.cbtn.c-red2.on,button.card.cbtn.c-org.on,button.card.cbtn.c-yel.on,button.card.cbtn.c-grn.on{background:#2a52be;border-color:#2a52be}
 button.card.cbtn.on .k,button.card.cbtn.on .s{color:#dbe6ff}button.card.cbtn.on .v{color:#fff}
 button.card.cbtn.sky.on .k,button.card.cbtn.sky.on .s{color:#c9d3ea}
+/* 11/04 18:22 눌림 반전 고침: 색 상자 규칙과 같은 우선순위로 눌림(밝은 파랑·흰 글씨) 지정 + 경보 = 마젠타(적보라) 계열 */
+button.card.cbtn.c-red2{background:#fbe3f3;border-color:#d46ab9}.cbtn.c-red2 .v{color:#a0177f}.cbtn.c-red2 .k,.cbtn.c-red2 .s{color:#7a3a68}
+button.card.cbtn.c-red.on,button.card.cbtn.c-red2.on,button.card.cbtn.c-org.on,button.card.cbtn.c-yel.on,button.card.cbtn.c-grn.on{background:#2a52be;border-color:#2a52be}
+button.card.cbtn.c-red.on .v,button.card.cbtn.c-red2.on .v,button.card.cbtn.c-org.on .v,button.card.cbtn.c-yel.on .v,button.card.cbtn.c-grn.on .v{color:#fff}
+button.card.cbtn.c-red.on .k,button.card.cbtn.c-red.on .s,button.card.cbtn.c-red2.on .k,button.card.cbtn.c-red2.on .s,button.card.cbtn.c-org.on .k,button.card.cbtn.c-org.on .s,button.card.cbtn.c-yel.on .k,button.card.cbtn.c-yel.on .s,button.card.cbtn.c-grn.on .k,button.card.cbtn.c-grn.on .s{color:#dbe6ff}
+button.card.sc13-cb.hot.on .v{color:#fff}
