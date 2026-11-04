@@ -56,7 +56,7 @@ V['SC-01']=function(){
   card('조치 완료(검수)',L?'…':nD.length+'/'+E.length+'건',L?'불러오는 중':'보고서 이관 '+LC.filter(function(x){return x[5]==='조치 완료'&&x[11]!=='아니오'}).length+' · 확인 '+LC.filter(function(x){return x[12]!=='대기'}).length,null,function(){return '<p class="note">조치 완료(해제) 뒤 보고서 이관·통제(Fable) 확인 단계까지 봅니다.</p>'+tb3(nD)})+
   '</div><div class="grid sc01-key sc01-6">'+
   card('경보',HVR.issues.length+'건','경고 3 · 불명확 1','SC-10')+
-  card('AICS','확인 안 됨','상태 원천 없음','SC-03')+card('HIVEN.app 구동','확인 안 됨','신호 '+HVR.hiven.last.slice(5,16),'SC-03')+card('HiClo.app 마지막 판정',HVR.hiclo.last.slice(5,16),'「'+HVR.hiclo.verdict+'」 · '+tag('실측','ok'),'SC-03')+card('HiClo.app 구동','확인 안 됨',hvAge().replace(/ \d+분$/,'')+' 갱신 없음','SC-03')+card('모델통제 이력',L?'…':E.length+'건','위반 '+vi.length+' · 장애 '+fa.length,'SC-13').replace('class="card cbtn','class="card cbtn sky')+
+  card('AICS','확인 안 됨','상태 원천 없음','SC-03')+card('HIVEN.app 구동','확인 안 됨','신호 '+HVR.hiven.last.slice(5,16),'SC-03')+card('HiClo.app 마지막 판정',HVR.hiclo.last.slice(5,16),'「'+HVR.hiclo.verdict+'」 · '+tag('실측','ok'),'SC-03')+card('HiClo.app 구동','확인 안 됨',hvAge().replace(/ \d+분$/,'')+' 갱신 없음','SC-03')+card('모델통제 이력',L?'…':E.length+'건',(function(){var d=E.map(function(e){return e.date}).sort();return d.length?d[0].slice(5)+' ~ '+d[d.length-1].slice(5)+' 누적':'-'})(),'SC-13').replace('class="card cbtn','class="card cbtn sky')+
   '</div>';
  /* 17:49·17:50·17:52 대표님: 상자 1~10 순서대로 아래에 표(같은 표 기준 5줄·쪽 넘김). 데이터가 아직 연동되지 않은 표도 미리 구성해 두고 「연동 전」으로 자리 확보 */
  var NC='<span class="tag gray">연동 전</span>';
