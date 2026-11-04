@@ -214,3 +214,18 @@ button.card.cbtn{display:flex;flex-direction:column;align-items:flex-start;text-
 .sc01-flow li{background:#f6f8fc;border:1px solid var(--line);border-radius:8px;padding:4px 8px;font-size:12.5px}
 .sc01-flow li+li::before{content:'→ ';color:var(--bad);font-weight:700}
 .sc01-r{font-size:13px;line-height:1.55}
+/* 11/04 17:53·17:54 SC-01 상자 = 윗줄 5개(장애·위험·자가 검수·조치 중·조치 완료) + 아랫줄 6개(경보·AICS·HIVEN.app·HiClo 판정·HiClo 구동·모델통제 이력) */
+.sc01-4{grid-template-columns:repeat(5,minmax(0,1fr))}.sc01-6{grid-template-columns:repeat(6,minmax(0,1fr));margin-top:12px}
+@media (max-width:1100px){.sc01-4,.sc01-6{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.sc01-4,.sc01-6{grid-template-columns:minmax(0,1fr)}}
+
+/* 17:51 SC-01 상자별 목록표 */
+.sc01-tb{margin:10px 0 16px}.sc01-tb h4{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:14px;color:var(--navy)}
+.sc01-no{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;background:#16234d;color:#fff;font-size:12px;font-weight:700}
+.sc01-tbh{margin-top:22px}.sc01-tb h3{font-size:15px;margin:16px 0 6px}
+/* 11/04 17:55·17:56 모델통제 이력 상자 = 진한 남색(선택된 버튼·쪽 번호·SC-13 상자와 같은 #16234d, UI 일원화), 눌림은 하늘색 테두리로 구별 */
+button.card.cbtn.sky{background:#16234d;border-color:#16234d}.cbtn.sky .k,.cbtn.sky .s{color:#c9d3ea}.cbtn.sky .v{color:#fff}
+.cbtn.sky:hover{border-color:var(--sky);box-shadow:0 2px 10px rgba(22,35,77,.35)}.cbtn.sky.on{box-shadow:0 0 0 3px var(--sky)}
+.sc01-tb td:first-child,.sc01-tb td:nth-child(2){white-space:nowrap}
+/* 17:57 모델통제 이력은 성격이 다른 묶음 → 11번 표도 남색 띠로 구별 */
+.sc01-tb.sky h3{background:#16234d;color:#fff;padding:6px 10px;border-radius:8px}

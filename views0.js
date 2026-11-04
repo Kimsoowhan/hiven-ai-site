@@ -16,13 +16,13 @@ var HVR={
 };
 function hvNo(t){return tag('확인 안 됨','gray')+(t?' '+t:'')}
 function hvChk(){return '<p class="note">원본 대시보드는 <b>실측 데이터만</b> 보입니다. 확인 시각 '+HVR.chk+' · 확인 '+HVR.by+' · 원천 '+HVR.src+'. 확인되지 않은 값은 「확인 안 됨」으로 표시하고, 시험·샘플 값은 <a href="test/">시험 페이지</a>에서만 봅니다.</p>'}
-function hvTestOnly(id,name){return function(){return '<h2>'+id+' '+name+'</h2><div class="grid">'+card('원본 대시보드','실측 데이터 없음','시험 중·시험 값이라 원본에 싣지 않음',null,function(){return '<p class="note">이 화면은 아직 시험 중이거나 시험·샘플 값으로 되어 있어 원본에 싣지 않습니다(대표님 지시 11/04 15:56). 시험 화면은 <a href="test/#'+id+'">시험 페이지</a>에서 봅니다. 정확한 일정·체계·대안은 Fable이 일괄 적용합니다(15:57).</p>'})+'</div>'+hvChk()}}
+function hvTestOnly(id,name){return function(){return '<h2>'+id+' '+name+'</h2><div class="grid">'+card('원본 대시보드','실측 데이터 없음','시험 중 · 원본 제외',null,function(){return '<p class="note">이 화면은 아직 시험 중이거나 시험·샘플 값으로 되어 있어 원본에 싣지 않습니다(대표님 지시 11/04 15:56). 시험 화면은 <a href="test/#'+id+'">시험 페이지</a>에서 봅니다. 정확한 일정·체계·대안은 Fable이 일괄 적용합니다(15:57).</p>'})+'</div>'+hvChk()}}
 var HVST=Date.parse(HVR.hiclo.last.replace(' ','T')+'+09:00');
 function hvAge(){var m=Math.round((Date.now()-HVST)/60000);return m<60?m+'분':Math.floor(m/60)+'시간 '+(m%60)+'분'}
 
 /* SC-01 종합 현황 재설계(대표님 11/04 17:37·17:38): 가장 중요한 4가지 = 장애 · 위험 요소 · 자가 검수 · 조치 결과 + 최우선 장애 경로, 상자 10개.
    장애·위험·자가 검수·조치 결과는 모델통제 이력 게시본(cowork/ctl/model_control_history.tsv)과 지시 추적 교차 검사(trace_sum.json)를 읽어 센다(실측). 구동·경보는 HVR(노트북 원천 확인값). */
-var hv01={ev:null,sum:null,ok:'',t:0};
+var HV_KV={};var hv01={ev:null,sum:null,ok:'',t:0};
 /* 장애 경로(확인된 사실만, 근거 기록 번호 표기). 순서 = 심각도(진행 중·재발 위험 우선) */
 var HV_PATH=[
  {t:'하위 작업 중단(4회) — 결과 미수신·지연',st:'조치 진행 중',ref:'모델통제 이력 84번 · COM\\작업중단·재개_결함분석_재발방지-261104_0.1_작업.md',
@@ -33,7 +33,7 @@ var HV_PATH=[
   r:'자동화 동결·격리(AICS 처리정책 11/04 10:53 승인), 원본 대시보드는 실측만 표시(15:58, 이력 61번 조치 완료). 남은 것: 재가동 여부 결정(조건 4개: 체계 문서 확정·연동 설계 승인·10개 단위 시험·되돌리기 절차) — Fable·대표님 결정 대기'}];
 function hv01Load(){Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json').catch(function(){return null}),hvFetch('cowork/ctl/action_lifecycle.tsv','text').catch(function(){return ''}),hvFetch('cowork/ctl/action_lifecycle.json','json').catch(function(){return null}),hvFetch('cowork/ctl/qa_checks.tsv','text').catch(function(){return ''}),hvFetch('cowork/progress.json','json').catch(function(){return null})]).then(function(r){hv01.lc=hvTsv(r[2]);hv01.lcs=r[3];hv01.qa=hvTsv(r[4]);hv01.pg=r[5];
  hv01.ev=hvTsv(r[0]).map(function(c){return {no:c[0],date:c[1],time:c[3],model:c[4],type:c[5],content:c[6],cause:c[7],action:c[8],status:c[9]}});hv01.sum=r[1];hv01.ok=kst();hv01.t=Date.now();if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}
-function hv01T(a,cols){var r=a.slice().reverse(),more=r.length>15;return a.length?tbl(['#','시각','구분','내용','조치','상태'],r.slice(0,15).map(function(e){return [e.no,hvEsc(e.time),hvEsc(e.type),hvEsc(e.content),hvEsc(e.action),tag(hvEsc(e.status),e.status==='조치 완료'?'ok':'warn')]}))+(more?'<p class="note">'+r.length+'건 중 최신 15건 — 전체는 <a href="#" onclick="hvgo(\'SC-13\');return false">SC-13</a>에서 「조치 진행 중」 상자를 누르면 봅니다.</p>':''):'<p class="note">해당 없음</p>'}
+function hv01T(a,cols){var r=a.slice().reverse(),more=false;return a.length?tbl(['#','시각','구분','내용','조치','상태'],r.map(function(e){return [e.no,hvEsc(e.time),hvEsc(e.type),hvEsc(e.content),hvEsc(e.action),tag(hvEsc(e.status),e.status==='조치 완료'?'ok':'warn')]}))+(more?'<p class="note">'+r.length+'건 중 최신 15건 — 전체는 <a href="#" onclick="hvgo(\'SC-13\');return false">SC-13</a>에서 「조치 진행 중」 상자를 누르면 봅니다.</p>':''):'<p class="note">해당 없음</p>'}
 V['SC-01']=function(){
  if(!hv01.ev||Date.now()-hv01.t>30000)setTimeout(hv01Load,0);/* 화면을 열 때마다(30초 지나면) 게시본을 다시 읽음 */
  var E=hv01.ev||[],L=!hv01.ev,S=hv01.sum,done=function(e){return e.status==='조치 완료'};
@@ -42,28 +42,42 @@ V['SC-01']=function(){
  var se=E.filter(function(e){return e.type==='지적(자가 발견)'}),sx=S?S['종단']||{}:{},sh=S?S['횡단']||{}:{};
  var dn=E.filter(done),op=E.filter(function(e){return !done(e)});
  var nf=faO.length+1/* HiClo 판정 멈춤(시스템) */,nr=warn.length+viO.length;
- var g='<div id="sc01"><h2>SC-01 종합 현황</h2><p class="lead">가장 중요한 4가지(장애 · 위험 요소 · 자가 검수 · 조치 결과)와 구동 상태를 봅니다. 상자를 누르면 그 근거가 아래에 펼쳐집니다.</p>';
+ var g='<div id="sc01"><h2>SC-01 종합 현황</h2><p class="lead">가장 중요한 장애 상태(경고) · 위험 요소(예측) · 자가 검수(예방) · 조치 중 · 조치 완료(검수)와 구동 상태를 봅니다. 상자를 누르면 그 근거가 아래에 펼쳐집니다.</p>';
  var LC=hv01.lc||[],lcM={};LC.forEach(function(x){lcM[x[0]]=x});var QA=hv01.qa||[],qaBad=QA.filter(function(x){return x[2]!=='통과'});
  var it=(hv01.pg&&hv01.pg.items)||[],now=new Date(),late=it.filter(function(x){var d=typeof hvDue==='function'?hvDue(x.due):null;return d&&x.score<100&&(d-now)<24*3600000});
  var c3=function(k){return E.filter(function(e){return (lcM[e.no]?lcM[e.no][5]:(done(e)?'조치 완료':'조치 중'))===k})},nM=c3('미조치'),nI=c3('조치 중'),nD=c3('조치 완료');
  var RISK=[['하위 작업 중단 재발','새 메시지 도착 때 진행 중 하위 작업 종료(4회 관찰)','감시 장치·중간 저장으로 대응 중 — 원인(시스템) 확인 안 됨','이력 84'],['기록 번호 중복','같은 세션 서명의 다른 흐름이 동시 기록','기록 직전 최신본 받기·중복 검사','이력 78'],['구동 상태 판단 불가 지속','HiClo 판정 파일 '+hvAge()+' 갱신 없음','재가동 결정 전까지 「확인 안 됨」 표시','HVR'],['보고서 이관 지연','일일보고 마지막 갱신 '+((hv01.lcs&&hv01.lcs['보고서 기준'])?hv01.lcs['보고서 기준']['일일보고 Opus']:'확인 안 됨')+' — 이후 조치는 보고서에 아직 안 넘어감','해제 건 보고서 일괄 이관','조치 생명주기 6단계']];
  var tb3=function(a){return hv01T(a)};
- g+='<h3>핵심 4가지</h3><div class="grid sc01-key">'+
+ g+='<h3>핵심 현황</h3><div class="grid sc01-key sc01-4">'+
   card('장애 상태(경고)',L?'…':nf+'건 진행 중',L?'불러오는 중':'해제 '+(fa.length-faO.length)+' · 경로 아래',null,function(){return '<p class="note">지금 일어난 장애입니다. 진행 중 = 모델통제 이력 「장애」 중 조치 미완료 '+faO.length+'건 + HiClo 판정 멈춤(시스템) 1건. 경로는 아래 「장애 경로」.</p><h4>진행 중</h4>'+tb3(faO)+'<h4>해제됨</h4>'+tb3(fa.filter(done))})+
-  card('위험 요소(예측)',L?'…':(nr+RISK.length+late.length)+'건',L?'불러오는 중':'경고 '+warn.length+' · 미조치 위반 '+viO.length+' · 재발 '+RISK.length,null,function(){return '<p class="note">앞으로 장애로 번질 수 있는 것입니다(예측).</p><h4>HiClo 마지막 판정 「경고」(원천 '+HVR.src+')</h4>'+tbl(['시각','심각도','대상','내용'],warn.map(function(r){return [r[0].slice(5),tag(r[1],'warn'),r[2],r[3]]}))+'<h4>조치가 끝나지 않은 위반</h4>'+tb3(viO)+'<h4>재발·지연 위험</h4>'+tbl(['위험','징후','대응','근거'],RISK)+'<h4>24시간 안 마감·미완료 작업(SC-12)</h4>'+(late.length?tbl(['#','일','담당','마감','진척도'],late.slice(0,15).map(function(x){return [hvEsc(x.id),hvEsc(x.title),hvEsc(x.owner),hvEsc(x.due),hvEsc(x.score)+'%']})):'<p class="note">해당 없음</p>')})+
-  card('자가 검수(예방)',L?'…':se.length+'건 발견',L?'불러오는 중':'교차 미확정 '+(sx['결과 미확정(조치 진행 중)']||0)+' · 검사 이상 '+qaBad.length,null,function(){return '<p class="note">문제가 생기기 전에 막는 점검입니다(예방).</p><h4>예방 검사 결과</h4>'+(QA.length?tbl(['검사','마지막 실행','결과','근거'],QA.map(function(x){return [hvEsc(x[0]),hvEsc(x[1]),tag(hvEsc(x[2]),x[2]==='통과'?'ok':'warn'),hvEsc(x[3])]})):'<p class="note">검사 기록 게시본 없음</p>')+'<h4>지시 추적 교차 검사(산출 '+hvEsc(S?S['산출']:'확인 안 됨')+')</h4>'+tbl(['교차 검사','건수','뜻'],[['종단 일치',sx['일치']||0,'지시 → 기록 → 조치 → 결과가 이어짐'],['종단 결과 미확정',sx['결과 미확정(조치 진행 중)']||0,'조치 진행 중(남은 일)'],['종단 지시만(누락)',sx['지시만(기록 없음)']||0,'지시는 있는데 기록 없음'],['횡단 기록만(누락)',sh['기록만(지시 연결 없음)']||0,'기록은 있는데 지시 연결 없음']])+'<h4>모델이 스스로 찾은 문제</h4>'+tb3(se)})+
-  card('조치 결과(검수)',L?'…':nD.length+'/'+E.length+' 완료',L?'불러오는 중':'미조치 '+nM.length+' · 조치 중 '+nI.length+' · 완료 '+nD.length,null,function(){var rp=LC.filter(function(x){return x[11]!=='아니오'}).length,fc=LC.filter(function(x){return x[12]!=='대기'}).length;return '<p class="note">모든 이력의 조치를 3분류로 나눕니다. 조치 완료(해제) 뒤 보고서 이관 '+rp+'건 · 통제(Fable) 확인 '+fc+'건. 산출 '+hvEsc(hv01.lcs?hv01.lcs['산출']:'확인 안 됨')+'.</p><h4>미조치 '+nM.length+'건</h4>'+tb3(nM)+'<h4>조치 중 '+nI.length+'건</h4>'+tb3(nI)+'<h4>조치 완료(해제) '+nD.length+'건</h4>'+tb3(nD)})+
+  card('위험 요소(예측)',L?'…':(nr+RISK.length+late.length)+'건',L?'불러오는 중':'경고 '+warn.length+' · 위반 '+viO.length+' · 재발 '+RISK.length,null,function(){return '<p class="note">앞으로 장애로 번질 수 있는 것입니다(예측).</p><h4>HiClo 마지막 판정 「경고」(원천 '+HVR.src+')</h4>'+tbl(['시각','심각도','대상','내용'],warn.map(function(r){return [r[0].slice(5),tag(r[1],'warn'),r[2],r[3]]}))+'<h4>조치가 끝나지 않은 위반</h4>'+tb3(viO)+'<h4>재발·지연 위험</h4>'+tbl(['위험','징후','대응','근거'],RISK)+'<h4>24시간 안 마감·미완료 작업(SC-12)</h4>'+(late.length?tbl(['#','일','담당','마감','진척도'],late.map(function(x){return [hvEsc(x.id),hvEsc(x.title),hvEsc(x.owner),hvEsc(x.due),hvEsc(x.score)+'%']})):'<p class="note">해당 없음</p>')})+
+  card('자가 검수(예방)',L?'…':se.length+'건 발견',L?'불러오는 중':'미확정 '+(sx['결과 미확정(조치 진행 중)']||0)+' · 이상 '+qaBad.length,null,function(){return '<p class="note">문제가 생기기 전에 막는 점검입니다(예방).</p><h4>예방 검사 결과</h4>'+(QA.length?tbl(['검사','마지막 실행','결과','근거'],QA.map(function(x){return [hvEsc(x[0]),hvEsc(x[1]),tag(hvEsc(x[2]),x[2]==='통과'?'ok':'warn'),hvEsc(x[3])]})):'<p class="note">검사 기록 게시본 없음</p>')+'<h4>지시 추적 교차 검사(산출 '+hvEsc(S?S['산출']:'확인 안 됨')+')</h4>'+tbl(['교차 검사','건수','뜻'],[['종단 일치',sx['일치']||0,'지시 → 기록 → 조치 → 결과가 이어짐'],['종단 결과 미확정',sx['결과 미확정(조치 진행 중)']||0,'조치 진행 중(남은 일)'],['종단 지시만(누락)',sx['지시만(기록 없음)']||0,'지시는 있는데 기록 없음'],['횡단 기록만(누락)',sh['기록만(지시 연결 없음)']||0,'기록은 있는데 지시 연결 없음']])+'<h4>모델이 스스로 찾은 문제</h4>'+tb3(se)})+
+  card('조치 중(검수)',L?'…':(nM.length+nI.length)+'건',L?'불러오는 중':'미조치 '+nM.length+' · 조치 중 '+nI.length,null,function(){return '<p class="note">아직 끝나지 않은 조치입니다(미조치 포함). 산출 '+hvEsc(hv01.lcs?hv01.lcs['산출']:'확인 안 됨')+'.</p><h4>미조치 '+nM.length+'건</h4>'+tb3(nM)+'<h4>조치 중 '+nI.length+'건</h4>'+tb3(nI)})+
+  card('조치 완료(검수)',L?'…':nD.length+'/'+E.length+'건',L?'불러오는 중':'보고서 이관 '+LC.filter(function(x){return x[5]==='조치 완료'&&x[11]!=='아니오'}).length+' · 확인 '+LC.filter(function(x){return x[12]!=='대기'}).length,null,function(){return '<p class="note">조치 완료(해제) 뒤 보고서 이관·통제(Fable) 확인 단계까지 봅니다.</p>'+tb3(nD)})+
+  '</div><div class="grid sc01-key sc01-6">'+
+  card('경보',HVR.issues.length+'건','경고 3 · 불명확 1','SC-10')+
+  card('AICS','확인 안 됨','상태 원천 없음','SC-03')+card('HIVEN.app 구동','확인 안 됨','신호 '+HVR.hiven.last.slice(5,16),'SC-03')+card('HiClo.app 마지막 판정',HVR.hiclo.last.slice(5,16),'「'+HVR.hiclo.verdict+'」 · '+tag('실측','ok'),'SC-03')+card('HiClo.app 구동','확인 안 됨',hvAge().replace(/ \d+분$/,'')+' 갱신 없음','SC-03')+card('모델통제 이력',L?'…':E.length+'건','위반 '+vi.length+' · 장애 '+fa.length,'SC-13').replace('class="card cbtn','class="card cbtn sky')+
   '</div>';
+ /* 17:49·17:50·17:52 대표님: 상자 1~10 순서대로 아래에 표(같은 표 기준 5줄·쪽 넘김). 데이터가 아직 연동되지 않은 표도 미리 구성해 두고 「연동 전」으로 자리 확보 */
+ var NC='<span class="tag gray">연동 전</span>';
+ var T10=function(n,t,h,rows,src){return '<div class="sc01-tb'+(n===11?' sky':'')+'"><h3>'+n+'. '+t+'</h3>'+tbl(h,rows.length?rows:[h.map(function(x,i){return i?(i===1?'데이터 연동 전 — 연동되면 여기에 표출':''):NC})])+'<p class="note">'+src+'</p></div>'};
+ var rv=function(a){return a.slice().reverse()},cls=function(e){return lcM[e.no]?lcM[e.no][5]:(done(e)?'조치 완료':'조치 중')},stg=function(e){return lcM[e.no]?lcM[e.no][13]:'-'};
+ var ER=function(e){return [hvEsc(e.no),hvEsc(e.time),tag(hvEsc(e.status),done(e)?'ok':'warn'),hvEsc(e.content),hvEsc(e.action)]};
+ g+='<h3 class="sc01-tbh">상자별 표(1~11, 상자 순서)</h3>';
+ g+=T10(1,'장애 상태(경고)',['#','시각','상태','내용','조치'],L?[]:[['시스템','11-03 20:54',tag('조치 진행 중','warn'),'HiClo 판정 멈춤 — 구동 상태 확인 불가','자동화 동결·원본 실측만 표시, 재가동 결정 대기']].concat(rv(faO).map(ER),rv(fa.filter(done)).map(ER)),'진행 중 먼저, 그다음 해제 · 원천 모델통제 이력 게시본 + HVR');
+ g+=T10(2,'위험 요소(예측)',['구분','위험','징후·내용','대응','근거'],L?[]:warn.map(function(r){return ['경보','HiClo '+hvEsc(r[2]),hvEsc(r[3]),'재가동 결정 전까지 「확인 안 됨」','판정 '+r[0].slice(5)]}).concat(rv(viO).map(function(e){return ['위반','#'+hvEsc(e.no),hvEsc(e.content),hvEsc(e.action),'이력 '+hvEsc(e.no)]}),RISK.map(function(x){return ['재발·지연',hvEsc(x[0]),hvEsc(x[1]),hvEsc(x[2]),hvEsc(x[3])]}),late.map(function(x){return ['마감 임박',hvEsc(x.id),hvEsc(x.title)+' '+hvEsc(x.score)+'%','마감 '+hvEsc(x.due),'SC-12']})),'경보 → 미조치 위반 → 재발·지연 → 24시간 안 마감');
+ g+=T10(3,'자가 검수(예방)',['구분','검사·항목','결과','근거·조치','시각'],L?[]:QA.map(function(x){return ['예방 검사',hvEsc(x[0]),tag(hvEsc(x[2]),x[2]==='통과'?'ok':'warn'),hvEsc(x[3]),hvEsc(x[1])]}).concat(S?[['교차 검사','지시 추적 종단·횡단',(sx['결과 미확정(조치 진행 중)']||0)+'건 미확정 · 누락 '+((sx['지시만(기록 없음)']||0)+(sh['기록만(지시 연결 없음)']||0)),'일치 '+(sx['일치']||0)+' · 횡단 일치 '+(sh['일치']||0),hvEsc(S['산출'])]]:[],rv(se).map(function(e){return ['자가 발견','#'+hvEsc(e.no)+' '+hvEsc(e.content),tag(hvEsc(e.status),done(e)?'ok':'warn'),hvEsc(e.action),hvEsc(e.time)]})),'원천 qa_checks.tsv · trace_sum.json · 모델통제 이력');
+ g+=T10(4,'조치 중(검수)',['#','3분류','현재 단계','내용','조치'],L?[]:rv(nM).concat(rv(nI)).map(function(e){var c=cls(e);return [hvEsc(e.no),tag(c,c==='조치 완료'?'ok':c==='미조치'?'bad':'warn'),hvEsc(stg(e)),hvEsc(e.content),hvEsc(e.action)]}),'미조치 → 조치 중 순 · 원천 action_lifecycle.tsv');
+ g+=T10(5,'조치 완료(검수)',['#','3분류','현재 단계','내용','조치'],L?[]:rv(nD).map(function(e){var c=cls(e);return [hvEsc(e.no),tag(c,c==='조치 완료'?'ok':c==='미조치'?'bad':'warn'),hvEsc(stg(e)),hvEsc(e.content),hvEsc(e.action)]}),'해제 최신순 · 현재 단계 = 해제 / 보고서 이관 / 통제 확인 · 원천 action_lifecycle.tsv');
+ g+=T10(6,'경보',['시각','심각도','대상','내용'],HVR.issues.map(function(r){return [r[0].slice(5),tag(r[1],r[1]==='경고'?'warn':'gray'),r[2],r[3]]}),'원천 '+HVR.src+' · 확인 '+HVR.chk);
+ g+=T10(7,'AICS',['항목','값','원천'],HV_KV['AICS'](),'정지·재개 상태 원천이 생기면 여기에 표출');
+ g+=T10(8,'HIVEN.app 구동',['항목','값','원천'],HV_KV['HIVEN.app 지금 구동'](),'구동 신호 원천 연동 시 표출');
+ g+=T10(9,'HiClo.app 마지막 판정',['항목','값','원천'],HV_KV['HiClo.app 마지막 판정'](),'원천 '+HVR.src);
+ g+=T10(10,'HiClo.app 구동',['항목','값','원천'],HV_KV['HiClo.app 지금 구동'](),'판정 파일이 다시 갱신되면 「구동」으로 바뀜');
+ g+=T10(11,'모델통제 이력',['#','시각','모델','구분','내용','상태'],L?[]:rv(E).map(function(e){return [hvEsc(e.no),hvEsc(e.time),hvEsc(e.model),hvEsc(e.type),hvEsc(e.content),tag(hvEsc(e.status),done(e)?'ok':'warn')]}),'최신순 · 상세·필터는 SC-13');
  var ST=['1 감지','2 경고·알람','3 조치 착수','4 조치 중','5 해제','6 보고서 이관','7 통제 확인'],SN=ST.map(function(x,i){return LC.filter(function(r){return r[6+i]!=='아니오'&&r[6+i]!=='대기'}).length});
  g+='<h3>조치 생명주기(백오피스 흐름)</h3><ol class="sc01-flow sc01-lc">'+ST.map(function(x,i){return '<li><b>'+x.slice(2)+'</b> '+(L?'…':SN[i])+'</li>'}).join('')+'</ol><p class="note">감지(이력 기록) → 경고·알람(대시보드 표출) → 조치 착수 → 조치 중 → 해제(조치 완료) → 보고서 이관(일일보고·검수대기열·별도지시대장에 이력 번호 기재) → 통제 확인(Fable 「체크」·자동화 통합 통제 시스템). 숫자 = 그 단계까지 온 건수. 보고서 기준 '+hvEsc(hv01.lcs?JSON.stringify(hv01.lcs['보고서 기준']).replace(/[{}"]/g,'').replace(/,/g,' · '):'확인 안 됨')+'.</p>';
  g+='<h3>장애 경로(심각도 순)</h3>'+HV_PATH.map(function(x,i){return '<div class="sc01-path"><div class="sc01-ph"><span class="tag '+(i?'warn':'bad')+'">'+(i+1)+'순위</span><b>'+hvEsc(x.t)+'</b><span class="tag warn">'+hvEsc(x.st)+'</span></div><ol class="sc01-flow">'+x.p.map(function(s){return '<li>'+hvEsc(s)+'</li>'}).join('')+'</ol><div class="sc01-r"><b>조치 결과</b> '+hvEsc(x.r)+'</div><div class="note">근거: '+hvEsc(x.ref)+'</div></div>'}).join('');
- g+='<h3>구동 · 경보</h3><div class="grid">'+
-  card('HiClo.app 마지막 판정',HVR.hiclo.last.slice(5,16),'판정 「'+HVR.hiclo.verdict+'」 · '+tag('실측','ok'),'SC-03')+
-  card('HiClo.app 지금 구동','확인 안 됨',hvAge()+' 갱신 없음 · '+tag('확인 안 됨','gray'),'SC-03')+
-  card('HIVEN.app 지금 구동','확인 안 됨','마지막 신호 '+HVR.hiven.last.slice(5,16),'SC-03')+
-  card('AICS','확인 안 됨','정지·재개 원천 없음','SC-03')+
-  card('경보(마지막 판정 기준)',HVR.issues.length+'건','경고 3 · 불명확 1 · '+tag('실측','ok'),'SC-10')+
-  card('모델 통제 이력',L?'…':E.length+'건','위반 '+vi.length+' · 장애 '+fa.length,'SC-13')+'</div>';
  return g+'<p class="note">핵심 4가지는 모델통제 이력 게시본을 읽은 값입니다(읽은 시각 '+hvEsc(hv01.ok||'불러오는 중')+'). 장애 경로는 기록·문서로 확인한 사실만 적었습니다.</p>'+hvChk()+'</div>'};
 V['SC-02']=function(){
  var g='<h2>SC-02 사업군 통제</h2><p class="lead">7개 사업군 번호·이름·통제 접점(고정 정의)만 봅니다. 사업군별 운영 상태는 실측 원천이 없어 싣지 않습니다.</p>';
@@ -101,12 +115,17 @@ function hvWrap(){var o=render;render=function(id){o(id);hvHdr()};hvHdr();setInt
 
 /* 상자별 근거 데이터(원본 실측) — 이름이 같은 상자는 어느 화면에서든 같은 근거를 보인다 */
 function hvKV(rows){return tbl(['항목','값','원천'],rows)}
-HV_CDET['HiClo.app 마지막 판정']=function(){return hvKV([['판정 시각',HVR.hiclo.last,HVR.src],['판정',HVR.hiclo.verdict,'같은 파일'],['관측 끊김',HVR.hiclo.miss+'회 연속','같은 파일'],['클로 단계',HVR.hiclo.stage,'같은 파일'],['그 뒤 경과',hvAge()+' 갱신 없음','확인 시각 '+HVR.chk]])}
-HV_CDET['HiClo.app 지금 구동']=function(){return hvKV([['버전',HVR.hiclo.ver,HVR.src],['마지막 판정',HVR.hiclo.last+' 「'+HVR.hiclo.verdict+'」','같은 파일'],['판정 주기','5분 순환(정상이면 5분마다 갱신)','설계'],['그 뒤 경과',hvAge()+' 갱신 없음','확인 시각 '+HVR.chk],['판단','지금 구동 여부 확인 안 됨 — 판정 파일이 멈춤','—'],['참고','HiClo 예약작업은 11/03 20:56 비활성(AICS 처리정책 11/04 승인)','91_Fable\\AICS_자동화_처리정책_261104.md']])}
-HV_CDET['HIVEN.app 지금 구동']=function(){return hvKV([['마지막 관계 신호',HVR.hiven.last,HVR.src],['설명',HVR.hiven.note,'같은 파일'],['판단','지금 구동 여부 확인 안 됨','별도 프로세스 기록 없음']])}
-HV_CDET['AICS']=function(){return hvKV([['정지·재개 상태','확인 안 됨','상태를 기록하는 원천 파일 없음'],['처리 정책','삭제 없이 비활성·격리, 「실측」 표시는 실제 연동 때만(11/04 10:53 승인)','91_Fable\\AICS_자동화_처리정책_261104.md'],['과거 화면','11/02 08:04 스냅샷 값을 「구동 중」으로 표시했던 것은 거짓 표시(모델통제 이력 2번)','SC-13']])}
+HV_KV['HiClo.app 마지막 판정']=function(){return ([['판정 시각',HVR.hiclo.last,HVR.src],['판정',HVR.hiclo.verdict,'같은 파일'],['관측 끊김',HVR.hiclo.miss+'회 연속','같은 파일'],['클로 단계',HVR.hiclo.stage,'같은 파일'],['그 뒤 경과',hvAge()+' 갱신 없음','확인 시각 '+HVR.chk]])}
+HV_KV['HiClo.app 지금 구동']=function(){return ([['버전',HVR.hiclo.ver,HVR.src],['마지막 판정',HVR.hiclo.last+' 「'+HVR.hiclo.verdict+'」','같은 파일'],['판정 주기','5분 순환(정상이면 5분마다 갱신)','설계'],['그 뒤 경과',hvAge()+' 갱신 없음','확인 시각 '+HVR.chk],['판단','지금 구동 여부 확인 안 됨 — 판정 파일이 멈춤','—'],['참고','HiClo 예약작업은 11/03 20:56 비활성(AICS 처리정책 11/04 승인)','91_Fable\\AICS_자동화_처리정책_261104.md']])}
+HV_KV['HIVEN.app 지금 구동']=function(){return ([['마지막 관계 신호',HVR.hiven.last,HVR.src],['설명',HVR.hiven.note,'같은 파일'],['판단','지금 구동 여부 확인 안 됨','별도 프로세스 기록 없음']])}
+HV_KV['AICS']=function(){return ([['정지·재개 상태','확인 안 됨','상태를 기록하는 원천 파일 없음'],['처리 정책','삭제 없이 비활성·격리, 「실측」 표시는 실제 연동 때만(11/04 10:53 승인)','91_Fable\\AICS_자동화_처리정책_261104.md'],['과거 화면','11/02 08:04 스냅샷 값을 「구동 중」으로 표시했던 것은 거짓 표시(모델통제 이력 2번)','SC-13']])}
 HV_CDET['경보(마지막 판정 기준)']=function(){return tbl(['시각','심각도','대상','내용'],HVR.issues.map(function(r){return [r[0].slice(5),tag(r[1],r[1]==='경고'?'warn':'gray'),r[2],r[3]]}))+'<p class="note">원천 '+HVR.src+' · 확인 '+HVR.chk+'</p>'}
 HV_CDET['모델 통제 이력']=function(){return '<p class="note">원천 HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv → 게시 /cowork/ctl/model_control_history.tsv. 위반·지적·질타·조치 진행 중 등 상자별 목록과 지시 추적 교차 검사는 SC-13에서 봅니다.</p>'}
-HV_CDET['클로 단계']=function(){return hvKV([['단계',HVR.hiclo.stage,HVR.src],['판정 시각',HVR.hiclo.last,'같은 파일'],['판정',HVR.hiclo.verdict+' · 관측 끊김 '+HVR.hiclo.miss+'회','같은 파일']])}
-HV_CDET['지금 단계']=function(){return hvKV([['지금 단계','확인 안 됨','판정 파일이 '+hvAge()+' 갱신 없음'],['마지막으로 확인된 단계',HVR.hiclo.stage+' ('+HVR.hiclo.last+')',HVR.src]])}
-HV_CDET['대응 모드']=function(){return hvKV([['대응 모드','확인 안 됨','대응 모드를 기록한 원천 파일 확인 안 됨'],['확인',HVR.chk+' · '+HVR.by,'—']])}
+HV_KV['클로 단계']=function(){return ([['단계',HVR.hiclo.stage,HVR.src],['판정 시각',HVR.hiclo.last,'같은 파일'],['판정',HVR.hiclo.verdict+' · 관측 끊김 '+HVR.hiclo.miss+'회','같은 파일']])}
+HV_KV['지금 단계']=function(){return ([['지금 단계','확인 안 됨','판정 파일이 '+hvAge()+' 갱신 없음'],['마지막으로 확인된 단계',HVR.hiclo.stage+' ('+HVR.hiclo.last+')',HVR.src]])}
+HV_KV['대응 모드']=function(){return ([['대응 모드','확인 안 됨','대응 모드를 기록한 원천 파일 확인 안 됨'],['확인',HVR.chk+' · '+HVR.by,'—']])}
+
+/* SC-01 줄인 이름(한 줄 규칙 25번)도 같은 근거를 보임 */
+
+;['HiClo.app 마지막 판정','HiClo.app 지금 구동','HIVEN.app 지금 구동','AICS','클로 단계','지금 단계','대응 모드'].forEach(function(k){HV_CDET[k]=function(){return hvKV(HV_KV[k]())}});
+HV_CDET['경보']=HV_CDET['경보(마지막 판정 기준)'];HV_CDET['HIVEN.app 구동']=HV_CDET['HIVEN.app 지금 구동'];HV_CDET['HiClo.app 구동']=HV_CDET['HiClo.app 지금 구동'];HV_CDET['모델통제 이력']=HV_CDET['모델 통제 이력'];

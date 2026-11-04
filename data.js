@@ -19,14 +19,20 @@ var BG=[
  ['#7','HiTrade','AI 에이전트 거래 시장','N4','구성 중','warn']
 ];
 function tag(t,c){return '<span class="tag '+c+'">'+t+'</span>'}
-function tbl(h,rows){
- var s='<div class="tw"><table><thead><tr>'+h.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>';
- rows.forEach(function(r){s+='<tr>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'});
- return s+'</tbody></table></div>';
+/* 표 표출 기준 통일(대표님 11/04 17:49): 모든 표 한 쪽 5줄 + 같은 쪽 넘김(◀ 이전 · 쪽 번호 · 다음 ▶). tbl 표는 화면 안에서 쪽을 넘김 */
+var HV_TB=0;
+function tbl(h,rows){var id='tb'+(++HV_TB),P=HV_PG_STD,n=Math.ceil(rows.length/P);
+ var s='<div class="tw" id="'+id+'"><table><thead><tr>'+h.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>';
+ rows.forEach(function(r,i){s+='<tr'+(i>=P?' style="display:none"':'')+'>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'});
+ s+='</tbody></table></div>';
+ return n>1?s+hvTbPager(id,0,n,rows.length):s;
 }
+function hvTbPager(id,i,n,tot){var P=HV_PG_STD,nums='';for(var j=0;j<n;j++){if(n>9&&Math.abs(j-i)>3&&j!==0&&j!==n-1){if(nums.slice(-1)!=='…')nums+='…';continue}nums+='<button type="button" class="'+(j===i?'on':'')+'" onclick="hvTbGo(\''+id+'\','+j+')">'+(j+1)+'</button>'}
+ return '<div class="hv-pg" data-tb="'+id+'"><button type="button" class="hv-pg-a" '+(i<=0?'disabled':'')+' onclick="hvTbGo(\''+id+'\','+(i-1)+')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(i>=n-1?'disabled':'')+' onclick="hvTbGo(\''+id+'\','+(i+1)+')">다음 ▶</button><span class="hv-pg-i">'+(i+1)+'/'+n+'쪽 · '+(i*P+1)+'~'+Math.min(tot,(i+1)*P)+' / 전체 '+tot+'건 · 한 쪽 '+P+'줄</span></div>'}
+function hvTbGo(id,i){var w=document.getElementById(id);if(!w)return;var R=w.querySelectorAll('tbody>tr'),P=HV_PG_STD,n=Math.ceil(R.length/P);i=Math.max(0,Math.min(n-1,i));R.forEach(function(r,k){r.style.display=(k>=i*P&&k<(i+1)*P)?'':'none'});var pg=w.nextElementSibling;if(pg&&pg.getAttribute('data-tb')===id)pg.outerHTML=hvTbPager(id,i,n,R.length)}
 /* 요약 상자 공통 인터페이스(대표님 11/04 17:27·17:35): 모든 상자는 누르는 버튼. 누르면 상자 묶음 바로 아래에 그 값의 근거 데이터(항목·원천·확인 시각)를 펼치고, 다시 누르면 닫음.
    다른 화면으로 가던 상자는 펼친 내용 안의 「SC-xx에서 자세히」 버튼으로 이동. 근거: det 인자(문자열·함수) → HV_CDET[이름] → 기본(이 화면의 원천). */
-var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};
+var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};/* 17:51 SC-01은 상자 1~10 순서 목록표를 상시 표출하므로 기본 펼침 없음 */
 function hvIsTest(){return /\/test\//.test(location.pathname)}
 function card(k,v,s,to,det){var id='cd'+(++HVCDn),key=(typeof cur!=='undefined'?cur:'')+'|'+k;HVCD[id]={k:k,v:v,s:s,to:to,det:det,key:key};
  var on=HVCDo===key;if(on)setTimeout(function(){hvCardPanel(id)},0);
@@ -42,13 +48,13 @@ function hvCardPanel(id){var c=HVCD[id],b=document.querySelector('[data-cd="'+id
  gr.parentNode.insertBefore(p,gr.nextSibling)}
 var V={};
 /* 공통 표 규칙(대표님 11/04 14:29~14:33 지시): 모든 표는 ① 맨 위가 가장 최근(최신순) ② 한 쪽 줄 수는 화면 크기에 맞춰 자동 계산(폰·태블릿·PC 공통: 화면 높이에서 머리글·필터 몫을 뺀 뒤 기준 줄 높이(폰 58·PC 44)로 나눔, 같은 화면의 모든 표가 같은 줄 수, 최대 15줄(대표님 11/04 14:41 지시: 15줄을 넘지 않음), 최소 4줄) ③ 표 아래 「◀ 이전 · 쪽 번호 · 다음 ▶」 토글(현재 쪽/전체 쪽 표시). 창 크기·방향이 바뀌면 다시 계산해 다시 그린다. */
-var HV_PG_MAX=15,HV_PG_MIN=4,hvPgS={},hvRowH={};
+var HV_PG_MAX=15,HV_PG_MIN=4,HV_PG_STD=5,hvPgS={},hvRowH={};/* 17:49 대표님: 모든 표 한 쪽 5줄로 통일 */
 /* 11/04 14:45·15:08 대표님 지시: 한 쪽 줄 수는 화면마다 기준 표(SC-13=이력, SC-12=진척도)의 영역 전체(제목·필터·표 머리·줄·쪽 번호)가
    창 높이 안에 고정되게 실측으로 정한다. 어느 쪽을 펴도 영역이 창을 넘지 않는 가장 큰 줄 수(1~15), 같은 화면의 모든 표는 같은 줄 수.
    표 영역 높이는 고정(마지막 쪽에서 줄이 적어도 쪽 번호 위치가 움직이지 않음). 창 크기·방향이 바뀌면 다시 잰다. */
 var hvPgFix={},hvPgAll=null;
-function hvPgN(key){var sc=key.slice(0,2);if(hvPgAll===sc)return 9999;var f=hvPgFix[sc];if(f&&f.vk===innerWidth+'x'+innerHeight)return f.n;var h=window.innerHeight||800,rh=(window.innerWidth<700?58:44),free=h-(window.innerWidth<700?230:280);return Math.max(HV_PG_MIN,Math.min(HV_PG_MAX,Math.floor(free/rh)))}
-function hvPgFit(sc,ref,fn){var vk=innerWidth+'x'+innerHeight,f=hvPgFix[sc];if(f&&f.vk===vk){hvPgStatic(sc);return}
+function hvPgN(key){var sc=key.slice(0,2);if(hvPgAll===sc)return 9999;return HV_PG_STD;var f=hvPgFix[sc];if(f&&f.vk===innerWidth+'x'+innerHeight)return f.n;var h=window.innerHeight||800,rh=(window.innerWidth<700?58:44),free=h-(window.innerWidth<700?230:280);return Math.max(HV_PG_MIN,Math.min(HV_PG_MAX,Math.floor(free/rh)))}
+function hvPgFit(sc,ref,fn){return;/* 17:49 표 5줄 통일로 화면 높이 실측 계산 중지 */var vk=innerWidth+'x'+innerHeight,f=hvPgFix[sc];if(f&&f.vk===vk){hvPgStatic(sc);return}
  hvPgAll=sc;try{window[fn](false)}finally{hvPgAll=null}
  var pg=document.querySelector('.hv-pg[data-pg="'+ref+'"]'),tw=pg&&pg.previousElementSibling,tb=tw&&tw.querySelector('tbody');
  if(!tb||tb.rows.length<2){hvPgFix[sc]={vk:vk,n:hvPgN('x'),tw:0};window[fn](false);return}
@@ -75,7 +81,7 @@ function hvPgMeasure(){return false;var ch=false;document.querySelectorAll('.hv-
 var hvRsT=null;window.addEventListener('resize',function(){clearTimeout(hvRsT);hvRsT=setTimeout(function(){['hvSC12Paint','hvSC13Paint'].forEach(function(f){if(typeof window[f]==='function')window[f](false)})},200)});
 function hvPager(pg,unit,fn){var PP=pg.per||HV_PG_MAX,a=pg.tot?pg.i*PP+1:0,b=Math.min(pg.tot,(pg.i+1)*PP),nums='';
  for(var j=0;j<pg.n;j++){if(pg.n>9&&Math.abs(j-pg.i)>3&&j!==0&&j!==pg.n-1){if(nums.slice(-1)!=='…')nums+='…';continue}nums+='<button type="button" class="'+(j===pg.i?'on':'')+'" onclick="hvPgGo(\''+pg.key+'\','+j+',\''+fn+'\')">'+(j+1)+'</button>'}
- return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+unit+'(이력 영역이 한 화면에 들어가게 실측, 같은 화면의 모든 표 동일, 최대 15줄)</span></div>'}
+ return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+'줄(모든 표 통일)</span></div>'}
 var cur='SC-01';
 /* 열쇠 확인(샘플 인트로: 화면 안내용이며 서버 보안이 아님) */
 var KEY=[104,105,98,105,122];

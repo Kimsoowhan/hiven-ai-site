@@ -1,6 +1,6 @@
 V['SC-05']=function(){
  var g='<h2>SC-05 문서 자동 생성</h2><p class="lead">AICS의 첫째 존재 이유입니다. 요구→설계→구현→시험 추적과 활동 연결로 문서를 자동으로 만들고 어긋남을 잡습니다.</p>';
- g+='<div class="grid">'+card('역검증 추적표','25행','통과·해소 17 · 열린 과제 C-1, C-3~C-6')+card('개발 원장','32지점','확정 29')+card('문서 버전','최신 1벌','이전 버전은 정리 작업으로 보관')+'</div>';
+ g+='<div class="grid">'+card('역검증 추적표','25행','통과 17 · 열린 과제 5')+card('개발 원장','32지점','확정 29')+card('문서 버전','최신 1벌','이전 버전은 정리 작업으로 보관')+'</div>';
  g+='<h3>문서 정합 상태(HiDAM 체계 배포 반영)</h3>'+tbl(['문서','버전','반영'],[
   ['연동 설계안','0.7',tag('반영','ok')],['사업군 비즈니스 플랜','0.4',tag('반영','ok')],
   ['분류 정책군','0.2',tag('반영','ok')],['전사업군 최적화안','0.4',tag('반영','ok')],
@@ -86,7 +86,7 @@ function hvSC12Paint(fail,err){
  var wait=0,pass=0;it.forEach(function(x){if(x.score>=70&&x.score<90)wait++;if(x.score>=90&&x.score<100)pass++});
  var md=p.models||{};
  var ms=['Opus','Sonnet','Haiku'].map(function(k){return '<span><b>'+k+'</b> '+(md[k]==null?'-':hvEsc(md[k])+'%')+'</span>'}).join('');
- var T12=function(a){return tbl(['#','일','담당','상태','진척도'],a.slice(0,15).map(function(x){return ['<b>'+hvEsc(x.id)+'</b>',hvEsc(x.title),hvEsc(x.owner),hvEsc(x.status),hvEsc(x.score)+'%']}))+(a.length>15?'<p class="note">'+a.length+'건 중 15건 — 전체는 아래 표</p>':'')+'<p class="note">원천 cowork/progress.json(COM 진행상황판 게시본) · 갱신 '+hvEsc(p.updated||'-')+'</p>'};
+ var T12=function(a){return tbl(['#','일','담당','상태','진척도'],a.map(function(x){return ['<b>'+hvEsc(x.id)+'</b>',hvEsc(x.title),hvEsc(x.owner),hvEsc(x.status),hvEsc(x.score)+'%']}))+'<p class="note">원천 cowork/progress.json(COM 진행상황판 게시본) · 갱신 '+hvEsc(p.updated||'-')+'</p>'};
  g+='<div class="grid">'+card('주간 진척도',hvEsc(p.week)+'%','전체 '+it.length+'건 평균 · 화 18:00 마감',null,function(){return T12(it)})+card('모델별 진척도','<span class="sc12-ms">'+ms.replace(/<span>/g,'<span class="sc12-m">')+'</span>','담당 W# 평균',null,function(){return tbl(['모델','진척도','담당 W#'],['Opus','Sonnet','Haiku'].map(function(k){var a=it.filter(function(x){return x.owner===k});return [k,(md[k]==null?'-':hvEsc(md[k])+'%'),a.map(function(x){return hvEsc(x.id)+' '+hvEsc(x.score)+'%'}).join(' · ')||'-']}))+'<p class="note">원천 cowork/progress.json · 갱신 '+hvEsc(p.updated||'-')+'</p>'})+card('완료·검수 대기',wait+'건','Fable 통과 '+pass+'건 · 승인 반영 '+it.filter(function(x){return x.score>=100}).length+'건',null,function(){return '<h4>완료·검수 대기(70~89%)</h4>'+T12(it.filter(function(x){return x.score>=70&&x.score<90}))+'<h4>Fable 통과(90~99%) · 승인 반영(100%)</h4>'+T12(it.filter(function(x){return x.score>=90}))})+card('마지막 갱신',hvEsc(String(p.updated||'-').replace('T',' ').replace(/:\d\d(\+.*)?$/,'')),'progress.json updated',null,function(){return tbl(['항목','값'],[['원천','HiBiz\\01_클로_소통(COM)\\CoWork_진행상황판 → 게시 cowork/progress.json'],['갱신(updated)',hvEsc(p.updated||'-')],['이 화면이 읽은 시각',hvEsc(hvLastOk||'-')],['읽는 주기','30초']])})+'</div>';
  g+='<h3>W1~W'+it.length+' 진척도</h3><div class="tw"><table class="sc12-t"><thead><tr><th>#</th><th>일</th><th>담당</th><th>마감</th><th>상태</th><th class="sc12-bc">진척도</th><th>태스크</th><th>산출물</th><th>자가검수</th><th>Fable 판정</th><th>승인</th></tr></thead><tbody>';
  var tg={'대기':'smp','진행 가능':'gray','진행 중':'warn','완료·검수 대기':'ok','Fable 통과':'ok','통과':'ok','완료·승인':'ok','승인·반영':'ok','재작업':'bad','위반':'bad'};
