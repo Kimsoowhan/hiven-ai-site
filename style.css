@@ -141,3 +141,8 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc13-lb{display:inline-block;width:44px;flex:0 0 44px;font-weight:700;color:#16234d;font-size:13px}
 .sc13-f .sc13-lb.w{width:64px;flex-basis:64px}
 .sc13-pr{color:var(--sub);font-size:12.5px}
+/* 11/04 14:2x 대표님 지시: 줄바꿈된 버튼도 「전체」 시작선에 맞춤 */
+.sc13-f:has(>.sc13-lb){position:relative;padding-left:50px}
+.sc13-f:has(>.sc13-lb.w){padding-left:70px}
+.sc13-f>.sc13-lb{position:absolute;left:0;top:4px;width:44px}
+.sc13-f>.sc13-lb.w{width:64px}
