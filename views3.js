@@ -24,25 +24,28 @@ function hvWk(d){var x=new Date(d+'T00:00:00'),w=(x.getDay()+6)%7,m=new Date(x);
 function hvKey(e,u){if(u==='시간별')return e.hour?(e.date+' '+e.hour+'시|'+e.date.slice(5).replace('-','/')+' '+e.hour+'시'):(e.date+' 99|'+e.date.slice(5).replace('-','/')+' 시각 미기재');if(u==='일별')return e.date+'|'+e.date.slice(5).replace('-','/');if(u==='주간별')return hvWk(e.date);if(u==='연별')return e.date.slice(0,4)+'|'+e.date.slice(0,4)+'년';if(u==='전체')return 'ALL|전체 누적';return e.date.slice(0,7)+'|'+e.date.slice(0,4)+'년 '+(+e.date.slice(5,7))+'월'}
 /* 구간(하위) 버튼: 시간별→일, 일별·주간별→월, 월별·연별→연 */
 function hvPar(e,u){if(u==='시간별')return hvKey(e,'일별');if(u==='일별'||u==='주간별')return hvKey(e,'월별');if(u==='월별'||u==='연별')return hvKey(e,'연별');return ''}
-/* 기간 선택: 시작일·종료일 직접 선택 + 빠른 선택(오늘·최근 7일·이번 달·전체). 결과는 일별로 표시 */
+/* 시점·기간: 일자 선택(시작일~종료일) + 시간 선택(시작~종료, 최소 단위 분) + 빠른 선택. 하루면 시간별, 여러 날이면 일별로 표시 */
 function hvDs(x){return x.getFullYear()+'-'+pad(x.getMonth()+1)+'-'+pad(x.getDate())}
-function hvSC13Rng(a,b){hvF13.a=a;hvF13.b=b;hvSC13Paint(false)}
-function hvSelUI(A,B,D0,D1){var n=new Date(),t=hvDs(n),w=new Date(n);w.setDate(n.getDate()-6);var m=t.slice(0,8)+'01';
- var q=[['전체',D0,D1],['오늘',t,t],['최근 7일',hvDs(w),t],['이번 달',m,t]];
- return '<div class="sc13-f"><span class="sc13-lb w">기간</span><input type="date" class="sc13-d" value="'+A+'" onchange="hvSC13Set(\'a\',this.value)"><span class="sc13-pr">~</span><input type="date" class="sc13-d" value="'+B+'" onchange="hvSC13Set(\'b\',this.value)"></div>'
- +'<div class="sc13-f"><span class="sc13-lb w">빠른 선택</span>'+q.map(function(x){return '<button type="button" class="'+(A===x[1]&&B===x[2]?'on':'')+'" onclick="hvSC13Rng(\''+x[1]+'\',\''+x[2]+'\')">'+x[0]+'</button>'}).join('')+'</div>'}
+function hvHm(e){if(!e.hour)return '';var m=String(e.time||'').match(/(\d{1,2}):(\d{2})/);if(m&&+m[1]===+e.hour)return pad(+m[1])+':'+m[2];return pad(+e.hour)+':00'}
+function hvSC13Rng(a,b,ta,tb){hvF13.a=a;hvF13.b=b;hvF13.ta=ta||'00:00';hvF13.tb=tb||'23:59';hvSC13Paint(false)}
+function hvSelUI(A,B,D0,D1,TA,TB){var n=new Date(),t=hvDs(n),w=new Date(n);w.setDate(n.getDate()-6);var m=t.slice(0,8)+'01',h=new Date(n.getTime()-3600000),hm=function(z){return pad(z.getHours())+':'+pad(z.getMinutes())};
+ var q=[['전체',D0,D1,'00:00','23:59'],['최근 1시간',hvDs(h),t,hm(h),hm(n)],['오늘',t,t,'00:00','23:59'],['최근 7일',hvDs(w),t,'00:00','23:59'],['이번 달',m,t,'00:00','23:59']];
+ return '<div class="sc13-f"><span class="sc13-lb w">일자 선택</span><input type="date" class="sc13-d" value="'+A+'" onchange="hvSC13Set(\'a\',this.value)"><span class="sc13-pr">~</span><input type="date" class="sc13-d" value="'+B+'" onchange="hvSC13Set(\'b\',this.value)"></div>'
+ +'<div class="sc13-f"><span class="sc13-lb w">시간 선택</span><input type="time" step="60" class="sc13-d" value="'+TA+'" onchange="hvSC13Set(\'ta\',this.value||\'00:00\')"><span class="sc13-pr">~</span><input type="time" step="60" class="sc13-d" value="'+TB+'" onchange="hvSC13Set(\'tb\',this.value||\'23:59\')"></div>'
+ +'<div class="sc13-f"><span class="sc13-lb w">빠른 선택</span>'+q.map(function(x){return '<button type="button" class="'+(A===x[1]&&B===x[2]&&TA===x[3]&&TB===x[4]?'on':'')+'" onclick="hvSC13Rng(\''+x[1]+'\',\''+x[2]+'\',\''+x[3]+'\',\''+x[4]+'\')">'+x[0]+'</button>'}).join('')+'</div>'}
 function hvAgg(d){
- var U=['전체','시간별','일별','주간별','월별','연별','기간 선택'];var DS=d.events.map(function(e){return e.date}).sort(),D0=DS[0]||'',D1=DS[DS.length-1]||'';if(!hvF13.a)hvF13.a=D0;if(!hvF13.b)hvF13.b=D1;var SEL=hvF13.u==='기간 선택';if(U.indexOf(hvF13.u)<0)hvF13.u='전체';if(!hvF13.p)hvF13.p='전체';
+ var U=['전체','시간별','일별','주간별','월별','연별','시점·기간'];if(!hvF13.ta)hvF13.ta='00:00';if(!hvF13.tb)hvF13.tb='23:59';var DS=d.events.map(function(e){return e.date}).sort(),D0=DS[0]||'',D1=DS[DS.length-1]||'';if(!hvF13.a)hvF13.a=D0;if(!hvF13.b)hvF13.b=D1;var SEL=hvF13.u==='시점·기간';if(U.indexOf(hvF13.u)<0)hvF13.u='전체';if(!hvF13.p)hvF13.p='전체';
  var u=hvF13.u,ms=d.models.map(function(m){return m.name}),G={},K=[],PK=[];
  if(u!=='전체'&&!SEL)d.events.forEach(function(e){var q=hvPar(e,u);if(PK.indexOf(q)<0)PK.push(q)});PK.sort();
  if(hvF13.p!=='전체'&&PK.indexOf(hvF13.p)<0)hvF13.p='전체';
  var A=hvF13.a<=hvF13.b?hvF13.a:hvF13.b,B=hvF13.a<=hvF13.b?hvF13.b:hvF13.a;
- var ev=d.events.filter(function(e){return SEL?(e.date>=A&&e.date<=B):(hvF13.p==='전체'||hvPar(e,u)===hvF13.p)});
- ev.forEach(function(e){var k=hvKey(e,SEL?'일별':u);if(!G[k]){G[k]=[];K.push(k)}G[k].push(e)});
+ var S0=A+' '+hvF13.ta,S1=B+' '+hvF13.tb,FD=hvF13.ta==='00:00'&&hvF13.tb==='23:59',NX=0;
+ var ev=d.events.filter(function(e){if(!SEL)return hvF13.p==='전체'||hvPar(e,u)===hvF13.p;var m=hvHm(e);if(!m){var ok=e.date>=A&&e.date<=B;if(ok&&!FD){NX++;return false}return ok}var t=e.date+' '+m;return t>=S0&&t<=S1});
+ ev.forEach(function(e){var k=hvKey(e,SEL?(A===B?'시간별':'일별'):u);if(!G[k]){G[k]=[];K.push(k)}G[k].push(e)});
  K.sort();var cum=0,mx=1,rows=K.map(function(k){var a=G[k];cum+=a.length;if(a.length>mx)mx=a.length;return {k:k,a:a,cum:cum}});
  var g='<h3>기간별 집계 · 누적</h3><div class="sc13-f"><span class="sc13-lb w">집계 단위</span>'+U.map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvSC13Set(\'u\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>'
- +(SEL?hvSelUI(A,B,D0,D1):'')+(u==='전체'||SEL?'':'<div class="sc13-f"><span class="sc13-lb w">구간</span>'+['전체'].concat(PK).map(function(x){var lb=x==='전체'?'전체':x.split('|')[1];return '<button type="button" class="'+(hvF13.p===x?'on':'')+'" onclick="hvSC13Set(\'p\',\''+x+'\')">'+hvEsc(lb)+'</button>'}).join('')+'</div>')
- +'<div class="sc13-f sc13-pr">기간 '+(u==='전체'?(function(){var ds=ev.map(function(e){return e.date}).sort();return ds.length?hvEsc(ds[0].slice(5).replace('-','/'))+' ~ '+hvEsc(ds[ds.length-1].slice(5).replace('-','/'))+' · 전체 누적 '+ds.length+'건</div>':'-</div>'})():'')+(u==='전체'?'':hvEsc(rows.length?rows[0].k.split('|')[1]:'-')+' ~ '+hvEsc(rows.length?rows[rows.length-1].k.split('|')[1]:'-')+' · '+rows.length+'개 구간'+(SEL?' · '+ev.length+'건':'')+'</div>');
+ +(SEL?hvSelUI(A,B,D0,D1,hvF13.ta,hvF13.tb):'')+(u==='전체'||SEL?'':'<div class="sc13-f"><span class="sc13-lb w">구간</span>'+['전체'].concat(PK).map(function(x){var lb=x==='전체'?'전체':x.split('|')[1];return '<button type="button" class="'+(hvF13.p===x?'on':'')+'" onclick="hvSC13Set(\'p\',\''+x+'\')">'+hvEsc(lb)+'</button>'}).join('')+'</div>')
+ +'<div class="sc13-f sc13-pr">기간 '+(u==='전체'?(function(){var ds=ev.map(function(e){return e.date}).sort();return ds.length?hvEsc(ds[0].slice(5).replace('-','/'))+' ~ '+hvEsc(ds[ds.length-1].slice(5).replace('-','/'))+' · 전체 누적 '+ds.length+'건</div>':'-</div>'})():'')+(u==='전체'?'':hvEsc(rows.length?rows[0].k.split('|')[1]:'-')+' ~ '+hvEsc(rows.length?rows[rows.length-1].k.split('|')[1]:'-')+' · '+rows.length+'개 구간'+(SEL?' · '+ev.length+'건'+(NX?' · 시각 미기재 '+NX+'건 제외':''):'')+'</div>');
  g+='<div class="tw"><table class="sc13-t sc13-ag"><thead><tr><th>기간</th>'+ms.map(function(m){return '<th>'+hvEsc(m)+'</th>'}).join('')+'<th>질타</th><th>위반</th><th>유휴</th><th>장애</th><th>개선·지적</th><th>합계</th><th>누적</th><th class="sc13-bc">합계 / 누적</th></tr></thead><tbody>';
  rows.forEach(function(r){var c=function(f){return r.a.filter(f).length},t=function(x){return c(function(e){return e.type===x})};
   var oth=c(function(e){return /개선요청|지적/.test(e.type)});
