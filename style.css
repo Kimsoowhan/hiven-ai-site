@@ -119,3 +119,16 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc12-rh:hover{background:#eef3fa}
 .sc12-rb{margin:0;padding:10px 14px;border-top:1px solid #edf1f7;background:#f8fafd;font-family:inherit;font-size:13px;white-space:pre-wrap;word-break:break-word}
 .sc12-ban{margin:0;padding:10px 14px 10px 34px;background:#fff;border:1px solid var(--line);border-radius:12px;font-size:13px;color:var(--sub)}
+/* SC-13 모델 통제 상황 */
+.sc13-t{min-width:1180px}
+.sc13-t td{font-size:13px;vertical-align:top}
+.sc13-n{text-align:center;font-variant-numeric:tabular-nums}
+.sc13-hot{color:#9c2323;font-weight:700;background:#fdf0f0}
+.sc13-nw{white-space:nowrap}
+.sc13-t .tag{white-space:nowrap}
+.sc13-f{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0 10px;font-size:13px;color:var(--sub)}
+.sc13-f button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 10px;font-size:12.5px;cursor:pointer}
+.sc13-f button.on{background:#16234d;color:#fff;border-color:#16234d}
+.sc13-sp{width:14px}
+.sc13-path{font-size:12.5px;background:#eef1fb;border:1px solid #c9d2f0;border-radius:10px;padding:8px 12px;margin:6px 0 4px;line-height:1.6}
+.sc13-path b{color:#16234d;margin-right:6px}

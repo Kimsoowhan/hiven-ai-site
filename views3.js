@@ -1,0 +1,43 @@
+/* SC-13 모델 통제 상황 — 데이터 연동 경로(대표님 지시 11/04 13:56·13:58): 원천 HiBiz\01_클로_소통(COM)\모델통제(CTL)\모델통제_통합이력.tsv·모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv·model_control_status.tsv(원천 그대로 복사·푸시) → 화면 30초마다 읽음 */
+var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체'};
+V['SC-13']=function(){
+ setTimeout(hvSC13Start,0);
+ return '<div id="sc13"><h2>SC-13 모델 통제 상황</h2><p class="lead">Fable · Opus · Sonnet · Haiku 의 지시 이행, 대표님 질타·개선요청·지적, 위반, 유휴(멈춤·불이행), 장애 이력입니다. </p><p class="note"><b>데이터 연동 경로</b> 원천 HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv · model_control_status.tsv → 이 화면(30초마다 다시 읽음)</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv (모델별: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: 저장소 hiven-ai-site / cowork/model_control.json (원천 tsv에서 변환, 푸시로 반영) → ③ 표시: 이 화면이 30초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
+};
+function hvSC13Start(){
+ if(hvT13){clearInterval(hvT13);hvT13=null}
+ hvSC13Load();
+ hvT13=setInterval(function(){if(!$('sc13')){clearInterval(hvT13);hvT13=null;return}hvSC13Load()},30000);
+}
+function hvTsv(t){var L=String(t||'').split(/\r?\n/).filter(function(x){return x.trim()});var h=L.shift();h=h?h.split('\t'):[];return L.map(function(x){return x.split('\t')})}
+function hvSC13Load(){
+ Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/model_control_status.tsv','text')]).then(function(r){
+  if(!$('sc13'))return;
+  var T=['질타','개선요청','지적','지적(자가 발견)','위반','유휴','장애'];
+  var ev=hvTsv(r[0]).map(function(c){return {no:c[0],time:c[1],model:c[2],type:c[3],content:c[4],cause:c[5],action:c[6],status:c[7],fable:c[8]||'대기'}});
+  var ms=hvTsv(r[1]).map(function(c){var cnt={};T.forEach(function(t){cnt[t]=0});ev.forEach(function(e){if(e.model===c[0]&&cnt[e.type]!=null)cnt[e.type]++});return {name:c[0],role:c[1],assigned:c[2],done:c[3],pending:c[4],counts:cnt,updated:c[5]}});
+  hvLast13={types:T,events:ev,models:ms,updated:(ms[0]&&ms[0].updated)||''};hvLastOk13=kst();hvSC13Paint(false);
+ },function(e){if($('sc13'))hvSC13Paint(true,e)});
+}
+function hvSC13Set(k,v){hvF13[k]=v;hvSC13Paint(false)}
+function hvSC13Paint(fail,err){
+ var st=$('sc13-st'),b=$('sc13-b');if(!st||!b)return;
+ if(fail){st.innerHTML='<span class="tag bad">게시본 없음</span> 마지막 성공 시각 '+(hvLastOk13?hvEsc(hvLastOk13):'없음')+' · 30초 뒤 다시 시도'+(err?' ('+hvEsc(err.message)+')':'');if(!hvLast13){b.innerHTML='<p class="note">cowork/ctl/ 게시본(model_control_history.tsv·model_control_status.tsv)을 읽지 못했습니다.</p>';return}}
+ else st.innerHTML='<span class="tag ok">게시본 읽음</span> 확인 '+hvEsc(hvLastOk13)+' · 원천 갱신 '+hvEsc(hvLast13.updated)+' · 30초마다 자동 새로고침';
+ var d=hvLast13,T=d.types||[],ev=d.events,g='';
+ var tot=ev.length,open=ev.filter(function(e){return e.status!=='조치 완료'}).length,rb=ev.filter(function(e){return e.type==='질타'}).length,vi=ev.filter(function(e){return e.type==='위반'||e.type==='유휴'}).length,fw=ev.filter(function(e){return e.fable==='대기'}).length;
+ g+='<div class="grid">'+card('전체 이력',tot+'건','4개 모델 합계')+card('대표님 질타',rb+'건','「질타」 구분')+card('위반·유휴',vi+'건','지시 불이행·멈춤 포함')+card('조치 미완료',open+'건',open?'조치 필요':'모두 조치 완료')+card('Fable 확인 대기',fw+'건','「체크」 때 판정')+'</div>';
+ g+='<h3>모델별 현황</h3><div class="tw"><table class="sc13-t"><thead><tr><th>모델</th><th>역할</th><th>오늘 배포 작업</th><th>완료</th><th>남은 일</th>'+T.map(function(t){return '<th>'+hvEsc(t)+'</th>'}).join('')+'<th>합계</th></tr></thead><tbody>';
+ d.models.forEach(function(m){var c=m.counts||{},s=0;T.forEach(function(t){s+=(+c[t]||0)});
+  g+='<tr><td><b>'+hvEsc(m.name)+'</b></td><td>'+hvEsc(m.role)+'</td><td>'+hvEsc(m.assigned)+'</td><td>'+hvEsc(m.done)+'</td><td>'+hvEsc(m.pending)+'</td>'+T.map(function(t){var n=+c[t]||0;return '<td class="sc13-n'+(n&&(t==='질타'||t==='위반'||t==='유휴')?' sc13-hot':'')+'">'+n+'</td>'}).join('')+'<td class="sc13-n"><b>'+s+'</b></td></tr>'});
+ g+='</tbody></table></div>';
+ var ms=['전체'].concat(d.models.map(function(m){return m.name})),ts=['전체'].concat(T);
+ g+='<h3>이력</h3><div class="sc13-f">모델 '+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'<span class="sc13-sp"></span>구분 '+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>';
+ var tg={'질타':'bad','위반':'bad','유휴':'bad','지적':'warn','지적(자가 발견)':'warn','개선요청':'gray','장애':'warn'};
+ var rows=ev.filter(function(e){return (hvF13.m==='전체'||e.model===hvF13.m)&&(hvF13.t==='전체'||e.type===hvF13.t)}).slice().reverse();
+ g+='<div class="tw"><table class="sc13-t"><thead><tr><th>#</th><th>시각</th><th>모델</th><th>구분</th><th>대표님 지시·질타 요지</th><th>원인</th><th>조치</th><th>상태</th><th>Fable</th></tr></thead><tbody>';
+ g+=rows.length?rows.map(function(e){return '<tr><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(e.type)+'</span></td><td>'+hvEsc(e.content)+'</td><td>'+hvEsc(e.cause)+'</td><td>'+hvEsc(e.action)+'</td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'">'+hvEsc(e.status)+'</span></td><td>'+hvEsc(e.fable)+'</td></tr>'}).join(''):'<tr><td colspan="9">해당 이력이 없습니다.</td></tr>';
+ g+='</tbody></table></div><p class="note">기록 규칙: 질타·개선요청·지적·위반·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항).</p>';
+ g+=hvBan();
+ b.innerHTML=g;
+}
