@@ -74,10 +74,10 @@ function hvSC13Paint(fail,err){
  var tg={'질타':'bad','위반':'bad','유휴':'bad','지적':'warn','지적(자가 발견)':'warn','개선요청':'gray','장애':'warn'};
  var rows=ev.filter(function(e){return (hvF13.m==='전체'||e.model===hvF13.m)&&(hvF13.t==='전체'||e.type===hvF13.t)}).slice().reverse(),PGH=hvPage(rows,'13h');rows=PGH.rows;
  g+='<div class="tw"><table class="sc13-t"><thead><tr><th>#</th><th>날짜</th><th>시각</th><th>모델</th><th>구분</th><th>대표님 지시·질타 요지</th><th>원인</th><th>조치</th><th>상태</th><th>Fable</th></tr></thead><tbody>';
- g+=rows.length?rows.map(function(e){return '<tr><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.date)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(e.type)+'</span></td><td>'+hvEsc(e.content)+'</td><td>'+hvEsc(e.cause)+'</td><td>'+hvEsc(e.action)+'</td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'">'+hvEsc(e.status)+'</span></td><td>'+hvEsc(e.fable)+'</td></tr>'}).join(''):'<tr><td colspan="10">해당 이력이 없습니다.</td></tr>';
- g+='</tbody></table></div>'+hvPager(PGH,'건','hvSC13Paint')+'<p class="note">기록 규칙: 질타·개선요청·지적·위반·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항).</p>';
+ g+=rows.length?rows.map(function(e){return '<tr onclick="this.classList.toggle(\'sc13-open\')"><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.date)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(e.type)+'</span></td><td class="sc13-cl"><div title="'+hvEsc(e.content)+'">'+hvEsc(e.content)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.cause)+'">'+hvEsc(e.cause)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.action)+'">'+hvEsc(e.action)+'</div></td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'">'+hvEsc(e.status)+'</span></td><td>'+hvEsc(e.fable)+'</td></tr>'}).join(''):'<tr><td colspan="10">해당 이력이 없습니다.</td></tr>';
+ g+='</tbody></table></div>'+hvPager(PGH,'건','hvSC13Paint')+'<p class="note">긴 글은 2줄까지 보이고 「…」로 줄입니다. 줄을 누르면(PC는 마우스를 올리면) 전문이 보입니다. 기록 규칙: 질타·개선요청·지적·위반·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항).</p>';
  g+=hvBan();
  b.innerHTML=g;
- if(!fail&&hvPgMeasure()&&!hvRe13){hvRe13=true;hvSC13Paint(false);hvRe13=false}
+ if(!fail&&!hvRe13&&!hvPgAll){hvRe13=true;try{hvPgFit('13','13h','hvSC13Paint')}finally{hvRe13=false}}else if(!fail){hvPgStatic('13')}
 }
 var hvRe13=false;

@@ -160,3 +160,9 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .hv-pg button[disabled]{opacity:.4;cursor:default}
 .hv-pg .hv-pg-a{border-radius:999px;padding:3px 12px}
 .hv-pg .hv-pg-i{flex-basis:100%;text-align:center;margin-top:2px}
+
+/* 11/04 15:08 대표님 지시: 이력 표 줄 높이 고정 — 긴 글 2줄 말줄임, 누르면 전문 */
+.sc13-t td.sc13-cl{min-width:160px}
+.sc13-t td.sc13-cl>div{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45}
+.sc13-t tr.sc13-open td.sc13-cl>div{display:block;-webkit-line-clamp:unset;overflow:visible}
+.sc13-t tbody tr{cursor:pointer}

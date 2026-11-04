@@ -30,8 +30,30 @@ function card(k,v,s,to){
 var V={};
 /* 공통 표 규칙(대표님 11/04 14:29~14:33 지시): 모든 표는 ① 맨 위가 가장 최근(최신순) ② 한 쪽 줄 수는 화면 크기에 맞춰 자동 계산(폰·태블릿·PC 공통: 화면 높이에서 머리글·필터 몫을 뺀 뒤 기준 줄 높이(폰 58·PC 44)로 나눔, 같은 화면의 모든 표가 같은 줄 수, 최대 15줄(대표님 11/04 14:41 지시: 15줄을 넘지 않음), 최소 4줄) ③ 표 아래 「◀ 이전 · 쪽 번호 · 다음 ▶」 토글(현재 쪽/전체 쪽 표시). 창 크기·방향이 바뀌면 다시 계산해 다시 그린다. */
 var HV_PG_MAX=15,HV_PG_MIN=4,hvPgS={},hvRowH={};
-/* 11/04 14:45 대표님 지시: 같은 화면에서는 모든 표가 같은 줄 수(표마다 줄 높이를 따로 재지 않음, 화면 크기와 기준 줄 높이로 한 번만 계산) */
-function hvPgN(key){var h=window.innerHeight||800,rh=(window.innerWidth<700?58:44),free=h-(window.innerWidth<700?230:280);return Math.max(HV_PG_MIN,Math.min(HV_PG_MAX,Math.floor(free/rh)))}
+/* 11/04 14:45·15:08 대표님 지시: 한 쪽 줄 수는 화면마다 기준 표(SC-13=이력, SC-12=진척도)의 영역 전체(제목·필터·표 머리·줄·쪽 번호)가
+   창 높이 안에 고정되게 실측으로 정한다. 어느 쪽을 펴도 영역이 창을 넘지 않는 가장 큰 줄 수(1~15), 같은 화면의 모든 표는 같은 줄 수.
+   표 영역 높이는 고정(마지막 쪽에서 줄이 적어도 쪽 번호 위치가 움직이지 않음). 창 크기·방향이 바뀌면 다시 잰다. */
+var hvPgFix={},hvPgAll=null;
+function hvPgN(key){var sc=key.slice(0,2);if(hvPgAll===sc)return 9999;var f=hvPgFix[sc];if(f&&f.vk===innerWidth+'x'+innerHeight)return f.n;var h=window.innerHeight||800,rh=(window.innerWidth<700?58:44),free=h-(window.innerWidth<700?230:280);return Math.max(HV_PG_MIN,Math.min(HV_PG_MAX,Math.floor(free/rh)))}
+function hvPgFit(sc,ref,fn){var vk=innerWidth+'x'+innerHeight,f=hvPgFix[sc];if(f&&f.vk===vk){hvPgStatic(sc);return}
+ hvPgAll=sc;try{window[fn](false)}finally{hvPgAll=null}
+ var pg=document.querySelector('.hv-pg[data-pg="'+ref+'"]'),tw=pg&&pg.previousElementSibling,tb=tw&&tw.querySelector('tbody');
+ if(!tb||tb.rows.length<2){hvPgFix[sc]={vk:vk,n:hvPgN('x'),tw:0};window[fn](false);return}
+ var hd=tw;while(hd&&hd.tagName!=='H3')hd=hd.previousElementSibling;
+ var top=(hd||tw).getBoundingClientRect().top,tr=tb.getBoundingClientRect(),twr=tw.getBoundingClientRect(),pr=pg.getBoundingClientRect();
+ var hs=[].map.call(tb.rows,function(r){return r.getBoundingClientRect().height}),body=tr.height;
+ var chrome=(pr.bottom-top)-body,avail=innerHeight-16-chrome;
+ function nFor(av){for(var k=HV_PG_MAX;k>=1;k--){var ok=true;for(var i=0;i<hs.length;i++){var sm=0;for(var j=i;j<Math.min(i+k,hs.length);j++)sm+=hs[j];if(sm>av){ok=false;break}if(i+k>=hs.length)break}if(ok)return k}return 1}
+ hvPgFix[sc]={vk:vk,n:nFor(avail),avail:Math.max(avail,0),head:tr.top-twr.top,foot:twr.bottom-tr.bottom};
+ /* 실제 화면(쪽 번호 줄바꿈 포함)으로 모든 쪽을 다시 재서, 넘치면 넘친 만큼 표 영역 높이를 줄이고 줄 수를 다시 계산 */
+ var cur=+hvPgS[ref]||0;
+ for(var guard=0;guard<6;guard++){var fx=hvPgFix[sc],worst=0;hvPgS[ref]=0;window[fn](false);
+  var P0=document.querySelector('.hv-pg[data-pg="'+ref+'"]');if(!P0)break;var np=Math.ceil(hs.length/fx.n);
+  for(var q=0;q<np;q++){hvPgS[ref]=q;window[fn](false);var P=document.querySelector('.hv-pg[data-pg="'+ref+'"]'),T=P.previousElementSibling,H=T;while(H&&H.tagName!=='H3')H=H.previousElementSibling;var ov=P.getBoundingClientRect().bottom-(H||T).getBoundingClientRect().top-(innerHeight-8);if(ov>worst)worst=ov}
+  if(worst<=0)break;fx.avail=Math.max(0,fx.avail-Math.ceil(worst));fx.n=nFor(fx.avail)}
+ hvPgS[ref]=cur;window[fn](false)}
+/* 쪽이 2개 이상인 표는 표 영역 높이를 고정 */
+function hvPgStatic(sc){var f=hvPgFix[sc];if(!f||!f.avail)return;document.querySelectorAll('.hv-pg[data-pg^="'+sc+'"]').forEach(function(p){var tw=p.previousElementSibling;if(!tw)return;var many=p.querySelectorAll('button:not(.hv-pg-a)').length>1;tw.style.minHeight=many?Math.round(f.head+f.avail+f.foot)+'px':''})}
 function hvPage(list,key){var n0=hvPgN(key),n=Math.max(1,Math.ceil(list.length/n0)),i=Math.min(Math.max(0,+hvPgS[key]||0),n-1);hvPgS[key]=i;return {rows:list.slice(i*n0,(i+1)*n0),i:i,n:n,tot:list.length,key:key,per:n0}}
 function hvPgGo(key,i,fn){hvPgS[key]=i;if(typeof window[fn]==='function')window[fn](false)}
 function hvPgReset(pre){for(var k in hvPgS)if(k.indexOf(pre)===0)hvPgS[k]=0}
@@ -40,7 +62,7 @@ function hvPgMeasure(){return false;var ch=false;document.querySelectorAll('.hv-
 var hvRsT=null;window.addEventListener('resize',function(){clearTimeout(hvRsT);hvRsT=setTimeout(function(){['hvSC12Paint','hvSC13Paint'].forEach(function(f){if(typeof window[f]==='function')window[f](false)})},200)});
 function hvPager(pg,unit,fn){var PP=pg.per||HV_PG_MAX,a=pg.tot?pg.i*PP+1:0,b=Math.min(pg.tot,(pg.i+1)*PP),nums='';
  for(var j=0;j<pg.n;j++){if(pg.n>9&&Math.abs(j-pg.i)>3&&j!==0&&j!==pg.n-1){if(nums.slice(-1)!=='…')nums+='…';continue}nums+='<button type="button" class="'+(j===pg.i?'on':'')+'" onclick="hvPgGo(\''+pg.key+'\','+j+',\''+fn+'\')">'+(j+1)+'</button>'}
- return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+unit+'(화면 크기에 맞춰 자동, 같은 화면의 모든 표 동일, 최대 15줄)</span></div>'}
+ return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+unit+'(이력 영역이 한 화면에 들어가게 실측, 같은 화면의 모든 표 동일, 최대 15줄)</span></div>'}
 var cur='SC-01';
 /* 열쇠 확인(샘플 인트로: 화면 안내용이며 서버 보안이 아님) */
 var KEY=[104,105,98,105,122];
