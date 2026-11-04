@@ -64,3 +64,6 @@ V['SC-10']=function(){
  g+='<h3>경보</h3>'+tbl(['시각','심각도','대상','내용'],HVR.issues.map(function(r){return [r[0].slice(5),tag(r[1],r[1]==='경고'?'warn':'gray'),r[2],r[3]]}));
  return g+hvChk()};
 V['SC-11']=hvTestOnly('SC-11','형상·변경');
+/* 머리띠(상단 칩): 원본은 실측만 — 대응 모드는 원천 없음, 데이터 신선도는 HiClo 마지막 판정 기준, 갱신은 원천 확인 시각 */
+function hvHdr(){try{var c=document.getElementById('chip-mode');if(c)c.innerHTML='<span class="dot" style="background:#9e9e9e"></span>대응 모드 <b>확인 안 됨</b>';var f=document.getElementById('ftxt');if(f)f.textContent='데이터 신선도 · HiClo 판정 '+hvAge()+' 전(끊김)';var u=document.getElementById('upd');if(u)u.textContent=HVR.chk+' (원천 확인)'}catch(e){}}
+function hvWrap(){var o=render;render=function(id){o(id);hvHdr()};hvHdr();setInterval(hvHdr,5000)}

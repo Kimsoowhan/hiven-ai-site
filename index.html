@@ -27,7 +27,7 @@
 <div id="app" class="hide">
  <header class="top">
   <div class="nm">HIVEN 자동화 통합 통제<small>AICS 관측 화면 · 관리자 대시보드</small></div>
-  <span class="chip"><span class="dot ok"></span>대응 모드 <b>상시</b></span>
+  <span class="chip" id="chip-mode"><span class="dot ok"></span>대응 모드 <b>상시</b></span>
   <span class="chip"><span class="dot warn"></span><span id="ftxt">데이터 신선도</span></span>
   <span class="chip">갱신 <b id="upd">-</b></span>
   <span class="sp"></span>
@@ -45,8 +45,9 @@
 <script src="views1.js"></script>
 <script src="views2.js?v=20261104e"></script>
 <script src="views3.js?v=20261104r"></script>
-<script src="views0.js?v=20261104a"></script>
+<script src="views0.js?v=20261104b"></script>
 <script src="app.js?v=20261104c"></script>
+<script>hvWrap()</script>
 <script id="mvn-js">(function(){var n=document.querySelector(".mvn");if(!n)return;n.querySelectorAll("button").forEach(function(b){var d=+b.dataset.d,t=null,r=null,h=false;function stop(){clearTimeout(t);cancelAnimationFrame(r);r=null}function loop(){window.scrollBy(0,d*14);r=requestAnimationFrame(loop)}b.addEventListener("pointerdown",function(e){e.preventDefault();h=false;t=setTimeout(function(){h=true;loop()},280)});["pointerup","pointerleave","pointercancel"].forEach(function(ev){b.addEventListener(ev,function(){var was=h;stop();if(ev=="pointerup"&&!was){window.scrollTo({top:d<0?0:document.documentElement.scrollHeight,behavior:"smooth"})}h=false})});b.addEventListener("contextmenu",function(e){e.preventDefault()})})})();</script>
 </body>
 </html>
