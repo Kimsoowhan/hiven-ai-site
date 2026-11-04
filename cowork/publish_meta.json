@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 05:07",
+ "published": "2026-11-05 05:10",
  "by": "Opus",
- "history_rows": 193,
- "lifecycle_rows": 193,
+ "history_rows": 194,
+ "lifecycle_rows": 194,
  "consistent": true,
  "files": [
   {
@@ -10,8 +10,8 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "20c06bcee2d0c713",
-   "mtime": "2026-11-05 05:07"
+   "sha16": "87e75b479d6658a0",
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "board.md",
@@ -19,15 +19,15 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "2093b48689b092b6",
-   "mtime": "2026-11-05 05:07"
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-12",
-   "rows": 27,
-   "sha16": "cab7852b69366f1a",
-   "mtime": "2026-11-05 05:07"
+   "rows": 28,
+   "sha16": "cfda700617de09ac",
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "reports/index.json",
@@ -35,15 +35,15 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "ef8df24fc8fdaaab",
-   "mtime": "2026-11-05 05:07"
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 193,
-   "sha16": "983cdaf47f737895",
-   "mtime": "2026-11-05 05:07"
+   "rows": 194,
+   "sha16": "6e76525ed97922d4",
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -57,17 +57,17 @@
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 193,
-   "sha16": "88d0edd02cb8ae3c",
-   "mtime": "2026-11-05 05:07"
+   "rows": 194,
+   "sha16": "51a778d3f3397559",
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-01·SC-04",
    "rows": null,
-   "sha16": "71a254634182f5d9",
-   "mtime": "2026-11-05 05:07"
+   "sha16": "30585b72d939a1bf",
+   "mtime": "2026-11-05 05:10"
   },
   {
    "file": "ctl/trace_v.tsv",
