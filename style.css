@@ -251,3 +251,8 @@ button.card.cbtn.c-grn{background:#e7f6ec;border-color:#9fd4b0}.cbtn.c-grn .v{co
 .cbtn.c-red.on,.cbtn.c-red2.on,.cbtn.c-org.on,.cbtn.c-yel.on,.cbtn.c-grn.on{background:#2a52be;border-color:#2a52be}
 .cbtn.c-red.on .v,.cbtn.c-red2.on .v,.cbtn.c-org.on .v,.cbtn.c-yel.on .v,.cbtn.c-grn.on .v{color:#fff}
 .cbtn.c-red2.on .k,.cbtn.c-red2.on .s,.cbtn.c-org.on .k,.cbtn.c-org.on .s,.cbtn.c-yel.on .k,.cbtn.c-yel.on .s,.cbtn.c-grn.on .k,.cbtn.c-grn.on .s,.cbtn.c-red.on .k,.cbtn.c-red.on .s{color:#dbe6ff}
+/* 11/04 18:21 눌림 반전 고침: 색 상자 규칙과 같은 우선순위로 눌림 바탕·글자 반전, 경보 = 적보라(진한)로 위험 요건 식별 */
+button.card.cbtn.c-red2{background:#8e2457;border-color:#8e2457}.cbtn.c-red2 .k,.cbtn.c-red2 .s{color:#f7d9e6}.cbtn.c-red2 .v{color:#fff}
+button.card.cbtn.c-red.on,button.card.cbtn.c-red2.on,button.card.cbtn.c-org.on,button.card.cbtn.c-yel.on,button.card.cbtn.c-grn.on{background:#2a52be;border-color:#2a52be}
+button.card.cbtn.on .k,button.card.cbtn.on .s{color:#dbe6ff}button.card.cbtn.on .v{color:#fff}
+button.card.cbtn.sky.on .k,button.card.cbtn.sky.on .s{color:#c9d3ea}
