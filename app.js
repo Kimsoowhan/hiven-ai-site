@@ -1,5 +1,5 @@
 function hvgo(id){cur=id;render(id);window.scrollTo({top:0})}
-function hvgoHist(){hvgo('SC-13');var n=0;var t=setInterval(function(){n++;var e=[].slice.call(document.querySelectorAll('#main h2,#main h3,#main h4,#main b,#main span,#main div')).filter(function(x){return x.childElementCount===0&&x.textContent.trim()==='이력'})[0];if(e){clearInterval(t);e.scrollIntoView({block:'start'})}else if(n>40){clearInterval(t)}},100)}
+function hvgoHist(){hvgo('SC-13');var n=0;var t=setInterval(function(){n++;var e=[].slice.call(document.querySelectorAll('#main h2,#main h3,#main h4,#main b,#main span,#main div')).filter(function(x){return x.childElementCount===0&&x.textContent.trim()==='구분별 변동 추이'})[0];if(e){clearInterval(t);e.scrollIntoView({block:'start'})}else if(n>40){clearInterval(t)}},100)}
 function parse(t){
  t=String(t||'').trim();
  if(!t)return '입력하면 해석 결과가 여기에 표시됩니다.';
