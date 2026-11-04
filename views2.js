@@ -47,3 +47,38 @@ V['SC-11']=function(){
   ['33','11/02 08:03','HiDAM 체계 배포 · 저장 주기 60분'],
   ['32','11/02 07:57','음성·문자 전달 체계']]);
  return g};
+
+/* SC-12 통합사업관리 작업상황 — 01_클로_소통(COM)\CoWork_진행상황판 사본(/cowork/board.md)을 읽어 표시. 저장소에 올라온 시점이 기준. */
+V['SC-12']=function(){
+ setTimeout(hvCowork,0);
+ return '<h2>SC-12 통합사업관리 작업상황</h2><p class="lead">CoWork 진행상황판(COM)의 게시본입니다. 원본: HiBiz\\01_클로_소통(COM)\\CoWork_진행상황판-261104.md · <span id="cw-upd">읽는 중…</span></p><div id="cw"></div>'};
+function hvMdTables(md){
+ var out=[],lines=md.split(/\r?\n/),i=0;
+ while(i<lines.length){
+  if(/^\|/.test(lines[i])&&i+1<lines.length&&/^\|[\s:|-]+\|$/.test(lines[i+1])){
+   var head=lines[i].split('|').slice(1,-1).map(function(s){return s.trim()}),rows=[];i+=2;
+   while(i<lines.length&&/^\|/.test(lines[i])){rows.push(lines[i].split('|').slice(1,-1).map(function(s){return s.trim()}));i++}
+   var t=i-rows.length-3;while(t>=0&&!/^#/.test(lines[t]))t--;
+   out.push({title:t>=0?lines[t].replace(/^#+\s*/,''):'',head:head,rows:rows});
+  }else i++;
+ }
+ return out;
+}
+function hvEsc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+function hvCowork(){
+ var el=$('cw'),up=$('cw-upd');if(!el)return;
+ fetch('/cowork/board.md?v='+Date.now(),{cache:'no-store'}).then(function(r){
+  if(!r.ok)throw new Error(r.status);up.textContent='게시 시각 '+(r.headers.get('last-modified')?new Date(r.headers.get('last-modified')).toLocaleString('ko-KR'):'확인 안 됨');return r.text();
+ }).then(function(md){
+  var T=hvMdTables(md),g='';
+  var st={'대기':'smp','승인 대기':'warn','진행 중':'warn','완료·검수 대기':'ok','통과':'ok','위반':'bad','완료':'ok'};
+  T.forEach(function(t){
+   g+='<h3 style="margin:18px 0 6px">'+hvEsc(t.title)+'</h3><div style="overflow:auto"><table><thead><tr>'+t.head.map(function(h){return '<th>'+hvEsc(h)+'</th>'}).join('')+'</tr></thead><tbody>';
+   t.rows.forEach(function(r){g+='<tr>'+r.map(function(c,j){var k=st[c];return '<td>'+(k?'<span class="tag '+k+'">'+hvEsc(c)+'</span>':hvEsc(c))+'</td>'}).join('')+'</tr>'});
+   g+='</tbody></table></div>';
+  });
+  var m=md.match(/## 금지 4조항[\s\S]*?(?=\n## )/);
+  if(m)g+='<p class="note" style="white-space:pre-wrap;margin-top:14px">'+hvEsc(m[0])+'</p>';
+  el.innerHTML=g||'<p class="note">표를 찾지 못했습니다.</p>';
+ }).catch(function(e){up.textContent='읽기 실패 '+e.message;el.innerHTML='<p class="note">/cowork/board.md 를 읽지 못했습니다. 게시본이 아직 올라가지 않았거나 경로가 다릅니다.</p>'});
+}
