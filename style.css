@@ -229,3 +229,5 @@ button.card.cbtn.sky{background:#16234d;border-color:#16234d}.cbtn.sky .k,.cbtn.
 .sc01-tb td:first-child,.sc01-tb td:nth-child(2){white-space:nowrap}
 /* 17:57 모델통제 이력은 성격이 다른 묶음 → 11번 표도 남색 띠로 구별 */
 .sc01-tb.sky h3{background:#16234d;color:#fff;padding:6px 10px;border-radius:8px}
+/* 11/04 17:59 SC-13 「Fable 확인 대기」 상자 = 연한 하늘색 바탕으로 구별(눌림은 공통 남색) */
+.sc13-cb.lsky{background:#e6f4fd;border-color:#b9def5}.sc13-cb.lsky.on{background:#16234d;border-color:#16234d}
