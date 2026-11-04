@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 04:19",
- "by": "Opus",
- "history_rows": 190,
- "lifecycle_rows": 190,
+ "published": "2026-11-05 04:29",
+ "by": "Sonnet",
+ "history_rows": 191,
+ "lifecycle_rows": 191,
  "consistent": true,
  "files": [
   {
@@ -10,64 +10,64 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "6e32d50865c539ff",
-   "mtime": "2026-11-05 04:19"
+   "sha16": "35002caa540d7385",
+   "mtime": "2026-11-05 04:29"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "c235426d033238fd",
-   "mtime": "2026-11-05 04:19"
+   "sha16": "4535c8b2ec0fa316",
+   "mtime": "2026-11-05 04:29"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-12",
-   "rows": 22,
-   "sha16": "d46095b995125f77",
-   "mtime": "2026-11-05 04:19"
+   "rows": 23,
+   "sha16": "2669e54f74c29b17",
+   "mtime": "2026-11-05 04:29"
   },
   {
    "file": "reports/index.json",
    "source": "COM\\일일보고\\",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "2bc2295af36c64ae",
-   "mtime": "2026-11-05 04:19"
+   "sha16": "5e0ec1fc60b50ad9",
+   "mtime": "2026-11-05 04:29"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 190,
-   "sha16": "b59a725443a4d63e",
-   "mtime": "2026-11-05 04:14"
+   "rows": 191,
+   "sha16": "44b5e42da2a446b9",
+   "mtime": "2026-11-05 04:28"
   },
   {
    "file": "ctl/model_control_status.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_현황.tsv",
    "screen": "SC-13",
    "rows": 5,
-   "sha16": "d1b0291e06a2bd7b",
-   "mtime": "2026-11-05 02:46"
+   "sha16": "87beee9a47fbbedf",
+   "mtime": "2026-11-05 04:28"
   },
   {
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 190,
-   "sha16": "6263d656801f22bc",
-   "mtime": "2026-11-05 04:14"
+   "rows": 191,
+   "sha16": "e2ca2000c80adcf1",
+   "mtime": "2026-11-05 04:29"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-01·SC-04",
    "rows": null,
-   "sha16": "4c25f684231b26e3",
-   "mtime": "2026-11-05 04:14"
+   "sha16": "b7c2f592bc50d224",
+   "mtime": "2026-11-05 04:29"
   },
   {
    "file": "ctl/trace_v.tsv",
