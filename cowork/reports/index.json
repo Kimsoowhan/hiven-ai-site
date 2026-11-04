@@ -1,15 +1,57 @@
 [
  {
-  "file": "일일보고_Opus_261104.txt",
+  "file": "일일보고_Opus_워크0005.txt",
   "model": "Opus",
-  "date": "2026-11-04",
-  "title": "일일보고_Opus_261104"
+  "date": "워크 0005",
+  "title": "일일보고_Opus_워크0005"
+ },
+ {
+  "file": "일일보고_Sonnet_워크0004.txt",
+  "model": "Sonnet",
+  "date": "워크 0004",
+  "title": "일일보고_Sonnet_워크0004"
+ },
+ {
+  "file": "일일보고_Opus_워크0004.txt",
+  "model": "Opus",
+  "date": "워크 0004",
+  "title": "일일보고_Opus_워크0004"
+ },
+ {
+  "file": "일일보고_Sonnet_워크0003.txt",
+  "model": "Sonnet",
+  "date": "워크 0003",
+  "title": "일일보고_Sonnet_워크0003"
+ },
+ {
+  "file": "일일보고_Opus_워크0003.txt",
+  "model": "Opus",
+  "date": "워크 0003",
+  "title": "일일보고_Opus_워크0003"
+ },
+ {
+  "file": "일일보고_Sonnet_워크0002.txt",
+  "model": "Sonnet",
+  "date": "워크 0002",
+  "title": "일일보고_Sonnet_워크0002"
+ },
+ {
+  "file": "일일보고_Opus_워크0002.txt",
+  "model": "Opus",
+  "date": "워크 0002",
+  "title": "일일보고_Opus_워크0002"
  },
  {
   "file": "일일보고_Sonnet_261104.txt",
   "model": "Sonnet",
   "date": "2026-11-04",
   "title": "일일보고_Sonnet_261104"
+ },
+ {
+  "file": "일일보고_Opus_261104.txt",
+  "model": "Opus",
+  "date": "2026-11-04",
+  "title": "일일보고_Opus_261104"
  },
  {
   "file": "일일보고_Haiku_261104_1.4_작업.txt",

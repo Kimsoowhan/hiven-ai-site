@@ -1,10 +1,10 @@
 V['SC-01']=function(){
  var g='<h2>SC-01 종합 현황</h2><p class="lead">대표님이 한 화면에서 7개 사업군·구동 상태·경보를 봅니다. 숫자를 누르면 해당 화면으로 이동합니다.</p>';
  g+='<div class="grid">'+
-  card('AICS 구동','구동 중','정지 아님 · '+tag('실측','ok'),'SC-03')+
-  card('HiClo.app','3.1.2','판정 5분 순환 · '+tag('실측','ok'),'SC-03')+
-  card('HIVEN.app','1.6','24시간 시험 관측 중 · '+tag('실측','ok'),'SC-03')+
-  card('노트북 저장 주기','60분','30분 자동 예약 · '+tag('실측','ok'),'SC-03')+
+  card('AICS 구동','구동 중(11/02)','지난 값 · '+tag('샘플(11/02 스냅샷)','gray'),'SC-03')+
+  card('HiClo.app','3.1.2','판정 5분 순환 · '+tag('샘플(11/02 스냅샷)','gray'),'SC-03')+
+  card('HIVEN.app','1.6','24시간 시험 관측 중 · '+tag('샘플(11/02 스냅샷)','gray'),'SC-03')+
+  card('노트북 저장 주기','60분','30분 자동 예약 · '+tag('샘플(11/02 스냅샷)','gray'),'SC-03')+
   card('7개 사업군','7','정상 5 · 구성 중 2 · '+tag('샘플','smp'),'SC-02')+
   card('경보','2건','주의 2 · 위험 0 · '+tag('샘플','smp'),'SC-10')+'</div>';
  g+='<h3>사업군 한눈에</h3><div class="grid">'+BG.map(function(b){
@@ -12,7 +12,7 @@ V['SC-01']=function(){
  g+='<h3>경보 상위</h3>'+tbl(['시각','심각도','대상','내용'],[
   ['08:10',tag('주의','warn'),'HiClo','클로 단계 4(맥박) — 기억 회복 확인 중'],
   ['08:05',tag('주의','warn'),'HiServe','통합 서비스 플랫폼 연계 일부 구성 중']]);
- g+='<p class="note">[실측]은 노트북 HiClo 판정 파일(08:04:58) 값, [샘플]은 시험용 값입니다. 자동 게시(PR-15)가 연결되면 같은 자리에 실제 값이 들어갑니다.</p>';
+ g+='<p class="note">[샘플(11/02 스냅샷)]은 11/02 08:04:58 노트북 HiClo 판정 파일에서 옮긴 지난 값, [샘플]은 시험용 값입니다. 자동 게시(PR-15)가 연결되면 같은 자리에 실제 값이 들어갑니다.</p>';
  return g};
 V['SC-02']=function(){
  var g='<h2>SC-02 사업군 통제</h2><p class="lead">7개 사업군이 AICS 통제 접점(N1~N4)에 어떻게 물려 있는지 봅니다. 사업군 번호와 순서는 고정입니다.</p>';
@@ -27,9 +27,9 @@ V['SC-02']=function(){
 V['SC-03']=function(){
  var g='<h2>SC-03 구동 상태</h2><p class="lead">HiClo.app과 HIVEN.app이 노트북에서 실제로 구동되는지, 정지·재개와 저장 주기를 봅니다.</p>';
  g+='<div class="row">'+
- '<div class="card"><div class="k">HiClo.app</div><div class="v">3.1.2 · 구동 중</div><div class="s">판정 08:04:58 · 5분 순환 · '+tag('실측','ok')+'</div></div>'+
- '<div class="card"><div class="k">HIVEN.app</div><div class="v">1.6 · 관측 중</div><div class="s">24시간 시험 11/03 00:50까지 · '+tag('실측','ok')+'</div></div>'+
- '<div class="card"><div class="k">AICS</div><div class="v">정지 아님</div><div class="s">정지·재개는 말 명령(SC-04) · '+tag('실측','ok')+'</div></div></div>';
+ '<div class="card"><div class="k">HiClo.app</div><div class="v">3.1.2 · 구동 중</div><div class="s">판정 08:04:58 · 5분 순환 · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div>'+
+ '<div class="card"><div class="k">HIVEN.app</div><div class="v">1.6 · 관측 중</div><div class="s">24시간 시험 11/03 00:50까지 · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div>'+
+ '<div class="card"><div class="k">AICS</div><div class="v">정지 아님</div><div class="s">정지·재개는 말 명령(SC-04) · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div></div>';
  g+='<h3>저장 주기</h3>'+tbl(['구분','값','적용'],[['지금','60분','2026-11-02 07:52부터'],['예약','30분','2026-11-03 18:00부터 자동']]);
  g+='<h3>작업 대기열</h3>'+tbl(['작업','내용','결과'],[
   ['JOB-T0372','작업 대기열 시험','종료 코드 0 · 08:10:06 '+tag('통과','ok')],

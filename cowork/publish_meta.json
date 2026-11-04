@@ -1,0 +1,97 @@
+{
+ "published": "2026-11-05 02:12",
+ "by": "Opus 5.5",
+ "history_rows": 181,
+ "lifecycle_rows": 181,
+ "consistent": true,
+ "files": [
+  {
+   "file": "progress.json",
+   "source": "COM\\CoWork_진행상황판-261104.md",
+   "screen": "SC-12",
+   "rows": null,
+   "sha16": "ac654415178360b4",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "board.md",
+   "source": "COM\\CoWork_진행상황판-261104.md",
+   "screen": "SC-12",
+   "rows": null,
+   "sha16": "dc5d9e13e4b9d60a",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "log.tsv",
+   "source": "—(게시 전용 append)",
+   "screen": "SC-12",
+   "rows": 18,
+   "sha16": "4e076ab2c18435c4",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "reports/index.json",
+   "source": "COM\\일일보고\\",
+   "screen": "SC-12",
+   "rows": null,
+   "sha16": "f6174dd6efdb3af2",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "ctl/model_control_history.tsv",
+   "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
+   "screen": "SC-01·SC-13",
+   "rows": 181,
+   "sha16": "141dd1fd1ff9db37",
+   "mtime": "2026-11-05 01:56"
+  },
+  {
+   "file": "ctl/model_control_status.tsv",
+   "source": "COM\\모델통제(CTL)\\모델통제_현황.tsv",
+   "screen": "SC-13",
+   "rows": 5,
+   "sha16": "d1b0291e06a2bd7b",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "ctl/action_lifecycle.tsv",
+   "source": "tools/gen_lifecycle.py 산출",
+   "screen": "SC-01",
+   "rows": 181,
+   "sha16": "5c52f2a3103dfbec",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "ctl/trace_sum.json",
+   "source": "지시추적매트릭스(91_Fable)",
+   "screen": "SC-01·SC-04",
+   "rows": null,
+   "sha16": "01a2a15dad4a7793",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "ctl/trace_v.tsv",
+   "source": "지시추적매트릭스 종단",
+   "screen": "SC-04",
+   "rows": 307,
+   "sha16": "39c63285a57f8ef1",
+   "mtime": "2026-11-04 18:28"
+  },
+  {
+   "file": "ctl/qa_checks.tsv",
+   "source": "승인전재검 xlsx(91_Fable)",
+   "screen": "SC-01·SC-09",
+   "rows": 9,
+   "sha16": "54a1dd336bb5cbc9",
+   "mtime": "2026-11-05 02:12"
+  },
+  {
+   "file": "ctl/bg_lifecycle.tsv",
+   "source": "사업부 설정안 6장(AICS 접점)",
+   "screen": "SC-02",
+   "rows": 0,
+   "sha16": "8367be15586663ab",
+   "mtime": "2026-11-05 02:09"
+  }
+ ]
+}

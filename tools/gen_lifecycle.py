@@ -2,9 +2,11 @@
 # 입력: 모델통제 이력(게시본), 보고서 3종(일일보고 Opus·Sonnet, Fable 검수대기열, 별도지시대장 — 노트북에서 받은 최신본)
 # 출력: cowork/ctl/action_lifecycle.tsv — 번호별 7단계(감지·경고·착수·조치 중·해제·보고서 이관·통제 확인)와 3분류(미조치·조치 중·조치 완료)
 import csv,re,datetime,json,sys
-C='/home/claude/hiven-ai-site/cowork/ctl/model_control_history.tsv'
+C='/home/claude/hiven-ai-site/cowork/ctl/model_control_history.tsv'  # 실행 전 노트북 원천과 같은지 확인(같은 커밋 규칙)
 U='/mnt/user-data/uploads/HiBiz/01_클로_소통(COM)/'
-R={'일일보고 Opus':U+'일일보고/일일보고_Opus_261104.txt','일일보고 Sonnet':U+'일일보고/일일보고_Sonnet_261104.txt','Fable 검수대기열':U+'Fable_검수대기열.md','별도지시대장':U+'대표님_별도지시대장.md'}
+import glob
+R={('일일보고 '+f.split('일일보고_')[-1][:-4]):f for f in sorted(glob.glob(U+'일일보고/일일보고_*.txt')) if '템플릿' not in f}  # W19-3 T-W19-32: 워크별 일일보고 전부(M-04)
+R.update({'Fable 검수대기열':U+'Fable_검수대기열.md','별도지시대장':U+'대표님_별도지시대장.md'})
 ref={}
 def nums(txt):
   out=set()
@@ -31,6 +33,9 @@ for c in rows:
 w=csv.writer(open('/home/claude/hiven-ai-site/cowork/ctl/action_lifecycle.tsv','w',encoding='utf-8',newline=''),delimiter='\t',lineterminator='\n')
 w.writerow(['번호','날짜','시각','모델','구분','3분류','1 감지','2 경고·알람','3 조치 착수','4 조치 중','5 해제','6 보고서 이관','7 통제 확인','현재 단계'])
 w.writerows(out)
-src={k:(datetime.datetime.fromtimestamp(__import__('os').path.getmtime(f),datetime.UTC)+datetime.timedelta(hours=9)).strftime('%m-%d %H:%M') for k,f in R.items()}
+import os
+try: DM=json.load(open(U+'_device_mtime.json',encoding='utf-8'))  # 노트북 파일 목록의 실제 수정 시각(받은 사본 시각이 아님)
+except FileNotFoundError: DM={}
+src={k:(datetime.datetime.fromtimestamp(DM[os.path.basename(f)]/1000 if os.path.basename(f) in DM else os.path.getmtime(f),datetime.UTC)+datetime.timedelta(hours=9)).strftime('%m-%d %H:%M') for k,f in R.items()}
 json.dump({'산출':(datetime.datetime.now(datetime.UTC)+datetime.timedelta(hours=9)).strftime('%Y-%m-%d %H:%M'),'3분류':cnt,'보고서 기준':src},open('/home/claude/hiven-ai-site/cowork/ctl/action_lifecycle.json','w',encoding='utf-8'),ensure_ascii=False)
 print(cnt, sum(1 for o in out if o[11]!='아니오'))
