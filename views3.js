@@ -116,7 +116,7 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
 /* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:30): 현재 시점을 가운데 두고 좌(이전)·우(다음)로 이동, 단위(30초·분·시간·일·월·년) 토글,
    30초마다 현재 시점이 이동하며 자동으로 흐름. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
 var hvTRC={'위반':'#c62828','지적':'#ef6c00','지적(자가 발견)':'#f9a825','질타':'#6a1b9a','개선요청':'#1565c0','유휴':'#78909c','장애':'#000000'};
-var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12;
+var hvTRU=['30초','분','시간','일','월','년'],hvTRZ=9*3600e3,hvTRD=null,hvTRN=12,hvTRD0=-9;/* 기본: 현재 시점을 오른쪽 끝에서 3칸 앞에 둠(대표님 02:33) */
 var hvTRS={'30초':30e3,'분':60e3,'시간':3600e3,'일':86400e3};
 function hvTrFloor(t,u){if(hvTRS[u])return Math.floor((t+hvTRZ)/hvTRS[u])*hvTRS[u]-hvTRZ;var d=new Date(t+hvTRZ),y=d.getUTCFullYear(),m=u==='월'?d.getUTCMonth():0;return Date.UTC(y,m,1)-hvTRZ}
 function hvTrStep(t,u,k){if(hvTRS[u])return t+k*hvTRS[u];var d=new Date(t+hvTRZ);return u==='월'?Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+k,1)-hvTRZ:Date.UTC(d.getUTCFullYear()+k,0,1)-hvTRZ}
@@ -125,7 +125,7 @@ function hvTrLbl(t,u){var d=new Date(t+hvTRZ),p=function(n){return String(n).pad
 function hvTrT(e){var m=hvHm(e);return Date.parse(e.date+'T'+(m||'12:00')+':00+09:00')}
 function hvTrend(d){hvTRD=d;return '<h3>구분별 변동 추이</h3><div id="hvTrBox">'+hvTrIn()+'</div>'}
 function hvTrIn(){var d=hvTRD;if(!d)return '';
- if(!hvF13.tu||hvTRU.indexOf(hvF13.tu)<0)hvF13.tu='시간';if(!hvF13.tm)hvF13.tm='모델 전체';if(!hvF13.tc)hvF13.tc='구간';if(!hvF13.th)hvF13.th={};if(typeof hvF13.to!=='number')hvF13.to=0;
+ if(!hvF13.tu||hvTRU.indexOf(hvF13.tu)<0)hvF13.tu='시간';if(!hvF13.tm)hvF13.tm='모델 전체';if(!hvF13.tc)hvF13.tc='구간';if(!hvF13.th)hvF13.th={};if(typeof hvF13.to!=='number')hvF13.to=hvTRD0;
  var u=hvF13.tu,ms=['모델 전체'].concat(d.models.map(function(m){return m.name}));if(ms.indexOf(hvF13.tm)<0)hvF13.tm='모델 전체';
  var sub=!!hvTRS[u]&&u!=='일',all=d.events.filter(function(e){return hvF13.tm==='모델 전체'||e.model===hvF13.tm}),nx=sub?all.filter(function(e){return !hvHm(e)}).length:0;
  var ev=all.filter(function(e){return !sub||hvHm(e)}).map(function(e){return {t:hvTrT(e),y:e.type}});
@@ -139,22 +139,22 @@ function hvTrIn(){var d=hvTRD;if(!d)return '';
  var g='<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">모델</span>'+btn('tm',ms)+'</div>'
  +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">값</span>'+btn('tc',['구간','누적'])+'</div>'
  +'<div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">구분</span>'+hvTY13.map(function(t){var off=!!hvF13.th[t];return '<button type="button" class="'+(off?'':'on')+'" style="'+(off?'':'background:'+hvTRC[t]+';border-color:'+hvTRC[t]+';color:#fff')+'" onclick="hvTrTog(\''+t+'\')">'+hvEsc(t)+'</button>'}).join('')+'</div>';
- g+='<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0"><span style="white-space:nowrap"><button type="button" onclick="hvTrPan(-1)">◀ 이전</button> '+tg+'</span><span style="white-space:nowrap">'+(hvF13.to?'<button type="button" class="on" onclick="hvTrPan(0)">현재로</button> ':'')+tg+' <button type="button" onclick="hvTrPan(1)">다음 ▶</button></span></div>';
+ g+='<div style="display:flex;justify-content:space-between;align-items:center;gap:6px;flex-wrap:wrap;margin:6px 0"><span style="white-space:nowrap"><button type="button" onclick="hvTrPan(-1)">◀ 이전</button> '+tg+'</span><span style="white-space:nowrap">'+(hvF13.to!==hvTRD0?'<button type="button" class="on" onclick="hvTrPan(0)">현재로</button> ':'')+tg+' <button type="button" onclick="hvTrPan(1)">다음 ▶</button></span></div>';
  var W=760,H=250,L=36,R=16,T=14,BT=40,pw=W-L-R,ph=H-T-BT,X=function(i){return L+i*pw/(B.length-1)},Y=function(v){return T+ph-v*ph/mx};
  var s='<svg id="hvTrSvg" viewBox="0 0 '+W+' '+H+'" width="100%" style="max-width:'+W+'px;font:11px sans-serif;touch-action:pan-y;cursor:grab" role="img" aria-label="구분별 변동 추이">';
  var st=Math.max(1,Math.ceil(mx/5));for(var y=0;y<=mx;y+=st)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y)+'" y2="'+Y(y)+'" stroke="#e3e8f0"/><text x="'+(L-6)+'" y="'+(Y(y)+4)+'" text-anchor="end" fill="#667">'+y+'</text>';
- B.forEach(function(b,i){if(i%4===0)s+='<text x="'+X(i)+'" y="'+(H-BT+16)+'" text-anchor="middle" fill="#445">'+hvTrLbl(b,u)+'</text>'});
- var cx=X(hvTRN);s+='<line x1="'+cx+'" x2="'+cx+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#9aa6b8" stroke-dasharray="3 3"/>';
+ B.forEach(function(b,i){s+='<line x1="'+X(i)+'" x2="'+X(i)+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#f1f4f9"/>';if((i-(nowI>=0?nowI:hvTRN))%4===0)s+='<text x="'+X(i)+'" y="'+(H-BT+16)+'" text-anchor="middle" fill="#445">'+hvTrLbl(b,u)+'</text>'});
+ 
  if(nowI>=0){var nx2=X(nowI);s+='<line x1="'+nx2+'" x2="'+nx2+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#2a52be" stroke-width="2"/><text x="'+nx2+'" y="'+(H-6)+'" text-anchor="middle" fill="#2a52be" font-weight="700">현재 '+hvTrLbl(now,'30초')+'</text>'}
  vis.forEach(function(sr){var c=hvTRC[sr.t],pts=[];sr.v.forEach(function(v,i){if(v!==null)pts.push(X(i)+','+Y(v))});if(pts.length)s+='<polyline fill="none" stroke="'+c+'" stroke-width="2.2" points="'+pts.join(' ')+'"/>';
   sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLbl(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
  s+='</svg>';
  var tot=hvTY13.map(function(t){var n=all.filter(function(e){return e.type===t}).length;return '<span style="display:inline-block;margin:2px 10px 2px 0;white-space:nowrap"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+hvTRC[t]+';margin-right:4px"></i>'+hvEsc(t)+' '+n+'</span>'}).join('');
- return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 가운데 점선 = 보는 기준, 파란 선 = 현재 시점 · 30초마다 현재 시점이 오른쪽(다음)으로 흐름 · 그래프를 끌거나 ◀ ▶로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
+ return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 파란 선 = 현재 시점(기본 위치: 오른쪽 끝에서 3칸 앞) · 30초마다 그래프가 왼쪽(이전)으로 흐르며 현재 시점 갱신 · 그래프를 끌거나 ◀ ▶로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
 function hvTrDraw(){var b=document.getElementById('hvTrBox');if(b){b.innerHTML=hvTrIn();hvTrDrag()}}
-function hvTrSet(k,v){hvF13[k]=v;if(k==='tu')hvF13.to=0;hvTrDraw()}
+function hvTrSet(k,v){hvF13[k]=v;if(k==='tu')hvF13.to=hvTRD0;hvTrDraw()}
 function hvTrTog(t){if(!hvF13.th)hvF13.th={};hvF13.th[t]=!hvF13.th[t];hvTrDraw()}
-function hvTrPan(k){hvF13.to=k===0?0:(hvF13.to||0)+k*Math.ceil(hvTRN/2);hvTrDraw()}
+function hvTrPan(k){hvF13.to=k===0?hvTRD0:hvF13.to+k*Math.ceil(hvTRN/2);hvTrDraw()}
 function hvTrDrag(){var s=document.getElementById('hvTrSvg');if(!s||s._dg)return;s._dg=1;var x0=null,dx=0;
  s.addEventListener('pointerdown',function(e){x0=e.clientX;dx=0;s.setPointerCapture(e.pointerId);s.style.cursor='grabbing'});
  s.addEventListener('pointermove',function(e){if(x0===null)return;dx=e.clientX-x0;s.style.transform='translateX('+dx+'px)'});
