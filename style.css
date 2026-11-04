@@ -269,3 +269,6 @@ button.card.sc13-cb.hot.on .v{color:#fff}
 .sc12-sx .sc12-d{overflow:hidden;text-overflow:ellipsis}
 @media(max-width:600px){.sc12-sx{grid-template-columns:34px minmax(0,1fr) 44px}.sc12-sx .sc12-d{grid-column:1/-1;white-space:normal}}
 .sc12-six .sc12-bar{width:100%}
+
+/* W28-01 버튼·칩 한 줄(규칙 0-8) */
+.chip{white-space:nowrap}
