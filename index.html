@@ -44,7 +44,7 @@
 <script src="data.js?v=20261104c"></script>
 <script src="views1.js"></script>
 <script src="views2.js?v=20261104c"></script>
-<script src="views3.js?v=20261104i"></script>
+<script src="views3.js?v=20261104j"></script>
 <script src="app.js?v=20261104c"></script>
 <script id="mvn-js">(function(){var n=document.querySelector(".mvn");if(!n)return;n.querySelectorAll("button").forEach(function(b){var d=+b.dataset.d,t=null,r=null,h=false;function stop(){clearTimeout(t);cancelAnimationFrame(r);r=null}function loop(){window.scrollBy(0,d*14);r=requestAnimationFrame(loop)}b.addEventListener("pointerdown",function(e){e.preventDefault();h=false;t=setTimeout(function(){h=true;loop()},280)});["pointerup","pointerleave","pointercancel"].forEach(function(ev){b.addEventListener(ev,function(){var was=h;stop();if(ev=="pointerup"&&!was){window.scrollTo({top:d<0?0:document.documentElement.scrollHeight,behavior:"smooth"})}h=false})});b.addEventListener("contextmenu",function(e){e.preventDefault()})})})();</script>
 </body>

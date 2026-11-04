@@ -1,5 +1,5 @@
 /* SC-13 모델 통제 상황 — 데이터 연동 경로(대표님 지시 11/04 13:56·13:58): 원천 HiBiz\01_클로_소통(COM)\모델통제(CTL)\모델통제_통합이력.tsv·모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv·model_control_status.tsv(원천 그대로 복사·푸시) → 화면 30초마다 읽음 */
-var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체',u:'일별'};
+var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체',u:'전체',p:'전체'};
 V['SC-13']=function(){
  setTimeout(hvSC13Start,0);
  return '<div id="sc13"><h2>SC-13 모델 통제 상황</h2><p class="lead">Fable · Opus · Sonnet · Haiku(그리고 기록상 모델 미상)의 지시 이행, 대표님 질타·개선요청·지적, 위반, 유휴(멈춤·불이행), 장애 이력입니다. 범위: HiBiz 관련 기록만(Mbiz 시기 기록은 원천 폴더 「보관_Mbiz이전(비반영)」에 보관, 이 화면에 반영하지 않음).</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv (모델별 상세: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: hiven-ai-site /cowork/ctl/model_control_history.tsv · model_control_status.tsv (원천 파일을 그대로 복사해 푸시) → ③ 표시: 이 화면이 30초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
@@ -19,14 +19,22 @@ function hvSC13Load(){
   hvLast13={types:T,events:ev,models:ms,updated:(ms[0]&&ms[0].updated)||''};hvLastOk13=kst();hvSC13Paint(false);
  },function(e){if($('sc13'))hvSC13Paint(true,e)});
 }
-function hvSC13Set(k,v){hvF13[k]=v;hvSC13Paint(false)}
+function hvSC13Set(k,v){hvF13[k]=v;if(k==='u')hvF13.p='전체';hvSC13Paint(false)}
 function hvWk(d){var x=new Date(d+'T00:00:00'),w=(x.getDay()+6)%7,m=new Date(x);m.setDate(x.getDate()-w);var e=new Date(m);e.setDate(m.getDate()+6);var f=function(z){return (z.getMonth()+1)+'/'+z.getDate()};return m.getFullYear()+'-'+pad(m.getMonth()+1)+'-'+pad(m.getDate())+'|'+f(m)+'~'+f(e)+' 주간'}
-function hvKey(e,u){if(u==='시간별')return e.hour?(e.date+' '+e.hour+'시|'+e.date.slice(5).replace('-','/')+' '+e.hour+'시'):(e.date+' 99|'+e.date.slice(5).replace('-','/')+' 시각 미기재');if(u==='일별')return e.date+'|'+e.date.slice(5).replace('-','/');if(u==='주간별')return hvWk(e.date);return e.date.slice(0,7)+'|'+e.date.slice(0,4)+'년 '+(+e.date.slice(5,7))+'월'}
+function hvKey(e,u){if(u==='시간별')return e.hour?(e.date+' '+e.hour+'시|'+e.date.slice(5).replace('-','/')+' '+e.hour+'시'):(e.date+' 99|'+e.date.slice(5).replace('-','/')+' 시각 미기재');if(u==='일별')return e.date+'|'+e.date.slice(5).replace('-','/');if(u==='주간별')return hvWk(e.date);if(u==='연별')return e.date.slice(0,4)+'|'+e.date.slice(0,4)+'년';if(u==='전체')return 'ALL|전체 누적';return e.date.slice(0,7)+'|'+e.date.slice(0,4)+'년 '+(+e.date.slice(5,7))+'월'}
+/* 구간(하위) 버튼: 시간별→일, 일별·주간별→월, 월별·연별→연 */
+function hvPar(e,u){if(u==='시간별')return hvKey(e,'일별');if(u==='일별'||u==='주간별')return hvKey(e,'월별');if(u==='월별'||u==='연별')return hvKey(e,'연별');return ''}
 function hvAgg(d){
- var u=hvF13.u,ms=d.models.map(function(m){return m.name}),G={},K=[];
- d.events.forEach(function(e){var k=hvKey(e,u);if(!G[k]){G[k]=[];K.push(k)}G[k].push(e)});
+ var U=['전체','시간별','일별','주간별','월별','연별'];if(U.indexOf(hvF13.u)<0)hvF13.u='전체';if(!hvF13.p)hvF13.p='전체';
+ var u=hvF13.u,ms=d.models.map(function(m){return m.name}),G={},K=[],PK=[];
+ if(u!=='전체')d.events.forEach(function(e){var q=hvPar(e,u);if(PK.indexOf(q)<0)PK.push(q)});PK.sort();
+ if(hvF13.p!=='전체'&&PK.indexOf(hvF13.p)<0)hvF13.p='전체';
+ var ev=d.events.filter(function(e){return hvF13.p==='전체'||hvPar(e,u)===hvF13.p});
+ ev.forEach(function(e){var k=hvKey(e,u);if(!G[k]){G[k]=[];K.push(k)}G[k].push(e)});
  K.sort();var cum=0,mx=1,rows=K.map(function(k){var a=G[k];cum+=a.length;if(a.length>mx)mx=a.length;return {k:k,a:a,cum:cum}});
- var g='<h3>기간별 집계 · 누적</h3><div class="sc13-f"><span class="sc13-lb w">집계 단위</span>'+['시간별','일별','주간별','월별'].map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvSC13Set(\'u\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f sc13-pr">기간 '+hvEsc(rows.length?rows[0].k.split('|')[1]:'-')+' ~ '+hvEsc(rows.length?rows[rows.length-1].k.split('|')[1]:'-')+' · '+rows.length+'개 구간</div>';
+ var g='<h3>기간별 집계 · 누적</h3><div class="sc13-f"><span class="sc13-lb w">집계 단위</span>'+U.map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvSC13Set(\'u\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>'
+ +(u==='전체'?'':'<div class="sc13-f"><span class="sc13-lb w">구간</span>'+['전체'].concat(PK).map(function(x){var lb=x==='전체'?'전체':x.split('|')[1];return '<button type="button" class="'+(hvF13.p===x?'on':'')+'" onclick="hvSC13Set(\'p\',\''+x+'\')">'+hvEsc(lb)+'</button>'}).join('')+'</div>')
+ +'<div class="sc13-f sc13-pr">기간 '+(u==='전체'?(function(){var ds=ev.map(function(e){return e.date}).sort();return ds.length?hvEsc(ds[0].slice(5).replace('-','/'))+' ~ '+hvEsc(ds[ds.length-1].slice(5).replace('-','/'))+' · 전체 누적 '+ds.length+'건</div>':'-</div>'})():'')+(u==='전체'?'':hvEsc(rows.length?rows[0].k.split('|')[1]:'-')+' ~ '+hvEsc(rows.length?rows[rows.length-1].k.split('|')[1]:'-')+' · '+rows.length+'개 구간</div>');
  g+='<div class="tw"><table class="sc13-t sc13-ag"><thead><tr><th>기간</th>'+ms.map(function(m){return '<th>'+hvEsc(m)+'</th>'}).join('')+'<th>질타</th><th>위반</th><th>유휴</th><th>장애</th><th>개선·지적</th><th>합계</th><th>누적</th><th class="sc13-bc">합계 / 누적</th></tr></thead><tbody>';
  rows.forEach(function(r){var c=function(f){return r.a.filter(f).length},t=function(x){return c(function(e){return e.type===x})};
   var oth=c(function(e){return /개선요청|지적/.test(e.type)});
