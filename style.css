@@ -75,14 +75,14 @@ footer.hfoot .hf-m{font-size:21px;font-weight:700;color:#B8BCC6;text-align:cente
 footer.hfoot .hf-brand{display:inline-flex;align-items:center;gap:8px;font-weight:700}
 footer.hfoot .hf-logo{display:block;width:79px;height:22px;background:currentColor;-webkit-mask:url(/assets/img/hiven-logo-h.png) no-repeat left center/contain;mask:url(/assets/img/hiven-logo-h.png) no-repeat left center/contain}
 footer.hfoot .hf-brand .kn{font-size:15px;line-height:1}
-footer.hfoot .wrap.hf{grid-template-columns:1fr;justify-items:center;text-align:center;gap:10px}
+@media (max-width:760px){footer.hfoot .wrap.hf{grid-template-columns:1fr;justify-items:center;text-align:center;gap:10px}
 footer.hfoot .hf-l,footer.hfoot .hf-r{display:contents}
 footer.hfoot .hf-brand{order:1}
 footer.hfoot .hf-copy{order:2}
 footer.hfoot .hf-pol{order:3}
 footer.hfoot .hf-m{order:4}
 footer.hfoot .hf-site{order:5}
-footer.hfoot .hf-mail{order:6}
+footer.hfoot .hf-mail{order:6}}
 footer.hfoot .wrap{display:block;flex:none;min-height:0;max-width:1120px;margin:0 auto;padding:0 24px}
 footer.hfoot .wrap.hf{display:grid}
 footer.hfoot{background:#fff;font-family:Pretendard,-apple-system,"Malgun Gothic",sans-serif}
