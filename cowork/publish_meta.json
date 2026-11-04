@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 07:05",
- "by": "Opus",
- "history_rows": 221,
- "lifecycle_rows": 221,
+ "published": "2026-11-05 08:00",
+ "by": "Fable",
+ "history_rows": 230,
+ "lifecycle_rows": 230,
  "consistent": true,
  "files": [
   {
@@ -10,80 +10,80 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "c4f2e0e949cb58e1",
-   "mtime": "2026-11-05 07:05"
+   "sha16": "ba9d3c75c7f42078",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "85868c034dc94ac8",
-   "mtime": "2026-11-05 07:05"
+   "sha16": "81bff960e925362d",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-12",
-   "rows": 34,
-   "sha16": "1327bb7c839b5efa",
-   "mtime": "2026-11-05 07:05"
+   "rows": 37,
+   "sha16": "8a9924b28b95de12",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "reports/index.json",
    "source": "COM\\일일보고\\",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "470e9456a5e52c51",
-   "mtime": "2026-11-05 07:05"
+   "sha16": "bf9c8bb827418223",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 221,
-   "sha16": "de846d55b4b8616d",
-   "mtime": "2026-11-05 07:03"
+   "rows": 230,
+   "sha16": "792d35b98b8e0fd6",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/model_control_status.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_현황.tsv",
    "screen": "SC-13",
    "rows": 5,
-   "sha16": "90c29cde2a4bfe55",
-   "mtime": "2026-11-05 04:50"
+   "sha16": "a9e2f351b6113de1",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 221,
-   "sha16": "973774fd5d1ade1e",
-   "mtime": "2026-11-05 07:03"
+   "rows": 230,
+   "sha16": "b5b595a39c51ff29",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-01·SC-04",
    "rows": null,
-   "sha16": "c30728f00fa2cfc1",
-   "mtime": "2026-11-05 07:03"
+   "sha16": "4fe12ba54cc30d0f",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
    "screen": "SC-04",
-   "rows": 419,
-   "sha16": "278464da03ae2586",
-   "mtime": "2026-11-05 07:05"
+   "rows": 427,
+   "sha16": "6d62f545cc555836",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/qa_checks.tsv",
    "source": "승인전재검 xlsx(91_Fable)",
    "screen": "SC-01·SC-09",
-   "rows": 14,
-   "sha16": "874eb910f32a347a",
-   "mtime": "2026-11-05 07:03"
+   "rows": 16,
+   "sha16": "310c8875c4861cbf",
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/bg_lifecycle.tsv",
