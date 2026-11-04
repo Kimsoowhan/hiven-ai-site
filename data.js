@@ -28,8 +28,8 @@ function card(k,v,s,to){
  return '<div class="card'+(to?' link" onclick="hvgo(\''+to+'\')"':'"')+'><div class="k">'+k+'</div><div class="v">'+v+'</div><div class="s">'+(s||'')+'</div></div>';
 }
 var V={};
-/* 공통 표 규칙(대표님 11/04 14:29~14:33 지시): 모든 표는 ① 맨 위가 가장 최근(최신순) ② 한 쪽 줄 수는 화면 크기에 맞춰 자동 계산(폰·태블릿·PC 공통: 화면 높이에서 머리글·필터 몫을 뺀 뒤 실제 줄 높이로 나눔, 최대 14줄=2주 단위, 최소 4줄) ③ 표 아래 「◀ 이전 · 쪽 번호 · 다음 ▶」 토글(현재 쪽/전체 쪽 표시). 창 크기·방향이 바뀌면 다시 계산해 다시 그린다. */
-var HV_PG_MAX=14,HV_PG_MIN=4,hvPgS={},hvRowH={};
+/* 공통 표 규칙(대표님 11/04 14:29~14:33 지시): 모든 표는 ① 맨 위가 가장 최근(최신순) ② 한 쪽 줄 수는 화면 크기에 맞춰 자동 계산(폰·태블릿·PC 공통: 화면 높이에서 머리글·필터 몫을 뺀 뒤 실제 줄 높이로 나눔, 최대 15줄(대표님 11/04 14:41 지시: 15줄을 넘지 않음), 최소 4줄) ③ 표 아래 「◀ 이전 · 쪽 번호 · 다음 ▶」 토글(현재 쪽/전체 쪽 표시). 창 크기·방향이 바뀌면 다시 계산해 다시 그린다. */
+var HV_PG_MAX=15,HV_PG_MIN=4,hvPgS={},hvRowH={};
 function hvPgN(key){var h=window.innerHeight||800,rh=hvRowH[key]||(window.innerWidth<700?58:44),free=h-(window.innerWidth<700?230:280);return Math.max(HV_PG_MIN,Math.min(HV_PG_MAX,Math.floor(free/rh)))}
 function hvPage(list,key){var n0=hvPgN(key),n=Math.max(1,Math.ceil(list.length/n0)),i=Math.min(Math.max(0,+hvPgS[key]||0),n-1);hvPgS[key]=i;return {rows:list.slice(i*n0,(i+1)*n0),i:i,n:n,tot:list.length,key:key,per:n0}}
 function hvPgGo(key,i,fn){hvPgS[key]=i;if(typeof window[fn]==='function')window[fn](false)}
@@ -39,7 +39,7 @@ function hvPgMeasure(){var ch=false;document.querySelectorAll('.hv-pg[data-pg]')
 var hvRsT=null;window.addEventListener('resize',function(){clearTimeout(hvRsT);hvRsT=setTimeout(function(){['hvSC12Paint','hvSC13Paint'].forEach(function(f){if(typeof window[f]==='function')window[f](false)})},200)});
 function hvPager(pg,unit,fn){var PP=pg.per||HV_PG_MAX,a=pg.tot?pg.i*PP+1:0,b=Math.min(pg.tot,(pg.i+1)*PP),nums='';
  for(var j=0;j<pg.n;j++){if(pg.n>9&&Math.abs(j-pg.i)>3&&j!==0&&j!==pg.n-1){if(nums.slice(-1)!=='…')nums+='…';continue}nums+='<button type="button" class="'+(j===pg.i?'on':'')+'" onclick="hvPgGo(\''+pg.key+'\','+j+',\''+fn+'\')">'+(j+1)+'</button>'}
- return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+unit+'(화면 크기에 맞춰 자동, 최대 14=2주)</span></div>'}
+ return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+unit+'(화면 크기에 맞춰 자동, 최대 15줄)</span></div>'}
 var cur='SC-01';
 /* 열쇠 확인(샘플 인트로: 화면 안내용이며 서버 보안이 아님) */
 var KEY=[104,105,98,105,122];
