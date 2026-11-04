@@ -146,3 +146,4 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc13-f:has(>.sc13-lb.w){padding-left:70px}
 .sc13-f>.sc13-lb{position:absolute;left:0;top:4px;width:44px}
 .sc13-f>.sc13-lb.w{width:64px}
+.sc13-d{border:1px solid var(--line);border-radius:8px;padding:3px 6px;font-size:13px;color:#16234d;background:#fff;font-family:inherit}
