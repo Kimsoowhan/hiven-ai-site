@@ -1,5 +1,5 @@
 {
- "published": "2026-11-05 06:56",
+ "published": "2026-11-05 06:57",
  "by": "Opus",
  "history_rows": 220,
  "lifecycle_rows": 220,
@@ -10,8 +10,8 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "be40aa500c9d5361",
-   "mtime": "2026-11-05 06:56"
+   "sha16": "91288b64231f5689",
+   "mtime": "2026-11-05 06:57"
   },
   {
    "file": "board.md",
@@ -19,15 +19,15 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "513e327cf8c076fe",
-   "mtime": "2026-11-05 06:56"
+   "mtime": "2026-11-05 06:57"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-12",
-   "rows": 30,
-   "sha16": "595d3944c3bb650d",
-   "mtime": "2026-11-05 05:28"
+   "rows": 33,
+   "sha16": "a3174725360b462c",
+   "mtime": "2026-11-05 06:57"
   },
   {
    "file": "reports/index.json",
@@ -35,7 +35,7 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "957920be7f9f84da",
-   "mtime": "2026-11-05 06:56"
+   "mtime": "2026-11-05 06:57"
   },
   {
    "file": "ctl/model_control_history.tsv",
