@@ -146,11 +146,12 @@ function hvTrIn(){var d=hvTRD;if(!d)return '';
  B.forEach(function(b,i){s+='<line x1="'+X(i)+'" x2="'+X(i)+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#f1f4f9"/>';if((i-(nowI>=0?nowI:hvTRN))%(W<700?6:W<1100?4:2)===0)s+='<text x="'+X(i)+'" y="'+(H-BT+16)+'" text-anchor="middle" fill="#445">'+hvTrLbl(b,u)+'</text>'});
  
  if(nowI>=0){var nx2=X(nowI);s+='<line x1="'+nx2+'" x2="'+nx2+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#2a52be" stroke-width="2"/><text x="'+nx2+'" y="'+(H-6)+'" text-anchor="middle" fill="#2a52be" font-weight="700">현재 '+hvTrLbl(now,'30초')+'</text>'}
- vis.forEach(function(sr){var c=hvTRC[sr.t],pts=[];sr.v.forEach(function(v,i){if(v!==null)pts.push(X(i)+','+Y(v))});if(pts.length)s+='<polyline fill="none" stroke="'+c+'" stroke-width="2.2" points="'+pts.join(' ')+'"/>';
+ vis.slice().sort(function(a,b){return Math.max.apply(null,b.v.map(function(x){return x||0}))-Math.max.apply(null,a.v.map(function(x){return x||0}))}).forEach(function(sr){var c=hvTRC[sr.t],pts=[],xi=[];sr.v.forEach(function(v,i){if(v!==null){pts.push(X(i)+','+Y(v));xi.push(i)}});
+  if(pts.length){s+='<polygon fill="'+c+'" fill-opacity="0.22" stroke="none" points="'+X(xi[0])+','+Y(0)+' '+pts.join(' ')+' '+X(xi[xi.length-1])+','+Y(0)+'"/>';s+='<polyline fill="none" stroke="'+c+'" stroke-width="2" stroke-opacity="0.9" points="'+pts.join(' ')+'"/>'}
   sr.v.forEach(function(v,i){if(v)s+='<circle cx="'+X(i)+'" cy="'+Y(v)+'" r="3.2" fill="'+c+'"><title>'+hvEsc(hvTrLbl(B[i],u)+' · '+sr.t+' '+v+'건')+'</title></circle>'})});
  s+='</svg>';
  var tot=hvTY13.map(function(t){var n=all.filter(function(e){return e.type===t}).length;return '<span style="display:inline-block;margin:2px 10px 2px 0;white-space:nowrap"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;background:'+hvTRC[t]+';margin-right:4px"></i>'+hvEsc(t)+' '+n+'</span>'}).join('');
- return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 파란 선 = 현재 시점(기본 위치: 오른쪽 끝에서 3칸 앞) · 30초마다 그래프가 왼쪽(이전)으로 흐르며 현재 시점 갱신 · 그래프를 끌거나 ◀ ▶로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
+ return g+'<div class="tw" style="overflow:hidden">'+s+'</div><p class="note">'+tot+'</p><p class="note">'+hvEsc(hvF13.tm)+' · 단위 '+u+' · '+(hvF13.tc==='누적'?'누적':'구간별')+' 건수 · 색 면 = 구분별 건수(투명하게 겹쳐 보임, 구분 버튼으로 켜고 끔) · 파란 선 = 현재 시점(기본 위치: 오른쪽 끝에서 3칸 앞) · 30초마다 그래프가 왼쪽(이전)으로 흐르며 현재 시점 갱신 · 그래프를 끌거나 ◀ ▶로 이동, 「현재로」로 복귀'+(nx?' · 시각 미기재 '+nx+'건은 '+u+' 단위에서 제외':'')+' · 원천 cowork/ctl/model_control_history.tsv</p>'}
 function hvTrDraw(){var b=document.getElementById('hvTrBox');if(b){b.innerHTML=hvTrIn();hvTrDrag()}}
 function hvTrSet(k,v){hvF13[k]=v;if(k==='tu')hvF13.to=hvTRD0;hvTrDraw()}
 function hvTrTog(t){if(!hvF13.th)hvF13.th={};hvF13.th[t]=!hvF13.th[t];hvTrDraw()}
