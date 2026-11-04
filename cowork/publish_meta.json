@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 05:19",
+ "published": "2026-11-05 05:23",
  "by": "Opus",
- "history_rows": 195,
- "lifecycle_rows": 195,
+ "history_rows": 196,
+ "lifecycle_rows": 196,
  "consistent": true,
  "files": [
   {
@@ -10,24 +10,24 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "0edecf6ae6fff5e0",
-   "mtime": "2026-11-05 05:19"
+   "sha16": "4b17a95b21b7d564",
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "2093b48689b092b6",
-   "mtime": "2026-11-05 05:19"
+   "sha16": "ccf4f4fca82a5f0a",
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-12",
-   "rows": 28,
-   "sha16": "cfda700617de09ac",
-   "mtime": "2026-11-05 05:10"
+   "rows": 29,
+   "sha16": "092188d178cd3c69",
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "reports/index.json",
@@ -35,15 +35,15 @@
    "screen": "SC-12",
    "rows": null,
    "sha16": "ef8df24fc8fdaaab",
-   "mtime": "2026-11-05 05:19"
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 195,
-   "sha16": "54f889121d09e362",
-   "mtime": "2026-11-05 05:19"
+   "rows": 196,
+   "sha16": "cf180e269b52f49f",
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -57,17 +57,17 @@
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 195,
-   "sha16": "c4aee78fdc723030",
-   "mtime": "2026-11-05 05:19"
+   "rows": 196,
+   "sha16": "92318cb7434eb0f9",
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-01·SC-04",
    "rows": null,
-   "sha16": "f8f87274821e0f71",
-   "mtime": "2026-11-05 05:19"
+   "sha16": "4735e7b060994920",
+   "mtime": "2026-11-05 05:23"
   },
   {
    "file": "ctl/trace_v.tsv",
