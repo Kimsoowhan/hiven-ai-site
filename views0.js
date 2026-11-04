@@ -84,6 +84,7 @@ V['SC-01']=function(){
 V['SC-02']=function(){
  var g='<h2>SC-02 사업군 통제</h2><p class="lead">7개 사업군 × 조치 생명주기 7단계 건수를 원천 ctl/bg_lifecycle.tsv로 봅니다(0건도 실측값).</p>';
  g+=hvBg7();
+ g+=hvContact();
  g+='<h3>통제 접점(고정 정의)</h3>'+tbl(['번호','사업군','역할','통제 접점'],BG.map(function(b){return [b[0],'<b>'+b[1]+'</b>',b[2],b[3]]}));
  return g+hvChk()};
 V['SC-03']=function(){
@@ -140,7 +141,17 @@ function hvCc(h,c){return h.replace('class="card cbtn','class="card cbtn '+c)}
 
 /* W19-3(AICS 재설계안 2.0) — 게시 메타·사업군 7단계·지시 추적 표출. 모델이 푸시한 게시본을 읽기만 한다(자동 실행 장치 아님). */
 var hvMeta={m:null,bg:null,tv:null,t:0};
-function hvMetaLoad(){Promise.all([hvFetch('cowork/publish_meta.json','json').catch(function(){return null}),hvFetch('cowork/ctl/bg_lifecycle.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/trace_v.tsv','text').catch(function(){return null})]).then(function(r){hvMeta.m=r[0];hvMeta.bg=r[1]===null?null:hvTsv(r[1]);hvMeta.tv=r[2]===null?null:hvTsv(r[2]);hvMeta.t=Date.now();if(['SC-01','SC-02','SC-04','SC-08'].indexOf(cur)>=0)render(cur);hvHdr()},function(){})}
+function hvMetaLoad(){Promise.all([hvFetch('cowork/publish_meta.json','json').catch(function(){return null}),hvFetch('cowork/ctl/bg_lifecycle.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/trace_v.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/bg_contact.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/bg_source.tsv','text').catch(function(){return null})]).then(function(r){hvMeta.m=r[0];hvMeta.bg=r[1]===null?null:hvTsv(r[1]);hvMeta.tv=r[2]===null?null:hvTsv(r[2]);hvMeta.ct=r[3]===null?null:hvTsv(r[3]);hvMeta.src=r[4]===null?null:hvTsv(r[4]);hvMeta.t=Date.now();if(['SC-01','SC-02','SC-04','SC-08'].indexOf(cur)>=0)render(cur);hvHdr()},function(){})}
+/* T-W19-04 접점표(Opus 워크 0006): 사업부 설정안 6장 연동표 TSV 5권 → ctl/bg_contact.tsv · 결정 묶음 B-1(대표님 승인 11/05 03:54) — 심각도 상=경고 상자 즉시, 중·하=목록, 해제=조치 완료+Fable 처리 완료 */
+function hvContact(){
+ if(!hvMeta.t)return '';
+ var g='<h3>접점 판정 기준(결정 B-1 확정)</h3>'+tbl(['항목','확정값'],[['7단계','감지 → 경고·알람 → 조치 착수 → 조치 중 → 해제 → 보고서 이관 → 통제 확인(원천 ctl/bg_lifecycle.tsv 1파일)'],['심각도','<b>상</b>(경보 기준에 「즉시」) = 경고 상자 즉시 반영 · <b>중</b>(「경고」)·<b>하</b> = 목록'],['해제','조치 완료 + Fable 확인 「처리 완료」일 때만']]);
+ if(hvMeta.src===null)g+='<h3>사업군별 감지 원천·경고 기준</h3>'+hvNo('원천 ctl/bg_source.tsv 없음');
+ else g+='<h3>사업군별 감지 원천·경고 기준</h3>'+tbl(['사업군','감지 원천','경고 기준','연동 접점'],hvMeta.src.map(function(x){return ['<b>'+hvEsc(x[0])+'</b>',hvEsc(x[1]),hvEsc(x[2]),hvEsc(x[3])+'건']}));
+ if(hvMeta.ct===null)return g+'<h3>사업군 연동 접점표</h3>'+hvNo('원천 ctl/bg_contact.tsv 없음');
+ var C=hvMeta.ct,hi=C.filter(function(x){return x[9]==='상'}).length;
+ g+='<h3>사업군 연동 접점표 · '+C.length+'건(상 '+hi+' · 중 '+(C.length-hi)+')</h3>'+tbl(['번호','사업부','AICS 접점','감지 신호','경보 기준','심각도'],C.map(function(x){return ['<span style="white-space:nowrap">'+hvEsc(x[0])+'</span>','<b>'+hvEsc(x[2])+'</b> → '+hvEsc(x[3]),hvEsc(x[6]),hvEsc(x[7]),hvEsc(x[8]),tag(x[9],x[9]==='상'?'bad':'warn')]}));
+ return g+'<p class="note">원천 사업부 설정안 6장 연동표 TSV 5권(HiASI 2.0·HiDAM 1.0·HiICT 2.0·HiServe 1.0·HiTrade 1.0) → ctl/bg_contact.tsv · 실제 감지 건은 ctl/bg_lifecycle.tsv(위 7×7)에 기록됩니다.</p>'}
 function hvBg7(){var S=['감지','경고·알람','조치 착수','조치 중','해제','보고서 이관','통제 확인'];
  if(!hvMeta.t)return '<p class="note">불러오는 중</p>';if(hvMeta.bg===null)return tbl(['사업군','상태'],BG.map(function(b){return [b[1],hvNo('원천 ctl/bg_lifecycle.tsv 없음')]}));
  var rows=BG.map(function(b){var mine=hvMeta.bg.filter(function(x){return x[1]===b[1]});var c=[mine.length,mine.filter(function(x){return x[6]}).length,mine.filter(function(x){return x[7]}).length,mine.filter(function(x){return x[9]==='조치 중'}).length,mine.filter(function(x){return x[10]}).length,mine.filter(function(x){return x[12]}).length,mine.filter(function(x){return x[13]&&x[13]!=='대기'}).length];return ['<b>'+b[1]+'</b>'].concat(c)});

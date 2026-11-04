@@ -23,7 +23,7 @@ def sync_progress():
         wid,title,own,due,st,out,sc,fb,ap=c[1],c[2],c[3],c[4],c[5],c[6],c[7],c[8],c[9]
         sco=score(st,fb,ap)
         if wid=='W19':  # W19-1·2·3 평균(하위 단계 3개)
-            sub=[100 if 'W19-1 승인' in st or 'W19-1' in ap else 0, 100 if 'W19-2' in ap else 70 if 'W19-2 완료' in st else 0, 70 if 'W19-3 완료' in st else 30 if 'W19-3 진행' in st else 0]
+            sub=[100 if 'W19-1 승인' in st or 'W19-1' in ap else 0, 100 if ('W19-2' in ap or 'W19-2 승인' in st) else 70 if 'W19-2 완료' in st else 0, 100 if 'W19-3 승인' in st else 70 if ('W19-3 완료' in st or 'W19-3 게시 완료' in st) else 30 if 'W19-3 진행' in st else 0]  # W19-3 = 게시 완료(압축판 승인 전) 70
             sco=round(sum(sub)/3)
         it=items.get(wid) or {'id':wid,'title':re.sub(r'\*','',title),'difficulty':'','owner':own,'due':due,'tasks':[]}
         it.update(status=st,score=sco,output=out,self_check=sc or '-',fable=fb or '-',approved=ap or '-',due=due)

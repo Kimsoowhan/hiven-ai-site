@@ -262,3 +262,10 @@ button.card.cbtn.c-red.on,button.card.cbtn.c-red2.on,button.card.cbtn.c-org.on,b
 button.card.cbtn.c-red.on .v,button.card.cbtn.c-red2.on .v,button.card.cbtn.c-org.on .v,button.card.cbtn.c-yel.on .v,button.card.cbtn.c-grn.on .v{color:#fff}
 button.card.cbtn.c-red.on .k,button.card.cbtn.c-red.on .s,button.card.cbtn.c-red2.on .k,button.card.cbtn.c-red2.on .s,button.card.cbtn.c-org.on .k,button.card.cbtn.c-org.on .s,button.card.cbtn.c-yel.on .k,button.card.cbtn.c-yel.on .s,button.card.cbtn.c-grn.on .k,button.card.cbtn.c-grn.on .s{color:#dbe6ff}
 button.card.sc13-cb.hot.on .v{color:#fff}
+
+/* SC-12 6단 막대(워크 0006) */
+.sc12-six{display:flex;flex-direction:column;gap:6px;max-width:760px}
+.sc12-sx{display:grid;grid-template-columns:40px 320px 48px minmax(0,1fr);align-items:center;gap:8px;white-space:nowrap}
+.sc12-sx .sc12-d{overflow:hidden;text-overflow:ellipsis}
+@media(max-width:600px){.sc12-sx{grid-template-columns:34px minmax(0,1fr) 44px}.sc12-sx .sc12-d{grid-column:1/-1;white-space:normal}}
+.sc12-six .sc12-bar{width:100%}
