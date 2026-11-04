@@ -123,7 +123,7 @@ function hvTrStep(t,u,k){if(hvTRS[u])return t+k*hvTRS[u];var d=new Date(t+hvTRZ)
 function hvTrLbl(t,u){var d=new Date(t+hvTRZ),p=function(n){return String(n).padStart(2,'0')},M=p(d.getUTCMonth()+1),D=p(d.getUTCDate()),h=p(d.getUTCHours()),mi=p(d.getUTCMinutes()),s=p(d.getUTCSeconds());
  return u==='30초'?h+':'+mi+':'+s:u==='분'?h+':'+mi:u==='시간'?M+'/'+D+' '+h+'시':u==='일'?M+'/'+D:u==='월'?d.getUTCFullYear()+'/'+M:d.getUTCFullYear()+'년'}
 function hvTrT(e){var m=hvHm(e);return Date.parse(e.date+'T'+(m||'12:00')+':00+09:00')}
-function hvTrend(d){hvTRD=d;setTimeout(hvTrDraw,0);return '<h3>구분별 변동 추이</h3><div id="hvTrBox">'+hvTrIn()+'</div>'}
+function hvTrend(d){hvTRD=d;setTimeout(hvTrDraw,0);return '<h3>구분별 변동 추이</h3><div id="hvTrBox" style="padding-right:'+(innerWidth>700?64:0)+'px">'+hvTrIn()+'</div>'}
 function hvTrIn(){var d=hvTRD;if(!d)return '';
  if(!hvF13.tu||hvTRU.indexOf(hvF13.tu)<0)hvF13.tu='시간';if(!hvF13.tm)hvF13.tm='모델 전체';if(!hvF13.tc)hvF13.tc='구간';if(!hvF13.th)hvF13.th={};if(typeof hvF13.to!=='number')hvF13.to=hvTRD0;
  var u=hvF13.tu,ms=['모델 전체'].concat(d.models.map(function(m){return m.name}));if(ms.indexOf(hvF13.tm)<0)hvF13.tm='모델 전체';
