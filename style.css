@@ -147,3 +147,8 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc13-f>.sc13-lb{position:absolute;left:0;top:4px;width:44px}
 .sc13-f>.sc13-lb.w{width:64px}
 .sc13-d{border:1px solid var(--line);border-radius:8px;padding:3px 6px;font-size:13px;color:#16234d;background:#fff;font-family:inherit}
+/* 11/04 14:25 대표님 지시: 버튼은 줄이 바뀌어도 라벨 기준선 안쪽(「전체」 시작선)에서만 배치 — :has() 미지원 브라우저 대비 고정 클래스 */
+.sc13-f.sc13-l{position:relative;padding-left:50px}
+.sc13-f.sc13-l.sc13-lw{padding-left:70px}
+.sc13-f.sc13-l>.sc13-lb{position:absolute;left:0;top:4px;width:44px}
+.sc13-f.sc13-l>.sc13-lb.w{width:64px}
