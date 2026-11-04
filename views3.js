@@ -124,6 +124,8 @@ function hvTrFloor(t,u){if(hvTRS[u])return Math.floor((t+hvTRZ)/hvTRS[u])*hvTRS[
 function hvTrStep(t,u,k){if(hvTRS[u])return t+k*hvTRS[u];var d=new Date(t+hvTRZ);return u==='월'?Date.UTC(d.getUTCFullYear(),d.getUTCMonth()+k,1)-hvTRZ:Date.UTC(d.getUTCFullYear()+k,0,1)-hvTRZ}
 function hvTrLbl(t,u){var d=new Date(t+hvTRZ),p=function(n){return String(n).padStart(2,'0')},M=p(d.getUTCMonth()+1),D=p(d.getUTCDate()),h=p(d.getUTCHours()),mi=p(d.getUTCMinutes()),s=p(d.getUTCSeconds());
  return u==='30초'?h+':'+mi+':'+s:u==='분'?h+':'+mi:u==='시간'?M+'/'+D+' '+h+'시':u==='일'?M+'/'+D:u==='월'?d.getUTCFullYear()+'/'+M:d.getUTCFullYear()+'년'}
+/* 대표님 03:25: 눈금의 날짜와 시간 사이에 중간점, 날짜·중간점은 아주 옅은 회색, 시간은 기존 회색 */
+function hvTrAx(l){var k=l.indexOf(' ');return k<0?l:'<tspan fill="#c4c8d0">'+l.slice(0,k)+' · </tspan>'+l.slice(k+1)}
 function hvTrT(e){var m=hvHm(e);return Date.parse(e.date+'T'+(m||'12:00')+':00+09:00')}
 function hvTrend(d){hvTRD=d;setTimeout(hvTrDraw,0);return '<h3>구분별 변동 추이</h3><div id="hvTrBox">'+hvTrIn()+'</div>'}
 function hvTrIn(){var d=hvTRD;if(!d)return '';
@@ -145,7 +147,7 @@ function hvTrIn(){var d=hvTRD;if(!d)return '';
  var bx=document.getElementById('hvTrBox');if(bx){bx.style.width='';if(innerWidth>700){var bl=bx.getBoundingClientRect().left;bx.style.width=Math.max(bx.clientWidth,Math.round(innerWidth-64-bl))+'px'}}/* 대표님 03:03: 전체 박스를 오른쪽 상하 버튼 바로 앞까지 */var W=Math.max(320,Math.round((bx&&bx.clientWidth?bx.clientWidth:1000)-2)),H=Math.max(280,Math.min(360,Math.round(W*0.3)+50)),L=58,R=16,T=34,BT=84,pw=W-L-R,ph=H-T-BT,X=function(i){return L+i*pw/(B.length-1)},Y=function(v){return T+ph-v*ph/mx};
  var s='<svg id="hvTrSvg" viewBox="0 0 '+W+' '+H+'" width="100%" style="display:block;font:11px sans-serif;touch-action:pan-y;cursor:grab" role="img" aria-label="구분별 변동 추이">';
  var st=Math.max(1,Math.ceil(mx/5));for(var y=0;y<=mx;y+=st)s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+Y(y)+'" y2="'+Y(y)+'" stroke="#e3e8f0"/><text x="'+(L-6)+'" y="'+(Y(y)+4)+'" text-anchor="end" fill="#667">'+y+'</text>';
- B.forEach(function(b,i){s+='<line x1="'+X(i)+'" x2="'+X(i)+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#f1f4f9"/>';if((i-(nowI>=0?nowI:hvTRN))%(W<500?2:1)===0){var ly=T+ph+12;s+='<text x="'+X(i)+'" y="'+ly+'" text-anchor="end" fill="#445" transform="rotate(-40 '+X(i)+' '+ly+')">'+hvTrLbl(b,u)+'</text>'}});
+ B.forEach(function(b,i){s+='<line x1="'+X(i)+'" x2="'+X(i)+'" y1="'+T+'" y2="'+(T+ph)+'" stroke="#f1f4f9"/>';if((i-(nowI>=0?nowI:hvTRN))%(W<500?2:1)===0){var ly=T+ph+12;s+='<text x="'+X(i)+'" y="'+ly+'" text-anchor="end" fill="#445" transform="rotate(-40 '+X(i)+' '+ly+')">'+hvTrAx(hvTrLbl(b,u))+'</text>'}});
  
  if(nowI>=0){var nx2=X(nowI);/* 대표님 03:03: 현재 시점 = 짙은 회색 반투명 굵은 선 + 빨간 화살표 + 세로 「현재」 */s+='<line x1="'+nx2+'" x2="'+nx2+'" y1="'+T+'" y2="'+(H-20)+'" stroke="#333" stroke-opacity="0.45" stroke-width="6"/><path d="M'+(nx2-7)+','+(T-16)+' L'+(nx2+7)+','+(T-16)+' L'+nx2+','+(T-2)+' Z" fill="#e00"/><line x1="'+nx2+'" x2="'+nx2+'" y1="2" y2="'+(T-14)+'" stroke="#e00" stroke-width="3"/><text x="'+(nx2+3)+'" y="'+(H-6)+'" text-anchor="end" fill="#e00" font-weight="700">현재 '+hvTrLbl(now,'30초')+'</text>'}
  vis.slice().sort(function(a,b){return Math.max.apply(null,b.v.map(function(x){return x||0}))-Math.max.apply(null,a.v.map(function(x){return x||0}))}).forEach(function(sr){var c=hvTRC[sr.t],pts=[],xi=[];sr.v.forEach(function(v,i){if(v!==null){pts.push(X(i)+','+Y(v));xi.push(i)}});
