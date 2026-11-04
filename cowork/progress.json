@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T21:25:00+09:00",
+ "updated": "2026-11-04T21:40:00+09:00",
  "note": "초기값 = cowork/board.md 상태판(11/04 10:53 승인 반영) + W13. 점수: 대기0·진행 중30·완료·검수 대기70·Fable 통과90·승인·반영100. 주간=전체 평균, 모델별=담당 W# 평균(Opus W3·W5 / Sonnet W13 / Haiku W8). 다른 W#의 tasks는 각 모델 태스크대장 합침 때 채움. | 11/04 19:55 Fable 체크: W3 G2 통과 90, W8 승인 100, W13 승인·반영 100, W5 시작 가능(11/05), W14~W18 신설(W3 R3·R5 판정). tasks는 각 모델 태스크대장에서 합침. | 20:01 대표님 명령: Haiku 전부 배제(Opus=상·중, Sonnet=중·하), 워크 단위 네 자리 번호(워크 0001=11/04). | 20:45 이번 주 흐름(대표님 20:05·20:08): 표준→설정안 4권(W16)→AICS 재설계(W19)→배포 확인·일정(W20)→최적화(W21). W5·W6 이월. | 21:05 1순위 Hi DAM·분류체계·HiAad(W22·W23). Opus=개발/Sonnet=문서. 사고 수준 자동.",
  "items": [
   {
@@ -124,13 +124,13 @@
   },
   {
    "id": "W5",
-   "title": "WBS 1.4 → 2.0 (7사업군·재일정)",
+   "title": "HIVEN WBS 2.0(A3 15장)",
    "difficulty": "상",
-   "owner": "Opus(다음 주)",
+   "owner": "Fable 초판→Sonnet",
    "due": "11/12",
-   "status": "대기(이월)",
-   "score": 0,
-   "output": "",
+   "status": "초판 작성(작업본)",
+   "score": 30,
+   "output": "HV_PLN_DM_계획서\\HIVEN_WBS-261104_2.0_작업.pdf",
    "self_check": "-",
    "fable": "-",
    "approved": "-",
@@ -565,9 +565,9 @@
   "Haiku": 100
  },
  "week": 30,
- "week_all": 14,
+ "week_all": 16,
  "models_note": "Haiku 배제(11/04 20:01) — 워크 0002부터 배정 없음",
- "hierarchy": "T→TT→W→WW→M→MM (계층규칙 2.0, 11/04 20:55)",
+ "hierarchy": "T→TT→W→WW→M→MM→Y→YY (계층규칙 2.0 1-1)",
  "ww": {
   "id": "WW 001",
   "range": "워크 0001~0007 (11/04~11/10)",
@@ -608,5 +608,6 @@
   },
   "owner": "Fable"
  },
- "first_task": "11월 말 HiCoffer PC(Windows 10·11) 베타1 배포 (대표님 11/04 20:56)"
+ "first_task": "11월 말 HiCoffer PC(Windows 10·11) 베타1 배포 (대표님 11/04 20:56)",
+ "precedence": "HiDAM→HiCoffer→HiSilver · AICS 코어 최우선 · 외부 실행 2027-03~"
 }
