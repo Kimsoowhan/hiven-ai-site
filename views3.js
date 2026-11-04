@@ -26,7 +26,7 @@ function hvAgg(d){
  var u=hvF13.u,ms=d.models.map(function(m){return m.name}),G={},K=[];
  d.events.forEach(function(e){var k=hvKey(e,u);if(!G[k]){G[k]=[];K.push(k)}G[k].push(e)});
  K.sort();var cum=0,mx=1,rows=K.map(function(k){var a=G[k];cum+=a.length;if(a.length>mx)mx=a.length;return {k:k,a:a,cum:cum}});
- var g='<h3>기간별 집계 · 누적</h3><div class="sc13-f">집계 단위 '+['시간별','일별','주간별','월별'].map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvSC13Set(\'u\',\''+x+'\')">'+x+'</button>'}).join('')+'<span class="sc13-sp"></span>기간 '+hvEsc(rows.length?rows[0].k.split('|')[1]:'-')+' ~ '+hvEsc(rows.length?rows[rows.length-1].k.split('|')[1]:'-')+' · '+rows.length+'개 구간</div>';
+ var g='<h3>기간별 집계 · 누적</h3><div class="sc13-f">집계 단위 '+['시간별','일별','주간별','월별'].map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvSC13Set(\'u\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f sc13-pr">기간 '+hvEsc(rows.length?rows[0].k.split('|')[1]:'-')+' ~ '+hvEsc(rows.length?rows[rows.length-1].k.split('|')[1]:'-')+' · '+rows.length+'개 구간</div>';
  g+='<div class="tw"><table class="sc13-t sc13-ag"><thead><tr><th>기간</th>'+ms.map(function(m){return '<th>'+hvEsc(m)+'</th>'}).join('')+'<th>질타</th><th>위반</th><th>유휴</th><th>장애</th><th>개선·지적</th><th>합계</th><th>누적</th><th class="sc13-bc">합계 / 누적</th></tr></thead><tbody>';
  rows.forEach(function(r){var c=function(f){return r.a.filter(f).length},t=function(x){return c(function(e){return e.type===x})};
   var oth=c(function(e){return /개선요청|지적/.test(e.type)});
@@ -51,7 +51,7 @@ function hvSC13Paint(fail,err){
   g+='<tr><td><b>'+hvEsc(m.name)+'</b></td><td>'+hvEsc(m.role)+'</td><td>'+hvEsc(m.assigned)+'</td><td>'+hvEsc(m.done)+'</td><td>'+hvEsc(m.pending)+'</td>'+T.map(function(t){var n=+c[t]||0;return '<td class="sc13-n'+(n&&(t==='질타'||t==='위반'||t==='유휴')?' sc13-hot':'')+'">'+n+'</td>'}).join('')+'<td class="sc13-n"><b>'+s+'</b></td></tr>'});
  g+='</tbody></table></div>';
  var ms=['전체'].concat(d.models.map(function(m){return m.name})),ts=['전체'].concat(T);
- g+='<h3>이력</h3><div class="sc13-f">모델 '+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'<span class="sc13-sp"></span>구분 '+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>';
+ g+='<h3>이력</h3><div class="sc13-f">모델 '+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f"><span class="sc13-lb">구분</span>'+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>';
  var tg={'질타':'bad','위반':'bad','유휴':'bad','지적':'warn','지적(자가 발견)':'warn','개선요청':'gray','장애':'warn'};
  var rows=ev.filter(function(e){return (hvF13.m==='전체'||e.model===hvF13.m)&&(hvF13.t==='전체'||e.type===hvF13.t)}).slice().reverse();
  g+='<div class="tw"><table class="sc13-t"><thead><tr><th>#</th><th>날짜</th><th>시각</th><th>모델</th><th>구분</th><th>대표님 지시·질타 요지</th><th>원인</th><th>조치</th><th>상태</th><th>Fable</th></tr></thead><tbody>';

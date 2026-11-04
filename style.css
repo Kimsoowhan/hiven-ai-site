@@ -137,3 +137,6 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc13-bar{height:8px;background:#eef1f8;border-radius:4px;overflow:hidden;margin:3px 0}
 .sc13-bar i{display:block;height:100%;background:#2343d7}
 .sc13-bar.cum i{background:#9aa6c8}
+.sc13-f{margin:4px 0 6px}
+.sc13-lb{display:inline-block;min-width:64px;font-weight:600;color:#16234d}
+.sc13-pr{color:var(--sub);font-size:12.5px}
