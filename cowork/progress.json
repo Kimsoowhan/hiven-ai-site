@@ -1,0 +1,225 @@
+{
+ "updated": "2026-11-04T11:06:00+09:00",
+ "note": "초기값 = cowork/board.md 상태판(11/04 10:53 승인 반영) + W13. 점수: 대기0·진행 중30·완료·검수 대기70·Fable 통과90·승인·반영100. 주간=전체 평균, 모델별=담당 W# 평균(Opus W3·W5 / Sonnet W13 / Haiku W8). 다른 W#의 tasks는 각 모델 태스크대장 합침 때 채움.",
+ "items": [
+  {
+   "id": "W1",
+   "title": "잔존 자동 실행 확인(작업 스케줄러·작업관리자) → 비활성",
+   "difficulty": "하",
+   "owner": "대표님 캡처→Fable",
+   "due": "11/04",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W2",
+   "title": "AICS 처리정책 승인·확정",
+   "difficulty": "하",
+   "owner": "Fable·대표님",
+   "due": "11/04",
+   "status": "완료·승인",
+   "score": 100,
+   "output": "91_Fable\\AICS_자동화_처리정책_261104.pdf",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "예",
+   "tasks": []
+  },
+  {
+   "id": "W3",
+   "title": "HIVEN 사업 구조 확정서 v1.0 (7사업군·옛 명칭 대응·Pet 소멸)",
+   "difficulty": "중",
+   "owner": "Opus",
+   "due": "11/05",
+   "status": "진행 가능",
+   "score": 30,
+   "output": "91_Fable\\지시문\\지시문_W3_261105.txt",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W4",
+   "title": "Mbiz 세 벌 해시 대조 → 판독 → 격리 목록",
+   "difficulty": "중",
+   "owner": "대표님·Fable",
+   "due": "11/05~08",
+   "status": "대기",
+   "score": 0,
+   "output": "91_Fable\\Mbiz_세벌_대조_실행.cmd",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W5",
+   "title": "WBS 1.4 → 2.0 (7사업군·재일정)",
+   "difficulty": "상",
+   "owner": "Opus",
+   "due": "11/06",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W6",
+   "title": "매출 로드맵 1.1 → 1.2 (배분 재설정)",
+   "difficulty": "상",
+   "owner": "(배정 대기)",
+   "due": "11/06",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W7",
+   "title": "hiven.ai.kr 대시보드 표시 수정(정지·미연결(샘플), 카드 겹침)",
+   "difficulty": "중",
+   "owner": "(배정 대기)",
+   "due": "11/07",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W8",
+   "title": "hicoffer.ai·hisilver.ai 푸터 게시 확인 / 4개 언어 번역 검수",
+   "difficulty": "하",
+   "owner": "Haiku",
+   "due": "11/05",
+   "status": "진행 가능",
+   "score": 30,
+   "output": "91_Fable\\지시문\\지시문_W8_261104.txt",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W9",
+   "title": "33~37 사업부 폴더 01_정책·02_설정안 초안 틀",
+   "difficulty": "하",
+   "owner": "(배정 대기)",
+   "due": "11/08",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W10",
+   "title": "T-0025 챕터3 환경 시험 계획서 초안",
+   "difficulty": "상",
+   "owner": "(배정 대기)",
+   "due": "11/09",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W11",
+   "title": "법인 설립 체크리스트 일정 / 예창패 2027 공고 확인",
+   "difficulty": "하",
+   "owner": "(배정 대기)",
+   "due": "11/09",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W12",
+   "title": "주간 결과 보고·손해 청구 상태·다음 주 계획",
+   "difficulty": "중",
+   "owner": "Fable",
+   "due": "11/10",
+   "status": "대기",
+   "score": 0,
+   "output": "",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": []
+  },
+  {
+   "id": "W13",
+   "title": "SC-12 실시간 모니터링 v2",
+   "difficulty": "상",
+   "owner": "Sonnet",
+   "due": "11/05",
+   "status": "진행 중",
+   "score": 30,
+   "output": "91_Fable\\지시문\\지시문_W13_261104.txt",
+   "self_check": "-",
+   "fable": "-",
+   "approved": "-",
+   "tasks": [
+    {
+     "id": "T-W13-01",
+     "title": "progress.json 생성",
+     "status": "완료"
+    },
+    {
+     "id": "T-W13-02",
+     "title": "reports/index.json·log.tsv·README",
+     "status": "완료"
+    },
+    {
+     "id": "T-W13-03",
+     "title": "views2.js V[SC-12] 교체",
+     "status": "완료"
+    },
+    {
+     "id": "T-W13-04",
+     "title": "style.css SC-12 전용 클래스",
+     "status": "완료"
+    },
+    {
+     "id": "T-W13-05",
+     "title": "검수(캡처 2·diff·JSON 검증)",
+     "status": "완료"
+    },
+    {
+     "id": "T-W13-06",
+     "title": "커밋·일일보고·상황판",
+     "status": "진행"
+    }
+   ]
+  }
+ ],
+ "models": {
+  "Opus": 15,
+  "Sonnet": 30,
+  "Haiku": 30
+ },
+ "week": 15
+}

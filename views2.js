@@ -48,37 +48,85 @@ V['SC-11']=function(){
   ['32','11/02 07:57','음성·문자 전달 체계']]);
  return g};
 
-/* SC-12 통합사업관리 작업상황 — 01_클로_소통(COM)\CoWork_진행상황판 사본(/cowork/board.md)을 읽어 표시. 저장소에 올라온 시점이 기준. */
+/* SC-12 통합사업관리 작업상황 v2 — /cowork/progress.json · reports/index.json · log.tsv 를 30초마다 읽어 표시. 저장소에 올라온(푸시된) 시점이 기준. 외부 라이브러리 없음. */
+var hvT=null,hvLast=null,hvLastOk='',hvOpen={};
+function hvEsc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function hvFetch(u,type){return fetch(u+'?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return type==='json'?r.json():r.text()})}
 V['SC-12']=function(){
- setTimeout(hvCowork,0);
- return '<h2>SC-12 통합사업관리 작업상황</h2><p class="lead">CoWork 진행상황판(COM)의 게시본입니다. 원본: HiBiz\\01_클로_소통(COM)\\CoWork_진행상황판-261104.md · <span id="cw-upd">읽는 중…</span></p><div id="cw"></div>'};
-function hvMdTables(md){
- var out=[],lines=md.split(/\r?\n/),i=0;
- while(i<lines.length){
-  if(/^\|/.test(lines[i])&&i+1<lines.length&&/^\|[\s:|-]+\|$/.test(lines[i+1])){
-   var head=lines[i].split('|').slice(1,-1).map(function(s){return s.trim()}),rows=[];i+=2;
-   while(i<lines.length&&/^\|/.test(lines[i])){rows.push(lines[i].split('|').slice(1,-1).map(function(s){return s.trim()}));i++}
-   var t=i-rows.length-3;while(t>=0&&!/^#/.test(lines[t]))t--;
-   out.push({title:t>=0?lines[t].replace(/^#+\s*/,''):'',head:head,rows:rows});
-  }else i++;
- }
- return out;
+ setTimeout(hvSC12Start,0);
+ return '<div id="sc12"><h2>SC-12 통합사업관리 작업상황</h2><p class="lead">CoWork 진행상황 게시본입니다. 원본: HiBiz\\01_클로_소통(COM)\\ · 이 화면은 게시된(푸시된) 시점의 값이며 30초마다 다시 읽습니다. <span id="sc12-st">읽는 중…</span></p><div id="sc12-b"></div></div>'};
+function hvSC12Start(){
+ if(hvT){clearInterval(hvT);hvT=null}
+ hvSC12Load();
+ hvT=setInterval(function(){if(!$('sc12')){clearInterval(hvT);hvT=null;return}hvSC12Load()},30000);
 }
-function hvEsc(s){return String(s).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
-function hvCowork(){
- var el=$('cw'),up=$('cw-upd');if(!el)return;
- fetch('/cowork/board.md?v='+Date.now(),{cache:'no-store'}).then(function(r){
-  if(!r.ok)throw new Error(r.status);up.textContent='게시 시각 '+(r.headers.get('last-modified')?new Date(r.headers.get('last-modified')).toLocaleString('ko-KR'):'확인 안 됨');return r.text();
- }).then(function(md){
-  var T=hvMdTables(md),g='';
-  var st={'대기':'smp','승인 대기':'warn','진행 중':'warn','완료·검수 대기':'ok','통과':'ok','위반':'bad','완료':'ok'};
-  T.forEach(function(t){
-   g+='<h3 style="margin:18px 0 6px">'+hvEsc(t.title)+'</h3><div style="overflow:auto"><table><thead><tr>'+t.head.map(function(h){return '<th>'+hvEsc(h)+'</th>'}).join('')+'</tr></thead><tbody>';
-   t.rows.forEach(function(r){g+='<tr>'+r.map(function(c,j){var k=st[c];return '<td>'+(k?'<span class="tag '+k+'">'+hvEsc(c)+'</span>':hvEsc(c))+'</td>'}).join('')+'</tr>'});
-   g+='</tbody></table></div>';
+function hvSC12Load(){
+ Promise.all([
+  hvFetch('cowork/progress.json','json').then(function(d){return {ok:1,d:d}},function(e){return {ok:0,e:e}}),
+  hvFetch('cowork/reports/index.json','json').then(function(d){return {ok:1,d:d}},function(e){return {ok:0,e:e}}),
+  hvFetch('cowork/log.tsv','text').then(function(d){return {ok:1,d:d}},function(e){return {ok:0,e:e}})
+ ]).then(function(r){
+  if(!$('sc12'))return;
+  if(r[0].ok&&r[0].d&&Array.isArray(r[0].d.items)){hvLast={p:r[0].d,rep:r[1],log:r[2]};hvLastOk=kst();hvSC12Paint(false)}
+  else hvSC12Paint(true,r[0].e);
+ });
+}
+function hvStage(sc){return sc>=100?'s100':sc>=90?'s90':sc>=70?'s70':sc>=30?'s30':'s0'}
+function hvDue(due){
+ var m=String(due||'').match(/^(\d+)\/(\d+)(?:~(\d+))?/);if(!m)return null;
+ return new Date(2026,+m[1]-1,m[3]?+m[3]:+m[2],18,0,0);
+}
+function hvSC12Paint(fail,err){
+ var st=$('sc12-st'),b=$('sc12-b');if(!st||!b)return;
+ if(fail){
+  st.innerHTML='<span class="tag bad">게시본 없음</span> 마지막 성공 시각 '+(hvLastOk?hvEsc(hvLastOk):'없음')+' · 30초 뒤 다시 시도'+(err?' ('+hvEsc(err.message)+')':'');
+  if(!hvLast){b.innerHTML='<p class="note">cowork/progress.json 을 읽지 못했습니다. 게시본이 아직 올라가지 않았거나 경로·형식이 다릅니다. 아래 금지 4조항은 고정 표시입니다.</p>'+hvBan();return}
+ }else st.innerHTML='<span class="tag ok">게시본 읽음</span> 확인 '+hvEsc(hvLastOk)+' · 30초마다 자동 새로고침';
+ var p=hvLast.p,it=p.items,now=new Date(),g='';
+ var wait=0,pass=0;it.forEach(function(x){if(x.score>=70&&x.score<90)wait++;if(x.score>=90&&x.score<100)pass++});
+ var md=p.models||{};
+ var ms=['Opus','Sonnet','Haiku'].map(function(k){return '<span><b>'+k+'</b> '+(md[k]==null?'-':hvEsc(md[k])+'%')+'</span>'}).join('');
+ g+='<div class="grid">'+card('주간 진척도',hvEsc(p.week)+'%','전체 '+it.length+'건 평균 · 화 18:00 마감')+card('모델별 진척도','<div class="sc12-ms">'+ms+'</div>','담당 W# 평균')+card('완료·검수 대기',wait+'건','Fable 통과 '+pass+'건 · 승인 반영 '+it.filter(function(x){return x.score>=100}).length+'건')+card('마지막 갱신',hvEsc(String(p.updated||'-').replace('T',' ').replace(/:\d\d(\+.*)?$/,'')),'progress.json updated')+'</div>';
+ g+='<h3>W1~W'+it.length+' 진척도</h3><div class="tw"><table class="sc12-t"><thead><tr><th>#</th><th>일</th><th>담당</th><th>마감</th><th>상태</th><th class="sc12-bc">진척도</th><th>태스크</th><th>산출물</th><th>자가검수</th><th>Fable 판정</th><th>승인</th></tr></thead><tbody>';
+ var tg={'대기':'smp','진행 가능':'gray','진행 중':'warn','완료·검수 대기':'ok','Fable 통과':'ok','통과':'ok','완료·승인':'ok','승인·반영':'ok','재작업':'bad','위반':'bad'};
+ it.forEach(function(x){
+  var d=hvDue(x.due),od=d&&now>d&&x.score<70,tk=x.tasks||[],dn=tk.filter(function(t){return /완료|검수|통과/.test(t.status)}).length,k=tg[x.status];
+  g+='<tr'+(od?' class="sc12-od"':'')+'><td><b>'+hvEsc(x.id)+'</b></td><td>'+hvEsc(x.title)+'<div class="sc12-d">난이도 '+hvEsc(x.difficulty||'-')+'</div></td><td>'+hvEsc(x.owner)+'</td><td>'+hvEsc(x.due)+(od?' <span class="tag bad">기한 지남</span>':'')+'</td><td>'+(k?'<span class="tag '+k+'">'+hvEsc(x.status)+'</span>':hvEsc(x.status))+'</td>'
+  +'<td class="sc12-bc"><div class="sc12-bar"><i class="'+hvStage(x.score)+'" style="width:'+Math.max(0,Math.min(100,+x.score||0))+'%"></i></div><span class="sc12-n">'+hvEsc(x.score)+'</span></td>'
+  +'<td>'+(tk.length?'<div class="sc12-bar sm"><i class="s70" style="width:'+Math.round(dn*100/tk.length)+'%"></i></div><span class="sc12-n">'+dn+'/'+tk.length+'</span>':'<span class="sc12-n">-</span>')+'</td>'
+  +'<td class="sc12-o">'+hvEsc(x.output||'-')+'</td><td>'+hvEsc(x.self_check||'-')+'</td><td>'+hvEsc(x.fable||'-')+'</td><td>'+hvEsc(x.approved||'-')+'</td></tr>';
+ });
+ g+='</tbody></table></div><p class="note"><span class="sc12-lg"><i class="s0"></i>0 대기</span><span class="sc12-lg"><i class="s30"></i>30 진행 중</span><span class="sc12-lg"><i class="s70"></i>70 완료·검수 대기</span><span class="sc12-lg"><i class="s90"></i>90 Fable 통과</span><span class="sc12-lg"><i class="s100"></i>100 승인·반영</span> · 마감 지난 미완은 빨간 테두리</p>';
+ g+='<h3>일일보고</h3>';
+ var R=hvLast.rep;
+ if(!R.ok||!Array.isArray(R.d))g+='<p class="note">reports/index.json 을 읽지 못했습니다.</p>';
+ else if(!R.d.length)g+='<p class="note">아직 게시된 일일보고가 없습니다.</p>';
+ else{
+  g+='<div class="sc12-rp">';
+  R.d.slice().sort(function(a,c){return String(c.date||'').localeCompare(String(a.date||''))||String(c.file||'').localeCompare(String(a.file||''))}).forEach(function(r){
+   var f=String(r.file||''),okf=/^[0-9A-Za-z가-힣._-]+$/.test(f),op=!!hvOpen[f];
+   g+='<div class="sc12-r"><button type="button" class="sc12-rh" '+(okf?'onclick="hvRep(this)" data-f="'+hvEsc(f)+'"':'disabled')+'><b>'+hvEsc(r.date||'-')+'</b> · '+hvEsc(r.model||'-')+' · '+hvEsc(r.title||f)+'</button><pre class="sc12-rb'+(op?'':' hide')+'">'+(op?'읽는 중…':'')+'</pre></div>';
   });
-  var m=md.match(/## 금지 4조항[\s\S]*?(?=\n## )/);
-  if(m)g+='<p class="note" style="white-space:pre-wrap;margin-top:14px">'+hvEsc(m[0])+'</p>';
-  el.innerHTML=g||'<p class="note">표를 찾지 못했습니다.</p>';
- }).catch(function(e){up.textContent='읽기 실패 '+e.message;el.innerHTML='<p class="note">/cowork/board.md 를 읽지 못했습니다. 게시본이 아직 올라가지 않았거나 경로가 다릅니다.</p>'});
+  g+='</div>';
+ }
+ g+='<h3>변경 로그 (최근 30줄)</h3>';
+ var L=hvLast.log;
+ if(!L.ok)g+='<p class="note">log.tsv 를 읽지 못했습니다.</p>';
+ else{
+  var ln=String(L.d).split(/\r?\n/).filter(function(x){return x.trim()}).slice(1).slice(-30).reverse();
+  g+=ln.length?tbl(['시각','모델','W#','상태','메모'],ln.map(function(x){var c=x.split('\t');while(c.length<5)c.push('');return c.slice(0,5).map(hvEsc)})):'<p class="note">변경 기록이 아직 없습니다.</p>';
+ }
+ g+=hvBan();
+ b.innerHTML=g;
+ Object.keys(hvOpen).forEach(function(f){if(hvOpen[f]){var h=b.querySelector('.sc12-rh[data-f="'+f.replace(/"/g,'')+'"]');if(h)hvRepLoad(h)}});
+}
+function hvBan(){return '<h3>금지 4조항 (전 모델 · 위반 시 즉시 중단)</h3><ol class="sc12-ban"><li>작업이 끝나기 전에 대화를 종료하지 않는다.</li><li>막히면 보고하고 기다린다(추측 진행 금지).</li><li>대표님께 일을 넘기지 않는다.</li><li>자동 실행·예약작업·훅·외부 설정(Cloudflare·GitHub·사이트 설정) 생성·변경 금지. 파일 이름 변경·복사·이동·삭제 금지. 산출물은 새 파일로 저장.</li></ol>'}
+function hvRep(btn){
+ var f=btn.getAttribute('data-f'),pre=btn.nextElementSibling;
+ if(hvOpen[f]){hvOpen[f]=false;pre.classList.add('hide');return}
+ hvOpen[f]=true;pre.classList.remove('hide');hvRepLoad(btn);
+}
+function hvRepLoad(btn){
+ var f=btn.getAttribute('data-f'),pre=btn.nextElementSibling;
+ hvFetch('cowork/reports/'+encodeURIComponent(f),'text').then(function(t){pre.textContent=t},function(e){pre.textContent='읽지 못했습니다 ('+e.message+')'});
 }
