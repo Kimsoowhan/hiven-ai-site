@@ -41,7 +41,7 @@ function hvPgFit(sc,ref,fn){var vk=innerWidth+'x'+innerHeight,f=hvPgFix[sc];if(f
  if(!tb||tb.rows.length<2){hvPgFix[sc]={vk:vk,n:hvPgN('x'),tw:0};window[fn](false);return}
  var hd=tw;while(hd&&hd.tagName!=='H3')hd=hd.previousElementSibling;
  var top=(hd||tw).getBoundingClientRect().top,tr=tb.getBoundingClientRect(),twr=tw.getBoundingClientRect(),pr=pg.getBoundingClientRect();
- var hs=[].map.call(tb.rows,function(r){return r.getBoundingClientRect().height}),body=tr.height;
+ var hs=[].filter.call(tb.rows,function(r){return !r.classList.contains('sc13-dt')}).map(function(r){return r.getBoundingClientRect().height}),body=tr.height;/* 펼침 줄(sc13-dt)은 줄 수 계산에서 뺌 — 11/04 17:33 */
  var chrome=(pr.bottom-top)-body,avail=innerHeight-16-chrome;
  function nFor(av){for(var k=HV_PG_MAX;k>=1;k--){var ok=true;for(var i=0;i<hs.length;i++){var sm=0;for(var j=i;j<Math.min(i+k,hs.length);j++)sm+=hs[j];if(sm>av){ok=false;break}if(i+k>=hs.length)break}if(ok)return k}return 1}
  hvPgFix[sc]={vk:vk,n:nFor(avail),avail:Math.max(avail,0),head:tr.top-twr.top,foot:twr.bottom-tr.bottom};

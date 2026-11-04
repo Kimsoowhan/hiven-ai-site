@@ -175,3 +175,21 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .tag.v5{background:#e3edfb;color:#1e4fa3}
 .tag.v6{background:#eceff3;color:#4b5563}
 .tag.v7{background:#d32f2f;color:#fff;font-weight:800}
+/* 11/04 17:27 SC-13 요약 상자 버튼 · 17:28 교차 검사 결과값 */
+.sc13-cards .sc13-cb{display:flex;flex-direction:column;align-items:flex-start;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%;min-width:0;transition:box-shadow .15s,border-color .15s}
+.sc13-cb .k,.sc13-cb .s{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.sc13-cb .v{white-space:nowrap}
+.sc13-cb:hover{border-color:var(--indigo);box-shadow:0 2px 10px rgba(63,81,181,.18)}
+.sc13-cb.on{background:#16234d;border-color:#16234d}.sc13-cb.on .k,.sc13-cb.on .s{color:#c9d3ea}.sc13-cb.on .v{color:#fff}
+.sc13-cb.hot .v{color:var(--bad)}.sc13-cb.on.hot .v{color:#ff9b9b}
+.sc13-cb:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.sc13-sel{display:flex;align-items:center;gap:8px;margin:8px 0;flex-wrap:wrap}
+.sc13-sel button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:3px 12px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+.tag.sel{background:#16234d;color:#fff}
+.sc13-f button{white-space:nowrap}
+.sc13-f button.bad{border-color:var(--bad);color:#9c2323}.sc13-f button.mid{border-color:var(--warn);color:#8c5700}
+.sc13-f button.on.bad,.sc13-f button.on.mid{color:#fff}
+.sc13-t tr.sc13-r{cursor:pointer}
+.sc13-t tr.sc13-dt{display:none}.sc13-t tr.sc13-open+tr.sc13-dt{display:table-row}
+.sc13-t tr.sc13-dt td{background:#f6f8fc;font-size:12.5px}
+.sc13-lk{line-height:1.6}.sc13-ln{display:block;padding-left:10px}
