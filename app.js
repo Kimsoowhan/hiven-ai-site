@@ -1,5 +1,4 @@
 function hvgo(id){cur=id;render(id);window.scrollTo({top:0})}
-function hvgoHist(){hvgo('SC-13');setTimeout(function(){var e=[].slice.call(document.querySelectorAll('#main h2,#main h3,#main h4,#main b,#main span,#main div')).find(function(x){return x.childElementCount===0&&x.textContent.trim()==='이력'});if(e)e.scrollIntoView({block:'start'})},80)}
 function parse(t){
  t=String(t||'').trim();
  if(!t)return '입력하면 해석 결과가 여기에 표시됩니다.';
