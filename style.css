@@ -132,3 +132,8 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .sc13-sp{width:14px}
 .sc13-path{font-size:12.5px;background:#eef1fb;border:1px solid #c9d2f0;border-radius:10px;padding:8px 12px;margin:6px 0 4px;line-height:1.6}
 .sc13-path b{color:#16234d;margin-right:6px}
+.sc13-ag{min-width:1100px}
+.sc13-bc{min-width:170px}
+.sc13-bar{height:8px;background:#eef1f8;border-radius:4px;overflow:hidden;margin:3px 0}
+.sc13-bar i{display:block;height:100%;background:#2343d7}
+.sc13-bar.cum i{background:#9aa6c8}
