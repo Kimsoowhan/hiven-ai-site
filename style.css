@@ -272,3 +272,7 @@ button.card.sc13-cb.hot.on .v{color:#fff}
 
 /* W28-01 버튼·칩 한 줄(규칙 0-8) */
 .chip{white-space:nowrap}
+
+/* W28-03 A-04(W-09): 보고 목록 파일명 한 줄 말줄임, 누르면(펼침) 전체 */
+.sc12-rh{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sc12-r:has(.sc12-rb:not(.hide)) .sc12-rh{white-space:normal;overflow:visible}

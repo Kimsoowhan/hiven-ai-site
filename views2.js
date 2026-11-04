@@ -100,6 +100,7 @@ function hvSC12Paint(fail,err){
   +'<td class="sc12-o">'+hvEsc(x.output||'-')+'</td><td>'+hvEsc(x.self_check||'-')+'</td><td>'+hvEsc(x.fable||'-')+'</td><td>'+hvEsc(x.approved||'-')+'</td></tr>';
  });
  g+='</tbody></table></div>'+hvPager(PG12,'건','hvSC12Paint')+'<p class="note"><span class="sc12-lg"><i class="s0"></i>0 대기</span><span class="sc12-lg"><i class="s30"></i>30 진행 중</span><span class="sc12-lg"><i class="s70"></i>70 완료·검수 대기</span><span class="sc12-lg"><i class="s90"></i>90 Fable 통과</span><span class="sc12-lg"><i class="s100"></i>100 승인·반영</span> · 마감 지난 미완은 빨간 테두리</p>';
+ g+=hvTG12(hvLast.log&&hvLast.log.ok?hvLast.log.d:'');/* W28-03 A-02 */
  g+='<h3>일일보고</h3>';
  var R=hvLast.rep;
  if(!R.ok||!Array.isArray(R.d))g+='<p class="note">reports/index.json 을 읽지 못했습니다.</p>';
@@ -108,7 +109,7 @@ function hvSC12Paint(fail,err){
   g+='<div class="sc12-rp">';
   R.d.slice().sort(function(a,c){return String(c.date||'').localeCompare(String(a.date||''))||String(c.file||'').localeCompare(String(a.file||''))}).forEach(function(r){
    var f=String(r.file||''),okf=/^[0-9A-Za-z가-힣._-]+$/.test(f),op=!!hvOpen[f];
-   g+='<div class="sc12-r"><button type="button" class="sc12-rh" '+(okf?'onclick="hvRep(this)" data-f="'+hvEsc(f)+'"':'disabled')+'><b>'+hvEsc(r.date||'-')+'</b> · '+hvEsc(r.model||'-')+' · '+hvEsc(r.title||f)+'</button><pre class="sc12-rb'+(op?'':' hide')+'">'+(op?'읽는 중…':'')+'</pre></div>';
+   g+='<div class="sc12-r"><button type="button" class="sc12-rh" title="'+hvEsc((r.date||'-')+' · '+(r.model||'-')+' · '+(r.title||f))+'" '+(okf?'onclick="hvRep(this)" data-f="'+hvEsc(f)+'"':'disabled')+'><b>'+hvEsc(r.date||'-')+'</b> · '+hvEsc(r.model||'-')+' · '+hvEsc(r.title||f)+'</button><pre class="sc12-rb'+(op?'':' hide')+'">'+(op?'읽는 중…':'')+'</pre></div>';
   });
   g+='</div>';
  }

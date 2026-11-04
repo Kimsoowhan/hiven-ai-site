@@ -67,6 +67,7 @@ V['SC-01']=function(){
  var T10=function(n,t,h,rows,src){return '<div class="sc01-tb'+(n===11?' sky':'')+'">'+(t==='모델통제 이력'?'<h3 role="link" tabindex="0" title="SC-13 구분별 변동 추이 그래프로 이동" onclick="hvgoHist()" onkeydown="if(event.key===\'Enter\')hvgoHist()" style="cursor:pointer">'+t+'</h3>':'<h3>'+(n===11?'':'#'+n+'. ')+t+'</h3>')+''+tbl(h,rows.length?rows:[h.map(function(x,i){return i?(i===1?'데이터 연동 전 — 연동되면 여기에 표출':''):NC})])+'<p class="note">'+src+'</p></div>'};
  var rv=function(a){return a.slice().reverse()},cls=function(e){return lcM[e.no]?lcM[e.no][5]:(done(e)?'조치 완료':'조치 중')},stg=function(e){return lcM[e.no]?lcM[e.no][13]:'-'};
  var ER=function(e){return [hvEsc(e.no),hvEsc(e.time),tag(hvEsc(e.status),done(e)?'ok':'warn'),hvEsc(e.content),hvEsc(e.action)]};
+ g+=(L?'':hvTG01(E,cls));/* W28-03 A-01 */
  g+='<h3 class="sc01-tbh">상자별 표(#1~#10 상자 순서 + 모델통제 이력)</h3>';
  g+=T10(1,'장애 상태(경고)',['#','시각','상태','내용','조치'],L?[]:[['시스템','11-03 20:54',tag('조치 진행 중','warn'),'HiClo 판정 멈춤 — 구동 상태 확인 불가','자동화 동결·원본 실측만 표시, 재가동 결정 대기']].concat(rv(faO).map(ER),rv(fa.filter(done)).map(ER)),'진행 중 먼저, 그다음 해제 · 원천 모델통제 이력 게시본 + HVR');
  g+=T10(2,'위험 요소(예측)',['구분','위험','징후·내용','대응','근거'],L?[]:warn.map(function(r){return ['경보','HiClo '+hvEsc(r[2]),hvEsc(r[3]),'재가동 결정 전까지 「확인 안 됨」','판정 '+r[0].slice(5)]}).concat(rv(viO).map(function(e){return ['위반','#'+hvEsc(e.no),hvEsc(e.content),hvEsc(e.action),'이력 '+hvEsc(e.no)]}),RISK.map(function(x){return ['재발·지연',hvEsc(x[0]),hvEsc(x[1]),hvEsc(x[2]),hvEsc(x[3])]}),late.map(function(x){return ['마감 임박',hvEsc(x.id),hvEsc(x.title)+' '+hvEsc(x.score)+'%','마감 '+hvEsc(x.due),'SC-12']})),'경보 → 미조치 위반 → 재발·지연 → 24시간 안 마감');
@@ -165,3 +166,5 @@ function hvMetaTbl(){if(!hvMeta.m)return '<h3>게시 원천</h3>'+hvNo('publish_
 function hvMismatch(h,l){var m=hvMeta.m;var bad=(m&&m.consistent===false)||(h&&l&&h!==l);return bad?'<p class="note" style="color:#c62828;font-weight:700">원천 불일치 · 재산출 필요 — 이력 '+h+'건 / 생명주기 '+l+'건</p>':''}
 function hvSum4(){var m=hvMeta.m;return '<h3>요약(설계서 1.18 구성)</h3>'+tbl(['구분','상태','원천'],[['고객 지원 요약',tag('D2','gray')+' 사례 원천 구축 전','cases.tsv(12월)'],['자동화 작업 요약','마지막 결과 '+HVR.job.id+' · '+HVR.job.end.slice(5,16)+' · 종료 코드 '+HVR.job.rc,HVR.job.src],['L3 사안',tag('D2','gray')+' 원천 없음','—'],['데이터 수신 상태',m?('게시 '+hvEsc(m.published)+' · 원천 파일 '+m.files.length+'개'):hvNo(),'publish_meta.json']])}
 hvMetaLoad();setInterval(hvMetaLoad,30000);
+/* W28-03 A-03(Opus 11/05): 원본 13화면 모두 같은 안내(hvChk) — SC-12·SC-13에 빠져 있던 것 보충(시험 페이지는 views0을 읽지 않으므로 영향 없음) */
+(function(){['SC-12','SC-13'].forEach(function(id){var f=V[id];if(f&&!f._chk){V[id]=function(){return f.apply(this,arguments)+hvChk()};V[id]._chk=1}})})();
