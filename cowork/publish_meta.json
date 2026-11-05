@@ -42,8 +42,8 @@
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
    "rows": 347,
-   "sha16": "445bd5feee6d9559",
-   "mtime": "2026-11-05 15:50"
+   "sha16": "1042559e0ae76b29",
+   "mtime": "2026-11-05 15:56"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -58,8 +58,8 @@
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
    "rows": 347,
-   "sha16": "380ba81433c54914",
-   "mtime": "2026-11-05 15:50"
+   "sha16": "a7464c4cd9f767cc",
+   "mtime": "2026-11-05 15:56"
   },
   {
    "file": "ctl/trace_sum.json",
