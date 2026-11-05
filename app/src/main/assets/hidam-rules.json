@@ -1,0 +1,35 @@
+{
+  "standard": "Hi DAM (Hi Coffer Digital Asset Management standard classification)",
+  "version": "0.1-draft",
+  "source": "Hi Coffer 사업 설정안 (HCS) -012, 26장 [가안]",
+  "levels": ["영역 AA_영역명", "범주 AA.CC_범주명", "건 YYYY_대상_내용"],
+  "areas": [
+    {"code":"00","name":"관리","grade":"D1","retention":"R1"},
+    {"code":"01","name":"신분·학위·자격","grade":"D3","retention":"R0"},
+    {"code":"02","name":"경력·구직","grade":"D1","retention":"R1"},
+    {"code":"03","name":"근무·프로젝트","grade":"D2","retention":"R1"},
+    {"code":"04","name":"사업·창업","grade":"D2","retention":"R0/R2"},
+    {"code":"05","name":"학습·연구","grade":"D1","retention":"R2"},
+    {"code":"06","name":"개인·가족","grade":"D1","retention":"R0"},
+    {"code":"07","name":"행정·세무·법무","grade":"D2","retention":"R1"},
+    {"code":"08","name":"자료실","grade":"D0","retention":"R3"},
+    {"code":"09","name":"설치·소프트웨어","grade":"D1","retention":"R3"},
+    {"code":"10","name":"관계·네트워크","grade":"D4","retention":"R1"},
+    {"code":"97","name":"원천보관","grade":"D3","retention":"R2"},
+    {"code":"98","name":"임시","grade":"D1","retention":"R4"},
+    {"code":"99","name":"기타","grade":"D1","retention":"R4"}
+  ],
+  "mobile_first_pass": {
+    "note": "모바일 시험판은 확장자로 1차 후보만 제안하고, 확정은 사용자가 함(AI는 제안만)",
+    "rules": [
+      {"ext":["jpg","jpeg","png","heic","webp","gif","mp4","mov","3gp"],"suggest":"06.01","label":"사진·영상"},
+      {"ext":["pdf","doc","docx","hwp","hwpx","xls","xlsx","ppt","pptx","txt"],"suggest":"98","label":"임시(내용 확인 후 분류)"},
+      {"ext":["mp3","m4a","aac","wav","amr"],"suggest":"08.05","label":"음악·오디오"},
+      {"ext":["apk","xapk"],"suggest":"09.04","label":"설치 파일"},
+      {"ext":["vcf"],"suggest":"10.03","label":"명함·연락처"},
+      {"ext":["*"],"suggest":"97","label":"원천보관(분류 전)"}
+    ]
+  },
+  "fingerprint": "SHA-256",
+  "principles": ["원본을 잃지 않음","실행 전 확인","격리/이동 후 사용자 결정","언제든지 되돌림","파일 내용은 기기 안에서 처리"]
+}

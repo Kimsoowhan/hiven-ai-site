@@ -1,0 +1,36 @@
+# HiCoffer Android 빌드(결정 A5: GitHub Actions). 수동 실행·push 때 디버그 APK를 만들고 권한 정책을 검사한다.
+name: android-build
+on:
+  workflow_dispatch:
+  push:
+    branches: [android-hicoffer]
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.11.1"
+      - name: Build debug APK
+        run: gradle :app:assembleDebug --no-daemon
+      - name: Permission policy check (merged manifest)
+        run: |
+          M=$(find app/build/intermediates -name AndroidManifest.xml -path "*merged_manifest*" | head -1)
+          echo "merged: $M"
+          ! grep -E 'android.permission.(INTERNET|MANAGE_EXTERNAL_STORAGE|CAMERA)"' "$M"
+          grep -q 'minSdkVersion="26"' "$M"
+      - name: APK SHA256
+        run: sha256sum app/build/outputs/apk/debug/*.apk | tee apk_sha256.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: hicoffer-android-debug
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            apk_sha256.txt
