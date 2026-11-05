@@ -1,0 +1,10 @@
+/* T-W37-02 SC-14 베타1 배포 모니터링(대표님 규칙 20·21·29·54): 게이트 O-01~O-11 + 배포 후 장애·문의·확인 사건 3분류(미조치·조치 중·조치 완료) + 변동 추이 그래프(공통 부품 hvTGin). 원천 cowork/ctl/deploy_beta1_gates.tsv · deploy_beta1_events.tsv — 실측만, 배포 전에는 사건 0건 그대로 표출 */
+V['SC-14']=function(){var el='hv14';setTimeout(function(){Promise.all([hvFetch(hv5Base()+'deploy_beta1_gates.tsv','text'),hvFetch(hv5Base()+'deploy_beta1_events.tsv','text')]).then(function(a){var G=hv5Tsv(a[0]),E=hv5Tsv(a[1]),n=document.getElementById(el);if(!n)return;
+ var pass=G.r.filter(function(r){return /^통과/.test(r[2])}).length,ready=G.r.filter(function(r){return r[2]==='준비 완료'}).length,fail=G.r.length-pass-ready;
+ var c3=function(k){return E.r.filter(function(r){return r[5]===k}).length};
+ var g='<div class="grid">'+card('게이트 통과',pass+'/'+G.r.length,'준비 완료 '+ready+' · 미통과 '+fail)+card('배포 상태',E.r.length?'배포 후':'배포 전','배포일 2026-11-26 · 승인 1회 뒤')+card('미조치',c3('미조치')+'건','배포 후 사건')+card('조치 중',c3('조치 중')+'건','배포 후 사건')+card('조치 완료',c3('조치 완료')+'건','배포 후 사건')+'</div>';
+ g+='<h3>게이트 O-01~O-11</h3>'+tbl(['게이트','항목','결과','근거','실측 시각'],G.r.map(function(r){return r.map(hvEsc)}));
+ g+=hvTGin('sc14',{title:'배포 후 장애·조치 변동 추이',types:['미조치','조치 중','조치 완료'],colors:(typeof hvTGC01!=='undefined'?hvTGC01:null),tu:'일',ev:E.r.map(function(r){var hm=(r[2]||'').slice(0,5);return {t:Date.parse(r[1]+'T'+(hm||'12:00')+':00+09:00'),hm:hm,y:r[5],m:r[3]}}).filter(function(e){return !isNaN(e.t)}),src:'원천 cowork/ctl/deploy_beta1_events.tsv(사건 시각)'});
+ g+='<h3>배포 후 사건</h3>'+(E.r.length?tbl(['#','날짜','시각','구분','내용','3분류','조치','근거'],E.r.slice().reverse().map(function(r){return r.map(hvEsc)})):'<p class="note">사건 0건 — 배포 전(배포일 2026-11-26). 배포 뒤 O-10 확인 3항목과 접수 건이 이 표에 쌓입니다.</p>');
+ n.innerHTML=g+'<p class="note">원천: cowork/ctl/deploy_beta1_gates.tsv · deploy_beta1_events.tsv(실측만)</p>'})},0);
+ return '<h2>SC-14 베타1 배포 모니터링</h2><p class="lead">HiCoffer PC 베타1의 게이트와 배포 후 장애·문의·조치를 봅니다.</p><div id="'+el+'">읽는 중…</div>'};
