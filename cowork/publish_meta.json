@@ -42,7 +42,7 @@
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
    "rows": 278,
-   "sha16": "e7c341b19990a788",
+   "sha16": "402e349ced140582",
    "mtime": "2026-11-05 13:10"
   },
   {
@@ -58,7 +58,7 @@
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
    "rows": 278,
-   "sha16": "ed4f0069b34156f1",
+   "sha16": "fad0570ac050bea1",
    "mtime": "2026-11-05 13:10"
   },
   {
