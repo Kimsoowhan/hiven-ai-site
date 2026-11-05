@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 13:34",
+ "published": "2026-11-05 14:23",
  "by": "모델",
- "history_rows": 285,
- "lifecycle_rows": 285,
+ "history_rows": 287,
+ "lifecycle_rows": 287,
  "consistent": true,
  "files": [
   {
@@ -10,16 +10,16 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "ff6c8b7cfa55a9df",
-   "mtime": "2026-11-05 13:34"
+   "sha16": "c491635e6b97978b",
+   "mtime": "2026-11-05 14:23"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "44fcd4f9fd8ee57f",
-   "mtime": "2026-11-05 13:34"
+   "sha16": "8aab5076cdcb6ee7",
+   "mtime": "2026-11-05 14:23"
   },
   {
    "file": "log.tsv",
@@ -27,23 +27,23 @@
    "screen": "SC-12",
    "rows": 38,
    "sha16": "b168ee36e7babd5a",
-   "mtime": "2026-11-05 08:22"
+   "mtime": "2026-11-05 14:20"
   },
   {
    "file": "reports/index.json",
    "source": "COM\\일일보고\\",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "c19b60aeaa3f00c8",
-   "mtime": "2026-11-05 13:34"
+   "sha16": "85416a0e4055514c",
+   "mtime": "2026-11-05 14:23"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-13",
-   "rows": 285,
-   "sha16": "f8ecdffe0b76737e",
-   "mtime": "2026-11-05 13:34"
+   "rows": 287,
+   "sha16": "374519247dff67e4",
+   "mtime": "2026-11-05 14:22"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -51,15 +51,15 @@
    "screen": "SC-13",
    "rows": 5,
    "sha16": "a9e2f351b6113de1",
-   "mtime": "2026-11-05 08:00"
+   "mtime": "2026-11-05 14:20"
   },
   {
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 285,
-   "sha16": "f5026096e1865c01",
-   "mtime": "2026-11-05 13:34"
+   "rows": 287,
+   "sha16": "081eaf410bf1a78b",
+   "mtime": "2026-11-05 14:22"
   },
   {
    "file": "ctl/trace_sum.json",
@@ -67,7 +67,7 @@
    "screen": "SC-01·SC-04",
    "rows": null,
    "sha16": "dde57b1c8cafc414",
-   "mtime": "2026-11-05 08:22"
+   "mtime": "2026-11-05 14:20"
   },
   {
    "file": "ctl/trace_v.tsv",
@@ -75,7 +75,7 @@
    "screen": "SC-04",
    "rows": 429,
    "sha16": "b7fd7f597928dd33",
-   "mtime": "2026-11-05 08:22"
+   "mtime": "2026-11-05 14:20"
   },
   {
    "file": "ctl/qa_checks.tsv",
@@ -83,7 +83,7 @@
    "screen": "SC-01·SC-09",
    "rows": 16,
    "sha16": "310c8875c4861cbf",
-   "mtime": "2026-11-05 08:00"
+   "mtime": "2026-11-05 14:20"
   },
   {
    "file": "ctl/bg_lifecycle.tsv",
@@ -91,7 +91,7 @@
    "screen": "SC-02",
    "rows": 0,
    "sha16": "8367be15586663ab",
-   "mtime": "2026-11-05 02:46"
+   "mtime": "2026-11-05 14:20"
   }
  ]
 }
