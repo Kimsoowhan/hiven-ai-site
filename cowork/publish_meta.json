@@ -1,6 +1,6 @@
 {
- "published": "2026-11-05 14:49",
- "by": "Fable",
+ "published": "2026-11-05 14:53",
+ "by": "Opus",
  "history_rows": 297,
  "lifecycle_rows": 297,
  "consistent": true,
@@ -10,16 +10,16 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "4737291202f1aade",
-   "mtime": "2026-11-05 14:49"
+   "sha16": "25914a44c72ef65c",
+   "mtime": "2026-11-05 14:53"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "61c532b1de05f390",
-   "mtime": "2026-11-05 14:49"
+   "sha16": "59a1bf6dd288ba92",
+   "mtime": "2026-11-05 14:53"
   },
   {
    "file": "log.tsv",
@@ -34,8 +34,8 @@
    "source": "COM\\일일보고\\",
    "screen": "SC-12",
    "rows": null,
-   "sha16": "85416a0e4055514c",
-   "mtime": "2026-11-05 14:49"
+   "sha16": "7f4a4fed986bf787",
+   "mtime": "2026-11-05 14:53"
   },
   {
    "file": "ctl/model_control_history.tsv",
@@ -59,7 +59,7 @@
    "screen": "SC-01",
    "rows": 297,
    "sha16": "824c56eaca317ec9",
-   "mtime": "2026-11-05 14:49"
+   "mtime": "2026-11-05 14:53"
   },
   {
    "file": "ctl/trace_sum.json",
