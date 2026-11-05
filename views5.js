@@ -1,0 +1,18 @@
+/* T-W31-01 AICS 원천 연결 1차(M-13~M-16·SC-06, 대표님 규칙 20·21): SC-05·06·07·09·11을 게시 원천(cowork/ctl/aics_*.tsv — tools/gen_aics_src.py 산출)으로 표출. 원천에 없는 값은 「확인 안 됨」. 시험 페이지에서 먼저 확인 뒤 원본에 적용. */
+function hv5Tsv(t){var L=t.replace(/\r/g,'').split('\n').filter(function(x){return x.length});return {h:L[0]?L[0].split('\t'):[],r:L.slice(1).map(function(x){return x.split('\t')})}}
+function hv5Base(){return (location.pathname.indexOf('/test/')>=0?'../':'')+'cowork/ctl/'}
+function hv5(id,name,lead,file,render){return function(){var el='hv5-'+id;setTimeout(function(){hvFetch(hv5Base()+file,'text').then(function(t){var d=hv5Tsv(t),n=document.getElementById(el);if(n)n.innerHTML=render(d)+'<p class="note">원천: cowork/ctl/'+file+' (게시본 실측 · tools/gen_aics_src.py 산출) · 원천에 없는 값은 「확인 안 됨」으로 둡니다.</p>'}).catch(function(e){var n=document.getElementById(el);if(n)n.innerHTML='<p class="note">'+tag('원천 읽기 실패','bad')+' cowork/ctl/'+file+' ('+hvEsc(e.message)+') — 값을 추정하지 않습니다.</p>'})},0);
+ return '<h2>'+id+' '+name+'</h2><p class="lead">'+lead+'</p><div id="'+el+'">읽는 중…</div>'}}
+V['SC-05']=hv5('SC-05','문서 자동 생성','산출 스크립트가 원천(이력·보고서·상황판)에서 자동으로 만든 게시 문서와 마지막 갱신을 봅니다.','aics_docgen.tsv',function(d){
+ var ok=d.r.filter(function(r){return r[3]==='있음'}).length,last=d.r.map(function(r){return r[5]}).sort().pop()||'확인 안 됨';
+ return '<div class="grid">'+card('자동 생성 문서',d.r.length+'건','존재 '+ok+' · 없음 '+(d.r.length-ok))+card('마지막 생성',last,'게시 커밋 기준')+card('생성 도구',(new Set(d.r.map(function(r){return r[1]}))).size+'개','tools/gen_*.py')+'</div>'+tbl(['게시 문서','생성 도구','화면','행 수','마지막 갱신','커밋'],d.r.map(function(r){return [r[0],r[1],r[2],r[4]===''?'—':r[4],r[5],r[6]]}))});
+V['SC-06']=hv5('SC-06','체계 배포','분류 체계·규칙 문서의 최종본·작업본 판을 노트북 원천 폴더(HV_STD) 목록으로 봅니다.','aics_deploy.tsv',function(d){
+ var w=d.r.filter(function(r){return r[3]==='작업본 승인 대기'}).length;
+ return '<div class="grid">'+card('분류·규칙 문서',d.r.length+'종','HV_STD_DM_표준_기준')+card('작업본 승인 대기',w+'종','최종화는 Fable')+card('적용 폴더 수·불일치','확인 안 됨','D2(12월) 배포 원장 생성 뒤')+'</div>'+tbl(d.h,d.r.map(function(r){return [r[0],r[1],r[2],r[3]==='작업본 승인 대기'?tag(r[3],'warn'):tag(r[3],'ok'),r[4]]}))});
+V['SC-07']=hv5('SC-07','고객 지원','고객 지원 사례 원장(접수·첫 응답·종결·응답 기한)을 봅니다.','aics_cs_cases.tsv',function(d){
+ return '<div class="grid">'+card('접수 사례',d.r.length+'건','HiCoffer PC 베타1 배포 전(11월 말)')+card('접수 채널','assist@hiven.ai.kr','앱 내 신고는 베타2')+card('응답 기한 규칙','확인 안 됨','게이트 O-07 미통과 — 문구 승인 뒤 반영')+'</div>'+(d.r.length?tbl(d.h,d.r):'<p class="note">원장 열(DR-07~15): '+d.h.join(' · ')+' — 접수되면 이 원장에 행이 추가되고 이 화면에 바로 보입니다.</p>')});
+V['SC-09']=hv5('SC-09','검수·품질','자동 검수 기록과 결함 대장(모델통제 이력의 위반·지적·자가 발견·장애)을 봅니다.','aics_qa.tsv',function(d){
+ var q=d.r.filter(function(r){return r[0]==='자동 검수'}),f=d.r.filter(function(r){return r[0]==='결함'}),done=f.filter(function(r){return /완료/.test(r[5])}).length;
+ return '<div class="grid">'+card('자동 검수',q.length+'종','통과 '+q.filter(function(r){return r[3]==='통과'}).length)+card('결함 대장',f.length+'건','조치 완료 '+done+' · 그 밖 '+(f.length-done))+card('최근 결함',(f[f.length-1]||['','확인 안 됨'])[1]?'#'+f[f.length-1][1]:'확인 안 됨',(f[f.length-1]||[])[2]||'')+'</div><h3>결함 대장(최신순)</h3>'+tbl(['번호','시각','모델·구분','내용','상태'],f.slice().reverse().map(function(r){return ['#'+r[1],r[2],r[3],hvEsc(r[4]),r[5]]}))+'<h3>자동 검수</h3>'+tbl(['검사','마지막 실행','결과'],q.map(function(r){return [r[1],r[2],r[3]]}))});
+V['SC-11']=hv5('SC-11','형상·변경','게시 저장소(hiven.ai.kr)의 변경 기록(커밋)을 최신순으로 봅니다.','aics_changes.tsv',function(d){
+ return '<div class="grid">'+card('최근 변경',(d.r[0]||['','확인 안 됨'])[1],(d.r[0]||[''])[0])+card('기록 범위',d.r.length+'건','최근 커밋')+card('기준선','확인 안 됨','DOCGEN 기준선 원장은 D2')+'</div>'+tbl(d.h,d.r.map(function(r){return [r[0],r[1],hvEsc(r[2]),r[3]||'—']}))});
