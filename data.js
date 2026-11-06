@@ -1,4 +1,4 @@
-/* HIVEN AICS 관리자 대시보드 — 공통 데이터(시험판). [실측]은 노트북 판정 파일 값, [샘플]은 시험용 값 */
+/* HIVEN AICS 통합관제 대시보드 — 공통 데이터(시험판). [실측]은 노트북 판정 파일 값, [샘플]은 시험용 값 */
 var $=function(i){return document.getElementById(i)};
 function pad(n){return (n<10?'0':'')+n}
 function kst(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())}
