@@ -8,7 +8,8 @@
   4) 상태(praise_watch_status.json)를 갱신하고, 원장·상태 변경분만 커밋·푸시한다(백그라운드, 실패해도 작업을 막지 않음).
 
 쓰는 법
-  감시 모드 : python3 praise_watch.py --watch   (대화 원문을 15초마다 읽음)
+  훅 모드   : UserPromptSubmit 훅이 표준입력으로 JSON을 준다 → python3 praise_watch.py --hook  (11/06 20:56 대표님 조건부 승인: 시험 통과·위험 없음일 때만. 설정 등록은 별도)
+  감시 모드 : python3 praise_watch.py --watch   (대화 원문을 15초마다 읽음 — 현재 구동 방식)
   전수 검사 : python3 praise_watch.py --scan [--since 2026-11-01] [--dry]   (이미 센 것은 건너뜀)
   중지      : /tmp/claude-0/praise_watch.off 파일을 만들면 아무것도 하지 않는다 (삭제하면 재개)
 
@@ -123,7 +124,7 @@ def append_ledger(ts, model, text, why, hit, src):
         return None
     key = ts.strftime('%m/%d %H:%M')
     for r in rows:
-        if r[3] == key and r[4] == model and text[:20] in r[6]:
+        if r[3] == key and text[:20] in r[6]:
             return None
     no = (max([int(r[0]) for r in rows if r[0].isdigit()] or [0])) + 1
     row = [str(no), ts.strftime('%Y-%m-%d'), str(ts.hour), key, model, '칭찬 크레딧',
@@ -163,9 +164,9 @@ def push(paths):
     if os.environ.get('PW_NOPUSH'):
         return
     rel = [os.path.relpath(p, REPO) for p in paths if os.path.exists(p)]
-    cmd = 'cd %s && git add %s && git commit -q -m "칭찬 자동 감지 장치 기록\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_012qSBL6nQbrQwTG5s7vSgkk" -- %s && (git push -q origin HEAD || (git pull -q --rebase origin HEAD && git push -q origin HEAD))' % (REPO, ' '.join(rel), ' '.join(rel))
+    cmd = 'cd %s && git add %s && git commit -q -m "칭찬 자동 감지 장치 기록\n\nCo-Authored-By: Claude Sonnet 5.5 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_012qSBL5TqsRWVrwA415UfBv" -- %s && (git push -q origin HEAD || (git pull -q --rebase origin HEAD && git push -q origin HEAD))' % (REPO, ' '.join(rel), ' '.join(rel))
     try:
-        subprocess.Popen(['bash', '-c', cmd], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        subprocess.Popen(['flock', '-n', '/tmp/claude-0/praise_push.lock', 'bash', '-c', cmd], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     except Exception:
         pass
 
@@ -177,6 +178,8 @@ def handle(text, tp, ts, src, sid, uid):
     if k in st['seen']:
         return None
     kind, hit = classify(text)
+    if kind == 'praise' and read_ledger()[0] is None:
+        return None  # 원장을 못 읽으면 센 것으로 표시하지 않음(다음 처리 때 다시 시도)
     st['seen'] = (st['seen'] + [k])[-2000:]
     out, touched = None, []
     if kind == 'praise':
@@ -202,6 +205,28 @@ def main():
     if os.path.exists(OFF):
         return
     a = sys.argv[1:]
+    if '--hook' in a:
+        try:
+            d = json.loads(sys.stdin.read() or '{}')
+        except Exception:
+            return
+        text = clean(d.get('prompt', ''))
+        if not text:
+            return
+        ts = datetime.datetime.now(KST)
+        r = handle(text, d.get('transcript_path'), ts, '이 작업 공간 창(%s)' % (d.get('session_id', '')[:8]), d.get('session_id', ''), ts.isoformat())
+        st = load_state(); st['runs'] = st.get('runs', 0) + 1; save_state(st)
+        if r:
+            print(r)
+            return
+        # 실행 흔적(상태)은 10분에 한 번만 게시
+        try:
+            last = os.path.getmtime(STATUS) if os.path.exists(STATUS) else 0
+        except Exception:
+            last = 0
+        if datetime.datetime.now().timestamp() - last > 600:
+            write_status(st); push([STATUS])
+        return
     if '--watch' in a:
         # 대화 원문을 15초마다 읽어 새 대표님 메시지를 판별(이미 센 것은 건너뜀). 작업 공간이 살아 있는 동안만 동작.
         import time

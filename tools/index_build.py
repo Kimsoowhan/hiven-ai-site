@@ -286,6 +286,7 @@ out['credit']['watch']={'name':'칭찬 자동 감지 장치(praise_watch)','appr
   ['표출','SC-13이 원장·상태를 10초마다 직접 읽어 집약 대기 없이 카운트(배포 지연 약 1~2분)'],
   ['중복·오검출 방지','같은 메시지는 한 번만, 칭찬 문구를 정의·인용하는 지시는 세지 않고 문맥 검토 대기 큐로'],
   ['구동 방식','15초 감시(praise_watch.py --watch) — 작업 공간이 살아 있는 동안만 구동'],
+  ['훅 모드(대표님 20:56 조건부 승인, 개발 모듈)','입력 모드 praise_watch.py --hook — 오류·중복·지연·충돌 시험 통과(지연 약 0.03초, 항상 종료 코드 0). 설정 등록은 하지 않았고 등록 전에는 구동하지 않음. 현재 구동은 위 감시 모드'],
   ['중지','/tmp/claude-0/praise_watch.off 파일 생성 시 즉시 멈춤(삭제하면 재개). 항상 종료 코드 0, 입력을 막지 않음'],
   ['연동 범위','통제 이탈 지표·경보·가중치·이력에는 연동하지 않음. 효과·효능 분석(영향 비교)에만 한 방향 연동'],
   ['한계','다른 채팅창(claude.ai·노트북 창)의 칭찬은 이 장치가 못 읽음 — 확인 안 됨. 그 창들은 검색 전수 조사로 보완, 상시 감지는 대표님 추가 승인 사항']]}
@@ -293,5 +294,15 @@ chk2=[['칭찬 원장 건수',len(PL),'별도 원장(이력과 무관)'],['칭�
 out['consistency']+= [{'item':a,'value':b,'result':c} for a,b,c in chk2]
 out['review'].append({'item':'칭찬 크레딧 영향 비교(효과·효능 분석)','system_finding':'칭찬 받음 %s · 못 받음(노력 신호 있음) %s · 못 받음(노력 신호 없음) %s'%(','.join(out['credit']['effect_compare']['groups']['칭찬 받음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 있음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 없음']['models']) or '-'),'back_to_framework':'칭찬 크레딧은 통제 이탈 판정에 쓰지 않고, 행동·태도·성과 변화의 긍정적 영향 비교에만 사용(대표님 20:26)','owner':'Fable'})
 out['upload']['feeds']=list(out['upload'].get('feeds',[]))+['praise_credit_ledger.tsv (효과·효능 분석 입력, 한 방향)','praise_watch_status.json','praise_watch_review.tsv']
+# 구분 변경 이력(대표님 20:34·20:35·20:40·20:41 지시) — 옛 구분 기준 소급 관리
+_rl=[r for r in csv.reader(open(HS+'history_reclass_log.tsv',encoding='utf-8-sig'),delimiter='\t')]
+_rh,_rr=_rl[0],_rl[1:]
+_cnt={}
+for r in _rr: _cnt[(r[4],r[5])]=_cnt.get((r[4],r[5]),0)+1
+out['reclass']={'file':'cowork/ctl/history_reclass_log.tsv','rows':_rr,'header':_rh,
+ 'summary':[{'before':k[0],'after':k[1],'count':v,'basis':{'개선요청 → 지시':'대표님 20:34·20:35','번호 중복(2행) → 1행으로 병합':'중복 기록 정리','개선요청 → 개선요청(유지)':'대표님 20:40 「개선요청으로 두십시오」'}.get(k[0]+' → '+k[1],'-')} for k,v in _cnt.items()],
+ 'defs':[['지시','대표님이 모델에게 하는 「이렇게 하세요·그렇게 하세요」'],['개선요청','「너 왜 이렇게 안 했나」 하고 되묻는 말'],['질타','시킨 것·한 것과 비교해 「왜 이렇게 했나」 하는 말(더 나은 방식을 두고 다르게 한 경우 포함)'],['지적','시킨 대로 안 했거나 물었는데 답이 없는 것을 짚는 말'],['위반·지시거부','소통·작업 규칙에 반한 행동에서 나오는 말']],
+ 'rule':'옛 구분 기준으로 기록된 상황은 이 표(변경 이력)로 관리한다. 명칭·구문·실행 방법·규칙은 새 기준으로 소급 적용한다(대표님 20:41).'}
+out['consistency'].append({'item':'구분 변경 이력 건수(옛 구분 소급)','value':'%d건'%len(_rr),'result':'일치(원장 파일 행 수와 같음)'})
 json.dump(out,open(HS+'model_control_index.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
 print('axes ok',{a:sum(v['faults'] for v in d.values()) for a,d in axes.items()})
