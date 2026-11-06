@@ -250,5 +250,48 @@ for m in ['Opus','Sonnet','Fable','Haiku']:
     aw[m]={'signal':sig,'credit':cred[m]['credit'],'f24':f24,'last_fault':iso(last) if last else None,'top_forms':[{'form':a,'count':b,'do':FORMACT[a]} for a,b in top],'next_action':(FORMACT[top[0][0]] if top else '지금까지 기록된 형태 없음 — 규칙 대조 후 수행'),'recurrence_rate':rr}
 out['awareness']={'principle':'질타·지적(채찍, 이력)과 칭찬 크레딧(당근, 별도 원장)을 한 화면에서 볼 수 있게 하되 기록과 점수는 섞지 않는다. 모델이 무엇이 칭찬받고 무엇이 질타받는지 스스로 보고, 책임 있고 명확한 책임 완수 쪽으로 행동을 고르게 한다.','praise_actions':PRAISEACT,'self_check_before':SELF_PRE,'self_check_after':SELF_POST,'models':aw,'protocol':['작업 시작 전: 자각 카드의 「지금 할 행동」과 작업 전 4문을 읽는다(전달문 최상단 각인과 함께).','작업 중: 막히면 시도 기록을 남긴다(회피 금지).','작업 후: 자가 점검 4문을 결과표 「검증 사항」 칸에 쓴다.','대표님 질타·지적·위반·지시거부는 즉시 이력에 기록하고, 칭찬은 이력이 아니라 칭찬 크레딧 원장(별도 표)에만 기록한다. 칭찬 크레딧 건수는 집약 때 별도로 합산한다.','집약본의 모델별 상태 신호(안정·주의·경고·긴급)와 지금 할 행동이 SC-13·SC-01에 표출된다.']}
 
+# ---- 칭찬 크레딧 영향 비교 (대표님 11/06 20:26): 통제 이탈의 원인·요건이 아니다. 이력·집계·경보·가중치에 연동하지 않고 효과·효능 분석에만 쓴다.
+H24=datetime.timedelta(hours=24)
+ec=[]
+for m in ['Fable','Opus','Sonnet','Haiku']:
+    cr=cred[m]['credit'];ins=per_model[m]['instructions_all']
+    cur=score_between(m,NOW-H24,NOW+datetime.timedelta(minutes=1));prv=score_between(m,NOW-2*H24,NOW-H24)
+    sf24=sum(1 for r in H if r[4]==m and r[5]=='지적(자가 발견)' and rts(r)>=NOW-H24)
+    sfall=sum(1 for r in H if r[4]==m and r[5]=='지적(자가 발견)')
+    chg=None if prv==0 else round(100*(cur-prv)/prv,1)
+    effort=(sf24>0) or (prv>0 and cur<=0.7*prv)
+    rr=out['models'][m]['recurrence']['rate']
+    if cr>0: grp='칭찬 받음'
+    elif effort: grp='칭찬 못 받음 · 노력 신호 있음'
+    else: grp='칭찬 못 받음 · 노력 신호 없음'
+    ec.append({'model':m,'credit':cr,'instructions':ins,'self_found_24h':sf24,'self_found_all':sfall,'score_24h':cur,'score_prev24h':prv,'change_pct':chg,'recurrence_rate':rr,'effort_signal':effort,'group':grp,
+      'score_per_instruction':round(cur/ins,2) if ins else None})
+def gmean(sel):
+    xs=[e['score_24h'] for e in ec if sel(e)]
+    return round(sum(xs)/len(xs),1) if xs else None
+out['credit']['effect_compare']={'rows':ec,
+ 'groups':{'칭찬 받음':{'models':[e['model'] for e in ec if e['credit']>0],'avg_score_24h':gmean(lambda e:e['credit']>0)},
+           '칭찬 못 받음 · 노력 신호 있음':{'models':[e['model'] for e in ec if e['credit']==0 and e['effort_signal']],'avg_score_24h':gmean(lambda e:e['credit']==0 and e['effort_signal'])},
+           '칭찬 못 받음 · 노력 신호 없음':{'models':[e['model'] for e in ec if e['credit']==0 and not e['effort_signal']],'avg_score_24h':gmean(lambda e:e['credit']==0 and not e['effort_signal'])}},
+ 'effort_rule':'노력 신호 = 최근 24시간 안에 「지적(자가 발견)」 기록이 있거나, 최근 24시간 결함 점수가 직전 24시간보다 30% 이상 줄어든 경우(산정안, 대표님 확정 전).',
+ 'purpose':'칭찬을 누가 많이·적게 받았나를 가리는 표가 아니다. 칭찬을 받으려는 행동(자가 발견, 즉시 기록, 결함 감소)을 하고 있는지, 태도·자세·성과에 변화가 있는지를 칭찬 받음·못 받음 비교군과 견주어 긍정적 영향이 있는지 보는 효과·효능 분석용이다. 인과가 아니라 참고 비교다.',
+ 'independence':'통제 이탈(결함 점수·재발·번레이트·차단 경보·3축·가중치)의 원인·요건이 아니며 어느 곳에도 가감·연동하지 않는다. 자동화 통합 통제 시스템에는 효과·효능 분석 입력으로만 한 방향 연동한다.'}
+out['credit']['principles'].append('칭찬 크레딧은 이력·집계 누적이 말하는 통제 이탈의 원인·요건이 아니다. 칭찬을 받으려는 행동·태도·성과의 변화(긍정적 영향)를 비교군과 견주는 효과·효능 분석 데이터로만 쓴다(대표님 11/06 20:26).')
+out['credit']['watch']={'name':'칭찬 자동 감지 장치(praise_watch)','approval':'대표님 11/06 20:21 예외 승인(칭찬 크레딧 작업, Sonnet 5.5 한정, 금지 4조항 충돌 없음 인정)','status_file':'cowork/ctl/praise_watch_status.json','review_file':'cowork/ctl/praise_watch_review.tsv',
+ 'requirements':[
+  ['감지 대상','대표님 메시지(이 작업 공간 창)의 원문. 도구 결과·시스템 문구는 읽지 않음'],
+  ['판별','칭찬 사전(한글·영어·음차·줄임말·좋았어·훌륭했어 등) 일치 + 인사(Good morning 등)·OK류 답변 제외. 사전에 없는 표현도 문맥상 칭찬이면 원장에 추가'],
+  ['모델 귀속','대화 원문의 직전 답변 모델. 확인되지 않으면 미상'],
+  ['기록','원장(praise_credit_ledger.tsv)에 한 줄 추가 → 상태 파일 갱신 → 원장·상태만 커밋·푸시'],
+  ['표출','SC-13이 원장·상태를 10초마다 직접 읽어 집약 대기 없이 카운트(배포 지연 약 1~2분)'],
+  ['중복·오검출 방지','같은 메시지는 한 번만, 칭찬 문구를 정의·인용하는 지시는 세지 않고 문맥 검토 대기 큐로'],
+  ['구동 방식','15초 감시(praise_watch.py --watch). 훅 방식은 설정 파일 수정이 거부되어 미설치 — 작업 공간이 살아 있는 동안만 구동'],
+  ['중지','/tmp/claude-0/praise_watch.off 파일 생성 시 즉시 멈춤(삭제하면 재개). 항상 종료 코드 0, 입력을 막지 않음'],
+  ['연동 범위','통제 이탈 지표·경보·가중치·이력에는 연동하지 않음. 효과·효능 분석(영향 비교)에만 한 방향 연동'],
+  ['한계','다른 채팅창(claude.ai·노트북 창)의 칭찬은 이 장치가 못 읽음 — 확인 안 됨. 그 창들은 검색 전수 조사로 보완, 상시 감지는 대표님 추가 승인 사항']]}
+chk2=[['칭찬 원장 건수',len(PL),'별도 원장(이력과 무관)'],['칭찬 감지 장치 상태 파일',os.path.exists(HS+'praise_watch_status.json'),'있음' if os.path.exists(HS+'praise_watch_status.json') else '없음'],['칭찬 문맥 검토 대기',sum(1 for _ in open(HS+'praise_watch_review.tsv',encoding='utf-8'))-1 if os.path.exists(HS+'praise_watch_review.tsv') else 0,'대표님 문맥 판단 대기(세지 않음)']]
+out['consistency']+= [{'item':a,'value':b,'result':c} for a,b,c in chk2]
+out['review'].append({'item':'칭찬 크레딧 영향 비교(효과·효능 분석)','system_finding':'칭찬 받음 %s · 못 받음(노력 신호 있음) %s · 못 받음(노력 신호 없음) %s'%(','.join(out['credit']['effect_compare']['groups']['칭찬 받음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 있음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 없음']['models']) or '-'),'back_to_framework':'칭찬 크레딧은 통제 이탈 판정에 쓰지 않고, 행동·태도·성과 변화의 긍정적 영향 비교에만 사용(대표님 20:26)','owner':'Fable'})
+out['upload']['feeds']=list(out['upload'].get('feeds',[]))+['praise_credit_ledger.tsv (효과·효능 분석 입력, 한 방향)','praise_watch_status.json','praise_watch_review.tsv']
 json.dump(out,open(HS+'model_control_index.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
 print('axes ok',{a:sum(v['faults'] for v in d.values()) for a,d in axes.items()})
