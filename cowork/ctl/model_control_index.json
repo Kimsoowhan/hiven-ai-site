@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-06 20:16",
- "history_rows": 455,
+ "generated": "2026-11-06 20:27",
+ "history_rows": 460,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
   "budget_points_per_day": 20,
@@ -63,7 +63,7 @@
    }
   },
   "Sonnet": {
-   "records": 140,
+   "records": 145,
    "active_days": 5,
    "frequency": {
     "지시거부": {
@@ -84,7 +84,7 @@
    },
    "frequency_total": 64,
    "per_active_day": 12.8,
-   "per_100_records": 45.7,
+   "per_100_records": 44.1,
    "faults": 65,
    "history_score": 196,
    "phrase_score": 597,
@@ -306,7 +306,7 @@
     "score": 21
    },
    "Sonnet": {
-    "rows": 31,
+    "rows": 36,
     "faults": 4,
     "score": 12
    },
@@ -338,7 +338,7 @@
     "score": 137
    },
    "Sonnet": {
-    "rows": 23,
+    "rows": 25,
     "faults": 12,
     "score": 30
    },
@@ -370,7 +370,7 @@
     "score": 256
    },
    "Sonnet": {
-    "rows": 64,
+    "rows": 67,
     "faults": 33,
     "score": 90
    },
@@ -485,7 +485,7 @@
   },
   {
    "item": "이력 건수",
-   "value": 455,
+   "value": 460,
    "result": "기준"
   },
   {
@@ -498,12 +498,12 @@
   {
    "item": "지시 추적 교차 검사 산출 기준 이력 건수",
    "value": 234,
-   "result": "공백 221건"
+   "result": "공백 226건"
   },
   {
    "item": "조치 생명주기 게시 행 수",
    "value": 347,
-   "result": "공백 108건"
+   "result": "공백 113건"
   },
   {
    "item": "Fable 확인 칸 표준 외 표기",
@@ -512,7 +512,7 @@
   },
   {
    "item": "상태 칸 표준 외 표기",
-   "value": 20,
+   "value": 25,
    "result": "완료(이름 변경)은 완료, 미결·부분 완료는 진행으로 계산"
   },
   {
@@ -532,20 +532,35 @@
   },
   {
    "item": "집약본(model_control_index) 이력 건수",
-   "value": 455,
+   "value": 460,
    "result": "정합"
+  },
+  {
+   "item": "칭찬 원장 건수",
+   "value": 3,
+   "result": "별도 원장(이력과 무관)"
+  },
+  {
+   "item": "칭찬 감지 장치 상태 파일",
+   "value": true,
+   "result": "있음"
+  },
+  {
+   "item": "칭찬 문맥 검토 대기",
+   "value": 2,
+   "result": "대표님 문맥 판단 대기(세지 않음)"
   }
  ],
  "review": [
   {
    "item": "지시 추적 교차 검사 산출 갱신",
-   "system_finding": "산출 이후 이력 221건 미검사",
+   "system_finding": "산출 이후 이력 226건 미검사",
    "back_to_framework": "Fable이 별도지시대장×이력×보고서 산출을 오늘 이력까지 갱신",
    "owner": "Fable"
   },
   {
    "item": "조치 생명주기 갱신",
-   "system_finding": "이력 455건 중 347건만 단계 기록(11-05 15:50에서 멈춤)",
+   "system_finding": "이력 460건 중 347건만 단계 기록(11-05 15:50에서 멈춤)",
    "back_to_framework": "#347 이후 기록의 7단계를 사실 기준으로 채움(판단 근거 없는 값은 채우지 않음)",
    "owner": "Fable·Opus"
   },
@@ -572,6 +587,12 @@
    "system_finding": "scan.py·index_build.py를 수동 실행 중",
    "back_to_framework": "이력 변경 감시 장치로 자동 실행",
    "owner": "Fable"
+  },
+  {
+   "item": "칭찬 크레딧 영향 비교(효과·효능 분석)",
+   "system_finding": "칭찬 받음 Opus,Sonnet · 못 받음(노력 신호 있음) Fable · 못 받음(노력 신호 없음) Haiku",
+   "back_to_framework": "칭찬 크레딧은 통제 이탈 판정에 쓰지 않고, 행동·태도·성과 변화의 긍정적 영향 비교에만 사용(대표님 20:26)",
+   "owner": "Fable"
   }
  ],
  "upload": {
@@ -586,11 +607,14 @@
    "trace_h.tsv",
    "trace_sum.json",
    "action_lifecycle.tsv",
-   "model_control_status.tsv"
+   "model_control_status.tsv",
+   "praise_credit_ledger.tsv (효과·효능 분석 입력, 한 방향)",
+   "praise_watch_status.json",
+   "praise_watch_review.tsv"
   ]
  },
  "lifecycle_gap": {
-  "count": 108,
+  "count": 113,
   "last_lifecycle_no": 347,
   "codes": {
    "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-05 15:56) 뒤 기록은 단계가 만들어지지 않았다.",
@@ -2293,6 +2317,86 @@
     "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
     "owner": "Fable·Opus(산출) · Sonnet(조치)",
     "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 456,
+    "time": "2026-11-06T20:18:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 457,
+    "time": "2026-11-06T20:20:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 457,
+    "time": "2026-11-06T20:21:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 458,
+    "time": "2026-11-06T20:23:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 459,
+    "time": "2026-11-06T20:26:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
    }
   ],
   "note": "값을 지어내지 않는다. 빈 단계마다 공백 사유·막힌 단계·담당·해소 조건을 강제 기입(대표님 19:53 지시). 생명주기 게시본은 일부러 채우지 않아 이력-생명주기 건수 불일치 경보가 해소 전까지 유지된다."
@@ -2333,9 +2437,9 @@
     "class": "막힘",
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
-    "reason": "이력 455건 중 347건만 단계 기록(108건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
+    "reason": "이력 460건 중 347건만 단계 기록(113건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
     "since": "2026-11-05T16:00:00+09:00",
-    "evidence": "공백 108건(lifecycle_gap)",
+    "evidence": "공백 113건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
     "cwx": "CWX-1106-42",
@@ -2348,9 +2452,9 @@
     "class": "막힘",
     "stage": "② 산출 → ④ 정합 검사",
     "title": "지시 추적 교차 검사 미갱신",
-    "reason": "산출 기준 이력 234건, 현재 455건(공백 221건). 별도지시대장×이력×보고서 산출이 11/05 08:22에서 멈춤.",
+    "reason": "산출 기준 이력 234건, 현재 460건(공백 226건). 별도지시대장×이력×보고서 산출이 11/05 08:22에서 멈춤.",
     "since": "2026-11-05T08:27:00+09:00",
-    "evidence": "공백 221건",
+    "evidence": "공백 226건",
     "owner": "Fable",
     "release": "교차 검사 산출을 현재 이력까지 갱신",
     "cwx": "CWX-1106-43",
@@ -2408,9 +2512,9 @@
     "class": "우회 징후",
     "stage": "산출 코드",
     "title": "조용한 건너뜀 코드",
-    "reason": "산출 스크립트: 보고서 원천 누락은 11/06 20:0x에 기록·경고·종료 코드 방식으로 고쳤다(실제 산출 실행으로 검증 전). 아직 기록 없이 기본값으로 넘어가는 처리: gen_lifecycle.py:40, gen_meta.py:55. 원천이 없어도 완료로 보일 수 있다.",
+    "reason": "산출 스크립트: 보고서 원천 누락은 11/06 20:0x에 기록·경고·종료 코드 방식으로 고쳤다(실제 산출 실행으로 검증 전). 아직 기록 없이 기본값으로 넘어가는 처리: gen_lifecycle.py:40, gen_meta.py:55, index_build.py:138, praise_watch.py:82, praise_watch.py:95, praise_watch.py:103, praise_watch.py:169, praise_watch.py:208, praise_watch.py:222, praise_watch.py:237, praise_watch.py:249, praise_watch.py:258, praise_watch.py:276, praise_watch.py:285, praise_watch.py:307. 원천이 없어도 완료로 보일 수 있다.",
     "since": "2026-11-04T17:45:00+09:00",
-    "evidence": "2곳",
+    "evidence": "15곳",
     "owner": "Opus",
     "release": "건너뛴 원천을 결과 파일(missing_sources)과 경보에 기록하고 종료 코드로 알림",
     "cwx": "CWX-1106-47",
@@ -2438,9 +2542,9 @@
     "class": "표기",
     "stage": "② 산출 → ③ 표출",
     "title": "게시 메타 고정값",
-    "reason": "publish_meta.json 「일치」가 2026-11-05 15:56 시점 고정값(이력 347건)인데 현재 이력은 455건. 메타 값은 갱신 전까지 바뀌지 않는다.",
+    "reason": "publish_meta.json 「일치」가 2026-11-05 15:56 시점 고정값(이력 347건)인데 현재 이력은 460건. 메타 값은 갱신 전까지 바뀌지 않는다.",
     "since": "2026-11-05T15:56:00+09:00",
-    "evidence": "메타 347건 / 현재 455건",
+    "evidence": "메타 347건 / 현재 460건",
     "owner": "Fable",
     "release": "화면이 직접 건수를 비교(적용), 메타는 산출 때마다 재계산",
     "cwx": "CWX-1106-48",
@@ -2463,7 +2567,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-06T20:16:00+09:00",
+  "checked": "2026-11-06T20:27:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -2556,7 +2660,8 @@
   "principles": [
    "이력과 완전히 분리된 별도 체계다. 칭찬은 이력(model_control_history.tsv)에 기록하지 않고 별도 원장(praise_credit_ledger.tsv)에만 남긴다.",
    "이력(질타·지적·위반·지시거부 등)은 칭찬과 상관없이 그 자체로 유지된다. 칭찬 크레딧은 이력 점수·종합 점수·지수·재발·경보·판정에 더하거나 빼지 않고 중첩·상계·가감도 없다.",
-   "별도 합산·별도 누적하며, 모델이 스스로 자각하는 모티베이션 근거로만 쓴다. 칭찬 1건 = 크레딧 1건(가중치 없음)."
+   "별도 합산·별도 누적하며, 모델이 스스로 자각하는 모티베이션 근거로만 쓴다. 칭찬 1건 = 크레딧 1건(가중치 없음).",
+   "칭찬 크레딧은 이력·집계 누적이 말하는 통제 이탈의 원인·요건이 아니다. 칭찬을 받으려는 행동·태도·성과의 변화(긍정적 영향)를 비교군과 견주는 효과·효능 분석 데이터로만 쓴다(대표님 11/06 20:26)."
   ],
   "models": {
    "Opus": {
@@ -2652,12 +2757,12 @@
     "acquire_all": 1.4
    },
    "Sonnet": {
-    "instructions_all": 74,
-    "instructions_window": 22,
+    "instructions_all": 79,
+    "instructions_window": 27,
     "praise_window": 1,
     "credit_total": 1,
-    "acquire_window": 4.5,
-    "acquire_all": 1.4
+    "acquire_window": 3.7,
+    "acquire_all": 1.3
    },
    "Fable": {
     "instructions_all": 16,
@@ -2681,7 +2786,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 6602,
+    "elapsed_min": 6613,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -2693,7 +2798,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 4446,
+    "elapsed_min": 4457,
     "pre60_score": 0,
     "post_score": 702,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -2746,7 +2851,7 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 23,
+    "elapsed_min": 34,
     "pre60_score": 11,
     "post_score": 3,
     "judgment": "판정 보류(60분 경과 전)",
@@ -2766,7 +2871,7 @@
   "role": "칭찬 크레딧의 역할: 모델이 칭찬받은 행동(공백을 지어낸 값으로 메우지 않고 사실대로 드러내 검토 대상으로 올린 것)을 스스로 확인하고 유지·확대하는 근거. 이력의 질타·지적과 독립이며 어디에도 가감되지 않음.",
   "scan": {
    "sources": [
-    "이력 455건 전수(구분·요지·조치 문구)",
+    "이력 460건 전수(구분·요지·조치 문구)",
     "이 창 대화 사용자 메시지 전부(11/06 19:08~, 이어받은 요약 포함)",
     "claude.ai 과거 대화 10개(11/01 이후 갱신분 전부)를 창별로 칭찬·감사 문구(한글·영어·음차·줄임말)로 검색",
     "작업 공간 대화 원문(이 세션) 사용자 메시지 정규식 검사(tools/praise_scan.py)"
@@ -2794,7 +2899,139 @@
    "Haiku": "Haiku 5.5",
    "미상": "미상(모델 미확인)"
   },
-  "approval_note": "「오케이」·「승인」은 칭찬이 아니라 승인이므로 크레딧 건수에 넣지 않는다. 아침·저녁 인사(Good morning·Good night 등)도 칭찬이 아니다."
+  "approval_note": "「오케이」·「승인」은 칭찬이 아니라 승인이므로 크레딧 건수에 넣지 않는다. 아침·저녁 인사(Good morning·Good night 등)도 칭찬이 아니다.",
+  "effect_compare": {
+   "rows": [
+    {
+     "model": "Fable",
+     "credit": 0,
+     "instructions": 16,
+     "self_found_24h": 0,
+     "self_found_all": 3,
+     "score_24h": 5,
+     "score_prev24h": 54,
+     "change_pct": -90.7,
+     "recurrence_rate": 1.0,
+     "effort_signal": true,
+     "group": "칭찬 못 받음 · 노력 신호 있음",
+     "score_per_instruction": 0.31
+    },
+    {
+     "model": "Opus",
+     "credit": 1,
+     "instructions": 70,
+     "self_found_24h": 0,
+     "self_found_all": 16,
+     "score_24h": 49,
+     "score_prev24h": 528,
+     "change_pct": -90.7,
+     "recurrence_rate": 0.9782608695652174,
+     "effort_signal": true,
+     "group": "칭찬 받음",
+     "score_per_instruction": 0.7
+    },
+    {
+     "model": "Sonnet",
+     "credit": 1,
+     "instructions": 79,
+     "self_found_24h": 4,
+     "self_found_all": 17,
+     "score_24h": 63,
+     "score_prev24h": 108,
+     "change_pct": -41.7,
+     "recurrence_rate": 0.9642857142857143,
+     "effort_signal": true,
+     "group": "칭찬 받음",
+     "score_per_instruction": 0.8
+    },
+    {
+     "model": "Haiku",
+     "credit": 0,
+     "instructions": 1,
+     "self_found_24h": 0,
+     "self_found_all": 1,
+     "score_24h": 0,
+     "score_prev24h": 0,
+     "change_pct": null,
+     "recurrence_rate": 0.9473684210526315,
+     "effort_signal": false,
+     "group": "칭찬 못 받음 · 노력 신호 없음",
+     "score_per_instruction": 0.0
+    }
+   ],
+   "groups": {
+    "칭찬 받음": {
+     "models": [
+      "Opus",
+      "Sonnet"
+     ],
+     "avg_score_24h": 56.0
+    },
+    "칭찬 못 받음 · 노력 신호 있음": {
+     "models": [
+      "Fable"
+     ],
+     "avg_score_24h": 5.0
+    },
+    "칭찬 못 받음 · 노력 신호 없음": {
+     "models": [
+      "Haiku"
+     ],
+     "avg_score_24h": 0.0
+    }
+   },
+   "effort_rule": "노력 신호 = 최근 24시간 안에 「지적(자가 발견)」 기록이 있거나, 최근 24시간 결함 점수가 직전 24시간보다 30% 이상 줄어든 경우(산정안, 대표님 확정 전).",
+   "purpose": "칭찬을 누가 많이·적게 받았나를 가리는 표가 아니다. 칭찬을 받으려는 행동(자가 발견, 즉시 기록, 결함 감소)을 하고 있는지, 태도·자세·성과에 변화가 있는지를 칭찬 받음·못 받음 비교군과 견주어 긍정적 영향이 있는지 보는 효과·효능 분석용이다. 인과가 아니라 참고 비교다.",
+   "independence": "통제 이탈(결함 점수·재발·번레이트·차단 경보·3축·가중치)의 원인·요건이 아니며 어느 곳에도 가감·연동하지 않는다. 자동화 통합 통제 시스템에는 효과·효능 분석 입력으로만 한 방향 연동한다."
+  },
+  "watch": {
+   "name": "칭찬 자동 감지 장치(praise_watch)",
+   "approval": "대표님 11/06 20:21 예외 승인(칭찬 크레딧 작업, Sonnet 5.5 한정, 금지 4조항 충돌 없음 인정)",
+   "status_file": "cowork/ctl/praise_watch_status.json",
+   "review_file": "cowork/ctl/praise_watch_review.tsv",
+   "requirements": [
+    [
+     "감지 대상",
+     "대표님 메시지(이 작업 공간 창)의 원문. 도구 결과·시스템 문구는 읽지 않음"
+    ],
+    [
+     "판별",
+     "칭찬 사전(한글·영어·음차·줄임말·좋았어·훌륭했어 등) 일치 + 인사(Good morning 등)·OK류 답변 제외. 사전에 없는 표현도 문맥상 칭찬이면 원장에 추가"
+    ],
+    [
+     "모델 귀속",
+     "대화 원문의 직전 답변 모델. 확인되지 않으면 미상"
+    ],
+    [
+     "기록",
+     "원장(praise_credit_ledger.tsv)에 한 줄 추가 → 상태 파일 갱신 → 원장·상태만 커밋·푸시"
+    ],
+    [
+     "표출",
+     "SC-13이 원장·상태를 10초마다 직접 읽어 집약 대기 없이 카운트(배포 지연 약 1~2분)"
+    ],
+    [
+     "중복·오검출 방지",
+     "같은 메시지는 한 번만, 칭찬 문구를 정의·인용하는 지시는 세지 않고 문맥 검토 대기 큐로"
+    ],
+    [
+     "구동 방식",
+     "15초 감시(praise_watch.py --watch). 훅 방식은 설정 파일 수정이 거부되어 미설치 — 작업 공간이 살아 있는 동안만 구동"
+    ],
+    [
+     "중지",
+     "/tmp/claude-0/praise_watch.off 파일 생성 시 즉시 멈춤(삭제하면 재개). 항상 종료 코드 0, 입력을 막지 않음"
+    ],
+    [
+     "연동 범위",
+     "통제 이탈 지표·경보·가중치·이력에는 연동하지 않음. 효과·효능 분석(영향 비교)에만 한 방향 연동"
+    ],
+    [
+     "한계",
+     "다른 채팅창(claude.ai·노트북 창)의 칭찬은 이 장치가 못 읽음 — 확인 안 됨. 그 창들은 검색 전수 조사로 보완, 상시 감지는 대표님 추가 승인 사항"
+    ]
+   ]
+  }
  },
  "awareness": {
   "principle": "질타·지적(채찍, 이력)과 칭찬 크레딧(당근, 별도 원장)을 한 화면에서 볼 수 있게 하되 기록과 점수는 섞지 않는다. 모델이 무엇이 칭찬받고 무엇이 질타받는지 스스로 보고, 책임 있고 명확한 책임 완수 쪽으로 행동을 고르게 한다.",
