@@ -8,7 +8,7 @@
   4) 상태(praise_watch_status.json)를 갱신하고, 원장·상태 변경분만 커밋·푸시한다(백그라운드, 실패해도 작업을 막지 않음).
 
 쓰는 법
-  훅 모드   : UserPromptSubmit 훅이 표준입력으로 JSON을 준다 → python3 praise_watch.py --hook
+  감시 모드 : python3 praise_watch.py --watch   (대화 원문을 15초마다 읽음)
   전수 검사 : python3 praise_watch.py --scan [--since 2026-11-01] [--dry]   (이미 센 것은 건너뜀)
   중지      : /tmp/claude-0/praise_watch.off 파일을 만들면 아무것도 하지 않는다 (삭제하면 재개)
 
@@ -202,30 +202,8 @@ def main():
     if os.path.exists(OFF):
         return
     a = sys.argv[1:]
-    if '--hook' in a:
-        try:
-            d = json.loads(sys.stdin.read() or '{}')
-        except Exception:
-            return
-        text = clean(d.get('prompt', ''))
-        if not text:
-            return
-        ts = datetime.datetime.now(KST)
-        r = handle(text, d.get('transcript_path'), ts, '이 작업 공간 창(%s)' % (d.get('session_id', '')[:8]), d.get('session_id', ''), ts.isoformat())
-        st = load_state(); st['runs'] = st.get('runs', 0) + 1; save_state(st)
-        if r:
-            print(r)
-            return
-        # 실행 흔적(상태)은 10분에 한 번만 게시
-        try:
-            last = os.path.getmtime(STATUS) if os.path.exists(STATUS) else 0
-        except Exception:
-            last = 0
-        if datetime.datetime.now().timestamp() - last > 600:
-            write_status(st); push([STATUS])
-        return
     if '--watch' in a:
-        # 훅을 쓰지 않는 보조 구동: 대화 원문을 15초마다 읽어 새 대표님 메시지를 판별(이미 센 것은 건너뜀). 작업 공간이 살아 있는 동안만 동작.
+        # 대화 원문을 15초마다 읽어 새 대표님 메시지를 판별(이미 센 것은 건너뜀). 작업 공간이 살아 있는 동안만 동작.
         import time
         since = datetime.datetime.now(KST) - datetime.timedelta(minutes=3)
         pos = {}
