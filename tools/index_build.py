@@ -285,12 +285,9 @@ out['credit']['watch']={'name':'칭찬 자동 감지 장치(praise_watch)','appr
   ['기록','원장(praise_credit_ledger.tsv)에 한 줄 추가 → 상태 파일 갱신 → 원장·상태만 커밋·푸시'],
   ['표출','SC-13이 원장·상태를 10초마다 직접 읽어 집약 대기 없이 카운트(배포 지연 약 1~2분)'],
   ['중복·오검출 방지','같은 메시지는 한 번만, 칭찬 문구를 정의·인용하는 지시는 세지 않고 문맥 검토 대기 큐로'],
-  ['구동 방식','15초 감시(praise_watch.py --watch) — 작업 공간이 살아 있는 동안만 구동'],
-  ['훅 모드(대표님 20:56 조건부 승인, 개발 모듈)','입력 모드 praise_watch.py --hook — 오류·중복·지연·충돌 시험 통과(지연 약 0.03초, 항상 종료 코드 0). 훅은 프롬프트 제출 때 호출하는 플러그인(tools/praise_watch_mod)으로 작성·검증(validate 통과). 불러오기 확인 창에서 대표님이 선택하지 않아 불러오지 않았고, 불러오기 전에는 구동하지 않음. 현재 구동은 위 감시 모드'],
+  ['구동 방식','15초 감시(praise_watch.py --watch) — 이 작업 공간의 창만 대상, 작업 공간이 살아 있는 동안만 구동. 다른 창 칭찬 감지·훅은 하지 않음(대표님 21:30 결정)'],
   ['중지','/tmp/claude-0/praise_watch.off 파일 생성 시 즉시 멈춤(삭제하면 재개). 항상 종료 코드 0, 입력을 막지 않음'],
   ['연동 범위','통제 이탈 지표·경보·가중치·이력에는 연동하지 않음. 효과·효능 분석(영향 비교)에만 한 방향 연동'],
-  ['다른 창 감지(대표님 21:05 승인)','예약 작업이 1시간마다 claude.ai의 다른 대화창(11/02 이후)에서 대표님 메시지만 읽어 칭찬 문장만 원장에 기록(praise_watch.py --hook, src 지정). 중복은 저장소의 처리 목록(praise_other_seen.txt)으로 방지, 칭찬 문장 외 내용은 기록하지 않음'],
-  ['한계','노트북의 Claude Code 창은 대화 기록이 노트북에 있어 이 방식이 못 읽음 — 확인 안 됨. 예약 작업은 최대 1시간 늦게 반영']]}
 chk2=[['칭찬 원장 건수',len(PL),'별도 원장(이력과 무관)'],['칭찬 감지 장치 상태 파일',os.path.exists(HS+'praise_watch_status.json'),'있음' if os.path.exists(HS+'praise_watch_status.json') else '없음'],['칭찬 문맥 검토 대기',sum(1 for _ in open(HS+'praise_watch_review.tsv',encoding='utf-8'))-1 if os.path.exists(HS+'praise_watch_review.tsv') else 0,'대표님 문맥 판단 대기(세지 않음)']]
 out['consistency']+= [{'item':a,'value':b,'result':c} for a,b,c in chk2]
 out['review'].append({'item':'칭찬 크레딧 영향 비교(효과·효능 분석)','system_finding':'칭찬 받음 %s · 못 받음(노력 신호 있음) %s · 못 받음(노력 신호 없음) %s'%(','.join(out['credit']['effect_compare']['groups']['칭찬 받음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 있음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 없음']['models']) or '-'),'back_to_framework':'칭찬 크레딧은 통제 이탈 판정에 쓰지 않고, 행동·태도·성과 변화의 긍정적 영향 비교에만 사용(대표님 20:26)','owner':'Fable'})

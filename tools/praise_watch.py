@@ -8,8 +8,7 @@
   4) 상태(praise_watch_status.json)를 갱신하고, 원장·상태 변경분만 커밋·푸시한다(백그라운드, 실패해도 작업을 막지 않음).
 
 쓰는 법
-  훅 모드   : UserPromptSubmit 훅이 표준입력으로 JSON을 준다 → python3 praise_watch.py --hook  (11/06 20:56 대표님 조건부 승인: 시험 통과·위험 없음일 때만. 설정 등록은 별도)
-  감시 모드 : python3 praise_watch.py --watch   (대화 원문을 15초마다 읽음 — 현재 구동 방식)
+  감시 모드 : python3 praise_watch.py --watch   (이 작업 공간의 대화 원문을 15초마다 읽음 — 구동 방식)
   전수 검사 : python3 praise_watch.py --scan [--since 2026-11-01] [--dry]   (이미 센 것은 건너뜀)
   중지      : /tmp/claude-0/praise_watch.off 파일을 만들면 아무것도 하지 않는다 (삭제하면 재개)
 
@@ -205,46 +204,6 @@ def main():
     if os.path.exists(OFF):
         return
     a = sys.argv[1:]
-    if '--hook' in a:
-        try:
-            d = json.loads(sys.stdin.read() or '{}')
-        except Exception:
-            return
-        text = clean(d.get('prompt', ''))
-        if not text:
-            return
-        ts = datetime.datetime.now(KST)
-        try:
-            if d.get('ts'):
-                ts = datetime.datetime.fromisoformat(str(d['ts']).replace('Z', '+00:00')).astimezone(KST)  # 다른 창 메시지의 실제 시각
-        except Exception:
-            ts = datetime.datetime.now(KST)
-        if d.get('src'):
-            # 다른 창(예약 작업)에서 온 메시지: 저장소에 남는 처리 목록으로 중복을 막는다(예약 작업은 매번 새 작업 공간이라 /tmp 기록이 없음)
-            seenf = os.path.join(CTL, 'praise_other_seen.txt')
-            kk = hashlib.sha1(('%s|%s' % (d.get('session_id', ''), text[:80])).encode('utf-8')).hexdigest()[:16]
-            try:
-                old_seen = set(open(seenf, encoding='utf-8').read().split()) if os.path.exists(seenf) else set()
-                if kk in old_seen:
-                    return
-                with open(seenf, 'a', encoding='utf-8') as sf:
-                    sf.write(kk + '\n')
-            except Exception:
-                pass
-        src = str(d['src'])[:40] if d.get('src') else '이 작업 공간 창(%s)' % (d.get('session_id', '')[:8])
-        r = handle(text, d.get('transcript_path'), ts, src, d.get('session_id', ''), str(d.get('uid') or ts.isoformat()), d.get('model'))
-        st = load_state(); st['runs'] = st.get('runs', 0) + 1; save_state(st)
-        if r:
-            print(r)
-            return
-        # 실행 흔적(상태)은 10분에 한 번만 게시
-        try:
-            last = os.path.getmtime(STATUS) if os.path.exists(STATUS) else 0
-        except Exception:
-            last = 0
-        if datetime.datetime.now().timestamp() - last > 600:
-            write_status(st); push([STATUS])
-        return
     if '--watch' in a:
         # 대화 원문을 15초마다 읽어 새 대표님 메시지를 판별(이미 센 것은 건너뜀). 작업 공간이 살아 있는 동안만 동작.
         import time
