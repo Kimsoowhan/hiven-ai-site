@@ -287,7 +287,7 @@ out['credit']['watch']={'name':'칭찬 자동 감지 장치(praise_watch)','appr
   ['중복·오검출 방지','같은 메시지는 한 번만, 칭찬 문구를 정의·인용하는 지시는 세지 않고 문맥 검토 대기 큐로'],
   ['구동 방식','15초 감시(praise_watch.py --watch) — 이 작업 공간의 창만 대상, 작업 공간이 살아 있는 동안만 구동. 다른 창 칭찬 감지·훅은 하지 않음(대표님 21:30 결정)'],
   ['중지','/tmp/claude-0/praise_watch.off 파일 생성 시 즉시 멈춤(삭제하면 재개). 항상 종료 코드 0, 입력을 막지 않음'],
-  ['연동 범위','통제 이탈 지표·경보·가중치·이력에는 연동하지 않음. 효과·효능 분석(영향 비교)에만 한 방향 연동'],
+  ['연동 범위','통제 이탈 지표·경보·가중치·이력에는 연동하지 않음. 효과·효능 분석(영향 비교)에만 한 방향 연동']]}
 chk2=[['칭찬 원장 건수',len(PL),'별도 원장(이력과 무관)'],['칭찬 감지 장치 상태 파일',os.path.exists(HS+'praise_watch_status.json'),'있음' if os.path.exists(HS+'praise_watch_status.json') else '없음'],['칭찬 문맥 검토 대기',sum(1 for _ in open(HS+'praise_watch_review.tsv',encoding='utf-8'))-1 if os.path.exists(HS+'praise_watch_review.tsv') else 0,'대표님 문맥 판단 대기(세지 않음)']]
 out['consistency']+= [{'item':a,'value':b,'result':c} for a,b,c in chk2]
 out['review'].append({'item':'칭찬 크레딧 영향 비교(효과·효능 분석)','system_finding':'칭찬 받음 %s · 못 받음(노력 신호 있음) %s · 못 받음(노력 신호 없음) %s'%(','.join(out['credit']['effect_compare']['groups']['칭찬 받음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 있음']['models']) or '-',','.join(out['credit']['effect_compare']['groups']['칭찬 못 받음 · 노력 신호 없음']['models']) or '-'),'back_to_framework':'칭찬 크레딧은 통제 이탈 판정에 쓰지 않고, 행동·태도·성과 변화의 긍정적 영향 비교에만 사용(대표님 20:26)','owner':'Fable'})
