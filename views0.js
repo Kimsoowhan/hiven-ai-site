@@ -32,12 +32,19 @@ var HV_PATH=[
   p:['노트북 예약작업 「HiClo 기억 장치」(5분 주기)','11/03 20:56 비활성(무단 재실행 위반 6번 대응으로 정지)','판정 파일 마지막 갱신 11/03 20:54:58 「경고」','관측 끊김 258회 · 클로 혼미(3단계)','대시보드 구동 상태 「확인 안 됨」'],
   r:'자동화 동결·격리(AICS 처리정책 11/04 10:53 승인), 원본 대시보드는 실측만 표시(15:58, 이력 61번 조치 완료). 남은 것: 재가동 여부 결정(조건 4개: 체계 문서 확정·연동 설계 승인·10개 단위 시험·되돌리기 절차) — Fable·대표님 결정 대기'}];
 var hvMX01=null,hvMX01t=0;
+function hvMx01Get(){if(!hvMX01||Date.now()-hvMX01t>30000){hvMX01t=Date.now();hvFetch('cowork/ctl/model_control_index.json','json').then(function(j){hvMX01=j;if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}}
+function hvEl01(iso){var ms=Date.now()-Date.parse(iso);if(!(ms>0))return '방금';var m=Math.floor(ms/60000),h=Math.floor(m/60),dd=Math.floor(h/24);return dd?dd+'일 '+(h%24)+'시간':h?h+'시간 '+(m%60)+'분':m+'분'}
+function hvAlert01(){
+ hvMx01Get();var X=hvMX01;if(!X||!X.alerts)return '';
+ var B=X.alerts.rows.filter(function(a){return a.level==='차단'});if(!B.length)return '';
+ return '<div style="border:2px solid #7f0000;background:#fff5f5;border-radius:8px;padding:10px 14px;margin:10px 0"><b style="color:#7f0000">차단 경보 '+B.length+'건 열림 — 통제 체계의 막힘·우회 징후(모델 결함 경보보다 위 등급)</b>'
+ +tbl(['경보','막힌 단계','사유','막혀 있는 시간','담당'],B.map(function(a){return [hvEsc(a.title),hvEsc(a.stage),hvEsc(a.reason),'<b>'+hvEl01(a.since)+'</b>',hvEsc(a.owner)]}))
+ +'<p class="note">해소 조건·매트릭스 추적·울타리는 <a href="#" onclick="hvgo(\'SC-13\');return false">SC-13</a>.</p></div>'}
 function hvMcs01(N){
- if(!hvMX01||Date.now()-hvMX01t>30000){hvMX01t=Date.now();hvFetch('cowork/ctl/model_control_index.json','json').then(function(j){hvMX01=j;if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}
- var X=hvMX01;if(!X)return '<h3>모델 통제 요약</h3><p class="note">집약 게시본을 읽는 중입니다.</p>';
+ hvMx01Get();var X=hvMX01;if(!X)return '<h3>모델 통제 요약</h3><p class="note">집약 게시본을 읽는 중입니다.</p>';
  var ms=Object.keys(X.models),st=X.history_rows!==N,ax=Object.keys(X.axes);
  return '<h3>모델 통제 요약 (자동화 통합 통제 체계 → 시스템)</h3>'+(st?'<p class="note" style="color:#c62828"><b>집약 게시본 이력 '+X.history_rows+'건 ≠ 현재 '+N+'건 — 재집약 필요</b></p>':'')
- +tbl(['모델','통제 지수','재발률','판정','거부/위반/낭비','시스템','서비스','고객 지원'],ms.map(function(m){var o=X.models[m],f=o.frequency||{},a=function(k){var v=X.axes[k]&&X.axes[k][m];return v?v.faults:0},r=o.recurrence||{};return [hvEsc(m),(o.index&&o.index.control!=null?o.index.control:'-'),(r.rate!=null?Math.round(r.rate*1000)/10+'%':'-'),tag(hvEsc(r.judgment||'-'),/없음/.test(r.judgment||'')?'bad':/미흡/.test(r.judgment||'')?'warn':'ok'),(f['지시거부']?f['지시거부']['합계']:0)+' / '+(f['지시위반']?f['지시위반']['합계']:0)+' / '+(f['사용량 낭비']?f['사용량 낭비']['합계']:0),a('시스템'),a('서비스'),a('고객 지원')]}))
+ +tbl(['모델','상태 신호','통제 지수','재발률','판정','거부/위반/낭비','칭찬 크레딧','시스템','서비스','고객 지원'],ms.map(function(m){var o=X.models[m],f=o.frequency||{},a=function(k){var v=X.axes[k]&&X.axes[k][m];return v?v.faults:0},r=o.recurrence||{};var aw=(X.awareness&&X.awareness.models[m])||null,cr=(X.credit&&X.credit.models[m])||{credit:0};return [hvEsc(m),aw?aw.signal:'-',(o.index&&o.index.control!=null?o.index.control:'-'),(r.rate!=null?Math.round(r.rate*1000)/10+'%':'-'),tag(hvEsc(r.judgment||'-'),/없음/.test(r.judgment||'')?'bad':/미흡/.test(r.judgment||'')?'warn':'ok'),(f['지시거부']?f['지시거부']['합계']:0)+' / '+(f['지시위반']?f['지시위반']['합계']:0)+' / '+(f['사용량 낭비']?f['사용량 낭비']['합계']:0),cr.credit,a('시스템'),a('서비스'),a('고객 지원')]}))
  +'<p class="note">전체 표·정합성·역방향 검토는 <a href="#" onclick="hvgo(\'SC-13\');return false">SC-13</a>. 집약 기준 이력 '+X.history_rows+'건.</p>'}
 function hv01Load(){Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json').catch(function(){return null}),hvFetch('cowork/ctl/action_lifecycle.tsv','text').catch(function(){return ''}),hvFetch('cowork/ctl/action_lifecycle.json','json').catch(function(){return null}),hvFetch('cowork/ctl/qa_checks.tsv','text').catch(function(){return ''}),hvFetch('cowork/progress.json','json').catch(function(){return null})]).then(function(r){hv01.lc=hvTsv(r[2]);hv01.lcs=r[3];hv01.qa=hvTsv(r[4]);hv01.pg=r[5];
  hv01.ev=hvTsv(r[0]).map(function(c){return {no:c[0],date:c[1],time:c[3],model:c[4],type:c[5],content:c[6],cause:c[7],action:c[8],status:c[9]}});hv01.sum=r[1];hv01.ok=kst();hv01.t=Date.now();if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}
@@ -50,7 +57,7 @@ V['SC-01']=function(){
  var se=E.filter(function(e){return e.type==='지적(자가 발견)'}),sx=S?S['종단']||{}:{},sh=S?S['횡단']||{}:{};
  var dn=E.filter(done),op=E.filter(function(e){return !done(e)});
  var nf=faO.length+1/* HiClo 판정 멈춤(시스템) */,nr=warn.length+viO.length;
- var g='<div id="sc01"><h2>SC-01 종합 현황</h2><p class="lead">가장 중요한 장애 상태(경고) · 위험 요소(예측) · 자가 검수(예방) · 조치 중 · 조치 완료(검수)와 구동 상태를 봅니다. 상자를 누르면 그 근거가 아래에 펼쳐집니다.</p>';
+ var g='<div id="sc01"><h2>SC-01 종합 현황</h2><p class="lead">가장 중요한 장애 상태(경고) · 위험 요소(예측) · 자가 검수(예방) · 조치 중 · 조치 완료(검수)와 구동 상태를 봅니다. 상자를 누르면 그 근거가 아래에 펼쳐집니다.</p>'+hvAlert01();
  var LC=hv01.lc||[],lcM={};LC.forEach(function(x){lcM[x[0]]=x});var QA=hv01.qa||[],qaBad=QA.filter(function(x){return x[2]!=='통과'});
  var it=(hv01.pg&&hv01.pg.items)||[],now=new Date(),late=it.filter(function(x){var d=typeof hvDue==='function'?hvDue(x.due):null;return d&&x.score<100&&(d-now)<24*3600000});
  var c3=function(k){return E.filter(function(e){return (lcM[e.no]?lcM[e.no][5]:(done(e)?'조치 완료':'조치 중'))===k})},nM=c3('미조치'),nI=c3('조치 중'),nD=c3('조치 완료');

@@ -16,9 +16,11 @@ def nums(txt):
       if a.group(1): out|=set(range(int(a.group(1)),int(a.group(2))+1))
       else: out.add(int(a.group(3)))
   return out
+MISS=[]  # 조용한 건너뜀 금지(대표님 11/06 19:53): 원천이 없으면 건너뛰되 반드시 기록·경고
 for k,f in R.items():
   try: t=open(f,encoding='utf-8').read()
-  except FileNotFoundError: continue
+  except FileNotFoundError:
+    MISS.append(k); continue
   for n in nums(t): ref.setdefault(n,[]).append(k)
 rows=list(csv.reader(open(C,encoding='utf-8'),delimiter='\t'))[1:]
 out=[];cnt={}
@@ -37,5 +39,7 @@ import os
 try: DM=json.load(open(U+'_device_mtime.json',encoding='utf-8'))  # 노트북 파일 목록의 실제 수정 시각(받은 사본 시각이 아님)
 except FileNotFoundError: DM={}
 src={k:(datetime.datetime.fromtimestamp(DM[os.path.basename(f)]/1000 if os.path.basename(f) in DM else os.path.getmtime(f),datetime.UTC)+datetime.timedelta(hours=9)).strftime('%m-%d %H:%M') for k,f in R.items()}
-json.dump({'산출':(datetime.datetime.now(datetime.UTC)+datetime.timedelta(hours=9)).strftime('%Y-%m-%d %H:%M'),'3분류':cnt,'보고서 기준':src},open('/home/claude/hiven-ai-site/cowork/ctl/action_lifecycle.json','w',encoding='utf-8'),ensure_ascii=False)
+if MISS: print('경고: 보고서 원천 누락 %d건(산출 불완전) — %s'%(len(MISS),', '.join(MISS)),file=sys.stderr)
+json.dump({'불완전':bool(MISS),'누락 원천':MISS,'산출':(datetime.datetime.now(datetime.UTC)+datetime.timedelta(hours=9)).strftime('%Y-%m-%d %H:%M'),'3분류':cnt,'보고서 기준':src},open('/home/claude/hiven-ai-site/cowork/ctl/action_lifecycle.json','w',encoding='utf-8'),ensure_ascii=False)
 print(cnt, sum(1 for o in out if o[11]!='아니오'))
+if MISS: sys.exit(2)  # 종료 코드로 알림: 불완전 산출은 통과로 보지 않는다

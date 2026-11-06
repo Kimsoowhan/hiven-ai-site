@@ -1,4 +1,4 @@
-var hvTYT13=['위반','지시거부','지적','지적(자가 발견)','질타','개선요청','유휴','장애','지시'];/* 19:42 전수 검사: 표·집계·필터에서 빠져 있던 「지시거부」「지시」 구분 추가(확정 추이 그래프 hvTY13은 그대로) */
+var hvTYT13=['위반','지시거부','지적','지적(자가 발견)','질타','개선요청','유휴','장애','지시','칭찬'];/* 19:42 전수 검사: 표·집계·필터에서 빠져 있던 「지시거부」「지시」 구분 추가(확정 추이 그래프 hvTY13은 그대로) */
 var hvTY13=['위반','지적','지적(자가 발견)','질타','개선요청','유휴','장애'];/* 11/04 15:32 대표님 지시: 심각도 순서(위반 > 지적 > 지적(자가 발견) > 질타 > 개선요청 > 유휴, 장애는 빨간 바탕) */
 /* SC-13 모델 통제 상황 — 데이터 연동 경로(대표님 지시 11/04 13:56·13:58): 원천 HiBiz\01_클로_소통(COM)\모델통제(CTL)\모델통제_통합이력.tsv·모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv·model_control_status.tsv(원천 그대로 복사·푸시) → 화면 10초마다 읽음 */
 var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체',u:'전체',p:'전체',c:'',x:'',f:'전체'};
@@ -82,7 +82,7 @@ function hvSC13Paint(fail,err){
  g+='</tbody></table></div>'+hvPager(PGM,'개 모델','hvSC13Paint');
  var ms=['전체'].concat(d.models.map(function(m){return m.name})),ts=['전체'].concat(T);
  g+='<h3>이력</h3><div class="sc13-f sc13-l"><span class="sc13-lb">모델</span>'+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f sc13-l"><span class="sc13-lb">구분</span>'+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>'+'<div class="sc13-f sc13-l"><span class="sc13-lb">Fable</span>'+['전체'].concat(HV_FB,['조치 완료']).map(function(x){var n=x==='전체'?ev.length:x==='조치 완료'?ev.filter(function(e){return e.status==='조치 완료'}).length:ev.filter(function(e){return e.fable===x}).length;return '<button type="button" class="'+(hvF13.f===x?'on':'')+'" onclick="hvSC13Set(\'f\',\''+x+'\')">'+x+' '+n+'</button>'}).join('')+'</div>';
- var tg={'지시거부':'v1','지시':'gray','위반':'v1','지적':'v2','지적(자가 발견)':'v3','질타':'v4','개선요청':'v5','유휴':'v6','장애':'v7'};
+ var tg={'지시거부':'v1','지시':'gray','위반':'v1','지적':'v2','지적(자가 발견)':'v3','질타':'v4','개선요청':'v5','유휴':'v6','장애':'v7','칭찬':'ok'};
  var rows=ev.filter(function(e){return (hvF13.m==='전체'||e.model===hvF13.m)&&(hvF13.t==='전체'||e.type===hvF13.t)&&hvCF(e)&&(hvF13.f==='전체'||(hvF13.f==='조치 완료'?e.status==='조치 완료':e.fable===hvF13.f))}).slice().reverse(),PGH=hvPage(rows,'13h');rows=PGH.rows;
  if(hvF13.c)g+='<div class="sc13-sel"><span class="tag sel">선택: '+hvEsc(HV_CB[hvF13.c])+' '+PGH.tot+'건</span><button type="button" onclick="hvCBgo(\'\')">전체 보기</button></div>';
  g+='<div class="tw" id="sc13-hist"><table class="sc13-t"><thead><tr><th>#</th><th>날짜</th><th>시각</th><th>모델</th><th>구분</th><th>대표님 지시·질타 요지</th><th>원인</th><th>조치</th><th>상태</th><th>Fable</th></tr></thead><tbody>';
@@ -396,7 +396,7 @@ function hvOps13(d,C){
  g+='<h3>검색해 수집한 기존 통제·관측 사례와 적용</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>사례(출처)</th><th>통제·제어 방식</th><th>우리 체계 적용</th></tr></thead><tbody>'
  +PCs.rows.map(function(r){return '<tr><td><b><a href="'+r[1]+'" target="_blank" rel="noopener noreferrer">'+hvEsc(r[0])+'</a></b></td><td class="sc13-sm">'+hvEsc(r[2])+'</td><td class="sc13-sm">'+hvEsc(r[3])+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PCs,'개 사례','hvSC13Paint')
  +'<p class="note">집약 데이터는 <b>cowork/ctl/model_control_index.json</b>(자동화 통합 통제 시스템이 읽는 모델 통제 지수 게시본)과 <b>phrase_scan.json</b>(문구 스캔)으로 제공됩니다. 이력이 바뀌면 같은 스크립트가 두 게시본을 다시 만듭니다.</p>';
- return g+hvLoop13(d,C)+hvAud13(d,C)}
+ return g+hvGuard13(d,C)+hvLoop13(d,C)+hvAud13(d,C)}
 
 /* 19:42 대표님 지시: SC-13 전수 검사 — 항목별 화면·데이터 원천·처리·표출·접근·개입·종단/횡단 연결과 실시간 검사 결과 */
 function hvAud13(d,C){
@@ -451,4 +451,37 @@ function hvLoop13(d,C){
  var PL=hvPage(HV_LOOP13,'13r4');
  g+='<h3>순환(루핑) 체계 — 수집 → 집약 → 표출 → 정합 → 판정 → 조치·형상 → 역방향 검토</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>단계</th><th>주기</th><th>입력·방식</th><th>산출</th><th>담당</th></tr></thead><tbody>'
  +PL.rows.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td><td class="sc13-sm">'+hvEsc(r[1])+'</td><td class="sc13-sm">'+hvEsc(r[2])+'</td><td class="sc13-sm">'+hvEsc(r[3])+'</td><td class="sc13-sm">'+hvEsc(r[4])+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PL,'단계','hvSC13Paint')+'<p class="note">연결: '+X.upload.feeds.map(hvEsc).join(' · ')+'</p>';
+ return g}
+
+/* 19:53~20:00 대표님 지시: 공백 사유 강제 기입 · 차단 경보(리스크보다 위 등급) · 막힌 단계와 사유 · 칭찬 크레딧(독립 모티베이션) · 모델 자각 카드 */
+function hvEl13(iso){var ms=Date.now()-Date.parse(iso);if(!(ms>0))return '방금';var m=Math.floor(ms/60000),h=Math.floor(m/60),dd=Math.floor(h/24);return dd?dd+'일 '+(h%24)+'시간':h?h+'시간 '+(m%60)+'분':m+'분'}
+var HV_LVC13={'차단':'#7f0000','경고':'#ef6c00','주의':'#f9a825','긴급':'#c62828','안정':'#2e7d32'};
+function hvLv13(l){return '<span class="tag" style="background:'+(HV_LVC13[l]||'#546e7a')+';color:#fff">'+hvEsc(l)+'</span>'}
+function hvGuard13(d,C){
+ var X=hvMX13,g='';if(!X||!X.alerts)return '';
+ var AL=X.alerts.rows,PA=hvPage(AL,'13s1'),n=AL.filter(function(a){return a.level==='차단'}).length;
+ g+='<h3>차단 경보 — 통제 체계의 막힘·우회 징후 (열림 '+n+'건)</h3><p class="note" style="border-left:4px solid #7f0000;padding-left:8px"><b>「차단」은 모델 결함 경보(주의·경고·긴급)보다 위 등급입니다.</b> '+hvEsc(X.alerts.note)+' '+hvEsc(X.alerts.matrix_rule)+' 경과 시간은 지금 시각 기준으로 계속 늘어납니다. 점검 시각 '+hvEsc((X.alerts.checked||'').slice(0,16).replace('T',' '))+'.</p>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>등급</th><th>구분</th><th>막힌 단계</th><th>경보</th><th>사유(확인된 사실)</th><th>열린 시각</th><th>막혀 있는 시간</th><th>근거</th><th>담당</th><th>해소 조건</th><th>매트릭스 추적</th><th>추가한 울타리</th></tr></thead><tbody>'
+ +PA.rows.map(function(a){return '<tr><td>'+hvLv13(a.level)+'</td><td class="sc13-sm">'+hvEsc(a['class'])+'</td><td class="sc13-sm">'+hvEsc(a.stage)+'</td><td><b>'+hvEsc(a.title)+'</b></td><td class="sc13-sm">'+hvEsc(a.reason)+'</td><td class="sc13-sm">'+hvEsc(a.since.slice(5,16).replace('T',' '))+'</td><td class="sc13-n"><b>'+hvEl13(a.since)+'</b></td><td class="sc13-sm">'+hvEsc(a.evidence)+'</td><td class="sc13-sm">'+hvEsc(a.owner)+'</td><td class="sc13-sm">'+hvEsc(a.release)+'</td><td class="sc13-sm">'+hvEsc(a.cwx)+'</td><td class="sc13-sm">'+hvEsc(a.added_fence)+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PA,'개 경보','hvSC13Paint');
+ var G=X.lifecycle_gap,PG=hvPage(G.rows,'13s2');
+ g+='<h3>공백 사유 강제 기입 — 조치 생명주기 비어 있는 '+G.count+'건 (이력 '+(G.last_lifecycle_no+1)+'번부터)</h3><p class="note">'+hvEsc(G.note)+'</p><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>#</th><th>기록 시각</th><th>모델</th><th>구분</th><th>상태</th><th>공백 사유</th><th>막힌 단계</th><th>담당</th><th>해소 조건</th></tr></thead><tbody>'
+ +PG.rows.map(function(r){return '<tr><td class="sc13-n">'+r.no+'</td><td class="sc13-sm">'+hvEsc(r.time.slice(5,16).replace('T',' '))+'</td><td>'+hvEsc(r.model)+'</td><td>'+hvEsc(r.type)+'</td><td class="sc13-sm">'+hvEsc(r.status)+'</td><td class="sc13-sm">'+r.codes.map(function(c){return '<b>'+c+'</b>'}).join(' ')+'</td><td class="sc13-sm">'+hvEsc(r.blocked_stage)+'</td><td class="sc13-sm">'+hvEsc(r.owner)+'</td><td class="sc13-sm">'+hvEsc(r.release)+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PG,'건','hvSC13Paint')
+ +'<p class="note">'+Object.keys(G.codes).map(function(k){return '<b>'+k+'</b> '+hvEsc(G.codes[k])}).join('<br>')+'</p>';
+ var I=X.investigation,P=X.purpose;
+ g+='<h3>왜 비었나 — 11/05 이력 검토 계기와 원인 (확인된 사실 · 판단 · 확인 안 됨)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th style="width:110px">구분</th><th>내용</th></tr></thead><tbody>'
+ +I.facts.map(function(t){return '<tr><td><b>확인된 사실</b></td><td class="sc13-sm">'+hvEsc(t)+'</td></tr>'}).join('')+I.judgment.map(function(t){return '<tr><td><b>판단</b></td><td class="sc13-sm">'+hvEsc(t)+'</td></tr>'}).join('')+I.unconfirmed.map(function(t){return '<tr><td><b>확인 안 됨</b></td><td class="sc13-sm">'+hvEsc(t)+'</td></tr>'}).join('')+'</tbody></table></div>'
+ +'<h3>'+hvEsc(P.title)+'</h3><div class="tw"><table class="sc13-t sc13-st"><tbody>'+P.points.map(function(t,i){return '<tr><td class="sc13-n"><b>'+(i+1)+'</b></td><td class="sc13-sm">'+hvEsc(t)+'</td></tr>'}).join('')+'</tbody></table></div>';
+ var PF=hvPage(X.fences,'13s3');
+ g+='<h3>추가한 울타리·통제 — 공백·우회를 막는 장치</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>장치</th><th>막는 것</th><th>상태</th><th>담당</th></tr></thead><tbody>'+PF.rows.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td><td class="sc13-sm">'+hvEsc(r[1])+'</td><td class="sc13-sm">'+hvEsc(r[2])+'</td><td class="sc13-sm">'+hvEsc(r[3])+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PF,'개 장치','hvSC13Paint');
+ var Cr=X.credit,ms=['Opus','Sonnet','Fable','Haiku','전 모델','미상'];
+ g+='<h3>'+hvEsc(Cr.name)+' — 점수와 독립된 모티베이션</h3><p class="note" style="border-left:4px solid #2e7d32;padding-left:8px"><b>'+hvEsc(Cr.definition)+'</b></p><div class="tw"><table class="sc13-t sc13-st"><tbody>'+Cr.principles.map(function(t,i){return '<tr><td class="sc13-n"><b>'+(i+1)+'</b></td><td class="sc13-sm">'+hvEsc(t)+'</td></tr>'}).join('')+'</tbody></table></div>'
+ +'<p class="note" style="border-left:4px solid #7f0000;padding-left:8px"><b>상쇄·가감 없음</b>: '+hvEsc(Cr.no_offset_rule)+' 별도 누적 원장: '+hvEsc(Cr.ledger_file)+'</p><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>모델</th><th>칭찬 건수</th><th>칭찬 크레딧(별도 누적)</th></tr></thead><tbody>'+ms.map(function(m){var c=Cr.models[m]||{praise:0,credit:0};return '<tr><td><b>'+hvEsc(m)+'</b></td><td class="sc13-n">'+c.praise+'</td><td class="sc13-n"><b>'+c.credit+'</b></td></tr>'}).join('')+'</tbody></table></div>';
+ var PR=hvPage(Cr.praise_rows.slice().reverse(),'13s4');
+ g+='<h3>칭찬 기록 — 왜 칭찬받았나 · 어떻게 적용되나</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>#</th><th>시각</th><th>모델</th><th>대표님 말씀</th><th>칭찬 사유 · 적용</th></tr></thead><tbody>'+(PR.rows.length?PR.rows.map(function(r){return '<tr><td class="sc13-n">'+r.no+'</td><td class="sc13-sm">'+hvEsc(r.time.slice(5,16).replace('T',' '))+'</td><td>'+hvEsc(r.model)+'</td><td class="sc13-sm">'+hvEsc(r.quote)+'</td><td class="sc13-sm">'+hvEsc(r.why)+'</td></tr>'}).join(''):'<tr><td colspan="5">기록 없음</td></tr>')+'</tbody></table></div>'+hvPager(PR,'건','hvSC13Paint')
+ +'<p class="note"><b>전수 조사 범위</b>: '+Cr.scan.sources.map(hvEsc).join(' · ')+'<br><b>결과</b>: '+hvEsc(Cr.scan.result)+'<br>'+hvEsc(Cr.approval_note)+'</p>';
+ var Aw=X.awareness,am=['Opus','Sonnet','Fable','Haiku'];
+ g+='<h3>모델 자각 카드 — 채찍(질타·지적)과 당근(칭찬 크레딧)을 모델이 스스로 보는 화면</h3><p class="note">'+hvEsc(Aw.principle)+'</p><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>모델</th><th>상태 신호</th><th>최근 24시간 결함</th><th>마지막 결함 후</th><th>재발률</th><th>칭찬 크레딧</th><th>가장 많이 받은 지적 형태 (건)</th><th>지금 할 행동</th></tr></thead><tbody>'
+ +am.map(function(m){var a=Aw.models[m];return '<tr><td><b>'+hvEsc(m)+'</b></td><td>'+hvLv13(a.signal)+'</td><td class="sc13-n">'+a.f24+'</td><td class="sc13-sm">'+(a.last_fault?hvEl13(a.last_fault):'-')+'</td><td class="sc13-n">'+(a.recurrence_rate!=null?(Math.round(a.recurrence_rate*1000)/10)+'%':'-')+'</td><td class="sc13-n"><b>'+a.credit+'</b></td><td class="sc13-sm">'+a.top_forms.map(function(t){return hvEsc(t.form)+' '+t.count}).join(' · ')+'</td><td class="sc13-sm">'+hvEsc(a.next_action)+'</td></tr>'}).join('')+'</tbody></table></div>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>칭찬 크레딧으로 이어지는 행동</th><th>작업 전 자각 4문</th><th>작업 후 자가 점검 4문</th></tr></thead><tbody><tr><td class="sc13-sm">'+Aw.praise_actions.map(hvEsc).join('<br>')+'</td><td class="sc13-sm">'+Aw.self_check_before.map(hvEsc).join('<br>')+'</td><td class="sc13-sm">'+Aw.self_check_after.map(hvEsc).join('<br>')+'</td></tr></tbody></table></div>'
+ +'<p class="note"><b>자각 순환</b>: '+Aw.protocol.map(hvEsc).join(' → ')+'</p>';
  return g}

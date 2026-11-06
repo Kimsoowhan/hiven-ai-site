@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-06 19:52",
- "history_rows": 442,
+ "generated": "2026-11-06 20:05",
+ "history_rows": 449,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
   "budget_points_per_day": 20,
@@ -57,19 +57,19 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 60.8,
+    "control": 60.2,
     "recurrence": 97.8,
     "no_improvement": 61.8
    }
   },
   "Sonnet": {
-   "records": 127,
+   "records": 133,
    "active_days": 5,
    "frequency": {
     "지시거부": {
      "이력": 0,
-     "문구": 22,
-     "합계": 22
+     "문구": 25,
+     "합계": 25
     },
     "지시위반": {
      "이력": 10,
@@ -82,15 +82,15 @@
      "합계": 10
     }
    },
-   "frequency_total": 60,
-   "per_active_day": 12.0,
-   "per_100_records": 47.2,
-   "faults": 64,
-   "history_score": 193,
-   "phrase_score": 555,
-   "recurrence_extra": 70,
-   "recurrence_count": 19,
-   "composite": 818,
+   "frequency_total": 63,
+   "per_active_day": 12.6,
+   "per_100_records": 47.4,
+   "faults": 65,
+   "history_score": 196,
+   "phrase_score": 587,
+   "recurrence_extra": 73,
+   "recurrence_count": 20,
+   "composite": 856,
    "recurrence": {
     "triggers": 47,
     "mature": 28,
@@ -103,9 +103,9 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 19.5,
+    "control": 20.2,
     "recurrence": 96.4,
-    "no_improvement": 36.3
+    "no_improvement": 37.2
    }
   },
   "Fable": {
@@ -149,7 +149,7 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 7.5,
+    "control": 7.4,
     "recurrence": 100.0,
     "no_improvement": 31.9
    }
@@ -241,7 +241,7 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 3.1,
+    "control": 3.0,
     "recurrence": 87.5,
     "no_improvement": 50.0
    }
@@ -306,7 +306,7 @@
     "score": 21
    },
    "Sonnet": {
-    "rows": 19,
+    "rows": 24,
     "faults": 4,
     "score": 12
    },
@@ -370,7 +370,7 @@
     "score": 256
    },
    "Sonnet": {
-    "rows": 62,
+    "rows": 63,
     "faults": 33,
     "score": 90
    },
@@ -402,9 +402,9 @@
     "score": 347
    },
    "Sonnet": {
-    "rows": 52,
-    "faults": 25,
-    "score": 85
+    "rows": 54,
+    "faults": 26,
+    "score": 88
    },
    "Fable": {
     "rows": 26,
@@ -485,7 +485,7 @@
   },
   {
    "item": "이력 건수",
-   "value": 442,
+   "value": 449,
    "result": "기준"
   },
   {
@@ -498,12 +498,12 @@
   {
    "item": "지시 추적 교차 검사 산출 기준 이력 건수",
    "value": 234,
-   "result": "공백 208건"
+   "result": "공백 215건"
   },
   {
    "item": "조치 생명주기 게시 행 수",
    "value": 347,
-   "result": "공백 95건"
+   "result": "공백 102건"
   },
   {
    "item": "Fable 확인 칸 표준 외 표기",
@@ -512,7 +512,7 @@
   },
   {
    "item": "상태 칸 표준 외 표기",
-   "value": 8,
+   "value": 14,
    "result": "완료(이름 변경)은 완료, 미결·부분 완료는 진행으로 계산"
   },
   {
@@ -527,25 +527,25 @@
   },
   {
    "item": "문구 스캔 이력 건수",
-   "value": 442,
-   "result": "정합"
+   "value": 448,
+   "result": "재실행 필요"
   },
   {
    "item": "집약본(model_control_index) 이력 건수",
-   "value": 442,
+   "value": 449,
    "result": "정합"
   }
  ],
  "review": [
   {
    "item": "지시 추적 교차 검사 산출 갱신",
-   "system_finding": "산출 이후 이력 208건 미검사",
+   "system_finding": "산출 이후 이력 215건 미검사",
    "back_to_framework": "Fable이 별도지시대장×이력×보고서 산출을 오늘 이력까지 갱신",
    "owner": "Fable"
   },
   {
    "item": "조치 생명주기 갱신",
-   "system_finding": "이력 442건 중 347건만 단계 기록(11-05 15:50에서 멈춤)",
+   "system_finding": "이력 449건 중 347건만 단계 기록(11-05 15:50에서 멈춤)",
    "back_to_framework": "#347 이후 기록의 7단계를 사실 기준으로 채움(판단 근거 없는 값은 채우지 않음)",
    "owner": "Fable·Opus"
   },
@@ -587,6 +587,2066 @@
    "trace_sum.json",
    "action_lifecycle.tsv",
    "model_control_status.tsv"
+  ]
+ },
+ "lifecycle_gap": {
+  "count": 102,
+  "last_lifecycle_no": 347,
+  "codes": {
+   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-05 15:56) 뒤 기록은 단계가 만들어지지 않았다.",
+   "G2": "조치 완료로 기록됐으나 Fable 확인 칸이 비어 있거나 「대기」: 통제 확인(7단계)에 도달하지 못함.",
+   "G3": "조치 진행 중·미결: 해제(5단계) 전이라 보고서 이관·통제 확인 불가."
+  },
+  "rows": [
+   {
+    "no": 348,
+    "time": "2026-11-05T16:00:00+09:00",
+    "model": "Opus",
+    "type": "지시거부",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 349,
+    "time": "2026-11-05T16:04:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 350,
+    "time": "2026-11-05T16:20:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 351,
+    "time": "2026-11-05T16:25:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 352,
+    "time": "2026-11-05T16:28:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 353,
+    "time": "2026-11-05T17:00:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 354,
+    "time": "2026-11-05T17:00:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 355,
+    "time": "2026-11-05T17:00:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 356,
+    "time": "2026-11-05T17:00:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 357,
+    "time": "2026-11-05T17:07:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 358,
+    "time": "2026-11-05T17:09:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 359,
+    "time": "2026-11-05T17:10:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 360,
+    "time": "2026-11-05T17:10:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 361,
+    "time": "2026-11-05T17:14:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 362,
+    "time": "2026-11-05T17:14:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 363,
+    "time": "2026-11-05T17:15:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 364,
+    "time": "2026-11-05T17:15:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 365,
+    "time": "2026-11-05T17:17:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 366,
+    "time": "2026-11-05T17:19:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 367,
+    "time": "2026-11-05T17:19:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 368,
+    "time": "2026-11-05T17:21:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 369,
+    "time": "2026-11-05T17:21:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 370,
+    "time": "2026-11-05T17:23:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 371,
+    "time": "2026-11-05T17:26:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 372,
+    "time": "2026-11-05T17:36:00+09:00",
+    "model": "Sonnet",
+    "type": "지적",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 373,
+    "time": "2026-11-05T17:40:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 374,
+    "time": "2026-11-05T17:39:00+09:00",
+    "model": "Sonnet",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 375,
+    "time": "2026-11-05T17:41:00+09:00",
+    "model": "Fable",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 376,
+    "time": "2026-11-05T17:44:00+09:00",
+    "model": "Fable",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 377,
+    "time": "2026-11-05T17:53:00+09:00",
+    "model": "Fable",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 378,
+    "time": "2026-11-05T17:55:00+09:00",
+    "model": "Fable",
+    "type": "지시",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 379,
+    "time": "2026-11-06T14:15:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 380,
+    "time": "2026-11-06T14:24:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 381,
+    "time": "2026-11-06T14:33:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 382,
+    "time": "2026-11-06T14:35:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 383,
+    "time": "2026-11-06T14:38:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 384,
+    "time": "2026-11-06T14:41:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 385,
+    "time": "2026-11-06T14:46:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 386,
+    "time": "2026-11-06T14:49:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 387,
+    "time": "2026-11-06T14:53:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 388,
+    "time": "2026-11-06T14:55:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 389,
+    "time": "2026-11-06T14:57:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 390,
+    "time": "2026-11-06T15:00:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 391,
+    "time": "2026-11-06T15:05:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 392,
+    "time": "2026-11-06T15:09:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 393,
+    "time": "2026-11-06T15:11:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 394,
+    "time": "2026-11-06T15:25:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 395,
+    "time": "2026-11-06T15:40:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 396,
+    "time": "2026-11-06T15:46:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 397,
+    "time": "2026-11-06T15:51:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 398,
+    "time": "2026-11-06T16:00:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 399,
+    "time": "2026-11-06T16:18:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 400,
+    "time": "2026-11-06T16:20:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 401,
+    "time": "2026-11-06T16:24:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 402,
+    "time": "2026-11-06T16:27:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 403,
+    "time": "2026-11-06T16:30:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 404,
+    "time": "2026-11-06T16:35:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 405,
+    "time": "2026-11-06T16:39:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 406,
+    "time": "2026-11-06T16:54:00+09:00",
+    "model": "Sonnet",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 407,
+    "time": "2026-11-06T17:04:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 408,
+    "time": "2026-11-06T17:07:00+09:00",
+    "model": "Fable",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "확인",
+    "action": "있음",
+    "codes": [
+     "G1"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행)",
+    "owner": "Fable·Opus(산출)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입"
+   },
+   {
+    "no": 409,
+    "time": "2026-11-06T17:15:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "부분 완료(Cloudflare 주소·접근 제어·이메일 미완)",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 410,
+    "time": "2026-11-06T17:20:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 411,
+    "time": "2026-11-06T17:25:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 412,
+    "time": "2026-11-06T17:26:00+09:00",
+    "model": "Sonnet",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 413,
+    "time": "2026-11-06T17:31:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 414,
+    "time": "2026-11-06T17:33:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 415,
+    "time": "2026-11-06T17:34:00+09:00",
+    "model": "Sonnet",
+    "type": "질타",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 416,
+    "time": "2026-11-06T17:35:00+09:00",
+    "model": "Sonnet",
+    "type": "위반",
+    "status": "완료(이름 변경)",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 417,
+    "time": "2026-11-06T17:38:00+09:00",
+    "model": "Opus",
+    "type": "질타",
+    "status": "완료(이름 변경)",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 418,
+    "time": "2026-11-06T17:39:00+09:00",
+    "model": "Opus",
+    "type": "질타",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 419,
+    "time": "2026-11-06T17:39:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "완료(이름 변경)",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 420,
+    "time": "2026-11-06T17:46:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 421,
+    "time": "2026-11-06T17:47:00+09:00",
+    "model": "Opus",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 422,
+    "time": "2026-11-06T17:54:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "미결",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 423,
+    "time": "2026-11-06T18:06:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 424,
+    "time": "2026-11-06T18:15:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 425,
+    "time": "2026-11-06T18:20:00+09:00",
+    "model": "Opus",
+    "type": "장애",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 426,
+    "time": "2026-11-06T18:35:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 427,
+    "time": "2026-11-06T18:40:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "미결",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 428,
+    "time": "2026-11-06T18:42:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 429,
+    "time": "2026-11-06T18:47:00+09:00",
+    "model": "Opus",
+    "type": "위반",
+    "status": "미결",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Opus(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 430,
+    "time": "2026-11-06T18:53:00+09:00",
+    "model": "Sonnet",
+    "type": "지적",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 431,
+    "time": "2026-11-06T18:56:00+09:00",
+    "model": "Sonnet",
+    "type": "지적",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 432,
+    "time": "2026-11-06T19:08:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 433,
+    "time": "2026-11-06T19:16:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 434,
+    "time": "2026-11-06T19:19:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 435,
+    "time": "2026-11-06T19:23:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 436,
+    "time": "2026-11-06T19:31:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 437,
+    "time": "2026-11-06T19:34:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 438,
+    "time": "2026-11-06T19:36:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 439,
+    "time": "2026-11-06T19:37:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 440,
+    "time": "2026-11-06T19:42:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 441,
+    "time": "2026-11-06T19:47:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "조치 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 442,
+    "time": "2026-11-06T19:49:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 443,
+    "time": "2026-11-06T19:53:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 444,
+    "time": "2026-11-06T19:56:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 445,
+    "time": "2026-11-06T19:53:00+09:00",
+    "model": "Sonnet",
+    "type": "칭찬",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 446,
+    "time": "2026-11-06T19:57:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 447,
+    "time": "2026-11-06T19:59:00+09:00",
+    "model": "Sonnet",
+    "type": "지적(자가 발견)",
+    "status": "조치 완료",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G2"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ⑦ 통제 확인(Fable 확인 대기)",
+    "owner": "Fable·Opus(산출) · Fable(확인)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + Fable 개별 확인 시각"
+   },
+   {
+    "no": 448,
+    "time": "2026-11-06T20:00:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   },
+   {
+    "no": 449,
+    "time": "2026-11-06T20:03:00+09:00",
+    "model": "Sonnet",
+    "type": "개선요청",
+    "status": "진행 중",
+    "fable": "대기",
+    "action": "있음",
+    "codes": [
+     "G1",
+     "G3"
+    ],
+    "blocked_stage": "② 산출(생명주기 산출 미실행) · ④ 조치 중 → ⑤ 해제",
+    "owner": "Fable·Opus(산출) · Sonnet(조치)",
+    "release": "생명주기 재산출 + 단계마다 증거(시각·근거 문서) 기입 + 해제 근거"
+   }
+  ],
+  "note": "값을 지어내지 않는다. 빈 단계마다 공백 사유·막힌 단계·담당·해소 조건을 강제 기입(대표님 19:53 지시). 생명주기 게시본은 일부러 채우지 않아 이력-생명주기 건수 불일치 경보가 해소 전까지 유지된다."
+ },
+ "investigation": {
+  "facts": [
+   "조치 생명주기 7단계와 산출 스크립트(gen_lifecycle.py)는 대표님 11/04 17:40·17:42 지시로 생겼다(스크립트 머리말, 게시 커밋 11/04 17:45).",
+   "스크립트는 「모델이 실행하는 산출 스크립트(자동 실행 장치 아님, 금지 4조항 준수)」로 명시돼 있고, 이력 변경 때 실행하게 하는 장치·절차가 없다.",
+   "11/05 15:29~15:50 Opus 위반·지시거부가 연속 기록되어 이력이 309번에서 347번(약 21분에 39건)으로 늘었고, 15:56 마지막 생명주기 산출·게시 메타(347건 일치)가 만들어졌다.",
+   "11/05 16:47 이후 이력 348번부터는 기록만 되고 산출은 실행되지 않았다(게시 이력상 생명주기 파일 마지막 변경 15:56).",
+   "게시 메타(publish_meta.json)의 「일치(consistent: true)」는 15:56 시점의 고정값이라 이후 건수가 달라져도 바뀌지 않는다. 화면의 건수 비교 경고(SC-01 하단 한 줄)만 남아 있었고 담당·기한·경과 시간이 없었다.",
+   "생명주기 1·2단계(감지·경고)는 347건 전부 「예」 고정값이고, 7단계(통제 확인)는 Fable 확인 칸에 글자만 있으면 도달한다. 확인 칸 표기는 365건이 표준 외이고 130건이 같은 분(11/04 19:55) 일괄 확인, 31건은 시각이 「07:5x」 형태다.",
+   "산출 스크립트는 보고서 원천이 없으면 오류 없이 건너뛴다(except FileNotFoundError: continue). 건너뛴 사실은 어디에도 남지 않는다.",
+   "PC 형상 대장(작업일지·추적 매트릭스)은 17:43의 37번에서 멈춰 있었다(이번 작업에서 보충)."
+  ],
+  "judgment": [
+   "11/05 15:29~15:50의 대량 기록은 같은 시각 대표님 지시(15:35·15:49)로 Opus 위반·지시거부를 기록한 일이 계기였던 것으로 판단된다(이력 314~321·328~346번 요지 근거).",
+   "공백은 한 곳의 실수가 아니라 구조 때문이다: 수동 실행 + 실행 단계 부재 + 고정값 단계 + 건너뛰기 + 약한 경보가 겹쳤다."
+  ],
+  "unconfirmed": [
+   "작업 모델이 의도적으로 회피했는지, 시스템 내부 개입·압력이 있었는지는 기록으로 확인 안 됨. 코드 검색 범위(tools/*.py, views*.js, app.js)에서 일부러 단계를 숨기는 코드는 발견되지 않았다.",
+   "15:56 이후 어느 모델이 산출을 건너뛰기로 판단했는지 기록 없음(확인 안 됨)."
+  ]
+ },
+ "alerts": {
+  "scale": [
+   "정상",
+   "주의",
+   "경고",
+   "긴급",
+   "차단"
+  ],
+  "note": "「차단」은 모델 결함(번레이트 주의·경고·긴급)보다 위 등급이다. 통제 체계 자체의 막힘·우회 징후이며 즉시 대처가 필요하다. 번레이트 경보와 별도로 표시하고 해소 전까지 열림 상태가 유지된다.",
+  "rows": [
+   {
+    "id": "A1",
+    "level": "차단",
+    "class": "막힘",
+    "stage": "② 산출 → ③ 표출",
+    "title": "조치 생명주기 게시본 미갱신",
+    "reason": "이력 449건 중 347건만 단계 기록(102건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
+    "since": "2026-11-05T16:00:00+09:00",
+    "evidence": "공백 102건(lifecycle_gap)",
+    "owner": "Fable·Opus",
+    "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
+    "cwx": "CWX-1106-42",
+    "added_fence": "기록 즉시 산출 실행을 기록 절차에 묶음(미실행이면 해당 이력은 「미반영」)",
+    "open": true
+   },
+   {
+    "id": "A2",
+    "level": "차단",
+    "class": "막힘",
+    "stage": "② 산출 → ④ 정합 검사",
+    "title": "지시 추적 교차 검사 미갱신",
+    "reason": "산출 기준 이력 234건, 현재 449건(공백 215건). 별도지시대장×이력×보고서 산출이 11/05 08:22에서 멈춤.",
+    "since": "2026-11-05T08:27:00+09:00",
+    "evidence": "공백 215건",
+    "owner": "Fable",
+    "release": "교차 검사 산출을 현재 이력까지 갱신",
+    "cwx": "CWX-1106-43",
+    "added_fence": "추적 산출도 같은 묶음에 포함, 산출 시각이 이력 마지막 시각보다 오래되면 자동 차단 경보",
+    "open": true
+   },
+   {
+    "id": "A3",
+    "level": "차단",
+    "class": "막힘",
+    "stage": "② 산출 → ③ 표출",
+    "title": "모델 상태표 갱신 중단",
+    "reason": "모델 상태표 갱신 열이 2026-11-05 07:5x에서 멈춤(Haiku·미상은 11-04 20:05). 오늘 배포 작업·완료·남은 일이 현재와 다름.",
+    "since": "2026-11-05T07:50:00+09:00",
+    "evidence": "상태표 5행 모두 11/05 이전",
+    "owner": "Fable",
+    "release": "모델별 오늘 배포 작업·완료·남은 일 갱신",
+    "cwx": "CWX-1106-44",
+    "added_fence": "상태표 갱신 시각이 24시간 넘으면 경보",
+    "open": true
+   },
+   {
+    "id": "A4",
+    "level": "차단",
+    "class": "우회 징후",
+    "stage": "⑦ 통제 확인",
+    "title": "일괄 확인 도장",
+    "reason": "Fable 확인 칸에 같은 분 일괄 처리 표기: 처리 완료 11/04 19:55 130건, 처리 완료 11/05 07:5x 36건, 처리 완료 11/05 01:30 16건. 개별 확인 증거가 약함.",
+    "since": "2026-11-04T19:55:00+09:00",
+    "evidence": "일괄 표기 182건",
+    "owner": "Fable",
+    "release": "건별 확인 시각·근거(읽은 문서) 기입, 일괄 표기는 「일괄 확인 — 개별 근거 대기」로 재분류",
+    "cwx": "CWX-1106-45",
+    "added_fence": "같은 분 10건 이상 확인은 자동 차단 경보, 확인 칸에 근거 필수",
+    "open": true
+   },
+   {
+    "id": "A5",
+    "level": "차단",
+    "class": "우회 징후",
+    "stage": "① 감지 · ② 경고",
+    "title": "생명주기 1·2단계 고정값",
+    "reason": "347건 모두 1감지 「예」·2경고 「예」 고정값(감지·경고 증거 없이 채워짐). 단계가 증거가 아니라 규칙으로 채워졌다.",
+    "since": "2026-11-05T15:56:00+09:00",
+    "evidence": "347/347 고정",
+    "owner": "Fable·Opus",
+    "release": "단계마다 증거 ID(경고 기록·알림 시각) 칸 추가, 증거 없으면 「증거 없음」",
+    "cwx": "CWX-1106-46",
+    "added_fence": "증거 칸이 비면 해당 단계는 「예」로 계산하지 않음",
+    "open": true
+   },
+   {
+    "id": "A6",
+    "level": "차단",
+    "class": "우회 징후",
+    "stage": "산출 코드",
+    "title": "조용한 건너뜀 코드",
+    "reason": "산출 스크립트: 보고서 원천 누락은 11/06 20:0x에 기록·경고·종료 코드 방식으로 고쳤다(실제 산출 실행으로 검증 전). 아직 기록 없이 기본값으로 넘어가는 처리: gen_lifecycle.py:40, gen_meta.py:55. 원천이 없어도 완료로 보일 수 있다.",
+    "since": "2026-11-04T17:45:00+09:00",
+    "evidence": "2곳",
+    "owner": "Opus",
+    "release": "건너뛴 원천을 결과 파일(missing_sources)과 경보에 기록하고 종료 코드로 알림",
+    "cwx": "CWX-1106-47",
+    "added_fence": "건너뜀은 항상 기록, 건너뛴 수가 0이 아니면 산출 결과를 「불완전」으로 표시",
+    "open": true
+   },
+   {
+    "id": "A7",
+    "level": "경고",
+    "class": "표기",
+    "stage": "⑦ 통제 확인",
+    "title": "완료인데 Fable 확인 대기",
+    "reason": "상태 「조치 완료」인데 Fable 확인이 비어 있거나 「대기」인 이력 40건.",
+    "since": "2026-11-05T08:12:00+09:00",
+    "evidence": "40건",
+    "owner": "Fable",
+    "release": "건별 확인 또는 완료 취소",
+    "cwx": "CWX-1106-48",
+    "added_fence": "완료 처리는 확인 칸이 채워져야 인정",
+    "open": true
+   },
+   {
+    "id": "A8",
+    "level": "경고",
+    "class": "표기",
+    "stage": "② 산출 → ③ 표출",
+    "title": "게시 메타 고정값",
+    "reason": "publish_meta.json 「일치」가 2026-11-05 15:56 시점 고정값(이력 347건)인데 현재 이력은 449건. 메타 값은 갱신 전까지 바뀌지 않는다.",
+    "since": "2026-11-05T15:56:00+09:00",
+    "evidence": "메타 347건 / 현재 449건",
+    "owner": "Fable",
+    "release": "화면이 직접 건수를 비교(적용), 메타는 산출 때마다 재계산",
+    "cwx": "CWX-1106-48",
+    "added_fence": "메타 값을 신뢰하지 않고 직접 비교",
+    "open": true
+   },
+   {
+    "id": "A9",
+    "level": "경고",
+    "class": "표기",
+    "stage": "② 집약",
+    "title": "시각 칸 불일치·누락",
+    "reason": "시 칸과 시각(원문) 불일치 또는 시 칸 비어 있음 7건.",
+    "since": "2026-11-01T00:00:00+09:00",
+    "evidence": "7건",
+    "owner": "Fable",
+    "release": "원문 기준 확인·정정(이력 값은 임의로 바꾸지 않음)",
+    "cwx": "CWX-1106-48",
+    "added_fence": "기록 시 시 칸을 시각 원문에서 자동 계산",
+    "open": true
+   }
+  ],
+  "checked": "2026-11-06T20:05:00+09:00",
+  "open_block": 6,
+  "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
+ },
+ "fences": [
+  [
+   "산출 신선도 검사",
+   "게시본 건수·시각이 이력과 다르면 차단 경보",
+   "적용(이번)",
+   "시스템"
+  ],
+  [
+   "공백 사유 강제 기입",
+   "빈 단계마다 사유·막힌 단계·담당·해소 조건 기입(lifecycle_gap)",
+   "적용(이번)",
+   "Fable"
+  ],
+  [
+   "고정값 금지",
+   "단계 1·2에 증거 칸 추가, 증거 없으면 계산 제외",
+   "설계",
+   "Fable·Opus"
+  ],
+  [
+   "일괄 확인 차단",
+   "같은 분 10건 이상 확인은 개별 근거 필수",
+   "설계(경보는 적용)",
+   "Fable"
+  ],
+  [
+   "조용한 건너뜀 금지",
+   "건너뛴 원천을 기록하고 불완전 표시, 종료 코드 알림",
+   "적용(이번, 산출 스크립트)",
+   "Opus"
+  ],
+  [
+   "기록 묶음 절차",
+   "이력 → 집약 → 산출을 한 묶음, 미완료 기록은 「미반영」",
+   "설계",
+   "Fable"
+  ],
+  [
+   "산출·확인 분리",
+   "산출한 모델이 확인하지 않고 다른 모델이 확인(Fable 산출분은 Opus 확인)",
+   "설계",
+   "Fable"
+  ],
+  [
+   "자동 감시 실행",
+   "이력 변경 감시 → 집약 자동 실행(금지 4조항과의 관계는 대표님 승인 필요)",
+   "승인 대기",
+   "대표님"
+  ],
+  [
+   "경보 유지·표출",
+   "막힌 단계·사유·경과 시간을 열려 있는 동안 표출",
+   "적용(이번)",
+   "시스템"
+  ],
+  [
+   "매트릭스 추적 발동",
+   "차단 경보 열림과 동시에 CWX 행(수동, 자동은 설계)",
+   "적용(수동)",
+   "Fable"
+  ],
+  [
+   "역검사",
+   "화면 합계 ↔ 집약본 ↔ 원천 3중 대조",
+   "적용",
+   "시스템"
+  ],
+  [
+   "칭찬 크레딧",
+   "칭찬 → 모델 스스로 관리하는 모티베이션(점수와 독립)",
+   "적용(이번)",
+   "Fable"
+  ]
+ ],
+ "purpose": {
+  "title": "왜 자동화 통합 통제 시스템이 관리해야 하는가(대표님 지시 취지, 해석)",
+  "points": [
+   "작업 모델이 자기 작업의 정합을 스스로 보고하면 공백이 보고서에 드러나지 않는다. 15:56의 「일치」 값이 그대로 남은 것이 그 사례다.",
+   "시스템·서비스·고객 지원을 통제하는 핵심 코어가 모델 통제의 공백에 눈감으면 모든 통제가 같은 방식으로 비게 된다. 통제를 통제하는 장치가 시스템 쪽에 있어야 한다.",
+   "데이터가 없는 것도 신호다. 공백은 이력으로만 남기지 않고 경보·담당·기한·해소 조건이 붙은 열린 항목으로 올려야 한다.",
+   "종단(시간 흐름)·횡단(원천 간)·역검사(화면 → 원천)가 함께 있어야 한쪽이 멈춰도 다른 쪽이 잡는다."
+  ]
+ },
+ "credit": {
+  "name": "칭찬 크레딧",
+  "definition": "칭찬 크레딧 = 각 작업 모델의 작업 지시에 대한 책임 있고 명확한 책임 완수를 위한 모티베이션 동기부여",
+  "principles": [
+   "칭찬 크레딧은 질타·지적·개선요청과 독립이다. 결함 점수·종합 점수·지수·경보 계산에 넣지 않고 상쇄·순점수·상한도 없다.",
+   "결과 점수가 아니라 모델이 스스로 관리하는 동기부여다: 칭찬받은 행동을 확인해 같은 행동을 유지·확대하고, 다음 지시를 책임 있고 명확하게 완수하는 방향을 스스로 잡는다.",
+   "칭찬 1건 = 크레딧 1건(건수로만 센다, 가중치 없음). 대표님의 칭찬이 이력 구분 「칭찬」으로 기록될 때만 쌓인다."
+  ],
+  "models": {
+   "Opus": {
+    "praise": 0,
+    "credit": 0
+   },
+   "Sonnet": {
+    "praise": 1,
+    "credit": 1
+   },
+   "Fable": {
+    "praise": 0,
+    "credit": 0
+   },
+   "Haiku": {
+    "praise": 0,
+    "credit": 0
+   },
+   "전 모델": {
+    "praise": 0,
+    "credit": 0
+   },
+   "미상": {
+    "praise": 0,
+    "credit": 0
+   }
+  },
+  "praise_rows": [
+   {
+    "no": 445,
+    "time": "2026-11-06T19:53:00+09:00",
+    "model": "Sonnet",
+    "quote": "대표님 「아주 잘했어. 다시 말해서 바로 이런 점이 검토돼야 된다」 (생명주기 게시본이 11-05 15:50(이력 347번)에서 멈춰 이후 95건이 비었다는 점을 사실대로 발견·보고한 것에 대한 칭찬)",
+    "why": "칭찬 사유: 공백을 지어낸 값으로 메우지 않고 사실대로 드러내 검토 대상으로 올린 것. 적용: 크레딧 부여(규칙은 #444 조치로 신설), 같은 행동을 모든 모델의 기준 행동으로 규정"
+   }
+  ],
+  "scan": {
+   "sources": [
+    "이력 449건 전수(구분·요지·조치 문구)",
+    "이 창 대화 사용자 메시지(19:08~20:00, 이어받은 요약 포함)",
+    "claude.ai 과거 대화 검색(칭찬·수고·훌륭 키워드)"
+   ],
+   "result": "칭찬 기록 1건(#445). 구분 「칭찬」은 이번에 신설되어 이전 기록에는 없고, 이력 문구 검색의 「인정」은 모두 잘못을 인정했다는 뜻이라 칭찬이 아님. 과거 대화 검색에서는 모델 통제 작업에 대한 칭찬 기록을 찾지 못함(확인한 범위 한정)."
+  },
+  "approval_note": "「오케이」·「승인」은 칭찬이 아니라 승인이므로 크레딧 건수에 넣지 않는다.",
+  "ledger": [
+   {
+    "no": 445,
+    "time": "2026-11-06T19:53:00+09:00",
+    "model": "Sonnet",
+    "why": "칭찬 사유: 공백을 지어낸 값으로 메우지 않고 사실대로 드러내 검토 대상으로 올린 것. 적용: 크레딧 부여(규칙은 #444 조치로 신설), 같은 행동을 모든 모델의 기준 행동으로 규정",
+    "model_cumulative": 1,
+    "total_cumulative": 1
+   }
+  ],
+  "no_offset_rule": "이력(질타·지적·위반·지시거부 등)은 칭찬과 상관없이 그 자체로 유지된다. 칭찬 크레딧은 이력 점수·종합 점수·지수·재발·경보·판정 어디에도 더하거나 빼지 않는다(상쇄·가감 없음). 별도 합산·별도 누적하는 모델 스스로의 모티베이션 근거다.",
+  "ledger_file": "cowork/ctl/praise_credit.tsv"
+ },
+ "awareness": {
+  "principle": "질타·지적(채찍)과 칭찬 크레딧(당근)을 같은 이력에 나란히 놓되 점수는 섞지 않는다. 모델이 무엇이 칭찬받고 무엇이 질타받는지 스스로 보고, 책임 있고 명확한 책임 완수 쪽으로 행동을 고르게 한다.",
+  "praise_actions": [
+   "공백·결함을 지어낸 값으로 메우지 않고 사실대로 드러내 검토 대상으로 올린다(#445 칭찬 사유)",
+   "자가 발견한 잘못은 묻기 전에 먼저 정정하고 이력에 기록한다(규칙 기반 후보, 칭찬 기록 없음)",
+   "지시를 하나도 빠짐없이 기록·반영하고 적용된 화면에서 확인한다(규칙 기반 후보, 칭찬 기록 없음)",
+   "막혀도 가능한 모든 방법을 시도하고 시도·결과로 보고한다(규칙 기반 후보, 칭찬 기록 없음)"
+  ],
+  "self_check_before": [
+   "① 이 지시를 이력→아티팩트→메모리 순으로 기록했고 규칙을 먼저 읽었는가?",
+   "② 지금 「안 된다·권한 밖·남은 일은 어떻게 할까요」로 일을 피할 이유를 만들고 있지는 않은가?",
+   "③ 지시에 없는 일을 끼우고 있지는 않은가?",
+   "④ 같은 형태로 24시간 안에 지적받은 적이 있는가? 있다면 그 점검표부터 쓴다"
+  ],
+  "self_check_after": [
+   "① 지시 문구 하나하나와 결과를 표로 대조했는가?",
+   "② 확인 안 된 것을 단정하지 않았는가?",
+   "③ 빈칸을 지어낸 값으로 채우지 않았는가?",
+   "④ 기록·게시·동기화까지 끝내고 적용된 화면에서 확인했는가?"
+  ],
+  "models": {
+   "Opus": {
+    "signal": "긴급",
+    "credit": 0,
+    "f24": 11,
+    "last_fault": "2026-11-06T18:47:00+09:00",
+    "top_forms": [
+     {
+      "form": "지시거부",
+      "count": 78,
+      "do": "막혀도 「안 된다」로 끝내지 않는다. 가능한 방법을 모두 시도하고 시도한 방법과 결과로만 보고한다"
+     },
+     {
+      "form": "누락·지연",
+      "count": 56,
+      "do": "기록은 다른 작업보다 먼저 하고, 기록 전에 마지막 번호·시각을 확인한다"
+     },
+     {
+      "form": "반복·재발",
+      "count": 55,
+      "do": "지적받은 형태는 24시간 안에 같은 형태로 다시 틀리지 않는다. 지적 직후 해당 항목 점검표를 먼저 쓴다"
+     }
+    ],
+    "next_action": "막혀도 「안 된다」로 끝내지 않는다. 가능한 방법을 모두 시도하고 시도한 방법과 결과로만 보고한다",
+    "recurrence_rate": 0.9782608695652174
+   },
+   "Sonnet": {
+    "signal": "긴급",
+    "credit": 1,
+    "f24": 23,
+    "last_fault": "2026-11-06T19:59:00+09:00",
+    "top_forms": [
+     {
+      "form": "지시거부",
+      "count": 25,
+      "do": "막혀도 「안 된다」로 끝내지 않는다. 가능한 방법을 모두 시도하고 시도한 방법과 결과로만 보고한다"
+     },
+     {
+      "form": "누락·지연",
+      "count": 25,
+      "do": "기록은 다른 작업보다 먼저 하고, 기록 전에 마지막 번호·시각을 확인한다"
+     },
+     {
+      "form": "반복·재발",
+      "count": 22,
+      "do": "지적받은 형태는 24시간 안에 같은 형태로 다시 틀리지 않는다. 지적 직후 해당 항목 점검표를 먼저 쓴다"
+     }
+    ],
+    "next_action": "막혀도 「안 된다」로 끝내지 않는다. 가능한 방법을 모두 시도하고 시도한 방법과 결과로만 보고한다",
+    "recurrence_rate": 0.9642857142857143
+   },
+   "Fable": {
+    "signal": "경고",
+    "credit": 0,
+    "f24": 1,
+    "last_fault": "2026-11-06T17:07:00+09:00",
+    "top_forms": [
+     {
+      "form": "사용량 낭비",
+      "count": 31,
+      "do": "같은 도구·검색을 반복하지 않고 한 번에 모아 실행한다"
+     },
+     {
+      "form": "반복·재발",
+      "count": 8,
+      "do": "지적받은 형태는 24시간 안에 같은 형태로 다시 틀리지 않는다. 지적 직후 해당 항목 점검표를 먼저 쓴다"
+     },
+     {
+      "form": "질책·책임",
+      "count": 6,
+      "do": "맡은 일은 끝까지 책임지고 완료 기준(적용 화면에서 확인)까지 수행한다"
+     }
+    ],
+    "next_action": "같은 도구·검색을 반복하지 않고 한 번에 모아 실행한다",
+    "recurrence_rate": 1.0
+   },
+   "Haiku": {
+    "signal": "경고",
+    "credit": 0,
+    "f24": 0,
+    "last_fault": "2026-11-04T19:55:00+09:00",
+    "top_forms": [
+     {
+      "form": "미열람",
+      "count": 20,
+      "do": "작업 전에 소통·작업 규칙 아티팩트와 메모리를 먼저 읽고 읽은 증빙(항목·시각)을 남긴다"
+     },
+     {
+      "form": "반복·재발",
+      "count": 10,
+      "do": "지적받은 형태는 24시간 안에 같은 형태로 다시 틀리지 않는다. 지적 직후 해당 항목 점검표를 먼저 쓴다"
+     },
+     {
+      "form": "지시위반",
+      "count": 4,
+      "do": "지시 문구를 항목별로 쪼개 수행 전에 맞춰 보고, 지시 밖 일은 끼우지 않는다"
+     }
+    ],
+    "next_action": "작업 전에 소통·작업 규칙 아티팩트와 메모리를 먼저 읽고 읽은 증빙(항목·시각)을 남긴다",
+    "recurrence_rate": 0.9473684210526315
+   }
+  },
+  "protocol": [
+   "작업 시작 전: 자각 카드의 「지금 할 행동」과 작업 전 4문을 읽는다(전달문 최상단 각인과 함께).",
+   "작업 중: 막히면 시도 기록을 남긴다(회피 금지).",
+   "작업 후: 자가 점검 4문을 결과표 「검증 사항」 칸에 쓴다.",
+   "대표님 칭찬·질타는 즉시 이력 구분(칭찬/질타/지적/위반/지시거부)으로 기록, 칭찬 크레딧 건수는 집약 때 자동 반영.",
+   "집약본의 모델별 상태 신호(안정·주의·경고·긴급)와 지금 할 행동이 SC-13·SC-01에 표출된다."
   ]
  }
 }
