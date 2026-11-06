@@ -20,6 +20,8 @@ function hvSC13Load(){
  Promise.all([hvFetch('cowork/ctl/trace_v.tsv','text'),hvFetch('cowork/ctl/trace_h.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json')]).then(function(t){hvTR13={v:hvTsv(t[0]),h:hvTsv(t[1]),s:t[2],ok:kst()}},function(){});
  hvFetch('cowork/ctl/phrase_scan.json','json').then(function(j){hvPS13=j},function(){});
  hvFetch('cowork/ctl/model_control_index.json','json').then(function(j){hvMX13=j},function(){});
+ hvFetch('cowork/ctl/praise_watch_status.json','json').then(function(j){hvPW13=j},function(){hvPW13=null});
+ hvFetch('cowork/ctl/praise_watch_review.tsv','text').then(function(t){hvPR13=hvTsv(t)},function(){hvPR13=null});
  hvFetch('cowork/ctl/praise_credit_ledger.tsv','text').then(function(t){hvLD13=hvTsv(t);if($('sc13')&&hvLast13)hvSC13Paint(false)},function(){});/* 20:18 대표님 지시: 칭찬 원장을 직접 읽어 집약 대기 없이 바로 카운트 */
  Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/model_control_status.tsv','text')]).then(function(r){
   if(!$('sc13'))return;
@@ -483,7 +485,7 @@ function hvGuard13(d,C){
  return g}
 
 /* 20:06·20:10·20:10 대표님 지시: 칭찬은 이력에 표기하지 않는다. 표 제목은 「칭찬 크레딧」, 그래프 없이 표로만, SC-13 제일 하단. 집계·누적(전체 누적 → 모델별)과 집계 단위(시간별·일별…)를 이력의 기간별 집계 표처럼 둔다(상쇄·가감·중첩 없음) */
-var HV_PL13={u:'전체'},hvLD13=null;
+var HV_PL13={u:'전체'},hvLD13=null,hvPW13=null,hvPR13=null;
 function hvPlSet(u){HV_PL13.u=u;hvPgReset('13');hvSC13Paint(false)}
 function hvPlKey(r,u){var d=r[1],h=('0'+r[2]).slice(-2);
  if(u==='시간별')return d+' '+h+'시';
@@ -521,6 +523,18 @@ function hvPraise13(){
  g+='<h3>칭찬 크레딧의 영향 — 성과 지표·성과 지수 (이력과 독립)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>원장 번호</th><th>모델</th><th>칭찬 시각</th><th>경과</th><th>칭찬 전 60분 결함 점수(참고)</th><th>칭찬 후 결함 점수(참고)</th><th>성과 판정</th><th>칭찬 뒤 같은 형태 결함</th><th>칭찬 뒤 자가 발견</th></tr></thead><tbody>'
  +PE.rows.map(function(e){return '<tr><td class="sc13-n">'+e.no+'</td><td>'+hvEsc(lb(e.model))+'</td><td class="sc13-sm">'+hvEsc(e.time.slice(5,16).replace('T',' '))+'</td><td class="sc13-n">'+e.elapsed_min+'분</td><td class="sc13-n">'+e.pre60_score+'</td><td class="sc13-n">'+e.post_score+'</td><td class="sc13-sm"><b>'+hvEsc(e.judgment)+'</b></td><td class="sc13-sm">'+hvEsc(e.keep)+'</td><td class="sc13-sm">'+(e.self_found_after.length?'이력 '+e.self_found_after.map(function(x){return '#'+x}).join(', '):'없음')+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PE,'건','hvSC13Paint')
  +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>성과 지수</th><th>산정 방식(산정안)</th></tr></thead><tbody>'+Object.keys(C.indices).map(function(k){return '<tr><td><b>'+hvEsc(k)+'</b></td><td class="sc13-sm">'+hvEsc(C.indices[k])+'</td></tr>'}).join('')+'</tbody></table></div>';
+ /* 영향 비교 (효과·효능 분석 전용, 통제 이탈 지표와 연동하지 않음) */
+ var EC=C.effect_compare;
+ if(EC){g+='<h3>칭찬 크레딧 영향 비교 — 행동·태도·성과 변화 (효과·효능 분석 전용)</h3><p class="note" style="border-left:4px solid #2e7d32;padding-left:8px">'+hvEsc(EC.purpose)+'<br><b>독립 원칙</b>: '+hvEsc(EC.independence)+'</p>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>모델</th><th>구분</th><th>칭찬 크레딧</th><th>작업 지시(누적)</th><th>자가 발견(24시간 · 누적)</th><th>결함 점수 최근 24시간</th><th>직전 24시간</th><th>변화</th><th>재발률</th><th>노력 신호</th></tr></thead><tbody>'
+ +EC.rows.map(function(e){return '<tr><td><b>'+hvEsc(lb(e.model))+'</b></td><td class="sc13-sm">'+hvEsc(e.group)+'</td><td class="sc13-n">'+e.credit+'</td><td class="sc13-n">'+e.instructions+'</td><td class="sc13-n">'+e.self_found_24h+' · '+e.self_found_all+'</td><td class="sc13-n">'+e.score_24h+'</td><td class="sc13-n">'+e.score_prev24h+'</td><td class="sc13-n">'+(e.change_pct==null?'-':(e.change_pct>0?'+':'')+e.change_pct+'%')+'</td><td class="sc13-n">'+(e.recurrence_rate==null?'-':Math.round(e.recurrence_rate*1000)/10+'%')+'</td><td class="sc13-sm">'+(e.effort_signal?'있음':'없음')+'</td></tr>'}).join('')+'</tbody></table></div>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>비교군</th><th>해당 모델</th><th>최근 24시간 평균 결함 점수(참고)</th></tr></thead><tbody>'+Object.keys(EC.groups).map(function(k){var v=EC.groups[k];return '<tr><td><b>'+hvEsc(k)+'</b></td><td>'+hvEsc(v.models.map(lb).join(', ')||'-')+'</td><td class="sc13-n">'+(v.avg_score_24h==null?'-':v.avg_score_24h)+'</td></tr>'}).join('')+'</tbody></table></div><p class="note"><b>노력 신호</b>: '+hvEsc(EC.effort_rule)+' 비교군 평균은 인과가 아닌 참고이며 표본이 작습니다.</p>'}
+ /* 칭찬 자동 감지 장치 — 구동 요건·상태 */
+ var Wt=C.watch,PW=hvPW13,PRV=hvPR13||[];
+ if(Wt){g+='<h3>칭찬 자동 감지 장치 — 구동 요건 · 상태</h3><p class="note" style="border-left:4px solid #2e7d32;padding-left:8px"><b>승인</b>: '+hvEsc(Wt.approval)+'</p>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>상태 항목</th><th>값(10초마다 읽음)</th></tr></thead><tbody>'+(PW?['켜짐','마지막 실행','실행 횟수','자동 기록 건수','문맥 검토 대기','원장 총건수','마지막 감지','비고'].map(function(k){var v=PW[k];return '<tr><td><b>'+hvEsc(k)+'</b></td><td class="sc13-sm">'+hvEsc(v===true?'켜짐':v===false?'꺼짐':(v===''||v==null)?'-':v)+'</td></tr>'}).join(''):'<tr><td colspan="2">상태 파일을 읽지 못했습니다.</td></tr>')+'</tbody></table></div>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>구동 요건</th><th>내용</th></tr></thead><tbody>'+Wt.requirements.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td><td class="sc13-sm">'+hvEsc(r[1])+'</td></tr>'}).join('')+'</tbody></table></div>'
+ +'<h3>칭찬 문맥 검토 대기 (세지 않은 기록)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>시각</th><th>출처</th><th>찾은 말</th><th>메시지 앞부분</th><th>판정</th><th>검토</th></tr></thead><tbody>'+(PRV.length?PRV.slice().reverse().map(function(r){return '<tr>'+r.map(function(c,i){return '<td class="'+(i===3||i===4?'sc13-sm':'sc13-nw')+'">'+hvEsc(c)+'</td>'}).join('')+'</tr>'}).join(''):'<tr><td colspan="6">검토 대기 없음</td></tr>')+'</tbody></table></div><p class="note">칭찬 문구를 정의·인용하는 지시처럼 문맥상 칭찬이 아닌 것으로 보여 세지 않은 기록입니다. 대표님이 칭찬이라고 판단하시면 원장에 추가합니다.</p>'}
  /* 칭찬 판별 기준 */
  var D=C.dictionary||{include:[],exclude:[],rule:''};
  g+='<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>칭찬으로 세는 말</th><th>칭찬으로 세지 않는 말</th></tr></thead><tbody><tr><td class="sc13-sm">'+D.include.map(hvEsc).join('<br>')+'</td><td class="sc13-sm">'+D.exclude.map(hvEsc).join('<br>')+'</td></tr></tbody></table></div>'
