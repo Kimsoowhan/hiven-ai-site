@@ -62,6 +62,20 @@ def clean(c):
     return c.strip()
 
 
+def human_msg(d):
+    """대표님 메시지 한 건 → (본문, 고유값). 일반 user 줄과, 작업 도중 끼어든 메시지(queued_command 첨부)를 함께 읽는다. 아니면 (None, None)."""
+    t = d.get('type')
+    if d.get('isMeta') or d.get('isSidechain'):
+        return None, None
+    if t == 'user':
+        return clean(d.get('message', {}).get('content')), d.get('uuid')
+    if t == 'attachment':
+        a = d.get('attachment') or {}
+        if a.get('type') == 'queued_command' and (a.get('origin') or {}).get('kind', 'human') == 'human':
+            return clean(a.get('prompt')), a.get('source_uuid') or d.get('uuid')
+    return None, None
+
+
 def model_label(raw):
     r = (raw or '').lower()
     for k, v in MODEL:
@@ -228,16 +242,14 @@ def main():
                         d = json.loads(ln)
                     except Exception:
                         continue
-                    if d.get('type') != 'user' or d.get('isMeta') or d.get('isSidechain'):
-                        continue
-                    text = clean(d.get('message', {}).get('content'))
+                    text, muid = human_msg(d)
                     if not text or 'This session is being continued' in text[:800]:
                         continue
                     try:
                         ts = datetime.datetime.fromisoformat(d['timestamp'].replace('Z', '+00:00')).astimezone(KST)
                     except Exception:
                         continue
-                    handle(text, f, ts, '이 작업 공간 창(%s)' % sid[:8], sid, d.get('uuid', ts.isoformat()))
+                    handle(text, f, ts, '이 작업 공간 창(%s)' % sid[:8], sid, muid or ts.isoformat())
             st = load_state(); st['runs'] = st.get('runs', 0) + 1; save_state(st)
             time.sleep(15)
         return
@@ -255,10 +267,8 @@ def main():
                     d = json.loads(ln)
                 except Exception:
                     continue
-                if d.get('type') != 'user':
-                    continue
-                text = clean(d.get('message', {}).get('content'))
-                if not text or 'This session is being continued' in text[:800] or 'The summarized conversation included' in text[:200] or d.get('isMeta') or d.get('isSidechain'):
+                text, muid = human_msg(d)
+                if not text or 'This session is being continued' in text[:800] or 'The summarized conversation included' in text[:200]:
                     continue
                 try:
                     ts = datetime.datetime.fromisoformat(d['timestamp'].replace('Z', '+00:00')).astimezone(KST)
@@ -273,7 +283,7 @@ def main():
                 if dry:
                     print(ts.strftime('%m/%d %H:%M'), kind, hit, '|', text[:90].replace('\n', ' '))
                 else:
-                    handle(text, f, ts, '이 작업 공간 창(%s) 전수 검사' % sid[:8], sid, d.get('uuid', ts.isoformat()))
+                    handle(text, f, ts, '이 작업 공간 창(%s) 전수 검사' % sid[:8], sid, muid or ts.isoformat())
         if not dry:
             st = load_state(); write_status(st, note='전수 검사 실행'); save_state(st); push([LEDGER, STATUS, REVIEW])
         print('검사 결과 %d건 (%s)' % (n, '시험' if dry else '반영'))
