@@ -31,6 +31,14 @@ var HV_PATH=[
  {t:'HiClo 판정 멈춤 — 구동 상태 확인 불가',st:'조치 진행 중',ref:'HVR(노트북 HiClo_기억상태-261103.json) · 91_Fable\\AICS_자동화_처리정책_261104.md · 이력 2·6·61번',
   p:['노트북 예약작업 「HiClo 기억 장치」(5분 주기)','11/03 20:56 비활성(무단 재실행 위반 6번 대응으로 정지)','판정 파일 마지막 갱신 11/03 20:54:58 「경고」','관측 끊김 258회 · 클로 혼미(3단계)','대시보드 구동 상태 「확인 안 됨」'],
   r:'자동화 동결·격리(AICS 처리정책 11/04 10:53 승인), 원본 대시보드는 실측만 표시(15:58, 이력 61번 조치 완료). 남은 것: 재가동 여부 결정(조건 4개: 체계 문서 확정·연동 설계 승인·10개 단위 시험·되돌리기 절차) — Fable·대표님 결정 대기'}];
+var hvMX01=null,hvMX01t=0;
+function hvMcs01(N){
+ if(!hvMX01||Date.now()-hvMX01t>30000){hvMX01t=Date.now();hvFetch('cowork/ctl/model_control_index.json','json').then(function(j){hvMX01=j;if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}
+ var X=hvMX01;if(!X)return '<h3>모델 통제 요약</h3><p class="note">집약 게시본을 읽는 중입니다.</p>';
+ var ms=Object.keys(X.models),st=X.history_rows!==N,ax=Object.keys(X.axes);
+ return '<h3>모델 통제 요약 (자동화 통합 통제 체계 → 시스템)</h3>'+(st?'<p class="note" style="color:#c62828"><b>집약 게시본 이력 '+X.history_rows+'건 ≠ 현재 '+N+'건 — 재집약 필요</b></p>':'')
+ +tbl(['모델','통제 지수','재발률','판정','거부/위반/낭비','시스템','서비스','고객 지원'],ms.map(function(m){var o=X.models[m],f=o.frequency||{},a=function(k){var v=X.axes[k]&&X.axes[k][m];return v?v.faults:0},r=o.recurrence||{};return [hvEsc(m),(o.index&&o.index.control!=null?o.index.control:'-'),(r.rate!=null?Math.round(r.rate*1000)/10+'%':'-'),tag(hvEsc(r.judgment||'-'),/없음/.test(r.judgment||'')?'bad':/미흡/.test(r.judgment||'')?'warn':'ok'),(f['지시거부']?f['지시거부']['합계']:0)+' / '+(f['지시위반']?f['지시위반']['합계']:0)+' / '+(f['사용량 낭비']?f['사용량 낭비']['합계']:0),a('시스템'),a('서비스'),a('고객 지원')]}))
+ +'<p class="note">전체 표·정합성·역방향 검토는 <a href="#" onclick="hvgo(\'SC-13\');return false">SC-13</a>. 집약 기준 이력 '+X.history_rows+'건.</p>'}
 function hv01Load(){Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json').catch(function(){return null}),hvFetch('cowork/ctl/action_lifecycle.tsv','text').catch(function(){return ''}),hvFetch('cowork/ctl/action_lifecycle.json','json').catch(function(){return null}),hvFetch('cowork/ctl/qa_checks.tsv','text').catch(function(){return ''}),hvFetch('cowork/progress.json','json').catch(function(){return null})]).then(function(r){hv01.lc=hvTsv(r[2]);hv01.lcs=r[3];hv01.qa=hvTsv(r[4]);hv01.pg=r[5];
  hv01.ev=hvTsv(r[0]).map(function(c){return {no:c[0],date:c[1],time:c[3],model:c[4],type:c[5],content:c[6],cause:c[7],action:c[8],status:c[9]}});hv01.sum=r[1];hv01.ok=kst();hv01.t=Date.now();if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}
 function hv01T(a,cols){var r=a.slice().reverse(),more=false;return a.length?tbl(['#','시각','구분','내용','조치','상태'],r.map(function(e){return [e.no,hvEsc(e.time),hvEsc(e.type),hvEsc(e.content),hvEsc(e.action),tag(hvEsc(e.status),e.status==='조치 완료'?'ok':'warn')]}))+(more?'<p class="note">'+r.length+'건 중 최신 15건 — 전체는 <a href="#" onclick="hvgo(\'SC-13\');return false">SC-13</a>에서 「조치 진행 중」 상자를 누르면 봅니다.</p>':''):'<p class="note">해당 없음</p>'}
@@ -80,7 +88,7 @@ V['SC-01']=function(){
  g+=T10(9,'HiClo.app 판정',['항목','값','원천'],HV_KV['HiClo.app 마지막 판정'](),'원천 '+HVR.src);
  g+=T10(10,'HiClo.app 구동',['항목','값','원천'],HV_KV['HiClo.app 지금 구동'](),'판정 파일이 다시 갱신되면 「구동」으로 바뀜');
  g+=T10(11,'모델통제 이력',['#','시각','모델','구분','내용','상태'],L?[]:rv(E).map(function(e){return [hvEsc(e.no),hvEsc(e.time),hvEsc(e.model),hvEsc(e.type),hvEsc(e.content),tag(hvEsc(e.status),done(e)?'ok':'warn')]}),'최신순 · 상세·필터는 SC-13');
- g+=hvSum4()+hvMismatch(E.length,LC.length);
+ g+=hvMcs01(E.length)+hvSum4()+hvMismatch(E.length,LC.length);
  return g+'<p class="note">핵심 4가지는 모델통제 이력 게시본을 읽은 값입니다(읽은 시각 '+hvEsc(hv01.ok||'불러오는 중')+'). 장애 경로는 기록·문서로 확인한 사실만 적었습니다.</p>'+hvChk()+'</div>'};
 V['SC-02']=function(){
  var g='<h2>SC-02 사업군 통제</h2><p class="lead">7개 사업군 × 조치 생명주기 7단계 건수를 원천 ctl/bg_lifecycle.tsv로 봅니다(0건도 실측값).</p>';

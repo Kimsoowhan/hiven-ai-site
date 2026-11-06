@@ -19,6 +19,7 @@ function hvTsv(t){var L=String(t||'').split(/\r?\n/).filter(function(x){return x
 function hvSC13Load(){
  Promise.all([hvFetch('cowork/ctl/trace_v.tsv','text'),hvFetch('cowork/ctl/trace_h.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json')]).then(function(t){hvTR13={v:hvTsv(t[0]),h:hvTsv(t[1]),s:t[2],ok:kst()}},function(){});
  hvFetch('cowork/ctl/phrase_scan.json','json').then(function(j){hvPS13=j},function(){});
+ hvFetch('cowork/ctl/model_control_index.json','json').then(function(j){hvMX13=j},function(){});
  Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/model_control_status.tsv','text')]).then(function(r){
   if(!$('sc13'))return;
   var T=hvTYT13;/* 11/04 15:32 대표님 지시: 심각도 순서 */
@@ -395,7 +396,7 @@ function hvOps13(d,C){
  g+='<h3>검색해 수집한 기존 통제·관측 사례와 적용</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>사례(출처)</th><th>통제·제어 방식</th><th>우리 체계 적용</th></tr></thead><tbody>'
  +PCs.rows.map(function(r){return '<tr><td><b><a href="'+r[1]+'" target="_blank" rel="noopener noreferrer">'+hvEsc(r[0])+'</a></b></td><td class="sc13-sm">'+hvEsc(r[2])+'</td><td class="sc13-sm">'+hvEsc(r[3])+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PCs,'개 사례','hvSC13Paint')
  +'<p class="note">집약 데이터는 <b>cowork/ctl/model_control_index.json</b>(자동화 통합 통제 시스템이 읽는 모델 통제 지수 게시본)과 <b>phrase_scan.json</b>(문구 스캔)으로 제공됩니다. 이력이 바뀌면 같은 스크립트가 두 게시본을 다시 만듭니다.</p>';
- return g+hvAud13(d,C)}
+ return g+hvLoop13(d,C)+hvAud13(d,C)}
 
 /* 19:42 대표님 지시: SC-13 전수 검사 — 항목별 화면·데이터 원천·처리·표출·접근·개입·종단/횡단 연결과 실시간 검사 결과 */
 function hvAud13(d,C){
@@ -422,4 +423,32 @@ function hvAud13(d,C){
  +P.rows.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td>'+r.slice(1,7).map(function(x){return '<td class="sc13-sm">'+hvEsc(x)+'</td>'}).join('')+'<td class="sc13-sm">'+r[7]+'</td></tr>'}).join('')
  +'</tbody></table></div>'+hvPager(P,'개 항목','hvSC13Paint')
  +'<p class="note">공백이 있는 칸은 개선 대상으로 91_Fable 총책임 통제 체계 문서의 점검 목록에 올라가 있습니다. 이력을 기록만 하고 끝내지 않도록, 이 표의 「점검 필요」·「공백」 건수가 0이 될 때까지 Fable이 매 체크 때 줄입니다.</p>';
+ return g}
+
+/* 19:47·19:49 대표님 지시: 통제 3축 · 정합성 · 역방향 검토 · 순환(루핑) — 집약 게시본(model_control_index.json)을 그대로 표출 */
+var hvMX13=null,HV_LOOP13=[
+ ['① 수집','이력 기록 즉시 + 10초 화면 재독','model_control_history.tsv(11칸)','기록 1건=1행, 번호 연속','Fable 총책임, 모델 각자 기록'],
+ ['② 스캔·집약','이력 변경 때(감시 장치) · 매시 정각 보강','scan.py→phrase_scan.json, index_build.py→model_control_index.json','문구 지표·재발·3축·정합성·검토 항목','Fable'],
+ ['③ 표출','10초(SC-13) · 30초(SC-01)','두 게시본을 화면이 읽음','SC-13 전체, SC-01 요약, 이력 건수 불일치 경고','시스템'],
+ ['④ 정합 검사','매 집약 시 자동 + 하루 1회 전수','이력↔추적↔생명주기↔상태표↔화면 합계','정합성 표(공백 건수, 원문 표기 혼재)','Fable → 공백은 Opus·Sonnet이 사실 기준으로 채움'],
+ ['⑤ 판정','집약 때마다','가중치·임계(산정안) · 번레이트','개선 보임/미흡/없음, 경보 단계','Fable 판정, 대표님 확정'],
+ ['⑥ 조치·형상','판정 후 즉시','작업일지(HJ)·추적 매트릭스(CWX)·변경 이력(CHG)·문서 버전','각 대장에 행 추가, 근거 문서 연결','Fable'],
+ ['⑦ 역방향 검토','하루 1회 + 대표님 요청 때','시스템 정합성·개선 결과(review)를 체계로 되돌림','검토 항목별 담당·조치, 다음 순환 입력','Fable 제안, 대표님 승인']];
+function hvLoop13(d,C){
+ var X=hvMX13,g='';if(!X)return '<h3>통제 3축 · 정합성 · 역방향 검토</h3><p class="note">집약 게시본(model_control_index.json)을 읽는 중이거나 없습니다.</p>';
+ var N=d.events.length,st=X.history_rows!==N;
+ var ms=Object.keys(X.axes['시스템']||{}),axn=Object.keys(X.axes);
+ var PA=hvPage(axn.map(function(a){return {a:a,v:X.axes[a]}}),'13r1');
+ g+='<h3>통제 3축 — 시스템 · 서비스 · 고객 지원 (모델별)</h3><p class="note">'+hvEsc(X.axis_note)+' 자동화 통합 통제 시스템이 시스템·서비스·고객 지원을 통제하는 핵심 코어이므로 모델 통제 기록도 같은 3축으로 봅니다. 「공통」은 어느 축 키워드에도 안 걸린 기록입니다. 집약 기준 이력 '+X.history_rows+'건'+(st?' <b style="color:#c62828">— 현재 '+N+'건과 다름, 재집약 필요</b>':' (현재와 일치)')+'.</p>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>축</th>'+ms.map(function(m){return '<th>'+hvEsc(m)+' 기록/결함/점수</th>'}).join('')+'<th>결함 합계</th></tr></thead><tbody>'
+ +PA.rows.map(function(r){var t=0;return '<tr><td><b>'+hvEsc(r.a)+'</b></td>'+ms.map(function(m){var c=r.v[m]||{rows:0,faults:0,score:0};t+=c.faults;return '<td class="sc13-n">'+c.rows+' / <b>'+c.faults+'</b> / '+c.score+'</td>'}).join('')+'<td class="sc13-n"><b>'+t+'</b></td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PA,'개 축','hvSC13Paint');
+ var PK=hvPage(X.consistency,'13r2');
+ g+='<h3>데이터 정합성 (집약 게시본 기준)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>검사 항목</th><th>값</th><th>결과·처리</th></tr></thead><tbody>'
+ +PK.rows.map(function(c){var v=Array.isArray(c.value)?c.value.join(', ')||'없음':(c.value===true?'정합':c.value===false?'불일치':String(c.value));var bad=/공백|필요|확인/.test(c.result)||v==='불일치';return '<tr><td>'+hvEsc(c.item)+'</td><td class="sc13-n">'+hvEsc(v)+'</td><td class="sc13-sm" style="color:'+(bad?'#c62828':'#2e7d32')+'">'+hvEsc(c.result)+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PK,'개 항목','hvSC13Paint');
+ var PR=hvPage(X.review,'13r3');
+ g+='<h3>역방향 검토 — 시스템 → 자동화 통합 통제 체계</h3><p class="note">'+hvEsc(X.upload.direction)+'</p><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>검토 항목</th><th>시스템에서 본 사실</th><th>체계로 되돌리는 조치</th><th>담당</th></tr></thead><tbody>'
+ +PR.rows.map(function(r){return '<tr><td><b>'+hvEsc(r.item)+'</b></td><td class="sc13-sm">'+hvEsc(r.system_finding)+'</td><td class="sc13-sm">'+hvEsc(r.back_to_framework)+'</td><td class="sc13-sm">'+hvEsc(r.owner)+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PR,'개 항목','hvSC13Paint');
+ var PL=hvPage(HV_LOOP13,'13r4');
+ g+='<h3>순환(루핑) 체계 — 수집 → 집약 → 표출 → 정합 → 판정 → 조치·형상 → 역방향 검토</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>단계</th><th>주기</th><th>입력·방식</th><th>산출</th><th>담당</th></tr></thead><tbody>'
+ +PL.rows.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td><td class="sc13-sm">'+hvEsc(r[1])+'</td><td class="sc13-sm">'+hvEsc(r[2])+'</td><td class="sc13-sm">'+hvEsc(r[3])+'</td><td class="sc13-sm">'+hvEsc(r[4])+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PL,'단계','hvSC13Paint')+'<p class="note">연결: '+X.upload.feeds.map(hvEsc).join(' · ')+'</p>';
  return g}
