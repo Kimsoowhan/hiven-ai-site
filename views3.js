@@ -73,6 +73,7 @@ function hvSC13Paint(fail,err){
  var PGM=hvPage(d.models,'13m');PGM.rows.forEach(function(m){var c=m.counts||{},s=0;T.forEach(function(t){s+=(+c[t]||0)});
   g+='<tr><td><b>'+hvEsc(m.name)+'</b></td><td>'+hvEsc(m.role)+'</td><td>'+hvEsc(m.assigned)+'</td><td>'+hvEsc(m.done)+'</td><td>'+hvEsc(m.pending)+'</td>'+T.map(function(t){var n=+c[t]||0;return '<td class="sc13-n'+(n&&(t==='위반'||t==='장애')?' sc13-hot':'')+'">'+n+'</td>'}).join('')+'<td class="sc13-n"><b>'+s+'</b></td></tr>'});
  g+='</tbody></table></div>'+hvPager(PGM,'개 모델','hvSC13Paint');
+ g+=hvStat13(d);
  var ms=['전체'].concat(d.models.map(function(m){return m.name})),ts=['전체'].concat(T);
  g+='<h3>이력</h3><div class="sc13-f sc13-l"><span class="sc13-lb">모델</span>'+ms.map(function(x){return '<button type="button" class="'+(hvF13.m===x?'on':'')+'" onclick="hvSC13Set(\'m\',\''+x+'\')">'+x+'</button>'}).join('')+'</div><div class="sc13-f sc13-l"><span class="sc13-lb">구분</span>'+ts.map(function(x){return '<button type="button" class="'+(hvF13.t===x?'on':'')+'" onclick="hvSC13Set(\'t\',\''+x+'\')">'+x+'</button>'}).join('')+'</div>'+'<div class="sc13-f sc13-l"><span class="sc13-lb">Fable</span>'+['전체'].concat(HV_FB,['조치 완료']).map(function(x){var n=x==='전체'?ev.length:x==='조치 완료'?ev.filter(function(e){return e.status==='조치 완료'}).length:ev.filter(function(e){return e.fable===x}).length;return '<button type="button" class="'+(hvF13.f===x?'on':'')+'" onclick="hvSC13Set(\'f\',\''+x+'\')">'+x+' '+n+'</button>'}).join('')+'</div>';
  var tg={'위반':'v1','지적':'v2','지적(자가 발견)':'v3','질타':'v4','개선요청':'v5','유휴':'v6','장애':'v7'};
@@ -167,3 +168,39 @@ function hvTrDrag(){var s=document.getElementById('hvTrSvg');if(!s||s._dg)return
 setInterval(function(){if(document.getElementById('hvTrBox'))hvTrDraw()},30000);
 new MutationObserver(function(){if(document.getElementById('hvTrSvg'))hvTrDrag()}).observe(document.documentElement,{childList:true,subtree:true});
 window.addEventListener('resize',function(){if(document.getElementById('hvTrBox'))hvTrDraw()});
+
+/* ★ 11/06 19:17 대표님 지시: 모델통제 이력 전수 통계 — 모델별 건수·비율·가중치, 방해·거부, 사용량 영향(대리 지표). 이 화면은 게시된 이력(model_control_history.tsv) 전체를 10초마다 다시 읽어 계산한다(고정값 없음).
+   산정 기준(산정안, 대표님 확정 전): 규칙 B항 심각도 순서(위반 > 지적 > 지적(자가 발견) > 질타 > 개선요청 > 유휴)에 지시거부를 최상위로 두고 6·5·4·3·2·1점. 개선요청·지시·장애는 0점(장애는 원인 구분이 필요해 점수에서 뺌).
+   「방해·거부」 = 위반 + 지시거부 건수. 사용량 영향은 이력에 토큰 값이 없어 대리 지표(결함 군집 = 같은 모델의 결함 기록이 30분 이내로 이어진 묶음, 반복·허비 언급)로 본다. 토큰 실측은 이 창에서만 가능(99 폴더 문서). */
+var HV_W13={'지시거부':6,'위반':5,'지적':4,'지적(자가 발견)':3,'질타':2,'유휴':1},HV_MS13=['Opus','Sonnet','Fable','Haiku','전 모델','미상'];
+function hvTm13(e){var m=/(\d{1,2}):(\d)([\dx])/.exec(e.time||''),hh=m?+m[1]:0,mm=m?(+m[2])*10+(m[3]==='x'?0:+m[3]):0;return Date.parse(e.date+'T00:00:00+09:00')+hh*3600e3+mm*60e3}
+function hvPc13(a,b){return b?(Math.round(1000*a/b)/10).toFixed(1)+'%':'-'}
+function hvBar13(p,c){return '<span class="sc13-bar"><i style="width:'+Math.min(100,p)+'%;background:'+c+'"></i></span>'}
+function hvKst13(t){var d=new Date(t+9*3600e3),z=function(n){return String(n).padStart(2,'0')};return z(d.getUTCMonth()+1)+'/'+z(d.getUTCDate())+' '+z(d.getUTCHours())+':'+z(d.getUTCMinutes())}
+function hvStat13(d){
+ var ev=d.events,st={},cl=[];
+ HV_MS13.forEach(function(m){st[m]={n:0,ins:0,imp:0,f:0,v:0,r:0,s:0,cn:0,cr:0,cm:0,cx:0,cxm:0,us:0,rp:0}});
+ ev.forEach(function(e){var s=st[e.model];if(!s)return;s.n++;if(e.type==='지시')s.ins++;if(e.type==='개선요청')s.imp++;
+  if(HV_W13[e.type]){s.f++;s.s+=HV_W13[e.type];if(e.type==='위반')s.v++;if(e.type==='지시거부')s.r++;if(/반복|재발|같은 실수|또 |다시 /.test((e.content||'')+(e.cause||'')))s.rp++}
+  if(/사용량|토큰|허비|낭비|소모/.test((e.content||'')+(e.cause||'')+(e.action||'')))s.us++});
+ HV_MS13.forEach(function(m){var fr=ev.filter(function(e){return e.model===m&&(HV_W13[e.type]!=null||e.type==='장애')}).map(function(e){return {t:hvTm13(e),w:HV_W13[e.type]||0,r:e.type==='지시거부'?1:0,v:e.type==='위반'?1:0}}).sort(function(a,b){return a.t-b.t}),c=null;
+  fr.forEach(function(x){if(c&&x.t-c.e<=1800e3){c.e=x.t;c.n++;c.s+=x.w;c.r+=x.r;c.v+=x.v}else{if(c)cl.push(c);c={m:m,b:x.t,e:x.t,n:1,s:x.w,r:x.r,v:x.v}}});if(c)cl.push(c)});
+ cl.forEach(function(c){c.min=Math.round((c.e-c.b)/60e3);var s=st[c.m];s.cn++;s.cr+=c.n;s.cm+=c.min;if(c.n>s.cx){s.cx=c.n;s.cxm=c.min}});
+ var T={f:0,s:0,b:0,cm:0};HV_MS13.forEach(function(m){var s=st[m];T.f+=s.f;T.s+=s.s;T.b+=s.v+s.r;T.cm+=s.cm});
+ var g='<h3>모델별 전수 통계·가중치·사용량 영향</h3><p class="note">게시된 이력 <b>'+ev.length+'건</b> 전체를 읽어 계산합니다. 결함 = 지시거부·위반·지적·지적(자가 발견)·질타·유휴. 가중치(산정안, 대표님 확정 전): 지시거부 6 · 위반 5 · 지적 4 · 지적(자가 발견) 3 · 질타 2 · 유휴 1 · 개선요청·지시·장애 0. 방해·거부 = 위반 + 지시거부. 모델 칸은 기록상 모델(대표님 지목·창 표시)입니다.</p>';
+ var A=HV_MS13.map(function(m){var s=st[m];return {m:m,s:s}}),PA=hvPage(A,'13s1');
+ g+='<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>모델</th><th>전체</th><th>지시</th><th>개선요청</th><th>결함</th><th>결함 점유</th><th>위반</th><th>지시거부</th><th>방해·거부 점유</th><th>가중점수</th><th>점수 점유</th><th>결함 비율</th></tr></thead><tbody>'
+ +PA.rows.map(function(a){var s=a.s,fp=100*s.f/(T.f||1),sp=100*s.s/(T.s||1),bp=100*(s.v+s.r)/(T.b||1);return '<tr><td><b>'+hvEsc(a.m)+'</b></td><td class="sc13-n">'+s.n+'</td><td class="sc13-n">'+s.ins+'</td><td class="sc13-n">'+s.imp+'</td><td class="sc13-n"><b>'+s.f+'</b></td><td>'+hvBar13(fp,'#ef6c00')+' '+hvPc13(s.f,T.f)+'</td><td class="sc13-n'+(s.v?' sc13-hot':'')+'">'+s.v+'</td><td class="sc13-n'+(s.r?' sc13-hot':'')+'">'+s.r+'</td><td>'+hvBar13(bp,'#c62828')+' '+hvPc13(s.v+s.r,T.b)+'</td><td class="sc13-n"><b>'+s.s+'</b></td><td>'+hvBar13(sp,'#7b1fa2')+' '+hvPc13(s.s,T.s)+'</td><td class="sc13-n">'+hvPc13(s.f,s.n-s.ins)+'</td></tr>'}).join('')
+ +'</tbody></table></div>'+hvPager(PA,'개 모델','hvSC13Paint');
+ g+='<p class="note">합계: 결함 '+T.f+'건 · 가중점수 '+T.s+'점 · 방해·거부 '+T.b+'건. 결함 비율 = 결함 ÷ (전체 − 지시).</p>';
+ var U=HV_MS13.map(function(m){return {m:m,s:st[m]}}),PU=hvPage(U,'13s2');
+ g+='<h3>사용량 영향 — 대리 지표</h3><p class="note">이력에는 토큰 값이 없어 실측할 수 없습니다. 대표님이 같은 문제로 다시 지시·질타하게 만든 정도를 결함 군집(같은 모델의 결함 기록이 30분 이내로 이어진 묶음)과 반복·허비 언급으로 봅니다. 지속 시간은 군집 첫 기록~마지막 기록 사이 분의 합입니다.</p>'
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>모델</th><th>결함 군집</th><th>군집 내 기록</th><th>군집 지속(분)</th><th>지속 점유</th><th>최장 군집</th><th>반복 지적</th><th>사용량·허비 언급</th></tr></thead><tbody>'
+ +PU.rows.map(function(a){var s=a.s;return '<tr><td><b>'+hvEsc(a.m)+'</b></td><td class="sc13-n">'+s.cn+'</td><td class="sc13-n">'+s.cr+'</td><td class="sc13-n">'+s.cm+'</td><td>'+hvBar13(100*s.cm/(T.cm||1),'#1e88e5')+' '+hvPc13(s.cm,T.cm)+'</td><td class="sc13-n">'+s.cx+'건 · '+s.cxm+'분</td><td class="sc13-n">'+s.rp+'</td><td class="sc13-n">'+s.us+'</td></tr>'}).join('')
+ +'</tbody></table></div>'+hvPager(PU,'개 모델','hvSC13Paint');
+ cl.sort(function(a,b){return b.s-a.s||b.n-a.n});var PC=hvPage(cl.slice(0,10),'13s3');
+ g+='<h3>결함 군집 상위 10 (가중점수 순)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>순위</th><th>모델</th><th>시작</th><th>끝</th><th>기록</th><th>위반</th><th>지시거부</th><th>점수</th><th>지속(분)</th></tr></thead><tbody>'
+ +PC.rows.map(function(c,i){return '<tr><td class="sc13-n">'+(PC.i*PC.per+i+1)+'</td><td><b>'+hvEsc(c.m)+'</b></td><td class="sc13-nw">'+hvKst13(c.b)+'</td><td class="sc13-nw">'+hvKst13(c.e)+'</td><td class="sc13-n">'+c.n+'</td><td class="sc13-n'+(c.v?' sc13-hot':'')+'">'+c.v+'</td><td class="sc13-n'+(c.r?' sc13-hot':'')+'">'+c.r+'</td><td class="sc13-n"><b>'+c.s+'</b></td><td class="sc13-n">'+c.min+'</td></tr>'}).join('')
+ +'</tbody></table></div>'+hvPager(PC,'개 군집','hvSC13Paint')
+ +'<p class="note">전체 분석(사건별·시간별·형태별·사용량 실측·표)은 HiBiz\\99_모델통제(MCS)\\모델통제현황 폴더에 있습니다.</p>';
+ return g}
