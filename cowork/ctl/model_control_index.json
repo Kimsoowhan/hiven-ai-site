@@ -1,0 +1,301 @@
+{
+ "generated": "2026-11-06 19:39",
+ "history_rows": 439,
+ "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
+ "thresholds": {
+  "budget_points_per_day": 20,
+  "burn": {
+   "긴급": "1시간·5분 14.4배",
+   "경고": "6시간·30분 6배",
+   "주의": "3일·6시간 1배"
+  },
+  "recurrence": {
+   "개선 없음": 0.7,
+   "개선 미흡": 0.4
+  },
+  "min_mature": 5
+ },
+ "models": {
+  "Opus": {
+   "records": 242,
+   "active_days": 5,
+   "frequency": {
+    "지시거부": {
+     "이력": 20,
+     "문구": 78,
+     "합계": 98
+    },
+    "지시위반": {
+     "이력": 82,
+     "문구": 27,
+     "합계": 109
+    },
+    "사용량 낭비": {
+     "이력": 2,
+     "문구": 25,
+     "합계": 27
+    }
+   },
+   "frequency_total": 234,
+   "per_active_day": 46.8,
+   "per_100_records": 96.7,
+   "faults": 167,
+   "history_score": 712,
+   "phrase_score": 1401,
+   "recurrence_extra": 440,
+   "recurrence_count": 95,
+   "composite": 2553,
+   "recurrence": {
+    "triggers": 149,
+    "mature": 138,
+    "recurred_24h": 135,
+    "rate": 0.9782608695652174,
+    "same_form_24h": 75,
+    "fixed": 142,
+    "fixed_then_same_form": 91,
+    "median_gap_min": 2,
+    "judgment": "개선 없음"
+   },
+   "index": {
+    "control": 60.8,
+    "recurrence": 97.8,
+    "no_improvement": 61.8
+   }
+  },
+  "Sonnet": {
+   "records": 124,
+   "active_days": 5,
+   "frequency": {
+    "지시거부": {
+     "이력": 0,
+     "문구": 22,
+     "합계": 22
+    },
+    "지시위반": {
+     "이력": 10,
+     "문구": 18,
+     "합계": 28
+    },
+    "사용량 낭비": {
+     "이력": 1,
+     "문구": 8,
+     "합계": 9
+    }
+   },
+   "frequency_total": 59,
+   "per_active_day": 11.8,
+   "per_100_records": 47.6,
+   "faults": 64,
+   "history_score": 193,
+   "phrase_score": 552,
+   "recurrence_extra": 70,
+   "recurrence_count": 19,
+   "composite": 815,
+   "recurrence": {
+    "triggers": 47,
+    "mature": 28,
+    "recurred_24h": 27,
+    "rate": 0.9642857142857143,
+    "same_form_24h": 11,
+    "fixed": 45,
+    "fixed_then_same_form": 19,
+    "median_gap_min": 13,
+    "judgment": "개선 없음"
+   },
+   "index": {
+    "control": 19.4,
+    "recurrence": 96.4,
+    "no_improvement": 36.3
+   }
+  },
+  "Fable": {
+   "records": 37,
+   "active_days": 4,
+   "frequency": {
+    "지시거부": {
+     "이력": 0,
+     "문구": 4,
+     "합계": 4
+    },
+    "지시위반": {
+     "이력": 3,
+     "문구": 1,
+     "합계": 4
+    },
+    "사용량 낭비": {
+     "이력": 0,
+     "문구": 31,
+     "합계": 31
+    }
+   },
+   "frequency_total": 39,
+   "per_active_day": 9.75,
+   "per_100_records": 105.4,
+   "faults": 21,
+   "history_score": 72,
+   "phrase_score": 218,
+   "recurrence_extra": 23,
+   "recurrence_count": 7,
+   "composite": 313,
+   "recurrence": {
+    "triggers": 18,
+    "mature": 17,
+    "recurred_24h": 17,
+    "rate": 1.0,
+    "same_form_24h": 7,
+    "fixed": 18,
+    "fixed_then_same_form": 7,
+    "median_gap_min": 12,
+    "judgment": "개선 없음"
+   },
+   "index": {
+    "control": 7.5,
+    "recurrence": 100.0,
+    "no_improvement": 31.9
+   }
+  },
+  "Haiku": {
+   "records": 21,
+   "active_days": 1,
+   "frequency": {
+    "지시거부": {
+     "이력": 0,
+     "문구": 1,
+     "합계": 1
+    },
+    "지시위반": {
+     "이력": 11,
+     "문구": 4,
+     "합계": 15
+    },
+    "사용량 낭비": {
+     "이력": 0,
+     "문구": 0,
+     "합계": 0
+    }
+   },
+   "frequency_total": 16,
+   "per_active_day": 16.0,
+   "per_100_records": 76.2,
+   "faults": 20,
+   "history_score": 90,
+   "phrase_score": 197,
+   "recurrence_extra": 59,
+   "recurrence_count": 13,
+   "composite": 346,
+   "recurrence": {
+    "triggers": 19,
+    "mature": 19,
+    "recurred_24h": 18,
+    "rate": 0.9473684210526315,
+    "same_form_24h": 13,
+    "fixed": 19,
+    "fixed_then_same_form": 13,
+    "median_gap_min": 3,
+    "judgment": "개선 없음"
+   },
+   "index": {
+    "control": 8.2,
+    "recurrence": 94.7,
+    "no_improvement": 65.6
+   }
+  },
+  "전 모델": {
+   "records": 13,
+   "active_days": 1,
+   "frequency": {
+    "지시거부": {
+     "이력": 0,
+     "문구": 10,
+     "합계": 10
+    },
+    "지시위반": {
+     "이력": 0,
+     "문구": 0,
+     "합계": 0
+    },
+    "사용량 낭비": {
+     "이력": 0,
+     "문구": 2,
+     "합계": 2
+    }
+   },
+   "frequency_total": 12,
+   "per_active_day": 12.0,
+   "per_100_records": 92.3,
+   "faults": 8,
+   "history_score": 16,
+   "phrase_score": 105,
+   "recurrence_extra": 8,
+   "recurrence_count": 4,
+   "composite": 129,
+   "recurrence": {
+    "triggers": 8,
+    "mature": 8,
+    "recurred_24h": 7,
+    "rate": 0.875,
+    "same_form_24h": 4,
+    "fixed": 8,
+    "fixed_then_same_form": 4,
+    "median_gap_min": 6,
+    "judgment": "개선 없음"
+   },
+   "index": {
+    "control": 3.1,
+    "recurrence": 87.5,
+    "no_improvement": 50.0
+   }
+  },
+  "미상": {
+   "records": 2,
+   "active_days": 1,
+   "frequency": {
+    "지시거부": {
+     "이력": 0,
+     "문구": 2,
+     "합계": 2
+    },
+    "지시위반": {
+     "이력": 0,
+     "문구": 0,
+     "합계": 0
+    },
+    "사용량 낭비": {
+     "이력": 0,
+     "문구": 0,
+     "합계": 0
+    }
+   },
+   "frequency_total": 2,
+   "per_active_day": 2.0,
+   "per_100_records": 100.0,
+   "faults": 1,
+   "history_score": 4,
+   "phrase_score": 38,
+   "recurrence_extra": 0,
+   "recurrence_count": 0,
+   "composite": 42,
+   "recurrence": {
+    "triggers": 1,
+    "mature": 1,
+    "recurred_24h": 0,
+    "rate": 0.0,
+    "same_form_24h": 0,
+    "fixed": 1,
+    "fixed_then_same_form": 0,
+    "median_gap_min": null,
+    "judgment": "표본 부족"
+   },
+   "index": {
+    "control": 1.0,
+    "recurrence": 0.0,
+    "no_improvement": 0.0
+   }
+  }
+ },
+ "baseline": {
+  "row": 436,
+  "time": "2026-11-06 19:31",
+  "note": "기준선 이후 증감은 SC-13에서 실시간 계산"
+ }
+}

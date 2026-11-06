@@ -276,5 +276,10 @@ button.card.sc13-cb.hot.on .v{color:#fff}
 /* W28-03 A-04(W-09): 보고 목록 파일명 한 줄 말줄임, 누르면(펼침) 전체 */
 .sc12-rh{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sc12-r:has(.sc12-rb:not(.hide)) .sc12-rh{white-space:normal;overflow:visible}
-.sc13-bar{display:inline-block;width:70px;height:8px;border-radius:4px;background:#e8ecf2;vertical-align:middle;overflow:hidden}.sc13-bar i{display:block;height:100%}
+.sc13-hb{display:inline-block;width:70px;height:8px;border-radius:4px;background:#e8ecf2;vertical-align:middle;overflow:hidden}.sc13-hb i{display:block;height:100%}
 .sc13-t.sc13-st{min-width:980px}
+
+.sc13-sk{display:flex;width:200px;height:10px;border-radius:5px;overflow:hidden;background:#eef1f8}.sc13-sk i{display:block;height:100%}
+.sc13-sm{font-size:11px;color:#6b7280;line-height:1.5}
+.sc13-lg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 4px;font-size:11px;color:#374151}.sc13-lg span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}.sc13-lg i{display:inline-block;width:10px;height:10px;border-radius:2px}
+.sc13-gr{overflow-x:auto}
