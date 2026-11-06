@@ -283,3 +283,4 @@ button.card.sc13-cb.hot.on .v{color:#fff}
 .sc13-sm{font-size:11px;color:#6b7280;line-height:1.5}
 .sc13-lg{display:flex;flex-wrap:wrap;gap:6px 14px;margin:6px 0 4px;font-size:11px;color:#374151}.sc13-lg span{display:inline-flex;align-items:center;gap:5px;white-space:nowrap}.sc13-lg i{display:inline-block;width:10px;height:10px;border-radius:2px}
 .sc13-gr{overflow-x:auto}
+.sc13-au td{vertical-align:top}.sc13-t.sc13-au{min-width:1180px}

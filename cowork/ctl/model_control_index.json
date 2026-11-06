@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-06 19:39",
- "history_rows": 439,
+ "generated": "2026-11-06 19:47",
+ "history_rows": 440,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
   "budget_points_per_day": 20,
@@ -63,7 +63,7 @@
    }
   },
   "Sonnet": {
-   "records": 124,
+   "records": 125,
    "active_days": 5,
    "frequency": {
     "지시거부": {
@@ -78,19 +78,19 @@
     },
     "사용량 낭비": {
      "이력": 1,
-     "문구": 8,
-     "합계": 9
+     "문구": 9,
+     "합계": 10
     }
    },
-   "frequency_total": 59,
-   "per_active_day": 11.8,
-   "per_100_records": 47.6,
+   "frequency_total": 60,
+   "per_active_day": 12.0,
+   "per_100_records": 48.0,
    "faults": 64,
    "history_score": 193,
-   "phrase_score": 552,
+   "phrase_score": 555,
    "recurrence_extra": 70,
    "recurrence_count": 19,
-   "composite": 815,
+   "composite": 818,
    "recurrence": {
     "triggers": 47,
     "mature": 28,
@@ -103,7 +103,7 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 19.4,
+    "control": 19.5,
     "recurrence": 96.4,
     "no_improvement": 36.3
    }
