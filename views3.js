@@ -20,6 +20,7 @@ function hvSC13Load(){
  Promise.all([hvFetch('cowork/ctl/trace_v.tsv','text'),hvFetch('cowork/ctl/trace_h.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json')]).then(function(t){hvTR13={v:hvTsv(t[0]),h:hvTsv(t[1]),s:t[2],ok:kst()}},function(){});
  hvFetch('cowork/ctl/phrase_scan.json','json').then(function(j){hvPS13=j},function(){});
  hvFetch('cowork/ctl/model_control_index.json','json').then(function(j){hvMX13=j},function(){});
+ hvFetch('cowork/ctl/praise_credit_ledger.tsv','text').then(function(t){hvLD13=hvTsv(t);if($('sc13')&&hvLast13)hvSC13Paint(false)},function(){});/* 20:18 대표님 지시: 칭찬 원장을 직접 읽어 집약 대기 없이 바로 카운트 */
  Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/model_control_status.tsv','text')]).then(function(r){
   if(!$('sc13'))return;
   var T=hvTYT13;/* 11/04 15:32 대표님 지시: 심각도 순서 */
@@ -88,8 +89,8 @@ function hvSC13Paint(fail,err){
  g+='<div class="tw" id="sc13-hist"><table class="sc13-t"><thead><tr><th>#</th><th>날짜</th><th>시각</th><th>모델</th><th>구분</th><th>대표님 지시·질타 요지</th><th>원인</th><th>조치</th><th>상태</th><th>Fable</th></tr></thead><tbody>';
  g+=rows.length?rows.map(function(e){return '<tr class="sc13-r" onclick="this.classList.toggle(\'sc13-open\')"><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.date)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(e.type)+'</span></td><td class="sc13-cl"><div title="'+hvEsc(e.content)+'">'+hvEsc(e.content)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.cause)+'">'+hvEsc(e.cause)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.action)+'">'+hvEsc(e.action)+'</div></td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'" title="'+hvEsc(e.sraw||e.status)+'">'+hvEsc(e.sraw||e.status)+'</span></td><td><span class="tag '+({'대기':'gray','읽음':'smp','처리 중':'warn','처리 완료':'ok'}[e.fable]||'gray')+'" title="'+hvEsc(e.fraw||e.fable)+'">'+hvEsc(e.fable)+'</span></td></tr><tr class="sc13-dt"><td colspan="10">'+hvLinkDt(e)+'</td></tr>'}).join(''):'<tr><td colspan="10">해당 이력이 없습니다.</td></tr>';
  g+='</tbody></table></div>'+hvPager(PGH,'건','hvSC13Paint')+'<p class="note">긴 글은 2줄까지 보이고 「…」로 줄입니다. 줄을 누르면 전문과 함께 「연결 지시·처리 결과」(지시 추적 매트릭스)가 펼쳐집니다. 기록 규칙: 질타·개선요청·지적·위반·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항).</p>';
- g+=hvPraise13();
  g+=hvBan();
+ g+=hvPraise13();
  b.innerHTML=g;
  if(!fail&&!hvRe13&&!hvPgAll){hvRe13=true;try{hvPgFit('13','13h','hvSC13Paint')}finally{hvRe13=false}}else if(!fail){hvPgStatic('13')}
 }
@@ -481,19 +482,47 @@ function hvGuard13(d,C){
  +'<p class="note"><b>자각 순환</b>: '+Aw.protocol.map(hvEsc).join(' → ')+'</p>';
  return g}
 
-/* 20:06 대표님 지시: 칭찬은 이력에 표기하지 않는다. 이력 표 바로 밑에 같은 표 형태의 별도 원장·횟수·획득률·영향·성과 지표를 따로 둔다(상쇄·가감·중첩 없음) */
+/* 20:06·20:10·20:10 대표님 지시: 칭찬은 이력에 표기하지 않는다. 표 제목은 「칭찬 크레딧」, 그래프 없이 표로만, SC-13 제일 하단. 집계·누적(전체 누적 → 모델별)과 집계 단위(시간별·일별…)를 이력의 기간별 집계 표처럼 둔다(상쇄·가감·중첩 없음) */
+var HV_PL13={u:'전체'},hvLD13=null;
+function hvPlSet(u){HV_PL13.u=u;hvPgReset('13');hvSC13Paint(false)}
+function hvPlKey(r,u){var d=r[1],h=('0'+r[2]).slice(-2);
+ if(u==='시간별')return d+' '+h+'시';
+ if(u==='일별')return d;
+ if(u==='주간별'){var a=d.split('-'),t=new Date(Date.UTC(+a[0],+a[1]-1,+a[2])),dn=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-dn);var ys=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+'년 '+('0'+Math.ceil(((t-ys)/86400000+1)/7)).slice(-2)+'주'}
+ if(u==='월별')return d.slice(0,7);
+ if(u==='연별')return d.slice(0,4);
+ return '전체 누적'}
 function hvPraise13(){
- var X=hvMX13,g='';if(!X||!X.credit)return '';var C=X.credit,H=C.ledger_header;
- var PL=hvPage(C.ledger.slice().reverse(),'13t1');
- g+='<h3>칭찬 크레딧 원장 — 이력과 별도 (같은 표 형태)</h3><p class="note" style="border-left:4px solid #2e7d32;padding-left:8px"><b>'+hvEsc(C.definition)+'</b><br>'+C.principles.map(hvEsc).join('<br>')+'</p>'
+ var X=hvMX13,g='';if(!X||!X.credit)return '';var C=X.credit,H=C.ledger_header,L=(hvLD13&&hvLD13.length?hvLD13:C.ledger),LB=C.labels||{},PM={};
+ var EV=(hvLast13&&hvLast13.events)||[],ST=function(m,w){return EV.filter(function(e){return e.model===m&&(e.type==='지시'||e.type==='개선요청')&&(!w||(e.date==='2026-11-06'&&String(e.time).slice(-5)>='19:08'))}).length};
+ ['Fable','Opus','Sonnet','Haiku'].forEach(function(m){var a=ST(m,0),w=ST(m,1),pa=L.filter(function(r){return r[4]===m}).length,pw=L.filter(function(r){return r[4]===m&&r[1]==='2026-11-06'&&String(r[3]).slice(-5)>='19:08'}).length;PM[m]={instructions_all:a,instructions_window:w,acquire_all:a?Math.round(1000*pa/a)/10:null,acquire_window:w?Math.round(1000*pw/w)/10:null}});
+ var base=['Fable','Opus','Sonnet','Haiku'],ms=base.slice();L.forEach(function(r){if(ms.indexOf(r[4])<0&&r[4]!=='미상')ms.push(r[4])});if(L.some(function(r){return r[4]==='미상'}))ms.push('미상');
+ var lb=function(m){return LB[m]||m},cnt=function(m){return L.filter(function(r){return r[4]===m}).length};
+ var PL=hvPage(L.slice().reverse(),'13t1');
+ g+='<h3>칭찬 크레딧</h3><p class="note" style="border-left:4px solid #2e7d32;padding-left:8px"><b>'+hvEsc(C.definition)+'</b><br><b>취지(대표님 20:18)</b>: 각 작업 모델이 실시간 작업 상황 속에서 자기 칭찬 크레딧을 바로 보고 스스로 자각·인지해, 더 분발하고 더 책임감 있게 지시받은 대로 작업을 완수하게 만드는 것. 칭찬이 오면 이력처럼 즉시 원장에 기록하고, 이 화면은 원장을 10초마다 직접 읽어 집약을 기다리지 않고 바로 카운트합니다.<br>'+C.principles.map(hvEsc).join('<br>')+'</p>'
  +'<div class="tw"><table class="sc13-t"><thead><tr>'+H.map(function(h){return '<th>'+hvEsc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+(PL.rows.length?PL.rows.map(function(r){return '<tr>'+r.map(function(c,i){return i===5?'<td><span class="tag ok">'+hvEsc(c)+'</span></td>':'<td class="'+(i===6||i===7||i===8?'sc13-sm':'sc13-nw')+'">'+hvEsc(c)+'</td>'}).join('')+'</tr>'}).join(''):'<tr><td colspan="11">기록 없음</td></tr>')+'</tbody></table></div>'+hvPager(PL,'건','hvSC13Paint');
- var ms=['Opus','Sonnet','Fable','Haiku'],PM=C.per_model;
- g+='<h3>칭찬 크레딧 — 모델별 받은 횟수 · 누적 · 획득 지수</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>모델</th><th>칭찬 횟수</th><th>칭찬 크레딧(별도 누적)</th><th>이 창 작업 지시(11/06 19:08~)</th><th>이 창 획득 지수</th><th>누적 작업 지시</th><th>누적 획득 지수</th></tr></thead><tbody>'
- +ms.map(function(m){var v=PM[m],c=C.models[m];return '<tr><td><b>'+hvEsc(m)+'</b></td><td class="sc13-n">'+c.praise+'</td><td class="sc13-n"><b>'+c.credit+'</b></td><td class="sc13-n">'+v.instructions_window+'</td><td class="sc13-n">'+(v.acquire_window==null?'-':v.acquire_window+'%')+'</td><td class="sc13-n">'+v.instructions_all+'</td><td class="sc13-n">'+(v.acquire_all==null?'-':v.acquire_all+'%')+'</td></tr>'}).join('')+'</tbody></table></div>'
- +'<p class="note">작업 지시 수 = 이력 구분 「지시」·「개선요청」 건수(모델별). 획득 지수 = 칭찬 크레딧 ÷ 작업 지시 수 × 100. 이력의 점수·지수와 섞지 않는 별도 지표입니다.</p>';
- var PE=hvPage(C.effect,'13t2');
+ /* 칭찬 크레딧 집계 · 누적: 전체 누적 → 모델별 */
+ var tm=function(r){return r[1]+' '+('0'+r[2]).slice(-2)},lastT=function(a){return a.length?a[a.length-1][3]:'-'},firstT=function(a){return a.length?a[0][3]:'-'};
+ var win=L.filter(function(r){return PM[r[4]]&&r[1]==='2026-11-06'&&String(r[3]).slice(-5)>='19:08'}).length;
+ var rowM=function(m){var a=L.filter(function(r){return r[4]===m}),v=PM[m];return '<tr><td class="sc13-nw"><b>'+hvEsc(lb(m))+'</b></td><td class="sc13-n">'+a.length+'</td><td class="sc13-n"><b>'+a.length+'</b></td><td class="sc13-sm">'+hvEsc(firstT(a))+'</td><td class="sc13-sm">'+hvEsc(lastT(a))+'</td><td class="sc13-n">'+(v?v.instructions_window:'-')+'</td><td class="sc13-n">'+(v&&v.acquire_window!=null?v.acquire_window+'%':'-')+'</td><td class="sc13-n">'+(v?v.instructions_all:'-')+'</td><td class="sc13-n">'+(v&&v.acquire_all!=null?v.acquire_all+'%':'-')+'</td></tr>'};
+ var tIn=0,tInW=0;base.forEach(function(m){if(PM[m]){tIn+=PM[m].instructions_all;tInW+=PM[m].instructions_window}});
+ g+='<h3>칭찬 크레딧 집계 · 누적</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>구분</th><th>칭찬 횟수</th><th>칭찬 크레딧(별도 누적)</th><th>처음 칭찬</th><th>최근 칭찬</th><th>이 창 작업 지시(11/06 19:08~)</th><th>이 창 획득 지수</th><th>누적 작업 지시</th><th>누적 획득 지수</th></tr></thead><tbody>'
+ +'<tr><td class="sc13-nw"><b>전체 누적</b></td><td class="sc13-n"><b>'+L.length+'</b></td><td class="sc13-n"><b>'+L.length+'</b></td><td class="sc13-sm">'+hvEsc(firstT(L))+'</td><td class="sc13-sm">'+hvEsc(lastT(L))+'</td><td class="sc13-n">'+tInW+'</td><td class="sc13-n">'+(tInW?Math.round(1000*win/tInW)/10+'%':'-')+'</td><td class="sc13-n">'+tIn+'</td><td class="sc13-n">'+(tIn?Math.round(1000*L.length/tIn)/10+'%':'-')+'</td></tr>'
+ +ms.map(rowM).join('')+'</tbody></table></div><p class="note">집계 기간 2026-11-01 00:00:00 ~ 지금, 모든 채팅창. 작업 지시 수 = 이력 구분 「지시」·「개선요청」 건수(모델별). 획득 지수 = 칭찬 크레딧 ÷ 작업 지시 수 × 100. 이력의 점수·지수와 섞지 않는 별도 지표입니다. 새 모델이 호출되면 이 표 맨 아래에 모델 행이 붙습니다.</p>';
+ /* 칭찬 크레딧 집계 단위 */
+ var U=['전체','시간별','일별','주간별','월별','연별'],u=HV_PL13.u;if(U.indexOf(u)<0)u='전체';
+ var G={},K=[];L.forEach(function(r){var k=hvPlKey(r,u);if(!G[k]){G[k]=[];K.push(k)}G[k].push(r)});K.sort();var cum=0,rw=K.map(function(k){cum+=G[k].length;return {k:k,a:G[k],cum:cum}}),PG=hvPage(rw.slice().reverse(),'13t3');
+ g+='<h3>칭찬 크레딧 집계 단위</h3><div class="sc13-f sc13-l sc13-lw"><span class="sc13-lb w">집계 단위</span>'+U.map(function(x){return '<button type="button" class="'+(u===x?'on':'')+'" onclick="hvPlSet(\''+x+'\')">'+x+'</button>'}).join('')+'</div>'
+ +'<div class="tw"><table class="sc13-t sc13-ag"><thead><tr><th>기간</th>'+ms.map(function(m){return '<th>'+hvEsc(lb(m))+'</th>'}).join('')+'<th>합계</th><th>누적</th></tr></thead><tbody>'
+ +(PG.rows.length?PG.rows.map(function(r){return '<tr><td class="sc13-nw"><b>'+hvEsc(r.k)+'</b></td>'+ms.map(function(m){var n=r.a.filter(function(x){return x[4]===m}).length;return '<td class="sc13-n">'+(n||'')+'</td>'}).join('')+'<td class="sc13-n"><b>'+r.a.length+'</b></td><td class="sc13-n">'+r.cum+'</td></tr>'}).join(''):'<tr><td colspan="'+(ms.length+3)+'">기록 없음</td></tr>')+'</tbody></table></div>'+hvPager(PG,'개 구간','hvSC13Paint')
+ +'<p class="note">그래프 없이 표로만 표시합니다. 시간별은 칭찬을 받은 시(時) 기준, 주간별은 ISO 주차(월요일 시작)입니다.</p>';
+ /* 영향·성과 */
+ var EF={};C.effect.forEach(function(e){EF[e.no]=e});var EFL=L.map(function(r){var e=EF[+r[0]];return e&&e.model===r[4]?e:{no:+r[0],model:r[4],time:'2026-'+r[1].slice(5)+'T'+String(r[3]).slice(-5),elapsed_min:0,pre60_score:'-',post_score:'-',judgment:'집약 대기(다음 집약 때 판정)',keep:'-',self_found_after:[]}});var PE=hvPage(EFL,'13t2');
  g+='<h3>칭찬 크레딧의 영향 — 성과 지표·성과 지수 (이력과 독립)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>원장 번호</th><th>모델</th><th>칭찬 시각</th><th>경과</th><th>칭찬 전 60분 결함 점수(참고)</th><th>칭찬 후 결함 점수(참고)</th><th>성과 판정</th><th>칭찬 뒤 같은 형태 결함</th><th>칭찬 뒤 자가 발견</th></tr></thead><tbody>'
- +PE.rows.map(function(e){return '<tr><td class="sc13-n">'+e.no+'</td><td>'+hvEsc(e.model)+'</td><td class="sc13-sm">'+hvEsc(e.time.slice(5,16).replace('T',' '))+'</td><td class="sc13-n">'+e.elapsed_min+'분</td><td class="sc13-n">'+e.pre60_score+'</td><td class="sc13-n">'+e.post_score+'</td><td class="sc13-sm"><b>'+hvEsc(e.judgment)+'</b></td><td class="sc13-sm">'+hvEsc(e.keep)+'</td><td class="sc13-sm">'+(e.self_found_after.length?'이력 '+e.self_found_after.map(function(x){return '#'+x}).join(', '):'없음')+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PE,'건','hvSC13Paint')
- +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>성과 지수</th><th>산정 방식(산정안)</th></tr></thead><tbody>'+Object.keys(C.indices).map(function(k){return '<tr><td><b>'+hvEsc(k)+'</b></td><td class="sc13-sm">'+hvEsc(C.indices[k])+'</td></tr>'}).join('')+'</tbody></table></div>'
- +'<p class="note"><b>역할</b>: '+hvEsc(C.role)+'<br><b>전수 조사 범위</b>: '+C.scan.sources.map(hvEsc).join(' · ')+'<br><b>결과</b>: '+hvEsc(C.scan.result)+'<br>'+hvEsc(C.approval_note)+'<br>이력 445번(칭찬)은 20:06 대표님 지시로 이력에서 빼고 원장 1번으로 옮겼습니다(이력 번호 445는 비어 있음). 칭찬 후 60분이 지나기 전의 성과 판정은 보류하며, 이 비교는 인과를 뜻하지 않습니다.</p>';
+ +PE.rows.map(function(e){return '<tr><td class="sc13-n">'+e.no+'</td><td>'+hvEsc(lb(e.model))+'</td><td class="sc13-sm">'+hvEsc(e.time.slice(5,16).replace('T',' '))+'</td><td class="sc13-n">'+e.elapsed_min+'분</td><td class="sc13-n">'+e.pre60_score+'</td><td class="sc13-n">'+e.post_score+'</td><td class="sc13-sm"><b>'+hvEsc(e.judgment)+'</b></td><td class="sc13-sm">'+hvEsc(e.keep)+'</td><td class="sc13-sm">'+(e.self_found_after.length?'이력 '+e.self_found_after.map(function(x){return '#'+x}).join(', '):'없음')+'</td></tr>'}).join('')+'</tbody></table></div>'+hvPager(PE,'건','hvSC13Paint')
+ +'<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>성과 지수</th><th>산정 방식(산정안)</th></tr></thead><tbody>'+Object.keys(C.indices).map(function(k){return '<tr><td><b>'+hvEsc(k)+'</b></td><td class="sc13-sm">'+hvEsc(C.indices[k])+'</td></tr>'}).join('')+'</tbody></table></div>';
+ /* 칭찬 판별 기준 */
+ var D=C.dictionary||{include:[],exclude:[],rule:''};
+ g+='<div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>칭찬으로 세는 말</th><th>칭찬으로 세지 않는 말</th></tr></thead><tbody><tr><td class="sc13-sm">'+D.include.map(hvEsc).join('<br>')+'</td><td class="sc13-sm">'+D.exclude.map(hvEsc).join('<br>')+'</td></tr></tbody></table></div>'
+ +'<p class="note"><b>판별 규칙</b>: '+hvEsc(D.rule)+'<br><b>역할</b>: '+hvEsc(C.role)+'<br><b>전수 조사 범위</b>: '+C.scan.sources.map(hvEsc).join(' · ')+'<br><b>결과</b>: '+hvEsc(C.scan.result)+'<br>'+hvEsc(C.approval_note)+'<br>이력 445번(칭찬)은 20:06 대표님 지시로 이력에서 빼고 원장으로 옮겼습니다(이력 번호 445는 비어 있음). 칭찬 후 60분이 지나기 전의 성과 판정은 보류하며, 이 비교는 인과를 뜻하지 않습니다.</p>';
  return g}
