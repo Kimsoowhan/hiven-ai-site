@@ -39,12 +39,13 @@ $('so').addEventListener('click',function(){sset(false);show(false);});
  function load(u){return fetch(u+'?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()}).catch(function(){return null})}
  function draw(){
   pn.innerHTML='<h4>훅 불러옴 상태</h4><div>확인 중…</div>';
-  Promise.all([load('cowork/ctl/praise_hook_state.json'),load('cowork/ctl/praise_watch_status.json')]).then(function(r){
-   var h=r[0],w=r[1],o='<h4>훅 불러옴 상태</h4><dl>';
+  Promise.all([load('cowork/ctl/praise_hook_state.json'),load('cowork/ctl/praise_watch_status.json'),load('cowork/ctl/praise_other_state.json')]).then(function(r){
+   var h=r[0],w=r[1],ot=r[2],o='<h4>훅 불러옴 상태</h4><dl>';
    o+=row('훅 적재',h?(h['적재']?'불러옴':'불러오지 않음'):'상태 파일을 읽지 못함');
    if(h){o+=row('모듈',h['모듈']);o+=row('확인 창 답',h['확인 창 답']);o+=row('기록 시각',h['기록 시각']);}
    o+=row('감시 장치',w?(w['켜짐']?'켜짐':'꺼짐'):'상태 파일을 읽지 못함');
    if(w){o+=row('마지막 실행',w['마지막 실행']);o+=row('원장 총건수',w['원장 총건수']);o+=row('문맥 검토 대기',w['문맥 검토 대기']);}
+   if(ot){o+=row('다른 창 수집',ot['점검 방식']);o+=row('마지막 점검',ot['마지막 점검']);o+=row('점검 범위',ot['점검 범위']);o+=row('기록 건수',ot['기록 건수']);o+=row('범위 밖',ot['범위 밖']);}
    o+='</dl><div class="nt">이 버튼은 상태를 보여 줄 뿐 훅을 켜지 못합니다. 훅은 Claude 앱의 불러오기 확인 창에서 대표님이 「불러옴」을 고르실 때만 켜집니다. 켜려면 Claude에게 「불러오기 확인 창을 다시 띄워라」라고 지시하십시오. 그 동안에도 감시 장치(15초 점검)가 칭찬을 기록합니다.</div>';
    o+='<button type="button" id="hkc">닫기</button>';
    pn.innerHTML=o;$('hkc').addEventListener('click',close);
