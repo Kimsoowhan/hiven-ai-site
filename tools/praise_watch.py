@@ -171,7 +171,7 @@ def push(paths):
         pass
 
 
-def handle(text, tp, ts, src, sid, uid):
+def handle(text, tp, ts, src, sid, uid, model=None):
     """반환: 한 줄 안내(칭찬 기록 시) 또는 None. 상태는 여기서 저장한다."""
     st = load_state()
     k = hashlib.sha1(('%s|%s|%s' % (sid, uid, text[:80])).encode('utf-8')).hexdigest()[:16]
@@ -183,7 +183,7 @@ def handle(text, tp, ts, src, sid, uid):
     st['seen'] = (st['seen'] + [k])[-2000:]
     out, touched = None, []
     if kind == 'praise':
-        mdl, why = last_assistant(tp, ts.astimezone(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'))
+        mdl, why = (model_label(model), '') if model else last_assistant(tp, ts.astimezone(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S'))
         no = append_ledger(ts, mdl, text, why, hit, src)
         if no:
             st['hits'] = st.get('hits', 0) + 1
@@ -214,7 +214,25 @@ def main():
         if not text:
             return
         ts = datetime.datetime.now(KST)
-        r = handle(text, d.get('transcript_path'), ts, '이 작업 공간 창(%s)' % (d.get('session_id', '')[:8]), d.get('session_id', ''), ts.isoformat())
+        try:
+            if d.get('ts'):
+                ts = datetime.datetime.fromisoformat(str(d['ts']).replace('Z', '+00:00')).astimezone(KST)  # 다른 창 메시지의 실제 시각
+        except Exception:
+            ts = datetime.datetime.now(KST)
+        if d.get('src'):
+            # 다른 창(예약 작업)에서 온 메시지: 저장소에 남는 처리 목록으로 중복을 막는다(예약 작업은 매번 새 작업 공간이라 /tmp 기록이 없음)
+            seenf = os.path.join(CTL, 'praise_other_seen.txt')
+            kk = hashlib.sha1(('%s|%s' % (d.get('session_id', ''), text[:80])).encode('utf-8')).hexdigest()[:16]
+            try:
+                old_seen = set(open(seenf, encoding='utf-8').read().split()) if os.path.exists(seenf) else set()
+                if kk in old_seen:
+                    return
+                with open(seenf, 'a', encoding='utf-8') as sf:
+                    sf.write(kk + '\n')
+            except Exception:
+                pass
+        src = str(d['src'])[:40] if d.get('src') else '이 작업 공간 창(%s)' % (d.get('session_id', '')[:8])
+        r = handle(text, d.get('transcript_path'), ts, src, d.get('session_id', ''), str(d.get('uid') or ts.isoformat()), d.get('model'))
         st = load_state(); st['runs'] = st.get('runs', 0) + 1; save_state(st)
         if r:
             print(r)
