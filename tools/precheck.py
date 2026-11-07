@@ -26,5 +26,7 @@ elif os.path.getmtime(idx)<t0-1: fail('색인 산출물이 갱신되지 않음')
 else:
     g=json.load(open(idx,encoding='utf-8'))['lifecycle_gap']
     if g['count']: fail('생명주기 공백 %d건'%g['count'])
+g2=subprocess.run(['python3',R+'/tools/gen_integrity.py','--check'],capture_output=True,text=True)
+if g2.returncode: fail(g2.stdout.strip()+' — tools/gen_integrity.py 실행 필요')
 print('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))
 sys.exit(1 if bad else 0)
