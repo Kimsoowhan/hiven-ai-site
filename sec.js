@@ -19,11 +19,11 @@ var hvSec=(function(){
  /* 우회 감지: 열쇠 확인 없이 입장 표식만 있는 경우 */
  try{if(sessionStorage.getItem('hv_in')==='1'&&!sessionStorage.getItem('hvsec_ok')){sessionStorage.removeItem('hv_in');var s0=ld();s0.n=Math.max(s0.n,6);s0.t=Date.now();sv(s0);log(4,'우회 의심: 열쇠 확인 없는 입장 표식',s0.n);window.addEventListener('DOMContentLoaded',function(){bar(4,'우회 입장 시도 감지 · 입장 표식 폐기')})}}catch(e){}
  window.addEventListener('storage',function(e){if(e.key==='hvsec'||e.key==='hv_in')log(4,'저장소 변조 의심: '+e.key,ld().n)});
- if(!window.hvSecNav){window.hvSecNav=1;S.push(['SC-15','침입 경보'])}
+ if(!window.hvSecNav){window.hvSecNav=1;S.push(['SC-15','침입 예측·예방·대응·조치 시스템'])}
  V['SC-15']=function(){var s=ld(),g=gr(s.n),L=s.L.slice().reverse().slice(0,15);
   var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+C[G.indexOf(e.g)]+'">'+e.g+'</b></td><td>'+e.n+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="4">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
   var df=[['관찰','열쇠 오류 1회','즉시 경보 띠 · 기록 · 전송'],['관심','오류 2회','경보 띠 · 기록 · 전송'],['심각','오류 3회','30초 잠금 · 경보 · 전송'],['위험','오류 4~5회','5분 잠금 · 경보 · 전송'],['위기','오류 6회 이상 · 우회/변조 감지','30분(누적 배수, 최대 4시간) 잠금 · 입장 표식 폐기 · 전송']].map(function(r,i){return '<tr><td><b style="color:'+C[i]+'">'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>'}).join('');
-  return '<h2>SC-15 침입 경보</h2><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+C[g]+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
+  return '<h2>SC-15 침입 예측/예방/대응/조치 시스템 (침입 경보)</h2><p class="note">HIVEN 통합사업 이상징후 및 보안체계 시스템(SC-16)의 하위 실행 시스템입니다.</p><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+C[g]+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
    +'<h3>등급 기준과 즉시 대응</h3><table class="tb"><thead><tr><th>등급</th><th>조건</th><th>즉시 대응</th></tr></thead><tbody>'+df+'</tbody></table>'
    +'<h3>최근 경보(이 단말, 최신순)</h3>'+tb
    +'<h3>벤치마킹 근거(11/07 조사)</h3><table class="tb"><thead><tr><th>사례</th><th>핵심</th><th>우리 반영</th></tr></thead><tbody>'
