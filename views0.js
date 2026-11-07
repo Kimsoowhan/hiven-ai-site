@@ -167,7 +167,7 @@ function hvContact(){
  if(hvMeta.ct===null)return g+'<h3>사업군 연동 접점표</h3>'+hvNo('원천 ctl/bg_contact.tsv 없음');
  var C=hvMeta.ct,hi=C.filter(function(x){return x[9]==='상'}).length;
  g+='<h3>사업군 연동 접점표 · '+C.length+'건(상 '+hi+' · 중 '+(C.length-hi)+')</h3>'+tbl(['번호','사업부','AICS 접점','감지 신호','경보 기준','심각도'],C.map(function(x){return ['<span style="white-space:nowrap">'+hvEsc(x[0])+'</span>','<b>'+hvEsc(x[2])+'</b> → '+hvEsc(x[3]),hvEsc(x[6]),hvEsc(x[7]),hvEsc(x[8]),tag(x[9],x[9]==='상'?'bad':'warn')]}));
- return g+'<p class="note">원천 사업부 설정안 6장 연동표 TSV 5권(HiASI 2.0·HiDAM 1.0·HiICT 2.0·HiServe 1.0·HiTrade 1.0) → ctl/bg_contact.tsv · 실제 감지 건은 ctl/bg_lifecycle.tsv(위 7×7)에 기록됩니다.</p>'}
+ return g+'<p class="note">원천 사업부 설정안 6장 연동표 TSV 5권(HiASI 2.0·HiDAM 1.0·HiICT 2.0·HiServe 1.0·HiTrade 1.0) → ctl/bg_contact.tsv · 실제 감지 건은 ctl/bg_lifecycle.tsv(위 7×7)에 기록됩니다.</p><p class="note">보안체계 연계 접점 11건(S-01~S-11)은 위 30건과 별도이며 <a href="#" onclick="hvgo(\'SC-16\');return false">SC-16 「편입·연계 서비스 플로어」</a>에 있습니다.</p>'}
 function hvBg7(){var S=['감지','경고·알람','조치 착수','조치 중','해제','보고서 이관','통제 확인'];
  if(!hvMeta.t)return '<p class="note">불러오는 중</p>';if(hvMeta.bg===null)return tbl(['사업군','상태'],BG.map(function(b){return [b[1],hvNo('원천 ctl/bg_lifecycle.tsv 없음')]}));
  var rows=BG.map(function(b){var mine=hvMeta.bg.filter(function(x){return x[1]===b[1]});var c=[mine.length,mine.filter(function(x){return x[6]}).length,mine.filter(function(x){return x[7]}).length,mine.filter(function(x){return x[9]==='조치 중'}).length,mine.filter(function(x){return x[10]}).length,mine.filter(function(x){return x[12]}).length,mine.filter(function(x){return x[13]&&x[13]!=='대기'}).length];return ['<b>'+b[1]+'</b>'].concat(c)});
