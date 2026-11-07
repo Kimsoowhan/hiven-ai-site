@@ -5,11 +5,12 @@ var hvSec=(function(){
  var G=['관찰','관심','심각','위험','위기'],C=['#1565c0','#00838f','#ef6c00','#c62828','#6a1b9a'],LK=[0,0,30,300,1800];
  function ld(){try{return JSON.parse(localStorage.getItem('hvsec')||'{"n":0,"t":0,"u":0,"L":[]}')}catch(e){return {n:0,t:0,u:0,L:[]}}}
  function sv(s){try{localStorage.setItem('hvsec',JSON.stringify(s))}catch(e){}}
+ var A12=['관심','주의','경계','위험','위기'];function al(g,why){return g==2&&/복제|삽입|프레임|변조|우회/.test(why||'')?'경고':A12[g]}
  function gr(n){return n>=6?4:n>=4?3:n>=3?2:n>=2?1:0}
  function send(ev){try{var b=JSON.stringify(ev);if(navigator.sendBeacon)navigator.sendBeacon('https://ic.hiven.ai.kr/__sec',b);else fetch('https://ic.hiven.ai.kr/__sec',{method:'POST',mode:'no-cors',body:b,keepalive:true})}catch(e){}}
  function bar(g,msg){var d=document.getElementById('hvsecbar');if(!d){d=document.createElement('div');d.id='hvsecbar';d.setAttribute('role','alert');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;padding:10px 14px;color:#fff;font:700 14px/1.4 sans-serif;text-align:center';document.body.appendChild(d)}
   d.style.background=C[g];d.textContent='⚠ 침입 경보 · '+G[g]+' 단계 · '+msg}
- function log(g,why,n){var s=ld(),e={t:new Date().toISOString(),g:G[g],n:n,why:why,host:location.host,ua:(navigator.userAgent||'').slice(0,90)};s.L.push(e);if(s.L.length>200)s.L=s.L.slice(-200);sv(s);send(e);return e}
+ function log(g,why,n){var s=ld(),e={t:new Date().toISOString(),g:G[g],a:al(g,why),r:0,n:n,why:why,host:location.host,ua:(navigator.userAgent||'').slice(0,90)};s.L.push(e);if(s.L.length>200)s.L=s.L.slice(-200);sv(s);send(e);return e}
  function lock(){var s=ld(),r=Math.ceil((s.u-Date.now())/1000);return r>0?r:0}
  function fail(why){var s=ld();if(Date.now()-s.t>86400000)s.n=0;s.n++;s.t=Date.now();var g=gr(s.n);if(LK[g])s.u=Date.now()+LK[g]*1000*(s.n>=6?Math.min(8,s.n-5):1);sv(s);log(g,why||'열쇠 오류',s.n);bar(g,'열쇠 오류 '+s.n+'회'+(lock()?' · '+lock()+'초 잠금':''));return g}
  var k0=window.keyOk;
@@ -21,7 +22,7 @@ var hvSec=(function(){
  window.addEventListener('storage',function(e){if(e.key==='hvsec'||e.key==='hv_in')log(4,'저장소 변조 의심: '+e.key,ld().n)});
  if(!window.hvSecNav){window.hvSecNav=1;S.push(['SC-15','침입 예측·예방·대응·조치 시스템'])}
  V['SC-15']=function(){var s=ld(),g=gr(s.n),L=s.L.slice().reverse().slice(0,15);
-  var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+C[G.indexOf(e.g)]+'">'+e.g+'</b></td><td>'+e.n+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="4">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
+  var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>발령</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+C[G.indexOf(e.g)]+'">'+e.g+'</b></td><td>'+e.n+'</td><td>'+(e.a||al(G.indexOf(e.g),e.why))+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="5">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
   var df=[['관찰','열쇠 오류 1회','즉시 경보 띠 · 기록 · 전송'],['관심','오류 2회','경보 띠 · 기록 · 전송'],['심각','오류 3회','30초 잠금 · 경보 · 전송'],['위험','오류 4~5회','5분 잠금 · 경보 · 전송'],['위기','오류 6회 이상 · 우회/변조 감지','30분(누적 배수, 최대 4시간) 잠금 · 입장 표식 폐기 · 전송']].map(function(r,i){return '<tr><td><b style="color:'+C[i]+'">'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>'}).join('');
   return '<h2>SC-15 침입 예측/예방/대응/조치 시스템 (침입 경보)</h2><p class="note">HIVEN 통합사업 이상징후 및 보안체계 시스템(SC-16)의 하위 실행 시스템입니다.</p><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+C[g]+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
    +'<h3>등급 기준과 즉시 대응</h3><table class="tb"><thead><tr><th>등급</th><th>조건</th><th>즉시 대응</th></tr></thead><tbody>'+df+'</tbody></table>'
@@ -33,5 +34,5 @@ var hvSec=(function(){
    +'<tr><td>NIST SP 800-61 사고 대응 주기</td><td>탐지→분석→격리→복구→사후 기록</td><td>감지·경보·잠금·해제 기록·이력 보존</td></tr>'
    +'</tbody></table>'
    +'<p class="note">전송 경로: ic.hiven.ai.kr 작업자 실시간 로그(모든 단말의 경보가 모임). 열쇠 확인은 화면 안내 수준이므로 접속 자체의 차단은 Cloudflare 접근 통제와 함께 쓴다.</p>'}
- return {fail:fail,log:log,grade:gr}
+ return {al:al,fail:fail,log:log,grade:gr}
 })();

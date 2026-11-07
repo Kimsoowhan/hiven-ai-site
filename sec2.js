@@ -3,7 +3,7 @@
  var G=['정상','관찰','관찰','관심','관심','심각','심각','위험','위험','위기'];
  function st(){var s;try{s=JSON.parse(localStorage.getItem('hvsec')||'{}')}catch(e){s={}}var n=s.n||0,l=n>=6?10:n>=4?8:n>=3?6:n>=2?4:n>=1?2:1;if(s.u&&s.u>Date.now())l=Math.max(l,6);return {n:n,l:l,s:s}}
  window.hvEmLevel=function(){return st().l};
- function chip(){var c=document.getElementById('chip-mode');if(!c)return;var x=st();c.innerHTML='<span class="dot '+(x.l>=6?'bad':x.l>=2?'warn':'ok')+'"></span>대응 모드 <b>단계 '+x.l+' '+G[x.l-1]+'</b>'}
+ function chip(){var c=document.getElementById('chip-mode');if(!c)return;var x=st();c.innerHTML='<span class="dot '+(x.l>=6?'bad':x.l>=2?'warn':'ok')+'"></span>대응 모드 <b>단계 '+x.l+' '+G[x.l-1]+'</b> · 발령 <b>'+['안심','관심','관심','주의','주의','경계','경고','위험','위기','위기'][x.l-1]+'</b>'}
  setInterval(chip,3000);chip();
  var v1=V['SC-01'];if(v1&&!v1._em){V['SC-01']=function(){var x=st(),c=x.l>=6?'#c62828':x.l>=2?'#ef6c00':'#2e7d32';
   return '<div id="hvem" style="border:2px solid '+c+';border-radius:8px;padding:10px 14px;margin:0 0 12px;cursor:pointer" onclick="hvgo(\'SC-16\')" title="누르면 비상대응 체계(SC-16)"><b style="color:'+c+'">이상징후 및 보안체계 단계 '+x.l+' · '+G[x.l-1]+'</b> <span style="opacity:.8">— 침입 경보(SC-15) 기록 '+((x.s.L||[]).length)+'건 · 무결성 검사 <span id="hvint">확인 중</span> · 눌러서 HIVEN 통합사업 이상징후 및 보안체계 시스템(SC-16) 보기</span></div>'+v1.apply(this,arguments)};V['SC-01']._em=1}
