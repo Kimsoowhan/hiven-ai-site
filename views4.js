@@ -1,5 +1,5 @@
-/* W28-03(Opus 11/05): SC-15 구분별 변동 추이 그래프 확정 사양(cowork/SC-15_추이그래프_확정사양.md)을 그대로 쓰는 공통 부품.
-   SC-15 코드(views3.js hvTrIn)는 건드리지 않고, 같은 눈금·색 면·현재 시점 선·「< 30초 분 시간 일 월 년 >」 한 벌·30초 흐름을 화면별 상태로 그린다. 규칙 54·0-10. */
+/* W28-03(Opus 11/05): SC-14 구분별 변동 추이 그래프 확정 사양(cowork/SC-14_추이그래프_확정사양.md)을 그대로 쓰는 공통 부품.
+   SC-14 코드(views3.js hvTrIn)는 건드리지 않고, 같은 눈금·색 면·현재 시점 선·「< 30초 분 시간 일 월 년 >」 한 벌·30초 흐름을 화면별 상태로 그린다. 규칙 54·0-10. */
 var hvTG={};
 function hvTGin(k,o){var S=hvTG[k]||(hvTG[k]={f:{tu:o.tu||'일',tm:'모델 전체',tc:'구간',th:{},to:hvTRD0}});S.o=o;setTimeout(function(){hvTGdraw(k)},0);return '<h3>'+hvEsc(o.title)+'</h3><div class="hvTGbox" id="hvTG_'+k+'">'+hvTGhtml(k)+'</div>'}
 function hvTGhtml(k){var S=hvTG[k];if(!S||!S.o)return '';var o=S.o,F=S.f,d=o.ev||[];
@@ -46,7 +46,7 @@ var hvTGC01={'미조치':'#c62828','조치 중':'#ef6c00','조치 완료':'#43a0
 function hvTG01(E,cls){return hvTGin('sc01',{title:'장애·조치 변동 추이',types:['미조치','조치 중','조치 완료'],colors:hvTGC01,tu:'일',
  ev:E.map(function(e){var hm=hvHm(e);return {t:Date.parse(e.date+'T'+(hm||'12:00')+':00+09:00'),hm:hm,y:cls(e),m:e.model}}).filter(function(e){return !isNaN(e.t)}),
  src:'원천 cowork/ctl/model_control_history.tsv(등록 시각) · 3분류 cowork/ctl/action_lifecycle.tsv'})}
-/* SC-14 진척 변동 추이(A-02): 원천 cowork/log.tsv(상태 기록 시각) — 승인·반영 / Fable 통과 / 완료·검수 대기 / 그 밖 기록 */
+/* SC-08 진척 변동 추이(A-02): 원천 cowork/log.tsv(상태 기록 시각) — 승인·반영 / Fable 통과 / 완료·검수 대기 / 그 밖 기록 */
 var hvTGC12={'승인·반영':'#43a047','Fable 통과':'#1e88e5','완료·검수 대기':'#f9a825','그 밖 기록':'#8a90a0'};
 function hvTG12y(st){st=String(st||'');return /승인/.test(st)?'승인·반영':/통과|G2/.test(st)?'Fable 통과':/완료|검수 대기/.test(st)?'완료·검수 대기':'그 밖 기록'}
 function hvTG12(logTxt){var rows=hvTsv(logTxt||''),ev=rows.map(function(c){var m=String(c[0]||'').match(/(?:(\d{4})-)?(\d{1,2})[\/-](\d{1,2})\s+(\d{1,2}):(\d{2})/);if(!m)return null;var hm=pad(+m[4])+':'+m[5];

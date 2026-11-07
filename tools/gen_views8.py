@@ -14,7 +14,7 @@ var o16=V['SC-02'];if(!o16)return;
 function T(h,r){return '<table class="tb"><thead><tr>'+h.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+r.map(function(c){return '<tr>'+c.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>'}
 V['SC-02']=function(){
  var o=o16(),D=hvMAN,i;
- o+='<p class="note"><b>위계</b> 최상위 자동화 통합 통제 시스템 ⊃ <b>SC-02 이상징후 및 보안체계 시스템</b>(최우선) ⊃ <b>SC-03 침입 예측·예방·대응·조치 시스템</b>(SC-02의 하위 실행 시스템). 종합 현황(SC-01) 바로 아래 두 화면이 보안 위계이고, 기존 메뉴는 SC-04부터 두 칸씩 내려갔습니다.</p><p class="note"><b>메뉴 번호 안내</b> 대표님 지시(11/07 14:42·14:45). 옛 번호 → 새 번호: '+Object.keys(D.renum.map_old_to_new).map(function(k){return k+'→'+D.renum.map_old_to_new[k]}).join(' · ')+'. 11/07 14:42 이전의 이력·기록은 당시 번호 그대로이며 이 대응으로 읽습니다.</p>';
+ o+='<p class="note"><b>위계</b> 최상위 자동화 통합 통제 시스템 ⊃ <b>SC-02 이상징후 및 보안체계 시스템</b>(최우선) ⊃ <b>SC-03 침입 예측·예방·대응·조치 시스템</b>(SC-02의 하위 실행 시스템). 종합 현황(SC-01) 바로 아래 두 화면이 보안 위계이고, 그 아래는 대표님이 정한 순서(사업군 통제 · 구동 상태 · 체계 배포 · 베타 배포 모니터링 · 통합사업 작업상황 · 수집·연동 · 형상·변경 · 검수·품질 · 고객 지원 · 문서 자동 생성 · 모델 통제 상황 · 말 명령 · 대응·경보)로 SC-04~16에 배열되어 있고, 대응·경보가 맨 아래입니다.</p><p class="note"><b>메뉴 번호 안내</b> 대표님 지시(11/07 14:42·14:45·14:50). 옛 번호 → 새 번호: '+Object.keys(D.renum.map_old_to_new).map(function(k){return k+'→'+D.renum.map_old_to_new[k]}).join(' · ')+'. 11/07 14:42 이전의 이력·기록은 당시 번호 그대로이며 이 대응으로 읽습니다.</p>';
  o+='<h3>현재 발령 단계의 7개 매뉴얼 행동 (실시간)</h3><div id="hvlive" class="note"></div>';
  o+='<h3>독립 대응 매뉴얼 7종 (서비스·고객지원·시스템별, 각각 따로 쓴다)</h3><p class="note">'+D.head['발령권자']+' '+D.head['창구']+' '+D.head['원칙']+'</p>';
  o+=T(['번호','매뉴얼','대상','담당·호출','창구'],D.manuals.map(function(m){return [m.code,m.name,m.target,m.owner,m.channel]}));

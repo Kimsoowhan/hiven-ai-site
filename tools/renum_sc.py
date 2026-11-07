@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""SC 메뉴 번호 재배정 (대표님 지시 2026-11-07 14:42·14:45): 이상징후 및 보안체계(구 SC-16)=SC-02, 침입 예측·예방·대응·조치(구 SC-15)=SC-03, 구 SC-02~14는 SC-04~16으로 두 칸씩 내린다. (실제 적용은 1단계 한 칸 이동 후 2단계 보정으로 같은 최종 결과)
+"""SC 메뉴 번호 재배정 (대표님 지시 2026-11-07 14:42·14:45): 이상징후 및 보안체계(구 SC-16)=SC-02, 침입 예측·예방·대응·조치(구 SC-15)=SC-03, 구 SC-02~14는 SC-04~16으로 두 칸씩 내린다. (14:50 대표님 지정 순서로 최종 확정: MAP은 원래 번호 → 최종 번호. 실제 적용은 1~3단계로 나누어 같은 최종 결과)
 현재 화면·표시 위치를 가리키는 파일에만 적용한다. 이력·기록 파일(model_control_history 등)은 당시 번호 그대로 두고, 대응표(sc_renumber_261107.json)로 읽는다."""
 import re, sys, os, json, hashlib
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-MAP = {1: 1, 16: 2, 15: 3}   # 최종(14:45): 구 16→02, 구 15→03, 구 02~14→04~16
-for n in range(2, 15): MAP[n] = n + 2
+MAP = {1: 1, 15: 3, 16: 2, 2: 4, 3: 5, 4: 15, 5: 13, 6: 6, 7: 12, 8: 9, 9: 11, 10: 16, 11: 10, 12: 8, 13: 14, 14: 7}   # 최종(14:50, 대표님 지정 순서)
+MAP_DONE = True
 FILES = ['app.js','data.js','sec.js','sec2.js','views0.js','views1.js','views2.js','views3.js','views4.js','views5.js','views6.js','views7.js',
  'tools/gen_aics_src.py','tools/gen_meta.py','tools/index_build.py','tools/praise_watch.py','tools/gen_six.py','tools/gen_sec_structure.py','tools/gen_views8.py','tools/man_src.py','tools/man_work.py','tools/man_bench.py',
  'cowork/publish_meta.json','cowork/README.md','cowork/ctl/emergency_manual.md','cowork/ctl/aics_docgen.tsv','cowork/ctl/bg_contact.tsv','cowork/ctl/model_control_index.json']

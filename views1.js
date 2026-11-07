@@ -6,7 +6,7 @@ V['SC-01']=function(){
   card('HIVEN.app','1.6','24시간 시험 관측 중 · '+tag('샘플(11/02 스냅샷)','gray'),'SC-05')+
   card('노트북 저장 주기','60분','30분 자동 예약 · '+tag('샘플(11/02 스냅샷)','gray'),'SC-05')+
   card('7개 사업군','7','정상 5 · 구성 중 2 · '+tag('샘플','smp'),'SC-04')+
-  card('경보','2건','주의 2 · 위험 0 · '+tag('샘플','smp'),'SC-12')+'</div>';
+  card('경보','2건','주의 2 · 위험 0 · '+tag('샘플','smp'),'SC-16')+'</div>';
  g+='<h3>사업군 한눈에</h3><div class="grid">'+BG.map(function(b){
   return card(b[0]+' · 통제 접점 '+b[3],b[1],tag(b[4],b[5]),'SC-04',function(){return '<p class="note">'+b[2]+' · 시험 데이터(원본에 싣지 않음)</p>'})}).join('')+'</div>';
  g+='<h3>경보 상위</h3>'+tbl(['시각','심각도','대상','내용'],[
@@ -29,15 +29,15 @@ V['SC-05']=function(){
  g+='<div class="row">'+
  '<div class="card"><div class="k">HiClo.app</div><div class="v">3.1.2 · 구동 중</div><div class="s">판정 08:04:58 · 5분 순환 · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div>'+
  '<div class="card"><div class="k">HIVEN.app</div><div class="v">1.6 · 관측 중</div><div class="s">24시간 시험 11/03 00:50까지 · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div>'+
- '<div class="card"><div class="k">AICS</div><div class="v">정지 아님</div><div class="s">정지·재개는 말 명령(SC-06) · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div></div>';
+ '<div class="card"><div class="k">AICS</div><div class="v">정지 아님</div><div class="s">정지·재개는 말 명령(SC-15) · '+tag('샘플(11/02 스냅샷)','gray')+'</div></div></div>';
  g+='<h3>저장 주기</h3>'+tbl(['구분','값','적용'],[['지금','60분','2026-11-02 07:52부터'],['예약','30분','2026-11-03 18:00부터 자동']]);
  g+='<h3>작업 대기열</h3>'+tbl(['작업','내용','결과'],[
   ['JOB-T0372','작업 대기열 시험','종료 코드 0 · 08:10:06 '+tag('통과','ok')],
   ['JOB-W0372','사이트 저장소 위치 확인(읽기 전용)','순환 대기 '+tag('대기','gray')]]);
  g+='<p class="note">구동 여부는 작업 전후로 노트북 판정 파일을 읽어 확인합니다. 이 화면은 읽기 전용입니다.</p>';
  return g};
-V['SC-06']=function(){
- var g='<h2>SC-06 말 명령</h2><p class="lead">음성·문자로 말하면 시스템에 반영됩니다. 아래 칸에 문장을 입력하면 해석 결과를 미리 봅니다(시험판은 실제 실행을 하지 않습니다).</p>';
+V['SC-15']=function(){
+ var g='<h2>SC-15 말 명령</h2><p class="lead">음성·문자로 말하면 시스템에 반영됩니다. 아래 칸에 문장을 입력하면 해석 결과를 미리 봅니다(시험판은 실제 실행을 하지 않습니다).</p>';
  g+='<input class="cmd" id="cin" placeholder="예) 저장 주기 30분으로 바꿔 / HiClo 정지 / AICS 재개" autocomplete="off"><div class="res" id="cres">입력하면 해석 결과가 여기에 표시됩니다.</div>';
  g+='<h3>지원 명령</h3>'+tbl(['구분','말 예시','처리'],[
   ['저장 주기','저장 주기 30분으로 / 11월 3일 18시부터 30분','즉시 또는 예약 반영'],

@@ -1,5 +1,5 @@
 function hvgo(id){cur=id;render(id);window.scrollTo({top:0})}
-function hvgoHist(){hvgo('SC-15');var n=0;var t=setInterval(function(){n++;var e=[].slice.call(document.querySelectorAll('#main p,#main h3')).filter(function(x){return /^막대 위/.test(x.textContent.trim())&&x.closest('#sc13')})[0];if(e){clearInterval(t);e.scrollIntoView({block:'start'})}else if(n>40){clearInterval(t)}},100)}
+function hvgoHist(){hvgo('SC-14');var n=0;var t=setInterval(function(){n++;var e=[].slice.call(document.querySelectorAll('#main p,#main h3')).filter(function(x){return /^막대 위/.test(x.textContent.trim())&&x.closest('#sc13')})[0];if(e){clearInterval(t);e.scrollIntoView({block:'start'})}else if(n>40){clearInterval(t)}},100)}
 function parse(t){
  t=String(t||'').trim();
  if(!t)return '입력하면 해석 결과가 여기에 표시됩니다.';
@@ -19,7 +19,7 @@ function render(id){
  $('main').innerHTML=(V[id]||V['SC-01'])();
  $('upd').textContent=kst();
  $('ftxt').textContent='데이터 신선도 · 시험판';
- if(id==='SC-06'){$('cin').addEventListener('input',function(){$('cres').textContent=parse(this.value)});}
+ if(id==='SC-15'){$('cin').addEventListener('input',function(){$('cres').textContent=parse(this.value)});}
 }
 function show(on){
  $('intro').classList.toggle('hide',on);
