@@ -1,14 +1,14 @@
 var hvTYT13=['지시거부','위반','지적','지적(자가 발견)','질타','개선요청','유휴','장애','지시'];/* 19:42 전수 검사: 표·집계·필터에서 빠져 있던 「지시거부」「지시」 구분 추가(확정 추이 그래프 hvTY13은 그대로) */
 var hvTY13=['지시거부','위반','지적','지적(자가 발견)','질타','개선요청','유휴','장애'];/* 11/04 15:32 대표님 지시: 심각도 순서(위반 > 지적 > 지적(자가 발견) > 질타 > 개선요청 > 유휴, 장애는 빨간 바탕) */
-/* SC-14 모델 통제 상황 — 데이터 연동 경로(대표님 지시 11/04 13:56·13:58): 원천 HiBiz\01_클로_소통(COM)\모델통제(CTL)\모델통제_통합이력.tsv·모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv·model_control_status.tsv(원천 그대로 복사·푸시) → 화면 10초마다 읽음 */
+/* SC-15 모델 통제 상황 — 데이터 연동 경로(대표님 지시 11/04 13:56·13:58): 원천 HiBiz\01_클로_소통(COM)\모델통제(CTL)\모델통제_통합이력.tsv·모델통제_현황.tsv → 게시 /cowork/ctl/model_control_history.tsv·model_control_status.tsv(원천 그대로 복사·푸시) → 화면 10초마다 읽음 */
 var hvT13=null,hvLast13=null,hvLastOk13='',hvF13={m:'전체',t:'전체',u:'전체',p:'전체',c:'',x:'',f:'전체'};
 /* 11/04 18:00 대표님: Fable 단계 = 대기(안 읽음) · 읽음 · 처리 중 · 처리 완료 — 이력 「Fable 확인」 칸 값은 Fable만 바꾼다 */
 var HV_FB=['대기','읽음','처리 중','처리 완료','자기 행'];
 function hvFbn13(v){v=(v||'').trim();if(!v)return '대기';if(/^처리 완료/.test(v)||v==='완료')return '처리 완료';if(/^처리 중/.test(v))return '처리 중';if(/^읽음/.test(v)||/^확인/.test(v))return '읽음';if(/자기 행/.test(v))return '자기 행';return '대기'}
 var hvTR13={v:[],h:[],s:null,ok:''};
-V['SC-14']=function(){
+V['SC-15']=function(){
  setTimeout(hvSC13Start,0);
- return '<div id="sc13"><h2>SC-14 모델 통제 상황</h2><p class="lead">Fable · Opus · Sonnet · Haiku(그리고 기록상 모델 미상)의 대표님 지시, 질타·개선요청·지적, 위반·지시거부, 유휴(멈춤·불이행), 장애 이력입니다. 범위: HiBiz 관련 기록만(Mbiz 시기 기록은 원천 폴더 「보관_Mbiz이전(비반영)」에 보관, 이 화면에 반영하지 않음).</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv (모델별 상세: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: hiven-ai-site /cowork/ctl/model_control_history.tsv · model_control_status.tsv (원천 파일을 그대로 복사해 푸시) → ③ 표시: 이 화면이 10초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
+ return '<div id="sc13"><h2>SC-15 모델 통제 상황</h2><p class="lead">Fable · Opus · Sonnet · Haiku(그리고 기록상 모델 미상)의 대표님 지시, 질타·개선요청·지적, 위반·지시거부, 유휴(멈춤·불이행), 장애 이력입니다. 범위: HiBiz 관련 기록만(Mbiz 시기 기록은 원천 폴더 「보관_Mbiz이전(비반영)」에 보관, 이 화면에 반영하지 않음).</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv (모델별 상세: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: hiven-ai-site /cowork/ctl/model_control_history.tsv · model_control_status.tsv (원천 파일을 그대로 복사해 푸시) → ③ 표시: 이 화면이 10초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
 };
 function hvSC13Start(){
  if(hvT13){clearInterval(hvT13);hvT13=null}
@@ -92,7 +92,7 @@ function hvSC13Paint(fail,err){
  g+=rows.length?rows.map(function(e){return '<tr class="sc13-r" onclick="this.classList.toggle(\'sc13-open\')"><td>'+hvEsc(e.no)+'</td><td class="sc13-nw">'+hvEsc(e.date)+'</td><td class="sc13-nw">'+hvEsc(e.time)+'</td><td><b>'+hvEsc(e.model)+'</b></td><td><span class="tag '+(tg[e.type]||'gray')+'">'+hvEsc(hvTL(e.type))+'</span></td><td class="sc13-cl"><div title="'+hvEsc(e.content)+'">'+hvEsc(e.content)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.cause)+'">'+hvEsc(e.cause)+'</div></td><td class="sc13-cl"><div title="'+hvEsc(e.action)+'">'+hvEsc(e.action)+'</div></td><td><span class="tag '+(e.status==='조치 완료'?'ok':'warn')+'" title="'+hvEsc(e.sraw||e.status)+'">'+hvEsc(e.sraw||e.status)+'</span></td><td><span class="tag '+({'대기':'gray','읽음':'smp','처리 중':'warn','처리 완료':'ok'}[e.fable]||'gray')+'" title="'+hvEsc(e.fraw||e.fable)+'">'+hvEsc(e.fable)+'</span></td></tr><tr class="sc13-dt"><td colspan="10">'+hvLinkDt(e)+'</td></tr>'}).join(''):'<tr><td colspan="10">해당 이력이 없습니다.</td></tr>';
  g+='</tbody></table></div>'+hvPager(PGH,'건','hvSC13Paint')+'<p class="note">긴 글은 2줄까지 보이고 「…」로 줄입니다. 줄을 누르면 전문과 함께 「연결 지시·처리 결과」(지시 추적 매트릭스)가 펼쳐집니다. 기록 규칙: 지시·개선요청·질타·지적·위반·지시거부·유휴·장애가 생기면 해당 모델이 즉시 원천(HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv·모델별 파일)에 한 줄 추가하고, 게시본에 그대로 반영하며, Fable이 「체크」 때 확인합니다. 자동 실행 장치는 쓰지 않습니다(금지 4조항). 예외: 칭찬 크레딧 감지 장치는 Sonnet 5.5 한정으로 대표님이 승인했습니다(20:21).</p>'
  +'<h3>이력 구분 정의 (대표님 20:34·20:35)</h3><div class="tw"><table class="sc13-t sc13-st"><thead><tr><th>구분</th><th>뜻</th><th>예</th></tr></thead><tbody>'
- +[['지시','대표님이 모델에게 하는 「이렇게 하세요·그렇게 하세요」','SC-14 칭찬 표를 제일 하단에 둬라'],['개선요청','「너 왜 이렇게 안 했나」 하고 되묻는 말','왜 비었고 왜 반영되지 않았나'],['질타','시킨 것·한 것과 비교해 「왜 이렇게 했나」 하는 말(더 나은 방식을 두고 다르게 한 경우 포함)','이렇게 시켰는데 왜 이렇게 안 했나'],['지적','시킨 대로 안 했거나 물었는데 답이 없는 것을 짚는 말','「이해했어?」 했는데 왜 대답을 안 하나'],['위반·지시거부','소통·작업 규칙에 반한 행동에서 나오는 말','규칙을 읽지 않고 진행, 지시를 거부']].map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td class="sc13-sm">'+r[1]+'</td><td class="sc13-sm">'+r[2]+'</td></tr>'}).join('')+'</tbody></table></div><p class="note">작업 지시 수는 「지시」와 「개선요청」 건수를 합쳐 셉니다. 19:08 이후 Sonnet에게 한 SC-14·자동화 통합 통제 작업 말씀은 「지시」로 기록합니다.</p>'+hvIntensity13()+hvReclass13();
+ +[['지시','대표님이 모델에게 하는 「이렇게 하세요·그렇게 하세요」','SC-15 칭찬 표를 제일 하단에 둬라'],['개선요청','「너 왜 이렇게 안 했나」 하고 되묻는 말','왜 비었고 왜 반영되지 않았나'],['질타','시킨 것·한 것과 비교해 「왜 이렇게 했나」 하는 말(더 나은 방식을 두고 다르게 한 경우 포함)','이렇게 시켰는데 왜 이렇게 안 했나'],['지적','시킨 대로 안 했거나 물었는데 답이 없는 것을 짚는 말','「이해했어?」 했는데 왜 대답을 안 하나'],['위반·지시거부','소통·작업 규칙에 반한 행동에서 나오는 말','규칙을 읽지 않고 진행, 지시를 거부']].map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td class="sc13-sm">'+r[1]+'</td><td class="sc13-sm">'+r[2]+'</td></tr>'}).join('')+'</tbody></table></div><p class="note">작업 지시 수는 「지시」와 「개선요청」 건수를 합쳐 셉니다. 19:08 이후 Sonnet에게 한 SC-15·자동화 통합 통제 작업 말씀은 「지시」로 기록합니다.</p>'+hvIntensity13()+hvReclass13();
  g+=hvBan();
  g+=hvPraise13();
  b.innerHTML=g;
@@ -127,7 +127,7 @@ function hvX13(){var S=hvTR13.s;if(!S)return '<h3>지시 추적 교차 검사</h
  return g}
 
 /* 대표님 11/05 03:23: 웹사이트는 모든 소스(원천 데이터·문서·이력)를 기준으로 표출·보여지는 곳이다 — 원천과 다르게 보이면 안 된다. */
-/* ★ 원복 금지: 이 그래프의 모양·배치는 대표님 확정 사양(cowork/SC-14_추이그래프_확정사양.md, 11/05 03:17)대로다. 대표님 새 지시 없이 바꾸지 말 것. */
+/* ★ 원복 금지: 이 그래프의 모양·배치는 대표님 확정 사양(cowork/SC-15_추이그래프_확정사양.md, 11/05 03:17)대로다. 대표님 새 지시 없이 바꾸지 말 것. */
 /* 구분별 변동 추이 그래프(대표님 11/05 02:16·02:30): 현재 시점을 가운데 두고 좌(이전)·우(다음)로 이동, 단위(30초·분·시간·일·월·년) 토글,
    30초마다 현재 시점이 이동하며 자동으로 흐름. 게시본 이력을 읽어 그리기만 한다(외부 라이브러리 없음). */
 function hvIntensity13(){var R=[['거부','일방·자의 판단/멈춤/지연 유발/회피/이탈, 작업불가 어필, 책임회피·전가·선택 강요, 돌이킬 수 없는 사용량 낭비(8분 이상), 지적강도 9 이상(비속어·욕설·1분 내 3회 반복), 답변 반복 4회 이상, 위반 포함·누적'],['위반','작업 한계성 발언, 선택 종용, 지시에 반하는 방식, 잘못 은폐, 불필요한 응대, 사용량 낭비(4분 이상), 지적강도 7 이상, 답변 반복 2회 이상, 지적 포함·누적'],['지적','협조·도움 요청, 소통·작업 규칙 아티팩트/메모리 미확인·미준수, 지시에 반하는 실행, 부정확한 실행, 지적강도 5 이상, 질타 포함·누적'],['지적(자가 발견)','모델 스스로 비정합·규칙 위반·지시 불부합을 발견'],['질타','남은 일/못한 일, 업무 지연, 턴 대기, 반복된 미숙, 지적강도 3 이상, 개선요청 포함·누적'],['개선요청','업무 불합리성 언급, 전 모델 지시·전파, 규칙 업데이트 지시, 준비/환경 점검, 모든 지시 포함'],['유휴','30초 이상 응답 없이 대기·미실행'],['장애','인스턴스 후 작업준비 결여, 작업수행 불능']];return '<div class="tw"><h3>강도 기준 (대표님 11/07 11:06 확정, 이력 구분은 이 기준으로 재산정)</h3><table class="sc13-t"><thead><tr><th>구분</th><th>기준</th></tr></thead><tbody>'+R.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td><td class="sc13-sm">'+hvEsc(r[1])+'</td></tr>'}).join('')+'</tbody></table><p class="note">재산정 근거 문구와 변경 내역: cowork/ctl/history_reclass_log.tsv · 재산정 전 작업본: cowork/ctl/model_control_history_작업본_261107_1106강도재산정전.tsv</p></div>'}
@@ -323,7 +323,7 @@ function hvPost13(d){
 
 /* 19:34 대표님 지시: 누적 지표·지수, 개선 대책(방식·적용 위치·통제 주체·기대 효과), 자동화 통합 통제 시스템 연동 방향 */
 var HV_CM13=[
- ['재발 가산점','SC-14 점수 · 99 통계','Fable 판정 → 대표님 확정','지적받은 형태를 24시간 안에 되풀이하면 그 기록을 한 번 더 가산','재발률·재발 가산점 감소'],
+ ['재발 가산점','SC-15 점수 · 99 통계','Fable 판정 → 대표님 확정','지적받은 형태를 24시간 안에 되풀이하면 그 기록을 한 번 더 가산','재발률·재발 가산점 감소'],
  ['지적 뒤 재독 증빙','모델 시작 지시문 최상단 · 소통 작업 규칙 아티팩트 · 메모리','해당 모델 수행 · Fable 검수','지적 뒤 첫 작업 전에 해당 규칙을 다시 읽고 어느 항목인지 적어 보고','「읽지 않고 진행」 문구군 감소'],
  ['모델별 판정 전달문','시작_공통 · 모델체크','Fable','매 체크 때 모델별 판정·재발 사슬 상위 건을 지시문에 첨부','같은 형태 재발 감소'],
  ['개선 없음 자동 검수 등록','Fable_검수대기열','Fable','판정이 「개선 없음」이면 검수대기열에 항목 생성, 24시간 안 처리 확인','처리 지연 0'],
@@ -331,7 +331,7 @@ var HV_CM13=[
  ['추적 매트릭스 연동','지시 추적 매트릭스(CWX)','Fable','지적 건의 교차 판정에 재발 여부(24시간 내 같은 형태) 추가','지적↔재발 연결 100%'],
  ['형상·변경 이력','형상관리(CFG) · 변경 관리 이력(CHG)','Fable 기록 · 대표님 승인','판정 기준·가중치·전달문 변경은 변경 이력에 기록','기준 변경 근거 보존'],
  ['단계별 조치 사다리','Fable 총책임 통제 체계(91_Fable)','Fable 시행 · 배정 변경은 대표님 승인','경고 → 재독 증빙 요구 → 작업 범위 축소 제안 → 배정 중지 제안','같은 형태 재발 중단'],
- ['자동화 통합 통제 시스템 연동','이력 갱신 시 문구 스캔·판정 재생성 → SC-14 게시 → 알림','자동(감시 스크립트) · Fable 관제','이력이 바뀌면 phrase_scan·판정이 자동 갱신되고 화면이 10초마다 다시 읽음','반영 지연 10초 이내']];
+ ['자동화 통합 통제 시스템 연동','이력 갱신 시 문구 스캔·판정 재생성 → SC-15 게시 → 알림','자동(감시 스크립트) · Fable 관제','이력이 바뀌면 phrase_scan·판정이 자동 갱신되고 화면이 10초마다 다시 읽음','반영 지연 10초 이내']];
 function hvCum13(d,C){
  var R=C.R,P=hvPS13,g='',W={};if(P)P.lexicon.forEach(function(l){W[l.cat]=l.w});
  var MR=HV_MS13.map(function(m){var s=R[m],ev=d.events.filter(function(e){return e.model===m}),f=0,h=0,b=0,pw=0;ev.forEach(function(e){if(HV_W13[e.type]!=null){f++;h+=HV_W13[e.type]}if(e.type==='위반'||e.type==='지시거부')b++});
@@ -407,7 +407,7 @@ function hvOps13(d,C){
  +'<p class="note">집약 데이터는 <b>cowork/ctl/model_control_index.json</b>(자동화 통합 통제 시스템이 읽는 모델 통제 지수 게시본)과 <b>phrase_scan.json</b>(문구 스캔)으로 제공됩니다. 이력이 바뀌면 같은 스크립트가 두 게시본을 다시 만듭니다.</p>';
  return g+hvGuard13(d,C)+hvLoop13(d,C)+hvAud13(d,C)}
 
-/* 19:42 대표님 지시: SC-14 전수 검사 — 항목별 화면·데이터 원천·처리·표출·접근·개입·종단/횡단 연결과 실시간 검사 결과 */
+/* 19:42 대표님 지시: SC-15 전수 검사 — 항목별 화면·데이터 원천·처리·표출·접근·개입·종단/횡단 연결과 실시간 검사 결과 */
 function hvAud13(d,C){
  var ev=d.events,N=ev.length,S=hvTR13.s,now=Date.now(),T=d.types||[],g='';
  var sumCards=0,sumModels=0,tm=0;d.models.forEach(function(m){T.forEach(function(t){sumModels+=(+m.counts[t]||0)})});
@@ -427,7 +427,7 @@ function hvAud13(d,C){
   ['모델별 현황','model_control_status.tsv(역할·배포 작업·완료·남은 일, Fable이 작성)+이력 구분별 건수','Fable이 상태표를 갱신, 건수는 이력에서 자동','모델 행, 쪽 번호','Fable이 갱신(상태표), 모델 필터와 연동','모델 → 작업 배분 → 이력','모델별 전수 분석·빈도 표와 같은 건수',ok(sumModels===N,'표 합 '+sumModels+'건 / 이력 '+N+'건')+' · 상태표 갱신 '+hvEsc(upd||'-')+(st>=1?' <span class="tag warn">'+st+'일 경과</span>':'')],
   ['이력 표','이력 TSV 전 칸(번호·날짜·시각·모델·구분·요지·원인·조치·상태·Fable 확인)','모델·Fable','모델·구분·Fable 단계 필터, 행 누르면 연결 지시·조치 상세','Fable 확인 칸은 Fable만 변경','이력 → 연결 지시(trace_v)','모델별 현황·상자 필터',ok(nonFb===0,'Fable 확인 칸 표준 외 표기 '+nonFb+'건(날짜·메모가 붙은 값, 단계로 묶어 표시하고 원문은 말풍선)')]];
  var P=hvPage(R,'13q12');
- g+='<h3>SC-14 전수 검사 — 접근·개입·종단/횡단 연결 (실시간 검사)</h3><p class="note">대표님 지시(19:42): SC-14 각 항목의 화면·데이터 칸·처리 절차·표출 방식을 전수 검사하고, 어떻게 접근하고 누가 어떻게 개입하는지, 종단(지시→이력→조치→결과)과 횡단(이력↔보고서↔대장·모델별)으로 교차 연결합니다. 검사 결과 칸은 화면이 열릴 때마다 게시 데이터로 다시 계산합니다.</p>'
+ g+='<h3>SC-15 전수 검사 — 접근·개입·종단/횡단 연결 (실시간 검사)</h3><p class="note">대표님 지시(19:42): SC-15 각 항목의 화면·데이터 칸·처리 절차·표출 방식을 전수 검사하고, 어떻게 접근하고 누가 어떻게 개입하는지, 종단(지시→이력→조치→결과)과 횡단(이력↔보고서↔대장·모델별)으로 교차 연결합니다. 검사 결과 칸은 화면이 열릴 때마다 게시 데이터로 다시 계산합니다.</p>'
  +'<div class="tw"><table class="sc13-t sc13-st sc13-au"><thead><tr><th>항목</th><th>데이터 원천</th><th>처리(누가·언제)</th><th>접근(어떻게 보나)</th><th>개입(누가·어떻게)</th><th>종단 연결</th><th>횡단 연결</th><th>검사 결과(실시간)</th></tr></thead><tbody>'
  +P.rows.map(function(r){return '<tr><td><b>'+hvEsc(r[0])+'</b></td>'+r.slice(1,7).map(function(x){return '<td class="sc13-sm">'+hvEsc(x)+'</td>'}).join('')+'<td class="sc13-sm">'+r[7]+'</td></tr>'}).join('')
  +'</tbody></table></div>'+hvPager(P,'개 항목','hvSC13Paint')
@@ -438,7 +438,7 @@ function hvAud13(d,C){
 var hvMX13=null,HV_LOOP13=[
  ['① 수집','이력 기록 즉시 + 10초 화면 재독','model_control_history.tsv(11칸)','기록 1건=1행, 번호 연속','Fable 총책임, 모델 각자 기록'],
  ['② 스캔·집약','이력 변경 때(감시 장치) · 매시 정각 보강','scan.py→phrase_scan.json, index_build.py→model_control_index.json','문구 지표·재발·3축·정합성·검토 항목','Fable'],
- ['③ 표출','10초(SC-14) · 30초(SC-01)','두 게시본을 화면이 읽음','SC-14 전체, SC-01 요약, 이력 건수 불일치 경고','시스템'],
+ ['③ 표출','10초(SC-15) · 30초(SC-01)','두 게시본을 화면이 읽음','SC-15 전체, SC-01 요약, 이력 건수 불일치 경고','시스템'],
  ['④ 정합 검사','매 집약 시 자동 + 하루 1회 전수','이력↔추적↔생명주기↔상태표↔화면 합계','정합성 표(공백 건수, 원문 표기 혼재)','Fable → 공백은 Opus·Sonnet이 사실 기준으로 채움'],
  ['⑤ 판정','집약 때마다','가중치·임계(산정안) · 번레이트','개선 보임/미흡/없음, 경보 단계','Fable 판정, 대표님 확정'],
  ['⑥ 조치·형상','판정 후 즉시','작업일지(HJ)·추적 매트릭스(CWX)·변경 이력(CHG)·문서 버전','각 대장에 행 추가, 근거 문서 연결','Fable'],
@@ -489,7 +489,7 @@ function hvGuard13(d,C){
  +'<p class="note"><b>자각 순환</b>: '+Aw.protocol.map(hvEsc).join(' → ')+'</p>';
  return g}
 
-/* 20:06·20:10·20:10 대표님 지시: 칭찬은 이력에 표기하지 않는다. 표 제목은 「칭찬 크레딧」, 그래프 없이 표로만, SC-14 제일 하단. 집계·누적(전체 누적 → 모델별)과 집계 단위(시간별·일별…)를 이력의 기간별 집계 표처럼 둔다(상쇄·가감·중첩 없음) */
+/* 20:06·20:10·20:10 대표님 지시: 칭찬은 이력에 표기하지 않는다. 표 제목은 「칭찬 크레딧」, 그래프 없이 표로만, SC-15 제일 하단. 집계·누적(전체 누적 → 모델별)과 집계 단위(시간별·일별…)를 이력의 기간별 집계 표처럼 둔다(상쇄·가감·중첩 없음) */
 var HV_PL13={u:'전체'},hvLD13=null,hvPW13=null,hvPR13=null;
 function hvPlSet(u){HV_PL13.u=u;hvPgReset('13');hvSC13Paint(false)}
 function hvPlKey(r,u){var d=r[1],h=('0'+r[2]).slice(-2);

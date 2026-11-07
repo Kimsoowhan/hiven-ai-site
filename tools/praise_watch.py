@@ -200,7 +200,7 @@ def handle(text, tp, ts, src, sid, uid, model=None):
         no = append_ledger(ts, mdl, text, why, hit, src)
         if no:
             st['hits'] = st.get('hits', 0) + 1
-            out = '칭찬 크레딧 +1 → 원장 %d번, %s (%s). SC-14 칭찬 크레딧에 바로 반영됩니다.' % (no, mdl, '·'.join(hit))
+            out = '칭찬 크레딧 +1 → 원장 %d번, %s (%s). SC-15 칭찬 크레딧에 바로 반영됩니다.' % (no, mdl, '·'.join(hit))
             write_status(st, '%s %s 원장 %d번' % (ts.strftime('%m/%d %H:%M'), mdl, no))
             touched = [LEDGER, STATUS]
     elif kind == 'meta':

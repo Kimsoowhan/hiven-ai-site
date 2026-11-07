@@ -54,7 +54,7 @@ for m in MS:
 T=sum(v['composite'] for v in out['models'].values())
 for m,v in out['models'].items():
     v['index']={'control':round(100*v['composite']/T,1) if T else 0,'recurrence':round(100*v['recurrence']['rate'],1) if v['recurrence']['rate'] is not None else None,'no_improvement':round(100*v['recurrence_extra']/v['history_score'],1) if v['history_score'] else 0}
-out['baseline']={'row':436,'time':'2026-11-06 19:31','note':'기준선 이후 증감은 SC-14에서 실시간 계산'}
+out['baseline']={'row':436,'time':'2026-11-06 19:31','note':'기준선 이후 증감은 SC-15에서 실시간 계산'}
 json.dump(out,open(HS+'model_control_index.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
 for m,v in out['models'].items():print(m,v['faults'],v['composite'],v['recurrence']['mature'],v['recurrence']['recurred_24h'],v['recurrence']['same_form_24h'],v['recurrence_extra'],v['index'])
 
@@ -94,7 +94,7 @@ out['review']=[
  {'item':'지시거부 구분의 확정 추이 그래프 반영','system_finding':'확정 추이 그래프(구분 7종)에 지시거부 계열이 없음(표·집계에는 추가)','back_to_framework':'대표님 결정: 확정 사양에 지시거부 계열 추가 여부','owner':'대표님'},
  {'item':'모델별 토큰 실측 연결','system_finding':'이력에는 토큰 값이 없어 사용량 영향은 대리 지표뿐','back_to_framework':'OpenTelemetry 계측·사용량 기록을 이력과 결합하는 설계','owner':'Fable'},
  {'item':'이력 변경 시 자동 재생성','system_finding':'scan.py·index_build.py를 수동 실행 중','back_to_framework':'이력 변경 감시 장치로 자동 실행','owner':'Fable'}]
-out['upload']={'framework':'자동화 통합 통제 체계 → 모델 통제(MCS) 모듈','system':'자동화 통합 통제 시스템 SC-01(요약)·SC-14(전체)','direction':'체계가 만든 집약본을 시스템이 읽어 표출하고, 시스템의 정합성·개선 검토 결과(review)를 체계로 되돌려 갱신한다','feeds':['model_control_history.tsv','phrase_scan.json','model_control_index.json','trace_v.tsv','trace_h.tsv','trace_sum.json','action_lifecycle.tsv','model_control_status.tsv']}
+out['upload']={'framework':'자동화 통합 통제 체계 → 모델 통제(MCS) 모듈','system':'자동화 통합 통제 시스템 SC-01(요약)·SC-15(전체)','direction':'체계가 만든 집약본을 시스템이 읽어 표출하고, 시스템의 정합성·개선 검토 결과(review)를 체계로 되돌려 갱신한다','feeds':['model_control_history.tsv','phrase_scan.json','model_control_index.json','trace_v.tsv','trace_h.tsv','trace_sum.json','action_lifecycle.tsv','model_control_status.tsv']}
 
 # ================= 19:53~20:00: 공백 사유 강제 기입 · 차단 경보 · 칭찬 크레딧(독립 모티베이션) · 모델 자각 카드 =================
 def kst_now(): return datetime.datetime.now(datetime.timezone.utc).astimezone(datetime.timezone(datetime.timedelta(hours=9))).replace(tzinfo=None)
@@ -248,7 +248,7 @@ for m in ['Opus','Sonnet','Fable','Haiku']:
     rr=o['recurrence']['rate']
     sig='긴급' if (rr is not None and rr>=0.7 and f24>=10) else '경고' if (rr is not None and rr>=0.7) or f24>=5 else '주의' if f24>=1 else '안정'
     aw[m]={'signal':sig,'credit':cred[m]['credit'],'f24':f24,'last_fault':iso(last) if last else None,'top_forms':[{'form':a,'count':b,'do':FORMACT[a]} for a,b in top],'next_action':(FORMACT[top[0][0]] if top else '지금까지 기록된 형태 없음 — 규칙 대조 후 수행'),'recurrence_rate':rr}
-out['awareness']={'principle':'질타·지적(채찍, 이력)과 칭찬 크레딧(당근, 별도 원장)을 한 화면에서 볼 수 있게 하되 기록과 점수는 섞지 않는다. 모델이 무엇이 칭찬받고 무엇이 질타받는지 스스로 보고, 책임 있고 명확한 책임 완수 쪽으로 행동을 고르게 한다.','praise_actions':PRAISEACT,'self_check_before':SELF_PRE,'self_check_after':SELF_POST,'models':aw,'protocol':['작업 시작 전: 자각 카드의 「지금 할 행동」과 작업 전 4문을 읽는다(전달문 최상단 각인과 함께).','작업 중: 막히면 시도 기록을 남긴다(회피 금지).','작업 후: 자가 점검 4문을 결과표 「검증 사항」 칸에 쓴다.','대표님 질타·지적·위반·지시거부는 즉시 이력에 기록하고, 칭찬은 이력이 아니라 칭찬 크레딧 원장(별도 표)에만 기록한다. 칭찬 크레딧 건수는 집약 때 별도로 합산한다.','집약본의 모델별 상태 신호(안정·주의·경고·긴급)와 지금 할 행동이 SC-14·SC-01에 표출된다.']}
+out['awareness']={'principle':'질타·지적(채찍, 이력)과 칭찬 크레딧(당근, 별도 원장)을 한 화면에서 볼 수 있게 하되 기록과 점수는 섞지 않는다. 모델이 무엇이 칭찬받고 무엇이 질타받는지 스스로 보고, 책임 있고 명확한 책임 완수 쪽으로 행동을 고르게 한다.','praise_actions':PRAISEACT,'self_check_before':SELF_PRE,'self_check_after':SELF_POST,'models':aw,'protocol':['작업 시작 전: 자각 카드의 「지금 할 행동」과 작업 전 4문을 읽는다(전달문 최상단 각인과 함께).','작업 중: 막히면 시도 기록을 남긴다(회피 금지).','작업 후: 자가 점검 4문을 결과표 「검증 사항」 칸에 쓴다.','대표님 질타·지적·위반·지시거부는 즉시 이력에 기록하고, 칭찬은 이력이 아니라 칭찬 크레딧 원장(별도 표)에만 기록한다. 칭찬 크레딧 건수는 집약 때 별도로 합산한다.','집약본의 모델별 상태 신호(안정·주의·경고·긴급)와 지금 할 행동이 SC-15·SC-01에 표출된다.']}
 
 # ---- 칭찬 크레딧 영향 비교 (대표님 11/06 20:26): 통제 이탈의 원인·요건이 아니다. 이력·집계·경보·가중치에 연동하지 않고 효과·효능 분석에만 쓴다.
 H24=datetime.timedelta(hours=24)
@@ -283,7 +283,7 @@ out['credit']['watch']={'name':'칭찬 자동 감지 장치(praise_watch)','appr
   ['판별','칭찬 사전(한글·영어·음차·줄임말·좋았어·훌륭했어 등) 일치 + 인사(Good morning 등)·OK류 답변 제외. 사전에 없는 표현도 문맥상 칭찬이면 원장에 추가'],
   ['모델 귀속','대화 원문의 직전 답변 모델. 확인되지 않으면 미상'],
   ['기록','원장(praise_credit_ledger.tsv)에 한 줄 추가 → 상태 파일 갱신 → 원장·상태만 커밋·푸시'],
-  ['표출','SC-14이 원장·상태를 10초마다 직접 읽어 집약 대기 없이 카운트(배포 지연 약 1~2분)'],
+  ['표출','SC-15이 원장·상태를 10초마다 직접 읽어 집약 대기 없이 카운트(배포 지연 약 1~2분)'],
   ['중복·오검출 방지','같은 메시지는 한 번만, 칭찬 문구를 정의·인용하는 지시는 세지 않고 문맥 검토 대기 큐로'],
   ['구동 방식','15초 감시(praise_watch.py --watch) — 이 작업 공간의 창만 대상, 작업 공간이 살아 있는 동안만 구동. 다른 창 칭찬 감지·훅은 하지 않음(대표님 21:30 결정)'],
   ['중지','/tmp/claude-0/praise_watch.off 파일 생성 시 즉시 멈춤(삭제하면 재개). 항상 종료 코드 0, 입력을 막지 않음'],

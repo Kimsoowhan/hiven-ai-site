@@ -1,4 +1,4 @@
-# SC-08 6단 막대(T·TT·W·WW·M·MM) 값 산출(Opus 워크 0006, 계층규칙 2.0 4장) — 모델이 직접 실행(자동 실행 장치 아님)
+# SC-09 6단 막대(T·TT·W·WW·M·MM) 값 산출(Opus 워크 0006, 계층규칙 2.0 4장) — 모델이 직접 실행(자동 실행 장치 아님)
 # T = 전 W# 태스크 완료 비율 · TT = 현재 워크 TT 행 완료 비율(91_Fable\TT) · W = W# 평균(progress.week) · WW·M·MM = progress의 Fable 집계값
 import json,re,glob
 G='/home/claude/hiven-ai-site/cowork/progress.json';U='/mnt/user-data/uploads/HiBiz/91_Fable/TT/'
