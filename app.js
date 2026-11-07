@@ -15,7 +15,7 @@ function parse(t){
 }
 function render(id){
  S.sort(function(a,b){return a[0]<b[0]?-1:a[0]>b[0]?1:0});/* 14:42 대표님 지시: 메뉴는 번호순, SC-02 이상징후 및 보안체계가 종합 현황 바로 아래 */
- $('nav').innerHTML=S.map(function(s){return '<button type="button" class="'+(s[0]===id?'on':'')+'" onclick="hvgo(\''+s[0]+'\')"><b>'+s[0]+'</b>'+s[1]+'</button>'}).join('');
+ $('nav').innerHTML=S.map(function(s){return '<button type="button" class="'+(s[0]===id?'on':'')+'" onclick="hvgo(\''+s[0]+'\')"><b>'+s[0]+'</b><span class="nl">'+({'SC-02':'이상징후 및 보안<br>체계 시스템','SC-03':'침입 예측·예방·대응·<br>조치 시스템'}[s[0]]||s[1])+'</span></button>'}).join('');
  $('main').innerHTML=(V[id]||V['SC-01'])();
  $('upd').textContent=kst();
  $('ftxt').textContent='데이터 신선도 · 시험판';
