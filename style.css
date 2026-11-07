@@ -174,7 +174,7 @@ tr.sc12-od td:last-child{border-right:1.5px solid var(--bad)}
 .tag.v4{background:#fdf5d3;color:#8a6a00}
 .tag.v5{background:#e3edfb;color:#1e4fa3}
 .tag.v6{background:#eceff3;color:#4b5563}
-.tag.v7{background:#d32f2f;color:#fff;font-weight:800}
+.tag.v7{background:#424242;color:#fff;border:2px solid #000;font-weight:800}
 /* 11/04 17:27 SC-13 요약 상자 버튼 · 17:28 교차 검사 결과값 */
 .sc13-cards .sc13-cb{display:flex;flex-direction:column;align-items:flex-start;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%;min-width:0;transition:box-shadow .15s,border-color .15s}
 .sc13-cb .k,.sc13-cb .s{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
@@ -285,4 +285,4 @@ button.card.sc13-cb.hot.on .v{color:#fff}
 .sc13-gr{overflow-x:auto}
 .sc13-au td{vertical-align:top}.sc13-t.sc13-au{min-width:1180px}
 
-.tag.v0{background:#8a8f98;color:#fff;border:2px solid #424242;font-weight:800}
+.tag.v0{background:#7b1fa2;color:#fff;border:2px solid #ff00ff;font-weight:800}
