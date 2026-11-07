@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-07 14:53",
+ "generated": "2026-11-07 15:07",
  "history_rows": 570,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
@@ -666,7 +666,7 @@
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
     "reason": "이력 570건 중 570건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
-    "since": "2026-11-07T14:53:00+09:00",
+    "since": "2026-11-07T15:07:00+09:00",
     "evidence": "공백 0건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
@@ -740,9 +740,9 @@
     "class": "우회 징후",
     "stage": "산출 코드",
     "title": "조용한 건너뜀 코드",
-    "reason": "산출 스크립트: 보고서 원천 누락은 11/06 20:0x에 기록·경고·종료 코드 방식으로 고쳤다(실제 산출 실행으로 검증 전). 아직 기록 없이 기본값으로 넘어가는 처리: gen_lifecycle.py:40, gen_meta.py:55, index_build.py:138, praise_watch.py:96, praise_watch.py:109, praise_watch.py:117, praise_watch.py:183, praise_watch.py:231, praise_watch.py:243, praise_watch.py:250, praise_watch.py:268, praise_watch.py:275, praise_watch.py:297. 원천이 없어도 완료로 보일 수 있다.",
+    "reason": "산출 스크립트: 보고서 원천 누락은 11/06 20:0x에 기록·경고·종료 코드 방식으로 고쳤다(실제 산출 실행으로 검증 전). 아직 기록 없이 기본값으로 넘어가는 처리: gen_lifecycle.py:40, gen_meta.py:55, index_build.py:138, praise_watch.py:96, praise_watch.py:109, praise_watch.py:117, praise_watch.py:183, praise_watch.py:231, praise_watch.py:243, praise_watch.py:250, praise_watch.py:268, praise_watch.py:275, praise_watch.py:297, sec12_post.py:71. 원천이 없어도 완료로 보일 수 있다.",
     "since": "2026-11-04T17:45:00+09:00",
-    "evidence": "13곳",
+    "evidence": "14곳",
     "owner": "Opus",
     "release": "건너뛴 원천을 결과 파일(missing_sources)과 경보에 기록하고 종료 코드로 알림",
     "cwx": "CWX-1106-47",
@@ -795,7 +795,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-07T14:53:00+09:00",
+  "checked": "2026-11-07T15:07:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -1053,7 +1053,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 7719,
+    "elapsed_min": 7733,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1065,7 +1065,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 5563,
+    "elapsed_min": 5577,
     "pre60_score": 0,
     "post_score": 928,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1118,7 +1118,7 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 1140,
+    "elapsed_min": 1154,
     "pre60_score": 78,
     "post_score": 545,
     "judgment": "증가(악화)",
@@ -1130,7 +1130,7 @@
     "no": 4,
     "model": "Opus",
     "time": "2026-11-02T05:24:00+09:00",
-    "elapsed_min": 7769,
+    "elapsed_min": 7783,
     "pre60_score": 0,
     "post_score": 933,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1184,7 +1184,7 @@
     "no": 5,
     "model": "미상",
     "time": "2026-11-03T13:14:00+09:00",
-    "elapsed_min": 5859,
+    "elapsed_min": 5873,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1196,7 +1196,7 @@
     "no": 6,
     "model": "Sonnet",
     "time": "2026-11-06T21:38:00+09:00",
-    "elapsed_min": 1035,
+    "elapsed_min": 1049,
     "pre60_score": 102,
     "post_score": 335,
     "judgment": "증가(악화)",
@@ -1266,8 +1266,8 @@
      "self_found_24h": 0,
      "self_found_all": 16,
      "score_24h": 242,
-     "score_prev24h": 285,
-     "change_pct": -15.1,
+     "score_prev24h": 273,
+     "change_pct": -11.4,
      "recurrence_rate": 0.9782608695652174,
      "effort_signal": false,
      "group": "칭찬 받음",
@@ -1279,13 +1279,13 @@
      "instructions": 48,
      "self_found_24h": 2,
      "self_found_all": 15,
-     "score_24h": 695,
-     "score_prev24h": 47,
-     "change_pct": 1378.7,
+     "score_24h": 691,
+     "score_prev24h": 51,
+     "change_pct": 1254.9,
      "recurrence_rate": 0.9655172413793104,
      "effort_signal": true,
      "group": "칭찬 받음",
-     "score_per_instruction": 14.48
+     "score_per_instruction": 14.4
     },
     {
      "model": "Haiku",
@@ -1308,7 +1308,7 @@
       "Opus",
       "Sonnet"
      ],
-     "avg_score_24h": 468.5
+     "avg_score_24h": 466.5
     },
     "칭찬 못 받음 · 노력 신호 있음": {
      "models": [],
@@ -1420,7 +1420,7 @@
    "Sonnet": {
     "signal": "긴급",
     "credit": 2,
-    "f24": 124,
+    "f24": 122,
     "last_fault": "2026-11-07T14:21:00+09:00",
     "top_forms": [
      {
