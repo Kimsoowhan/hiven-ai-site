@@ -26,6 +26,12 @@ var hvSec=(function(){
   return '<h2>SC-15 침입 경보</h2><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+C[g]+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
    +'<h3>등급 기준과 즉시 대응</h3><table class="tb"><thead><tr><th>등급</th><th>조건</th><th>즉시 대응</th></tr></thead><tbody>'+df+'</tbody></table>'
    +'<h3>최근 경보(이 단말, 최신순)</h3>'+tb
+   +'<h3>벤치마킹 근거(11/07 조사)</h3><table class="tb"><thead><tr><th>사례</th><th>핵심</th><th>우리 반영</th></tr></thead><tbody>'
+   +'<tr><td>국가 사이버위기경보(국정원·KISA, 5단계)</td><td>정상·관심·주의·경계·심각의 단계별 경보와 대응</td><td>관찰~위기 5등급, 등급별 즉시 대응 표</td></tr>'
+   +'<tr><td>NIST SP 800-53 AC-7</td><td>연속 로그인 실패 횟수 제한과 초과 시 잠금</td><td>3회부터 잠금, 단계마다 길어짐</td></tr>'
+   +'<tr><td>OWASP 인증 실패 대응</td><td>실패를 모두 기록하고 점진적으로 지연·차단</td><td>1회부터 기록·경보, 누적 배수 잠금</td></tr>'
+   +'<tr><td>NIST SP 800-61 사고 대응 주기</td><td>탐지→분석→격리→복구→사후 기록</td><td>감지·경보·잠금·해제 기록·이력 보존</td></tr>'
+   +'</tbody></table>'
    +'<p class="note">전송 경로: ic.hiven.ai.kr 작업자 실시간 로그(모든 단말의 경보가 모임). 열쇠 확인은 화면 안내 수준이므로 접속 자체의 차단은 Cloudflare 접근 통제와 함께 쓴다.</p>'}
  return {fail:fail,log:log,grade:gr}
 })();
