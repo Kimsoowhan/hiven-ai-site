@@ -1,5 +1,5 @@
 function hvgo(id){cur=id;render(id);window.scrollTo({top:0})}
-function hvgoHist(){hvgo('SC-13');var n=0;var t=setInterval(function(){n++;var e=[].slice.call(document.querySelectorAll('#main p,#main h3')).filter(function(x){return /^막대 위/.test(x.textContent.trim())&&x.closest('#sc13')})[0];if(e){clearInterval(t);e.scrollIntoView({block:'start'})}else if(n>40){clearInterval(t)}},100)}
+function hvgoHist(){hvgo('SC-15');var n=0;var t=setInterval(function(){n++;var e=[].slice.call(document.querySelectorAll('#main p,#main h3')).filter(function(x){return /^막대 위/.test(x.textContent.trim())&&x.closest('#sc13')})[0];if(e){clearInterval(t);e.scrollIntoView({block:'start'})}else if(n>40){clearInterval(t)}},100)}
 function parse(t){
  t=String(t||'').trim();
  if(!t)return '입력하면 해석 결과가 여기에 표시됩니다.';
@@ -14,11 +14,12 @@ function parse(t){
  return '해석하지 못했습니다. 체계 문서가 확정되면 이 문장도 처리 범위에 들어옵니다.';
 }
 function render(id){
+ S.sort(function(a,b){return a[0]<b[0]?-1:a[0]>b[0]?1:0});/* 14:42 대표님 지시: 메뉴는 번호순, SC-02 이상징후 및 보안체계가 종합 현황 바로 아래 */
  $('nav').innerHTML=S.map(function(s){return '<button type="button" class="'+(s[0]===id?'on':'')+'" onclick="hvgo(\''+s[0]+'\')"><b>'+s[0]+'</b>'+s[1]+'</button>'}).join('');
  $('main').innerHTML=(V[id]||V['SC-01'])();
  $('upd').textContent=kst();
  $('ftxt').textContent='데이터 신선도 · 시험판';
- if(id==='SC-04'){$('cin').addEventListener('input',function(){$('cres').textContent=parse(this.value)});}
+ if(id==='SC-06'){$('cin').addEventListener('input',function(){$('cres').textContent=parse(this.value)});}
 }
 function show(on){
  $('intro').classList.toggle('hide',on);

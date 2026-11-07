@@ -13,12 +13,12 @@
 <text x="793.5" y="140" text-anchor="middle" font-size="12.5" font-weight="400" fill="#dfe6ff">기존 도면 표기: AICS 자동화 통합 통제 시스템 · 모든 사업·화면·기록을 통제하는 바탕</text>
 <line x1="793.5" y1="150" x2="793.5" y2="176" stroke="#0b1640" stroke-width="2.2" marker-end="url(#ah)"/>
 <rect x="263.5" y="176" width="1060" height="84" rx="10" fill="#c62828" stroke="#7f0000" stroke-width="1.5"/>
-<text x="793.5" y="202" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">② 최우선 · HIVEN 통합사업 이상징후 및 보안체계 시스템 (SC-16)</text>
+<text x="793.5" y="202" text-anchor="middle" font-size="20" font-weight="700" fill="#fff">② 최우선 · HIVEN 통합사업 이상징후 및 보안체계 시스템 (SC-02)</text>
 <text x="793.5" y="224" text-anchor="middle" font-size="13" font-weight="400" fill="#ffe0e0">체제: HIVEN 통합사업 이상징후 및 보안체제 · 단계 1~10 · 경보 12단계 · 3대 매뉴얼(시스템 · 서비스 · 고객지원) · 신호 규격</text>
 <text x="793.5" y="246" text-anchor="middle" font-size="13" font-weight="400" fill="#ffe0e0">다른 모든 운영보다 먼저 관리·운영(대응·조치)하는 체계 시스템</text>
 <line x1="793.5" y1="260" x2="793.5" y2="296" stroke="#7f0000" stroke-width="2.2" marker-end="url(#ah)"/>
 <rect x="30" y="296" width="1527" height="448" rx="16" fill="#f5f8ff" stroke="#3b4a8c" stroke-width="1.5" stroke-dasharray="8 5"/>
-<text x="48" y="322" text-anchor="start" font-size="16" font-weight="700" fill="#0b1640">③ 하위 종속·실행 · 침입 예측/예방/대응/조치 시스템 (SC-15) — 모든 WEB Site · AI Agent · .app 등 실행 Tools를 전방위로 돌리는 순환</text>
+<text x="48" y="322" text-anchor="start" font-size="16" font-weight="700" fill="#0b1640">③ 하위 종속·실행 · 침입 예측/예방/대응/조치 시스템 (SC-03) — 모든 WEB Site · AI Agent · .app 등 실행 Tools를 전방위로 돌리는 순환</text>
 <text x="185" y="356" text-anchor="middle" font-size="13" font-weight="700" fill="#0b1640">관측·제어 대상 (주체: HIVEN)</text>
 <rect x="48" y="372" width="274" height="84" rx="10" fill="#fff" stroke="#3b4a8c" stroke-width="1.4"/>
 <text x="185" y="400" text-anchor="middle" font-size="19" font-weight="700" fill="#0b1640">WEB Site</text>
@@ -185,7 +185,7 @@
 <line x1="660" y1="995" x2="700" y2="995" stroke="#c62828" stroke-width="1.6" marker-end="url(#ar)"/><text x="708" y="1000">외부 대상에서 들어오는 신호</text>
 <line x1="920" y1="995" x2="960" y2="995" stroke="#c62828" stroke-width="1.6" stroke-dasharray="6 5"/><text x="968" y="1000">② 보안체계 → 사업군 편입 연결</text>
 <text x="40" y="1030">외부 대상 예시(PG·은행 등)는 연동 목록이 확정되면 갱신합니다. AI Agent·.app의 실제 신호 송신은 구현 보강 예정이며 신호 규격은 확정되어 있습니다.</text>
-<text x="40" y="1054">대응·조치 상세는 SC-16 화면(ic.hiven.ai.kr)의 표와 HIVEN_비상대응체계_매뉴얼_261107.md가 같은 원천(views7.js hvEM)에서 나옵니다.</text>
+<text x="40" y="1054">대응·조치 상세는 SC-02 화면(ic.hiven.ai.kr)의 표와 HIVEN_비상대응체계_매뉴얼_261107.md가 같은 원천(views7.js hvEM)에서 나옵니다.</text>
 <text x="40" y="1078">3단 순서: ① 최상위 → ② 최우선 → ③ 하위 종속·실행. 관리·운영은 항상 이 순서로 우선 적용합니다(대표님 11/07 13:46).</text>
-<text x="40" y="1102">시험 기간 운영(대표님 11/07 14:06): 대응 강도만 완화(등록부 T-01~T-08), 감지·기록·전송·판정은 불변. 역순환 인지: ① 하위 → ② 최우선 → ③ 최상위 → 대표님(폰), 역정합 검사는 SC-16 화면에서 실시간 대조.</text>
+<text x="40" y="1102">시험 기간 운영(대표님 11/07 14:06): 대응 강도만 완화(등록부 T-01~T-08), 감지·기록·전송·판정은 불변. 역순환 인지: ① 하위 → ② 최우선 → ③ 최상위 → 대표님(폰), 역정합 검사는 SC-02 화면에서 실시간 대조.</text>
 </g></svg>

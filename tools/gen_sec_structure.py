@@ -1,5 +1,5 @@
 # 이상징후 및 보안체계 구조도 1.0 생성기 (대표님 11/07 13:58 지시) — 사업부 관계 구조도 2.0과 별개의 도면
-# 출력: cowork/ctl/sec_structure.svg (사이트 SC-16·PC 문서가 같은 파일을 쓴다) / 관계 구조도 2.1 작업본(입력 2.0 svg 경로를 인자로)
+# 출력: cowork/ctl/sec_structure.svg (사이트 SC-02·PC 문서가 같은 파일을 쓴다) / 관계 구조도 2.1 작업본(입력 2.0 svg 경로를 인자로)
 import sys,re,html
 def E(s):return html.escape(s,quote=False)
 W,H=1587,1123
@@ -24,13 +24,13 @@ R(363.5,92,860,58,'#0b1640'); T(793.5,118,'① 최상위 · HIVEN 자동화 통�
 T(793.5,140,'기존 도면 표기: AICS 자동화 통합 통제 시스템 · 모든 사업·화면·기록을 통제하는 바탕',12.5,'#dfe6ff')
 L(793.5,150,793.5,176,'#0b1640',2.2)
 # 2단 최우선
-R(263.5,176,1060,84,'#c62828','#7f0000',1.5); T(793.5,202,'② 최우선 · HIVEN 통합사업 이상징후 및 보안체계 시스템 (SC-16)',20,'#fff',700)
+R(263.5,176,1060,84,'#c62828','#7f0000',1.5); T(793.5,202,'② 최우선 · HIVEN 통합사업 이상징후 및 보안체계 시스템 (SC-02)',20,'#fff',700)
 T(793.5,224,'체제: HIVEN 통합사업 이상징후 및 보안체제 · 단계 1~10 · 경보 12단계 · 3대 매뉴얼(시스템 · 서비스 · 고객지원) · 신호 규격',13,'#ffe0e0')
 T(793.5,246,'다른 모든 운영보다 먼저 관리·운영(대응·조치)하는 체계 시스템',13,'#ffe0e0')
 L(793.5,260,793.5,296,'#7f0000',2.2)
 # 3단 하위 컨테이너
 R(30,296,1527,448,'#f5f8ff','#3b4a8c',1.5,16,'8 5')
-T(48,322,'③ 하위 종속·실행 · 침입 예측/예방/대응/조치 시스템 (SC-15) — 모든 WEB Site · AI Agent · .app 등 실행 Tools를 전방위로 돌리는 순환',16,'#0b1640',700,'start')
+T(48,322,'③ 하위 종속·실행 · 침입 예측/예방/대응/조치 시스템 (SC-03) — 모든 WEB Site · AI Agent · .app 등 실행 Tools를 전방위로 돌리는 순환',16,'#0b1640',700,'start')
 # 대상(왼쪽)
 T(185,356,'관측·제어 대상 (주체: HIVEN)',13,'#0b1640',700)
 tg=[('WEB Site','hiven.co.kr · hiven.ai.kr · ic.hiven.ai.kr','구현','#2e7d32'),('AI Agent','AICS · HiClo 등','절차 정립','#9e6b00'),('.app','HiCoffer · HIVEN.app · HiClo.app · HiAad.app','절차 정립','#9e6b00')]
@@ -94,9 +94,9 @@ a('<line x1="470" y1="%d" x2="510" y2="%d" stroke="#3b4a8c" stroke-width="1.6" m
 a('<line x1="660" y1="%d" x2="700" y2="%d" stroke="#c62828" stroke-width="1.6" marker-end="url(#ar)"/><text x="708" y="%d">외부 대상에서 들어오는 신호</text>'%(y0-5,y0-5,y0))
 a('<line x1="920" y1="%d" x2="960" y2="%d" stroke="#c62828" stroke-width="1.6" stroke-dasharray="6 5"/><text x="968" y="%d">② 보안체계 → 사업군 편입 연결</text>'%(y0-5,y0-5,y0))
 a('<text x="40" y="%d">외부 대상 예시(PG·은행 등)는 연동 목록이 확정되면 갱신합니다. AI Agent·.app의 실제 신호 송신은 구현 보강 예정이며 신호 규격은 확정되어 있습니다.</text>'%(y0+30))
-a('<text x="40" y="%d">대응·조치 상세는 SC-16 화면(ic.hiven.ai.kr)의 표와 HIVEN_비상대응체계_매뉴얼_261107.md가 같은 원천(views7.js hvEM)에서 나옵니다.</text>'%(y0+54))
+a('<text x="40" y="%d">대응·조치 상세는 SC-02 화면(ic.hiven.ai.kr)의 표와 HIVEN_비상대응체계_매뉴얼_261107.md가 같은 원천(views7.js hvEM)에서 나옵니다.</text>'%(y0+54))
 a('<text x="40" y="%d">3단 순서: ① 최상위 → ② 최우선 → ③ 하위 종속·실행. 관리·운영은 항상 이 순서로 우선 적용합니다(대표님 11/07 13:46).</text>'%(y0+78))
-a('<text x="40" y="%d">시험 기간 운영(대표님 11/07 14:06): 대응 강도만 완화(등록부 T-01~T-08), 감지·기록·전송·판정은 불변. 역순환 인지: ① 하위 → ② 최우선 → ③ 최상위 → 대표님(폰), 역정합 검사는 SC-16 화면에서 실시간 대조.</text>'%(y0+102))
+a('<text x="40" y="%d">시험 기간 운영(대표님 11/07 14:06): 대응 강도만 완화(등록부 T-01~T-08), 감지·기록·전송·판정은 불변. 역순환 인지: ① 하위 → ② 최우선 → ③ 최상위 → 대표님(폰), 역정합 검사는 SC-02 화면에서 실시간 대조.</text>'%(y0+102))
 a('</g></svg>')
 svg='\n'.join(o)
 open('cowork/ctl/sec_structure.svg','w',encoding='utf-8').write(svg)
@@ -114,10 +114,10 @@ if len(sys.argv)>2:
     b('<text x="48" y="1156" font-size="16" font-weight="700" fill="#7f0000">보안체계 편입 (2.1 추가) — 위 AICS 자동화 통합 통제 시스템(최상위) 아래 최우선·하위 시스템이 7개 사업군 전부와 연계됩니다</text>')
     b('<rect x="48" y="1172" width="360" height="52" rx="10" fill="#0b1640"/><text x="228" y="1194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">① 최상위 · HIVEN 자동화 통합 통제 시스템</text><text x="228" y="1213" text-anchor="middle" font-size="11.5" fill="#dfe6ff">(위 도면 맨 위 상자와 같은 시스템)</text>')
     b('<line x1="408" y1="1198" x2="470" y2="1198" stroke="#7f0000" stroke-width="2" marker-end="url(#ah)"/>')
-    b('<rect x="472" y="1172" width="420" height="52" rx="10" fill="#c62828"/><text x="682" y="1194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">② 최우선 · 이상징후 및 보안체계 시스템 (SC-16)</text><text x="682" y="1213" text-anchor="middle" font-size="11.5" fill="#ffe0e0">경보 12단계 · 3대 매뉴얼 · 신호 규격</text>')
+    b('<rect x="472" y="1172" width="420" height="52" rx="10" fill="#c62828"/><text x="682" y="1194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">② 최우선 · 이상징후 및 보안체계 시스템 (SC-02)</text><text x="682" y="1213" text-anchor="middle" font-size="11.5" fill="#ffe0e0">경보 12단계 · 3대 매뉴얼 · 신호 규격</text>')
     b('<line x1="892" y1="1198" x2="954" y2="1198" stroke="#7f0000" stroke-width="2" marker-end="url(#ah)"/>')
-    b('<rect x="956" y="1172" width="430" height="52" rx="10" fill="#2b5be8"/><text x="1171" y="1194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">③ 하위 · 침입 예측/예방/대응/조치 시스템 (SC-15)</text><text x="1171" y="1213" text-anchor="middle" font-size="11.5" fill="#dfe6ff">관측 → … → 개선·예방 복귀 순환 10단계</text>')
-    b('<text x="48" y="1250" font-size="12.5" fill="#444">연계 접점: 사업군 접점 30건(C-01~C-30)과 별도로 보안체계 연계 접점 11건(S-01~S-11)을 둡니다. 상세 구조는 별도 도면 「이상징후 및 보안체계 구조도 1.0」, 표는 SC-16 「편입·연계 서비스 플로어」.</text>')
+    b('<rect x="956" y="1172" width="430" height="52" rx="10" fill="#2b5be8"/><text x="1171" y="1194" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">③ 하위 · 침입 예측/예방/대응/조치 시스템 (SC-03)</text><text x="1171" y="1213" text-anchor="middle" font-size="11.5" fill="#dfe6ff">관측 → … → 개선·예방 복귀 순환 10단계</text>')
+    b('<text x="48" y="1250" font-size="12.5" fill="#444">연계 접점: 사업군 접점 30건(C-01~C-30)과 별도로 보안체계 연계 접점 11건(S-01~S-11)을 둡니다. 상세 구조는 별도 도면 「이상징후 및 보안체계 구조도 1.0」, 표는 SC-02 「편입·연계 서비스 플로어」.</text>')
     b('<text x="48" y="1270" font-size="12.5" fill="#444">외부 연동 시스템 대상은 1순위(직접 연계) · 2순위(간접 관계) · 3순위(그 밖의 위험 요소)로 나뉘며 경보 12단계로 발령합니다. 제1순위 경로: ic 인트로 열쇠 입력(불일치 1회부터 즉시 보호 단계).</text>')
     b('</g></svg>')
     t=t.replace('</svg>','\n'.join(band),1) if t.rstrip().endswith('</svg>') else t
