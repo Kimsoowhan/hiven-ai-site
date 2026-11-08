@@ -2,7 +2,7 @@
    등급: 관찰(1회) < 주의(2회) < 경보(3회) < 경고(4~5회) < 위기(6회 이상 · 우회/변조 감지). 3회부터 잠금(30초·5분·30분).
    전송: ic.hiven.ai.kr/__sec 로 즉시 전송(Cloudflare 작업자 실시간 로그). 이 화면의 기록은 이 단말에 남는 사본이다. */
 var hvSec=(function(){
- function gi(n){var i=G.indexOf(n);return i>=0?i:({'관심':1,'심각':2,'위험':3})[n]||0}var G=['관찰','주의','경보','경고','위기'],C=['#1565c0','#00838f','#ef6c00','#c62828','#6a1b9a'],LK=[0,0,30,300,1800],rj=0,lastBad='';
+ function gi(n){var i=G.indexOf(n);return i>=0?i:({'관심':1,'심각':2,'위험':3})[n]||0}var CT=['#3fb950','#d4c000','#f0883e','#f85149','#b62324'],G=['관찰','주의','경보','경고','위기'],C=['#1565c0','#00838f','#ef6c00','#c62828','#6a1b9a'],LK=[0,0,30,300,1800],rj=0,lastBad='';
  function lk(n){return n>=6?1800*Math.min(8,n-5):n>=4?300:n>=3?30:n>=2?15:n>=1?5:0}
  function hs(v){var h=0,i;v=String(v||'');for(i=0;i<v.length;i++)h=(h*31+v.charCodeAt(i))|0;return h+':'+v.length}
  function ld(){try{return JSON.parse(localStorage.getItem('hvsec')||'{"n":0,"t":0,"u":0,"L":[]}')}catch(e){return {n:0,t:0,u:0,L:[]}}}
@@ -27,9 +27,9 @@ var hvSec=(function(){
  window.addEventListener('storage',function(e){if(e.key==='hvsec'||e.key==='hv_in')log(4,'저장소 변조 의심: '+e.key,ld().n)});
  if(!window.hvSecNav){window.hvSecNav=1;S.push(['SC-03','침입 예측·예방·대응·조치 시스템'])}
  V['SC-03']=function(){var s=ld(),g=gr(s.n),L=s.L.slice().reverse().slice(0,15);
-  var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>발령</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+C[gi(e.g)]+'">'+G[gi(e.g)]+'</b></td><td>'+e.n+'</td><td>'+(e.a||al(gi(e.g),e.why))+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="5">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
-  var df=[['관찰','열쇠 불일치 1회','즉시 보호 단계 전환 · 5초 입력 정지 · 경보 띠 · 기록 · 전송'],['주의','불일치 2회','15초 입력 정지 · 경보 · 기록 · 전송'],['경보','불일치 3회','30초 입력 정지 · 경보 · 전송'],['경고','불일치 4~5회','5분 입력 정지 · 경보 · 전송'],['위기','불일치 6회 이상 · 우회/변조 감지','30분(누적 배수, 최대 4시간) 입력 정지 · 입장 표식 폐기 · 전송']].map(function(r,i){return '<tr><td><b style="color:'+C[i]+'">'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>'}).join('');
-  return '<h2>SC-03 침입 예측/예방/대응/조치 시스템 (침입 경보)</h2><p class="note">HIVEN 통합사업 이상징후 및 보안체계 시스템(SC-02)의 하위 실행 시스템입니다.</p><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+C[g]+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
+  var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>발령</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+CT[gi(e.g)]+'">'+G[gi(e.g)]+'</b></td><td>'+e.n+'</td><td>'+(e.a||al(gi(e.g),e.why))+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="5">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
+  var df=[['관찰','열쇠 불일치 1회','즉시 보호 단계 전환 · 5초 입력 정지 · 경보 띠 · 기록 · 전송'],['주의','불일치 2회','15초 입력 정지 · 경보 · 기록 · 전송'],['경보','불일치 3회','30초 입력 정지 · 경보 · 전송'],['경고','불일치 4~5회','5분 입력 정지 · 경보 · 전송'],['위기','불일치 6회 이상 · 우회/변조 감지','30분(누적 배수, 최대 4시간) 입력 정지 · 입장 표식 폐기 · 전송']].map(function(r,i){return '<tr><td><b style="color:'+CT[i]+'">'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>'}).join('');
+  return '<h2>SC-03 침입 예측/예방/대응/조치 시스템 (침입 경보)</h2><p class="note">HIVEN 통합사업 이상징후 및 보안체계 시스템(SC-02)의 하위 실행 시스템입니다.</p><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+CT[g]+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
    +'<h3>제1순위 접근·침입 경로 (절대 원칙)</h3><p class="note">ic.hiven.ai.kr 인트로의 열쇠(key) 입력이 첫 경로입니다. 반복 입력 · 불일치 · 거부 · 중복 실패가 나오면 시스템을 즉시 보호 단계로 전환합니다. 입력 정지 중 재시도는 「거부」로 기록하고 3회 반복하면 실패 1회로 더하며, 같은 열쇠를 반복하면 「중복 실패」로 기록해 1회를 더합니다. 이 작은 대응 하나가 뚫리면 자동화 통합 통제 시스템 전체가 뚫립니다(대표님 11/07 14:03).</p>'
    +'<p class="note"><b>시험 기간 완화 운영 중</b> — 입력 정지 시간과 열쇠 표기 허용이 운영 기준값보다 낮게 설정되어 있습니다(대표님이 언제 어디서든 폰으로 확인하기 위함). 감지·기록·전송·12단계 판정은 완화하지 않습니다. 등록부·해제 기준·역정합 검사는 SC-02 「시험 기간 완화 운영 표준」을 보십시오.</p>'
    +'<h3>등급 기준과 즉시 대응</h3><table class="tb"><thead><tr><th>등급</th><th>조건</th><th>즉시 대응</th></tr></thead><tbody>'+df+'</tbody></table>'
