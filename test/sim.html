@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="ko">
+<head><script src="/sec-lite.js?v=20261107s2"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<base href="../">
+<title>[시뮬레이션] HIVEN 다중화 서비스 통제 시뮬레이션</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+:root{--bg:#f5f6f8;--card:#fff;--ink:#1c2330;--sub:#5b6577;--line:#dfe3ea;--navy:#1f2f55;--red:#d32f2f}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Pretendard,system-ui,sans-serif;font-size:15px;line-height:1.5}
+.ban{position:sticky;top:0;z-index:9;background:var(--red);color:#fff;font-weight:800;padding:8px 16px;text-align:center}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 16px 60px}
+h1{font-size:22px;margin:14px 0 4px}h2{font-size:17px;margin:26px 0 8px}.sub{color:var(--sub);font-size:13.5px}
+.boxes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;font:inherit;color:inherit}
+.box b{display:block;font-size:22px;white-space:nowrap}.box span{font-size:13px;color:var(--sub);white-space:nowrap}
+.box.on{background:var(--navy);color:#fff;border-color:var(--navy)}.box.on span{color:#cfd7ea}
+.tw{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow-x:auto;margin-top:10px}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:#eef1f6;font-weight:700}td.w{white-space:normal;min-width:260px}tr:last-child td{border-bottom:0}
+.pg{display:flex;gap:6px;align-items:center;justify-content:center;padding:8px;font-size:14px}
+.pg button{border:1px solid var(--line);background:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font:inherit}.pg button.on{background:var(--navy);color:#fff}
+.ok{color:#17803d;font-weight:700}.no{color:var(--red);font-weight:700}
+.g-위험{color:var(--red);font-weight:700}.g-경고{color:#c2410c;font-weight:700}.g-경계{color:#b45309;font-weight:700}.g-주의{color:#4b5563;font-weight:700}
+svg{display:block;width:100%;height:auto}
+</style>
+</head>
+<body>
+<div class="ban">시뮬레이션 — 실측이 아닙니다. 구현 전 설계 검증용 값입니다. 원본 대시보드는 <a href="./" style="color:#fff;text-decoration:underline">hiven.ai.kr</a></div>
+<div class="wrap">
+ <h1>다중화 서비스 통제 시뮬레이션</h1>
+ <div class="sub" id="meta"></div>
+ <div class="boxes" id="boxes"></div>
+ <h2 id="ttl">넣은 사고와 판정</h2>
+ <div class="tw"><div id="tbl"></div><div class="pg" id="pg"></div></div>
+ <h2>하루 사건 수(30일)</h2>
+ <div class="tw" style="padding:10px"><div id="chart"></div></div>
+ <div class="sub" style="margin-top:14px">설계 문서: HIVEN_다중화_서비스_프로토콜_플로우_통제_설계안-261111_0.1_작업 · 도구: tools/sim_multi.py · 결과: cowork/ctl/sim_multi_result.json</div>
+</div>
+<script>
+(function(){
+var E=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var R=null,view='inj',page=1,PER=15;
+var NAME={'PR-01':'기기 등록·해제','PR-02':'매체 꽂음','PR-03':'색인 보고','PR-04':'중복·정합 판정','PR-05':'최종본 확정','PR-06':'미러링','PR-07':'복구','PR-08':'키 사건','PR-09':'지원 접수','PR-10':'갱신','PR-11':'구독 상태','PR-12':'분류 품질'};
+var INN={'IN-01':'메시지에 원본·경로·키 값 칸 없음','IN-02':'무료 층의 메시지 없음','IN-03':'복구(원복) 실패·일부에는 자동 접수','IN-04':'미러링은 정합 뒤에만','IN-05':'베타는 한도 뒤에도 복구(되돌리기) 됨','IN-06':'매체 자리는 1~8','IN-07':'기기↔기기는 기기 2대 이상에서만','IN-08':'모든 접수에 사례 번호'};
+function views(){
+ var caught=R.injected.filter(function(x){return x.caught}).length;
+ var invBad=Object.keys(R.invariants).reduce(function(a,k){return a+R.invariants[k]},0);
+ return [
+  {k:'inj',n:caught+'/'+R.injected.length,t:'넣은 사고 잡음',h:['표시','날','넣은 사고','규칙','판정','경보 수'],rows:R.injected.map(function(x){return [x.id,x.day+'일째',x.what,x.rule,x.caught?'<span class="ok">잡음</span>':'<span class="no">놓침</span>',x.alerts]}),w:2},
+  {k:'al',n:R.alerts.length,t:'경보 전체',h:['날','규칙','등급','내용','대상'],rows:R.alerts.slice().sort(function(a,b){return b.day-a.day}).map(function(a){return [a.day+'일째',a.rule,'<span class="g-'+E(a.grade)+'">'+E(a.grade)+'</span>',E(a.what),E(a.target)]}),raw:true,w:3},
+  {k:'ex',n:R.extra_alerts.length,t:'넣지 않은 경보',h:['날','규칙','등급','내용','대상'],rows:R.extra_alerts.slice().sort(function(a,b){return b.day-a.day}).map(function(a){return [a.day+'일째',a.rule,'<span class="g-'+E(a.grade)+'">'+E(a.grade)+'</span>',E(a.what),E(a.target)]}),raw:true,w:3},
+  {k:'inv',n:invBad,t:'지킬 것 어김',h:['번호','지킬 것','어긴 수'],rows:Object.keys(R.invariants).map(function(k){return [k,INN[k]||'',R.invariants[k]]}),w:1},
+  {k:'ev',n:R.events.toLocaleString(),t:'사건(메시지)',h:['번호','사건 종류','건수'],rows:Object.keys(R.types).map(function(k){return [k,NAME[k]||'',R.types[k].toLocaleString()]}),w:1},
+  {k:'sc',n:R.scale['기기'],t:'기기',h:['항목','값'],rows:Object.keys(R.scale).map(function(k){return [k,R.scale[k].toLocaleString()]}).concat(Object.keys(R.os).map(function(k){return ['운영체제 · '+k,R.os[k]]})).concat(Object.keys(R.cap).sort().map(function(k){return ['기능 등급 · CAP-'+k,R.cap[k]]})),w:-1},
+  {k:'fr',n:R.free_messages,t:'무료 층 메시지',h:['항목','값'],rows:[['무료 사용자(가정)',R.scale['무료(메시지 없음)']],['무료 층에서 온 메시지',R.free_messages]],w:-1}
+ ];
+}
+function draw(){
+ var V=views(),cur=V.filter(function(v){return v.k===view})[0];
+ document.getElementById('boxes').innerHTML=V.map(function(v){return '<button class="box'+(v.k===view?' on':'')+'" data-k="'+v.k+'"><b>'+E(v.n)+'</b><span>'+E(v.t)+'</span></button>'}).join('');
+ document.getElementById('ttl').textContent=cur.t;
+ var pages=Math.max(1,Math.ceil(cur.rows.length/PER));if(page>pages)page=pages;
+ var rows=cur.rows.slice((page-1)*PER,page*PER);
+ while(rows.length<Math.min(PER,Math.max(cur.rows.length,1)))rows.push(cur.h.map(function(){return '&nbsp;'}));
+ document.getElementById('tbl').innerHTML='<table><thead><tr>'+cur.h.map(function(h){return '<th>'+E(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr>'+r.map(function(c,i){var raw=(typeof c==='string'&&(c.indexOf('<span')===0||c==='&nbsp;'))||cur.raw;return '<td'+(i===cur.w?' class="w"':'')+'>'+(raw?c:E(c))+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table>';
+ var p='<button data-p="'+Math.max(1,page-1)+'">◀ 이전</button>';
+ for(var i=1;i<=pages;i++)p+='<button data-p="'+i+'"'+(i===page?' class="on"':'')+'>'+i+'</button>';
+ p+='<button data-p="'+Math.min(pages,page+1)+'">다음 ▶</button>';
+ document.getElementById('pg').innerHTML=p;
+}
+function chart(){
+ var D=R.daily,W=1100,H=230,L=46,B=26,T=10,max=Math.max.apply(null,D.map(function(d){return d.total}));
+ var x=function(i){return L+(W-L-10)*i/(D.length-1)},y=function(v){return T+(H-T-B)*(1-v/max)};
+ var path=D.map(function(d,i){return (i?'L':'M')+x(i).toFixed(1)+' '+y(d.total).toFixed(1)}).join(' ');
+ var s='<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="하루 사건 수">';
+ for(var g=0;g<=4;g++){var v=max*g/4;s+='<line x1="'+L+'" x2="'+(W-10)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#dfe3ea"/><text x="'+(L-6)+'" y="'+(y(v)+4)+'" font-size="11" text-anchor="end" fill="#5b6577">'+Math.round(v).toLocaleString()+'</text>'}
+ s+='<path d="'+path+'" fill="none" stroke="#1f2f55" stroke-width="2"/>';
+ D.forEach(function(d,i){if(d.day%5===0||d.day===1)s+='<text x="'+x(i)+'" y="'+(H-8)+'" font-size="11" text-anchor="middle" fill="#5b6577">'+d.day+'일</text>'});
+ R.injected.forEach(function(j){var i=j.day-1;s+='<line x1="'+x(i)+'" x2="'+x(i)+'" y1="'+T+'" y2="'+(H-B)+'" stroke="#d32f2f" stroke-dasharray="3 3"/><text x="'+x(i)+'" y="'+(T+10)+'" font-size="12" text-anchor="middle" fill="#d32f2f">'+E(j.id)+'</text>'});
+ s+='</svg><div class="sub">남색 선 = 하루 사건 수 · 빨간 점선 = 일부러 넣은 사고가 있는 날</div>';
+ document.getElementById('chart').innerHTML=s;
+}
+document.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.k){view=b.dataset.k;page=1;draw()}else if(b.dataset.p){page=+b.dataset.p;draw()}});
+fetch('cowork/ctl/sim_multi_result.json?v=261111a').then(function(r){return r.json()}).then(function(j){R=j;
+ document.getElementById('meta').textContent=j.label+' · 만든 날 '+j.made+' · '+j.days+'일 · 회원 '+j.scale['회원']+'명 · 기기 '+j.scale['기기']+'대 · 매체 자리 '+j.scale['매체 자리'].toLocaleString()+'개';
+ draw();chart()}).catch(function(){document.getElementById('meta').textContent='결과 파일을 읽지 못했습니다.'});
+})();
+</script>
+</body>
+</html>
