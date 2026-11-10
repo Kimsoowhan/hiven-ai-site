@@ -1,8 +1,8 @@
 {
- "published": "2026-11-05 15:56",
- "by": "Opus",
- "history_rows": 347,
- "lifecycle_rows": 347,
+ "published": "2026-11-11 02:13",
+ "by": "모델",
+ "history_rows": 596,
+ "lifecycle_rows": 596,
  "consistent": true,
  "files": [
   {
@@ -10,24 +10,24 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-09",
    "rows": null,
-   "sha16": "64217f023a6f8dde",
-   "mtime": "2026-11-05 15:56"
+   "sha16": "7ff3ee996d603057",
+   "mtime": "2026-11-11 02:12"
   },
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-09",
    "rows": null,
-   "sha16": "d14eaa4bfd97a298",
-   "mtime": "2026-11-05 15:56"
+   "sha16": "d65924b98161150f",
+   "mtime": "2026-11-11 02:12"
   },
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
    "screen": "SC-09",
    "rows": 38,
-   "sha16": "b168ee36e7babd5a",
-   "mtime": "2026-11-05 14:20"
+   "sha16": "925b57f99d12e7a4",
+   "mtime": "2026-11-11 02:12"
   },
   {
    "file": "reports/index.json",
@@ -35,15 +35,15 @@
    "screen": "SC-09",
    "rows": null,
    "sha16": "7f4a4fed986bf787",
-   "mtime": "2026-11-05 15:56"
+   "mtime": "2026-11-05 14:53"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-15",
-   "rows": 347,
-   "sha16": "1042559e0ae76b29",
-   "mtime": "2026-11-05 15:56"
+   "rows": 596,
+   "sha16": "26bf7edcabafad3f",
+   "mtime": "2026-11-11 01:56"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -51,15 +51,15 @@
    "screen": "SC-15",
    "rows": 5,
    "sha16": "a9e2f351b6113de1",
-   "mtime": "2026-11-05 14:20"
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 347,
-   "sha16": "a7464c4cd9f767cc",
-   "mtime": "2026-11-05 15:56"
+   "rows": 596,
+   "sha16": "155981dd24c55fe9",
+   "mtime": "2026-11-11 01:56"
   },
   {
    "file": "ctl/trace_sum.json",
@@ -67,15 +67,15 @@
    "screen": "SC-01·SC-16",
    "rows": null,
    "sha16": "dde57b1c8cafc414",
-   "mtime": "2026-11-05 14:20"
+   "mtime": "2026-11-05 08:22"
   },
   {
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
    "screen": "SC-16",
    "rows": 429,
-   "sha16": "b7fd7f597928dd33",
-   "mtime": "2026-11-05 14:20"
+   "sha16": "2b5347e7fea1dd59",
+   "mtime": "2026-11-06 16:59"
   },
   {
    "file": "ctl/qa_checks.tsv",
@@ -83,7 +83,7 @@
    "screen": "SC-01·SC-12",
    "rows": 16,
    "sha16": "310c8875c4861cbf",
-   "mtime": "2026-11-05 14:20"
+   "mtime": "2026-11-05 08:00"
   },
   {
    "file": "ctl/bg_lifecycle.tsv",
@@ -91,7 +91,7 @@
    "screen": "SC-04",
    "rows": 0,
    "sha16": "8367be15586663ab",
-   "mtime": "2026-11-05 14:20"
+   "mtime": "2026-11-05 02:46"
   }
  ]
 }

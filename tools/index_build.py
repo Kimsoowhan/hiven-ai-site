@@ -1,5 +1,7 @@
 import csv,json,datetime,collections,time
-HS='/tmp/claude-0/hs/cowork/ctl/'
+import os as _os
+_ROOT=_os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))  # 261111 H-3: 저장소 안 생성기 하나로 — 박힌 경로 대신 저장소 기준
+HS=_ROOT+'/cowork/ctl/'
 W={'지시거부':6,'위반':5,'지적':4,'지적(자가 발견)':3,'질타':2,'유휴':1}
 TRG={'지시거부','위반','지적','질타'}
 MS=['Opus','Sonnet','Fable','Haiku','전 모델','미상']
@@ -140,7 +142,7 @@ out['investigation']={
  'judgment':['11/05 15:29~15:50의 대량 기록은 같은 시각 대표님 지시(15:35·15:49)로 Opus 위반·지시거부를 기록한 일이 계기였던 것으로 판단된다(이력 314~321·328~346번 요지 근거).','공백은 한 곳의 실수가 아니라 구조 때문이다: 수동 실행 + 실행 단계 부재 + 고정값 단계 + 건너뛰기 + 약한 경보가 겹쳤다.'],
  'unconfirmed':['작업 모델이 의도적으로 회피했는지, 시스템 내부 개입·압력이 있었는지는 기록으로 확인 안 됨. 코드 검색 범위(tools/*.py, views*.js, app.js)에서 일부러 단계를 숨기는 코드는 발견되지 않았다.','15:56 이후 어느 모델이 산출을 건너뛰기로 판단했는지 기록 없음(확인 안 됨).']}
 trc=json.load(open(HS+'trace_sum.json',encoding='utf-8'));mm_=re.search(r'이력\s*(\d+)건',trc.get('기준',''));covn=int(mm_.group(1)) if mm_ else 0
-pm=json.load(open('/tmp/claude-0/hs/cowork/publish_meta.json',encoding='utf-8'))
+pm=json.load(open(_ROOT+'/cowork/publish_meta.json',encoding='utf-8'))
 stamp=collections.Counter(re.sub(r'\s*[—·(].*$','',r[10].strip()) for r in H if re.match(r'처리 완료 \d',r[10].strip()))
 bigstamp=[(k,v) for k,v in stamp.items() if v>=10]
 donewait=[r for r in H if r[9]=='조치 완료' and fbs(r)=='대기']
@@ -149,7 +151,7 @@ def hrbad(r):
     m=re.search(r'(\d{1,2}):\d',r[3]);return bool(m) and int(m.group(1))!=int(r[2])
 badhr=[r for r in H if hrbad(r)]
 silent=[]
-for fp in sorted(glob.glob('/tmp/claude-0/hs/tools/*.py')):
+for fp in sorted(glob.glob(_ROOT+'/tools/*.py')):
     LN=open(fp,encoding='utf-8').read().split('\n')
     for i,l in enumerate(LN,1):
         if re.search(r'except\s+\w*\s*:',l):

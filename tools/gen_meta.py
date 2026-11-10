@@ -1,10 +1,14 @@
 # 게시 원천 동기화·메타 산출(W19-3 T-W19-31·35, AICS 재설계안 2.0 3장) — 모델이 직접 실행하는 산출 스크립트(자동 실행 장치 아님, 금지 4조항·처리정책 4장 준수)
 # 입력: 노트북에서 받은 최신본(진행상황판·일일보고 폴더) + 게시본 cowork/
 # 출력: cowork/progress.json(상황판과 같은 상태·점수) · cowork/reports/(일일보고 사본·index.json) · cowork/publish_meta.json(파일별 원천·갱신·건수)
-import json,re,os,glob,shutil,csv,hashlib,datetime,sys
-U='/mnt/user-data/uploads/HiBiz/01_클로_소통(COM)/';G='/home/claude/hiven-ai-site/cowork/'
+import json,re,os,glob,shutil,csv,hashlib,datetime,sys,subprocess
+ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # 261111: 박힌 경로 대신 저장소 기준
+U='/mnt/user-data/uploads/HiBiz/01_클로_소통(COM)/';G=ROOT+'/cowork/'
+# 사용: python3 tools/gen_meta.py [실행자]            → 상황판·일일보고(노트북 받은 사본) 동기화 + 메타
+#       python3 tools/gen_meta.py --meta-only [실행자] → 저장소 안 파일만으로 메타(publish_meta.json)만 다시 냄. 노트북 원천을 지금 값으로 확인하지 못했을 때 이것만 쓴다
+ARGS=[a for a in sys.argv[1:] if not a.startswith('--')];META_ONLY='--meta-only' in sys.argv
 KST=lambda:(datetime.datetime.now(datetime.UTC)+datetime.timedelta(hours=9))
-BY=sys.argv[1] if len(sys.argv)>1 else '모델'
+BY=ARGS[0] if ARGS else '모델'
 def score(st,fb,ap):
     s=st+' '+fb+' '+ap
     if '승인·반영(100)' in st or re.search(r'\d{2}:\d{2} 승인\(대표님\)',ap) or st.startswith('완료·승인'):return 100
@@ -53,6 +57,16 @@ def sync_reports():
 def rows(p):
     try:return sum(1 for _ in open(p,encoding='utf-8'))-1
     except FileNotFoundError:return None
+def ftime(rel):
+    # 게시 파일 시각: 커밋된 그대로면 마지막 커밋 시각(받은 사본의 파일 시각은 받은 때라 사실과 다름), 고친 뒤 아직 커밋 전이면 파일 시각
+    g=['git','-c','safe.directory=*']
+    try:
+        dirty=subprocess.run(g+['status','--porcelain','--','cowork/'+rel],cwd=ROOT,capture_output=True,text=True).stdout.strip()
+        if not dirty:
+            o=subprocess.run(g+['log','-1','--format=%cd','--date=format-local:%Y-%m-%d %H:%M','--','cowork/'+rel],cwd=ROOT,capture_output=True,text=True,env=dict(os.environ,TZ='Asia/Seoul')).stdout.strip()
+            if o:return o
+    except Exception as e: print('경고: git 시각 읽기 실패 '+rel+' '+str(e)[:80],file=sys.stderr)
+    return datetime.datetime.fromtimestamp(os.path.getmtime(G+rel),datetime.timezone(datetime.timedelta(hours=9))).strftime('%Y-%m-%d %H:%M')
 def meta():
     t=KST().strftime('%Y-%m-%d %H:%M')
     F=[('progress.json','COM\\CoWork_진행상황판-261104.md','SC-09',None),('board.md','COM\\CoWork_진행상황판-261104.md','SC-09',None),('log.tsv','—(게시 전용 append)','SC-09','log.tsv'),('reports/index.json','COM\\일일보고\\','SC-09',None),
@@ -63,10 +77,10 @@ def meta():
     for f,src,sc,cnt in F:
         p=G+f
         if not os.path.exists(p):continue
-        out.append({'file':f,'source':src,'screen':sc,'rows':rows(G+cnt) if cnt else None,'sha16':hashlib.sha256(open(p,'rb').read()).hexdigest()[:16],'mtime':datetime.datetime.fromtimestamp(os.path.getmtime(p),datetime.timezone(datetime.timedelta(hours=9))).strftime('%Y-%m-%d %H:%M')})
+        out.append({'file':f,'source':src,'screen':sc,'rows':rows(G+cnt) if cnt else None,'sha16':hashlib.sha256(open(p,'rb').read()).hexdigest()[:16],'mtime':ftime(f)})
     h=rows(G+'ctl/model_control_history.tsv');l=rows(G+'ctl/action_lifecycle.tsv')
     m={'published':t,'by':BY,'history_rows':h,'lifecycle_rows':l,'consistent':h==l,'files':out}
     json.dump(m,open(G+'publish_meta.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
     return m
 if __name__=='__main__':
-    a=sync_progress();b=sync_reports();m=meta();print('progress',a,'reports',b,'history',m['history_rows'],'lifecycle',m['lifecycle_rows'],'consistent',m['consistent'])
+    a,b=('건너뜀','건너뜀') if META_ONLY else (sync_progress(),sync_reports());m=meta();print('progress',a,'reports',b,'history',m['history_rows'],'lifecycle',m['lifecycle_rows'],'consistent',m['consistent'])

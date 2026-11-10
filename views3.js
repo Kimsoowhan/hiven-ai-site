@@ -26,7 +26,7 @@ function hvSC13Load(){
  Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/model_control_status.tsv','text')]).then(function(r){
   if(!$('sc13'))return;
   var T=hvTYT13;/* 11/04 15:32 대표님 지시: 심각도 순서 */
-  var ev=hvTsv(r[0]).map(function(c){return {no:c[0],date:c[1],hour:c[2],time:c[3],model:c[4],type:c[5],content:c[6],cause:c[7],action:c[8],fable:hvFbn13(c[10]),fraw:c[10]||'',sraw:c[9],status:/^완료/.test(c[9]||'')?'조치 완료':c[9]}});
+  var ev=hvTsv(r[0]).map(function(c){return {no:c[0],date:c[1],hour:c[2],time:c[3],model:c[4],type:c[5],content:c[6],cause:c[7],action:c[8],fable:hvFbn13(c[10]),fraw:c[10]||'',sraw:c[9],status:hvStDone(c[9])?'조치 완료':c[9]}});
   var ms=hvTsv(r[1]).map(function(c){var cnt={};T.forEach(function(t){cnt[t]=0});ev.forEach(function(e){if(e.model===c[0]&&cnt[e.type]!=null)cnt[e.type]++});return {name:c[0],role:c[1],assigned:c[2],done:c[3],pending:c[4],counts:cnt,updated:c[5]}});
   var have={};ms.forEach(function(m){have[m.name]=1});ev.forEach(function(e){if(have[e.model])return;have[e.model]=1;var cnt={};T.forEach(function(t){cnt[t]=0});ev.forEach(function(x){if(x.model===e.model&&cnt[x.type]!=null)cnt[x.type]++});ms.push({name:e.model,role:'기록상 표기(상태표에 행 없음)',assigned:'-',done:'-',pending:'-',counts:cnt,updated:''})});
   hvLast13={types:T,events:ev,models:ms,updated:(ms[0]&&ms[0].updated)||''};hvLastOk13=kst();hvSC13Paint(false);
@@ -95,7 +95,7 @@ function hvSC13Paint(fail,err){
  +[['지시','대표님이 모델에게 하는 「이렇게 하세요·그렇게 하세요」','SC-15 칭찬 표를 제일 하단에 둬라'],['개선요청','「너 왜 이렇게 안 했나」 하고 되묻는 말','왜 비었고 왜 반영되지 않았나'],['질타','시킨 것·한 것과 비교해 「왜 이렇게 했나」 하는 말(더 나은 방식을 두고 다르게 한 경우 포함)','이렇게 시켰는데 왜 이렇게 안 했나'],['지적','시킨 대로 안 했거나 물었는데 답이 없는 것을 짚는 말','「이해했어?」 했는데 왜 대답을 안 하나'],['위반·지시거부','소통·작업 규칙에 반한 행동에서 나오는 말','규칙을 읽지 않고 진행, 지시를 거부']].map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td class="sc13-sm">'+r[1]+'</td><td class="sc13-sm">'+r[2]+'</td></tr>'}).join('')+'</tbody></table></div><p class="note">작업 지시 수는 「지시」와 「개선요청」 건수를 합쳐 셉니다. 19:08 이후 Sonnet에게 한 SC-15·자동화 통합 통제 작업 말씀은 「지시」로 기록합니다.</p>'+hvIntensity13()+hvReclass13();
  g+=hvBan();
  g+=hvPraise13();
- b.innerHTML=g;
+ b.innerHTML=g;if(typeof hvTbAuto==='function')hvTbAuto(b);/* 261111 M-3 */
  if(!fail&&!hvRe13&&!hvPgAll){hvRe13=true;try{hvPgFit('13','13h','hvSC13Paint')}finally{hvRe13=false}}else if(!fail){hvPgStatic('13')}
 }
 var hvRe13=false;

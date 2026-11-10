@@ -7,10 +7,10 @@
 <base href="../">
 <title>[시험] HIVEN 통합관제 대시보드 · 시험 페이지</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-<link rel="stylesheet" href="style.css?v=20261105w">
+<link rel="stylesheet" href="style.css?v=20261107n1">
 </head>
 <body>
-<div style="position:sticky;top:0;z-index:9999;background:#d32f2f;color:#fff;font-weight:800;padding:8px 16px;text-align:center">시험 페이지 — 시험·샘플 값이 섞여 있습니다. 실측 아님. 원본 대시보드는 <a href="./" style="color:#fff;text-decoration:underline">hiven.ai.kr</a></div>
+<div style="position:sticky;top:0;z-index:9999;background:#d32f2f;color:#fff;font-weight:800;padding:8px 16px;text-align:center">시험 페이지 — 원본과 같은 16개 화면 구성에 시험·샘플 값이 섞여 있습니다. 「시험·샘플 판」 안의 값은 실측이 아닙니다. 원본 대시보드는 <a href="./" style="color:#fff;text-decoration:underline">hiven.ai.kr</a></div>
 
 <section id="intro">
  <div class="ibox">
@@ -29,7 +29,7 @@
 <div id="app" class="hide">
  <header class="top">
   <div class="nm">HIVEN 자동화 통합 통제<small>AICS 관측 화면 · 통합관제 대시보드</small></div>
-  <span class="chip"><span class="dot ok"></span>대응 모드 <b>상시</b></span>
+  <span class="chip" id="chip-mode"><span class="dot ok"></span>대응 모드 <b>상시</b></span>
   <span class="chip"><span class="dot warn"></span><span id="ftxt">데이터 신선도</span></span>
   <span class="chip">갱신 <b id="upd">-</b></span>
   <span class="sp"></span>
@@ -43,13 +43,25 @@
  <nav class="mvn" aria-label="scroll"><button type="button" data-d="-1" aria-label="위로">▲</button><button type="button" data-d="1" aria-label="아래로">▼</button></nav>
 </div>
 
-<script src="data.js?v=20261105r3"></script>
-<script src="views1.js?v=20261105w"></script>
-<script src="views2.js?v=20261105w"></script>
-<script src="views3.js?v=20261105w"></script><script src="views4.js?v=20261105w"></script>
-<script src="views5.js?v=20261105x"></script>
-<script src="views6.js?v=20261105r3c"></script>
-<script src="app.js?v=20261105w"></script>
+<script src="data.js?v=20261111i1"></script>
+<script src="views1.js?v=20261111i1"></script>
+<script src="views2.js?v=20261111i1"></script>
+<script>/* 261111 M-6: 시험·샘플 판(views1·views2)을 따로 잡아 둔다 — 아래에서 원본과 같은 16개 화면 구성을 읽은 뒤 화면마다 「시험·샘플 판」으로 덧붙임 */var HVT_S={};for(var hvk in V)HVT_S[hvk]=V[hvk];</script>
+<script src="views3.js?v=20261111i1"></script><script src="views4.js?v=20261111i1"></script>
+<script src="views0.js?v=20261111i1"></script>
+<script src="views5.js?v=20261111i1"></script>
+<script src="views6.js?v=20261111i1"></script>
+<script src="views7.js?v=20261111i1"></script>
+<script src="views8.js?v=20261111i1"></script>
+<script>
+/* 시험 페이지는 원본과 같은 16개 화면 구성(같은 화면 파일)을 읽는다. 다른 점: ① 보안 스크립트(sec.js·sec2.js)는 읽지 않으므로 SC-03은 자리 안내만 ② 화면마다 옛 시험·샘플 판을 아래에 접어서 붙임 ③ SC-16 말 명령 입력은 시험 페이지에서만 */
+V['SC-03']=function(){return '<h2>SC-03 침입 예측·예방·대응·조치 시스템</h2><div class="grid">'+card('시험 페이지','표출 안 함','보안 스크립트는 원본만',null,function(){return '<p class="note">침입 경보 화면은 보안 스크립트(sec.js)가 그리며, 열쇠 확인·경보 기록·전송과 묶여 있어 시험 페이지에서는 읽지 않습니다. 원본 대시보드에서 봅니다. 시험·시뮬레이션 값은 <a href="test/sim.html">다중화 서비스 통제 시뮬레이션</a> · <a href="test/hidam.html">HiDAM.app 기준 구현 시뮬레이션</a>에 있습니다.</p>'})+'</div>'};
+(function(){Object.keys(HVT_S).forEach(function(id){var o=V[id],s=HVT_S[id];if(!o||o===s||o._chk)return;
+ V[id]=function(){var a=o();if(id==='SC-16')a=a.replace('<input id="cin" type="hidden"><span id="cres" hidden></span>','');
+  return a+'<details class="hvt-s" style="margin:18px 0;border:2px dashed #d32f2f;border-radius:10px;padding:8px 12px"'+(id==='SC-16'?' open':'')+'><summary style="cursor:pointer;font-weight:800;color:#d32f2f">시험·샘플 판 보기 — 실측 아님(원본에는 싣지 않음)</summary>'+s()+'</details>'}})})();
+</script>
+<script src="app.js?v=20261111i1"></script>
+<script>hvWrap()</script>
 <script id="mvn-js">(function(){var n=document.querySelector(".mvn");if(!n)return;n.querySelectorAll("button").forEach(function(b){var d=+b.dataset.d,t=null,r=null,h=false;function stop(){clearTimeout(t);cancelAnimationFrame(r);r=null}var lt=0;function loop(ts){var dt=lt?Math.min(50,ts-lt):16;lt=ts;window.scrollBy({top:d*1.0*dt,behavior:"instant"});r=requestAnimationFrame(loop)}/* 18:26 대표님: 길게 누름 속도 중간 = 초당 1,000px(시간 기준, 부드러운 스크롤 끄고 즉시 이동) */b.addEventListener("pointerdown",function(e){e.preventDefault();h=false;t=setTimeout(function(){h=true;lt=0;r=requestAnimationFrame(loop)},280)});["pointerup","pointerleave","pointercancel"].forEach(function(ev){b.addEventListener(ev,function(){var was=h;stop();if(ev=="pointerup"&&!was){window.scrollTo({top:d<0?0:document.documentElement.scrollHeight,behavior:"smooth"})}h=false})});b.addEventListener("contextmenu",function(e){e.preventDefault()})})})();</script>
 </body>
 </html>

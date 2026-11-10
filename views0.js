@@ -15,7 +15,9 @@ var HVR={
   ['2026-11-03 20:54:58','불명확','노드','노드생존·기억회복상태·단기기억기록 불명확']]
 };
 function hvNo(t){return tag('확인 안 됨','gray')+(t?' '+t:'')}
-function hvChk(){return '<p class="note">원본 대시보드는 <b>실측 데이터만</b> 보입니다. 확인 시각 '+HVR.chk+' · 확인 '+HVR.by+' · 원천 '+HVR.src+'. 확인되지 않은 값은 「확인 안 됨」으로 표시하고, 시험·샘플 값은 <a href="test/">시험 페이지</a>에서만 봅니다.</p>'}
+function hvChkAge(){var d=Math.floor((Date.now()-Date.parse(HVR.chk.replace(' ','T')+':00+09:00'))/86400000);return d>0?d+'일 지남':'오늘'}
+/* 261111 N-7: 꼬리말의 「확인 시각」은 노트북 구동·판정 값(HVR)을 마지막으로 확인한 때다. 화면 전체를 그때 확인했다는 뜻으로 읽히지 않게 무엇의 시각인지와 지난 날수를 사실대로 적는다 */
+function hvChk(){var m=(typeof hvMeta!=='undefined'&&hvMeta.m)?hvMeta.m.published:'확인 안 됨';return '<p class="note">원본 대시보드는 <b>실측 데이터만</b> 보입니다. 노트북 구동·판정 값의 마지막 확인 시각 '+HVR.chk+'('+hvChkAge()+' · 확인 '+HVR.by+' · 원천 '+HVR.src+') — 그 뒤 다시 확인하지 않았습니다. 게시 자료(이력·생명주기 등) 메타 산출 '+hvEsc(m)+'. 확인되지 않은 값은 「확인 안 됨」으로 표시하고, 시험·샘플 값은 <a href="test/">시험 페이지</a>에서만 봅니다.</p>'}
 function hvTestOnly(id,name){return function(){return '<h2>'+id+' '+name+'</h2><div class="grid">'+card('원본 대시보드','실측 데이터 없음','시험 중 · 원본 제외',null,function(){return '<p class="note">이 화면은 아직 시험 중이거나 시험·샘플 값으로 되어 있어 원본에 싣지 않습니다(대표님 지시 11/04 15:56). 시험 화면은 <a href="test/#'+id+'">시험 페이지</a>에서 봅니다. 정확한 일정·체계·대안은 Fable이 일괄 적용합니다(15:57).</p>'})+'</div>'+hvChk()}}
 var HVST=Date.parse(HVR.hiclo.last.replace(' ','T')+'+09:00');
 function hvAge(){var m=Math.round((Date.now()-HVST)/60000);return m<60?m+'분':Math.floor(m/60)+'시간 '+(m%60)+'분'}
@@ -48,10 +50,10 @@ function hvMcs01(N){
  +'<p class="note">전체 표·정합성·역방향 검토는 <a href="#" onclick="hvgo(\'SC-15\');return false">SC-15</a>. 집약 기준 이력 '+X.history_rows+'건.</p>'}
 function hv01Load(){Promise.all([hvFetch('cowork/ctl/model_control_history.tsv','text'),hvFetch('cowork/ctl/trace_sum.json','json').catch(function(){return null}),hvFetch('cowork/ctl/action_lifecycle.tsv','text').catch(function(){return ''}),hvFetch('cowork/ctl/action_lifecycle.json','json').catch(function(){return null}),hvFetch('cowork/ctl/qa_checks.tsv','text').catch(function(){return ''}),hvFetch('cowork/progress.json','json').catch(function(){return null})]).then(function(r){hv01.lc=hvTsv(r[2]);hv01.lcs=r[3];hv01.qa=hvTsv(r[4]);hv01.pg=r[5];
  hv01.ev=hvTsv(r[0]).map(function(c){return {no:c[0],date:c[1],time:c[3],model:c[4],type:c[5],content:c[6],cause:c[7],action:c[8],status:c[9]}});hv01.sum=r[1];hv01.ok=kst();hv01.t=Date.now();if(cur==='SC-01'&&$('sc01'))render('SC-01')},function(){})}
-function hv01T(a,cols){var r=a.slice().reverse(),more=false;return a.length?tbl(['#','시각','구분','내용','조치','상태'],r.map(function(e){return [e.no,hvEsc(e.time),hvEsc(e.type),hvEsc(e.content),hvEsc(e.action),tag(hvEsc(e.status),e.status==='조치 완료'?'ok':'warn')]}))+(more?'<p class="note">'+r.length+'건 중 최신 15건 — 전체는 <a href="#" onclick="hvgo(\'SC-15\');return false">SC-15</a>에서 「조치 진행 중」 상자를 누르면 봅니다.</p>':''):'<p class="note">해당 없음</p>'}
+function hv01T(a,cols){var r=a.slice().reverse(),more=false;return a.length?tbl(['#','시각','구분','내용','조치','상태'],r.map(function(e){return [e.no,hvEsc(e.time),hvEsc(e.type),hvEsc(e.content),hvEsc(e.action),tag(hvEsc(e.status),hvStDone(e.status)?'ok':'warn')]}))+(more?'<p class="note">'+r.length+'건 중 최신 15건 — 전체는 <a href="#" onclick="hvgo(\'SC-15\');return false">SC-15</a>에서 「조치 진행 중」 상자를 누르면 봅니다.</p>':''):'<p class="note">해당 없음</p>'}
 V['SC-01']=function(){
  if(!hv01.ev||Date.now()-hv01.t>30000)setTimeout(hv01Load,0);/* 화면을 열 때마다(30초 지나면) 게시본을 다시 읽음 */
- var E=hv01.ev||[],L=!hv01.ev,S=hv01.sum,done=function(e){return e.status==='조치 완료'};
+ var E=hv01.ev||[],L=!hv01.ev,S=hv01.sum,done=function(e){return hvStDone(e.status)};
  var fa=E.filter(function(e){return e.type==='장애'}),faO=fa.filter(function(e){return !done(e)});
  var vi=E.filter(function(e){return e.type==='위반'}),viO=vi.filter(function(e){return !done(e)}),warn=HVR.issues.filter(function(r){return r[1]==='경고'});
  var se=E.filter(function(e){return e.type==='지적(자가 발견)'}),sx=S?S['종단']||{}:{},sh=S?S['횡단']||{}:{};
@@ -106,8 +108,8 @@ V['SC-04']=function(){
 V['SC-05']=function(){
  var g='<h2>SC-05 구동 상태</h2><p class="lead">HiClo.app·HIVEN.app·AICS가 노트북에서 실제로 구동되는지, 원천 파일로 확인한 값만 봅니다.</p>';
  g+='<div class="grid">'+card('HiClo.app 지금 구동','확인 안 됨','마지막 판정 '+HVR.hiclo.last.slice(5,16)+' · '+tag('실측','ok'))+card('HIVEN.app 지금 구동','확인 안 됨','마지막 관계 신호 '+HVR.hiven.last.slice(5,16))+card('AICS','확인 안 됨','정지·재개 상태 원천 확인 안 됨')+'</div>';
- g+='<h3>저장 주기(설정 파일 값)</h3>'+tbl(['구분','값','원천'],[['설정',HVR.save.period+'분 ('+HVR.save.setAt+' 설정)',HVR.save.src],['예약',HVR.save.sched,'같은 파일'],['실제 적용 여부',hvNo(),'적용 기록 확인 안 됨']]);
- g+='<h3>작업 대기열(마지막 결과)</h3>'+tbl(['작업','끝난 시각','결과','원천'],[[HVR.job.id,HVR.job.end,'종료 코드 '+HVR.job.rc+' '+tag('실측','ok'),HVR.job.src]]);
+ g+='<p class="note">아래 값은 모두 '+HVR.chk+'에 노트북 원천을 확인한 값입니다('+hvChkAge()+'). 그 뒤의 값은 확인 안 됨.</p><h3>저장 주기(설정 파일 값 · '+HVR.chk.slice(5)+' 확인)</h3>'+tbl(['구분','값','원천'],[['설정',HVR.save.period+'분 ('+HVR.save.setAt+' 설정)',HVR.save.src],['예약',HVR.save.sched,'같은 파일'],['실제 적용 여부',hvNo(),'적용 기록 확인 안 됨']]);
+ g+='<h3>작업 대기열(마지막 결과 · '+HVR.chk.slice(5)+' 확인)</h3>'+tbl(['작업','끝난 시각','결과','원천'],[[HVR.job.id,HVR.job.end,'종료 코드 '+HVR.job.rc+' '+tag('실측','ok'),HVR.job.src]]);
  return g+hvChk()};
 V['SC-16']=function(){return hvSc04()+'<input id="cin" type="hidden"><span id="cres" hidden></span>'};
 V['SC-14']=hvTestOnly('SC-14','문서 자동 생성');
@@ -116,19 +118,28 @@ V['SC-13']=hvTestOnly('SC-13','고객 지원');
 V['SC-10']=function(){
  var g='<h2>SC-10 수집·연동</h2><p class="lead">원천별 마지막 수신 시각을 원천 파일로 확인한 값만 봅니다.</p>';
  g+=tbl(['원천','마지막 수신','상태','확인'],[
-  ['노트북 HiClo 판정 파일',HVR.hiclo.last,tag('끊김','bad')+' '+hvAge()+' 갱신 없음','실측'],
+  ['노트북 HiClo 판정 파일',HVR.hiclo.last,tag('끊김','bad')+' '+hvAge()+' 갱신 없음','실측('+HVR.chk.slice(5)+' 확인)'],
   ['HIVEN.app 관계 신호',HVR.hiven.last,hvNo(),'HiClo 판정 파일 기준'],
-  ['작업 대기열 결과',HVR.job.end,tag('끊김','bad')+' 이후 결과 없음','실측'],
+  ['작업 대기열 결과',HVR.job.end,tag('끊김','bad')+' 이후 결과 없음','실측('+HVR.chk.slice(5)+' 확인)'],
   ['모델 통제 이력(SC-15)','게시본',tag('정상','ok')+' 10초마다 읽음','실측'],
-  ['통합사업관리 작업상황(SC-09)','게시본',tag('정상','ok')+' 30초마다 읽음','실측']]);
+  ['통합사업 작업상황(SC-09)','게시본',tag('정상','ok')+' 30초마다 읽음','실측'],
+  ['HiCoffer Cloud 묶음(IF-4 · IF-5)',hvNo(),hvNo()+' 수신 경로 구현 전','자리만 — 추적 열쇠값(TRC) 11칸 자료 형식 확정 전']]);
+ g+='<p class="note">위 표의 노트북 원천 세 줄(HiClo 판정 · HIVEN.app 신호 · 작업 대기열)은 '+HVR.chk+' 확인값입니다('+hvChkAge()+'). 「HiCoffer Cloud 묶음」은 통합 서비스 구조 설계안의 IF-4(HiCoffer ↔ Cloud)·IF-5(Cloud ↔ 통합관제) 수신 자리이며 값은 원천이 생기면 채웁니다.</p>';
  g+=hvMetaTbl();
  return g+hvChk()};
 V['SC-12']=hvTestOnly('SC-12','검수·품질');
 V['SC-06']=function(){
  var g='<h2>SC-06 대응·경보</h2><p class="lead">HiClo 마지막 판정 기준 경보와 클로 단계만 봅니다.</p>';
- g+='<div class="grid">'+card('클로 단계',HVR.hiclo.stage,'판정 '+HVR.hiclo.last.slice(5,16)+' · '+tag('실측','ok'))+card('지금 단계','확인 안 됨',hvAge()+' 갱신 없음 · '+tag('불명확','gray'))+card('대응 모드',"확인 안 됨",'원천 확인 안 됨')+'</div>';
- g+='<h3>경보</h3>'+tbl(['시각','심각도','대상','내용'],HVR.issues.map(function(r){return [r[0].slice(5),tag(r[1],r[1]==='경고'?'warn':'gray'),r[2],r[3]]}));
+ g+='<div class="grid">'+card('클로 단계',HVR.hiclo.stage,'판정 '+HVR.hiclo.last.slice(5,16)+' · 옛 값')+card('지금 단계','확인 안 됨',hvAge()+' 갱신 없음 · '+tag('불명확','gray'))+card('대응 모드',"확인 안 됨",'원천 확인 안 됨')+'</div>';
+ g+=hvAlertLedger();
+ g+='<h3>경보 — 2026-11-03 판정값(옛 값)</h3>'+tbl(['시각','심각도','대상','내용'],HVR.issues.map(function(r){return [r[0].slice(5),tag(r[1],r[1]==='경고'?'warn':'gray'),r[2],r[3]]}))+'<p class="note">이 네 줄은 2026-11-03 20:54 HiClo 판정 파일의 값을 '+HVR.chk+'에 확인해 코드에 적어 둔 옛 값입니다(지금 값 아님 · '+hvAge()+' 갱신 없음). 새 경보는 위 경보 원장에 쌓입니다.</p>';
  return g+hvChk()};
+/* 261111 M-1: 경보 원장(cowork/ctl/alerts.tsv). 통제 규칙 CR-01~10 경보가 실릴 자리. 머리글만 있고 자료 0줄이면 「0건」이 아니라 「원천 연결 전」으로 보인다 */
+function hvAlertLedger(){var h='<h3>경보 원장(통제 규칙 CR-01~10이 실릴 자리)</h3>';
+ if(!hvMeta.t)return h+'<p class="note">불러오는 중</p>';if(!hvMeta.al)return h+hvNo('원천 ctl/alerts.tsv 없음');
+ var H=hvMeta.al.h,R=hvMeta.al.r.slice().reverse();
+ return h+(R.length?tbl(H,R.map(function(r){return r.map(hvEsc)})):tbl(H,[H.map(function(x,i){return i===0?tag('확인 안 됨','gray'):i===1?'경보를 만드는 원천 연결 전 — 연결되면 여기에 최신순으로 표출':''})]))
+ +'<p class="note">원천 cowork/ctl/alerts.tsv · '+R.length+'줄. 열은 초안입니다(추적 열쇠값 TRC 11칸 자료 형식 확정 전). 경보 조건 값(실패율·횟수·배수)은 「확인 안 됨(베타 2차 실측으로 정함)」이며 시뮬레이션에 쓴 가정값은 <a href="test/sim.html">시험 페이지</a>에만 둡니다.</p>'}
 V['SC-11']=hvTestOnly('SC-11','형상·변경');
 /* 머리띠(상단 칩): 원본은 실측만 — 대응 모드는 원천 없음, 데이터 신선도는 HiClo 마지막 판정 기준, 갱신은 원천 확인 시각 */
 function hvHdr(){try{var c=document.getElementById('chip-mode');if(c)c.innerHTML='<span class="dot" style="background:#9e9e9e"></span>대응 모드 <b>확인 안 됨</b>';var f=document.getElementById('ftxt');if(f)f.textContent='판정 '+Math.floor((Date.now()-HVST)/3600000)+'시간 끊김';f.parentNode.title='데이터 신선도: 노트북 HiClo 판정 파일 마지막 갱신 뒤 지난 시간(실측)';var u=document.getElementById('upd');if(u)u.textContent=(hvMeta.m?'게시 '+hvMeta.m.published:HVR.chk+' (원천 확인)')}catch(e){}}
@@ -157,7 +168,7 @@ function hvCc(h,c){return h.replace('class="card cbtn','class="card cbtn '+c)}
 
 /* W19-3(AICS 재설계안 2.0) — 게시 메타·사업군 7단계·지시 추적 표출. 모델이 푸시한 게시본을 읽기만 한다(자동 실행 장치 아님). */
 var hvMeta={m:null,bg:null,tv:null,t:0};
-function hvMetaLoad(){Promise.all([hvFetch('cowork/publish_meta.json','json').catch(function(){return null}),hvFetch('cowork/ctl/bg_lifecycle.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/trace_v.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/bg_contact.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/bg_source.tsv','text').catch(function(){return null})]).then(function(r){hvMeta.m=r[0];hvMeta.bg=r[1]===null?null:hvTsv(r[1]);hvMeta.tv=r[2]===null?null:hvTsv(r[2]);hvMeta.ct=r[3]===null?null:hvTsv(r[3]);hvMeta.src=r[4]===null?null:hvTsv(r[4]);hvMeta.t=Date.now();if(['SC-01','SC-04','SC-16','SC-10'].indexOf(cur)>=0)render(cur);hvHdr()},function(){})}
+function hvMetaLoad(){Promise.all([hvFetch('cowork/publish_meta.json','json').catch(function(){return null}),hvFetch('cowork/ctl/bg_lifecycle.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/trace_v.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/bg_contact.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/bg_source.tsv','text').catch(function(){return null}),hvFetch('cowork/ctl/alerts.tsv','text').catch(function(){return null})]).then(function(r){hvMeta.al=r[5]===null?null:(function(t){var L=String(t).replace(/\r/g,'').split('\n').filter(function(x){return x.length});return {h:L[0]?L[0].split('\t'):[],r:L.slice(1).map(function(x){return x.split('\t')})}})(r[5]);hvMeta.m=r[0];hvMeta.bg=r[1]===null?null:hvTsv(r[1]);hvMeta.tv=r[2]===null?null:hvTsv(r[2]);hvMeta.ct=r[3]===null?null:hvTsv(r[3]);hvMeta.src=r[4]===null?null:hvTsv(r[4]);hvMeta.t=Date.now();if(['SC-01','SC-04','SC-16','SC-10','SC-06'].indexOf(cur)>=0&&!hvMeta._r){hvMeta._r=1;render(cur)}else if(['SC-01','SC-04','SC-16','SC-10'].indexOf(cur)>=0)render(cur);hvHdr()},function(){})}
 /* T-W19-04 접점표(Opus 워크 0006): 사업부 설정안 6장 연동표 TSV 5권 → ctl/bg_contact.tsv · 결정 묶음 B-1(대표님 승인 11/05 03:54) — 심각도 상=경고 상자 즉시, 중·하=목록, 해제=조치 완료+Fable 처리 완료 */
 function hvContact(){
  if(!hvMeta.t)return '';

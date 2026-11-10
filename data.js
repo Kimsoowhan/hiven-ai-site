@@ -2,12 +2,13 @@
 var $=function(i){return document.getElementById(i)};
 function pad(n){return (n<10?'0':'')+n}
 function kst(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())}
-var S=[
- ['SC-01','종합 현황'],['SC-04','사업군 통제'],['SC-05','구동 상태'],['SC-16','말 명령'],
- ['SC-14','문서 자동 생성'],['SC-07','체계 배포'],['SC-13','고객 지원'],['SC-10','수집·연동'],
- ['SC-12','검수·품질'],['SC-06','대응·경보'],['SC-11','형상·변경'],
- ['SC-09','통합사업 작업상황'],['SC-15','모델 통제 상황'],['SC-08','베타 배포 모니터링']
+var S=[/* 261111 L-1: 16개 화면을 번호순으로 한곳에 둠(이름 = cowork/ctl/sc_renumber_261107.json). views7·sec는 이미 있으면 다시 넣지 않음 */
+ ['SC-01','종합 현황'],['SC-02','이상징후 및 보안체계 시스템'],['SC-03','침입 예측·예방·대응·조치 시스템'],['SC-04','사업군 통제'],
+ ['SC-05','구동 상태'],['SC-06','대응·경보'],['SC-07','체계 배포'],['SC-08','베타 배포 모니터링'],
+ ['SC-09','통합사업 작업상황'],['SC-10','수집·연동'],['SC-11','형상·변경'],['SC-12','검수·품질'],
+ ['SC-13','고객 지원'],['SC-14','문서 자동 생성'],['SC-15','모델 통제 상황'],['SC-16','말 명령']
 ];
+function hvSHas(id){return S.some(function(x){return x[0]===id})}
 /* 번호·이름·역할·통제 접점·상태·표시색 */
 var BG=[
  ['#1','HiASI','AI에서 ASI로 확장한 에이전트 두뇌','N2','정상','ok'],
@@ -18,6 +19,11 @@ var BG=[
  ['#6','HiSilver','시니어 디지털 유산·엔딩노트','N4','정상','ok'],
  ['#7','HiTrade','AI 에이전트 거래 시장','N4','구성 중','warn']
 ];
+/* 상태 칸 대응표(261111 H-2): 이력 상태 칸의 말(9가지)은 그대로 두고, 세는 쪽이 이 표 하나로 「조치 완료」를 가른다. 산출 쪽 같은 표 = tools/gen_lifecycle.py DONE. SC-01·SC-12·SC-15 공통 */
+var HV_ST_DONE=['조치 완료','완료','처리됨','완료(이름 변경)'];
+function hvStDone(s){return HV_ST_DONE.indexOf(String(s||'').trim())>=0}
+/* 경보 시각 표기 통일(261111 D-4): 자료(협정 세계시 ISO)는 그대로 두고, 보일 때만 한국 시각 「MM-DD HH:MM」. SC-01 띠·SC-03 표 공통 */
+function hvKstMD(t){try{var d=new Date(t);if(isNaN(d))return String(t).slice(5,16).replace('T',' ');return new Date(d.getTime()+9*3600000).toISOString().slice(5,16).replace('T',' ')}catch(e){return String(t).slice(5,16)}}
 function tag(t,c){return '<span class="tag '+c+'">'+t+'</span>'}
 /* 표 표출 기준 통일(대표님 11/04 17:49): 모든 표 한 쪽 5줄 + 같은 쪽 넘김(◀ 이전 · 쪽 번호 · 다음 ▶). tbl 표는 화면 안에서 쪽을 넘김 */
 var HV_TB=0;
@@ -29,7 +35,12 @@ function tbl(h,rows){var id='tb'+(++HV_TB),P=HV_PG_STD,n=Math.ceil(rows.length/P
 }
 function hvTbPager(id,i,n,tot){var P=HV_PG_STD,nums='';for(var j=0;j<n;j++){if(n>9&&Math.abs(j-i)>3&&j!==0&&j!==n-1){if(nums.slice(-1)!=='…')nums+='…';continue}nums+='<button type="button" class="'+(j===i?'on':'')+'" onclick="hvTbGo(\''+id+'\','+j+')">'+(j+1)+'</button>'}
  return '<div class="hv-pg" data-tb="'+id+'"><button type="button" class="hv-pg-a" '+(i<=0?'disabled':'')+' onclick="hvTbGo(\''+id+'\','+(i-1)+')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(i>=n-1?'disabled':'')+' onclick="hvTbGo(\''+id+'\','+(i+1)+')">다음 ▶</button><span class="hv-pg-i">'+(i+1)+'/'+n+'쪽 · '+(i*P+1)+'~'+Math.min(tot,(i+1)*P)+' / 전체 '+tot+'건 · 한 쪽 '+P+'줄</span></div>'}
-function hvTbGo(id,i){var w=document.getElementById(id);if(!w)return;var R=w.querySelectorAll('tbody>tr'),P=HV_PG_STD,n=Math.ceil(R.length/P);i=Math.max(0,Math.min(n-1,i));R.forEach(function(r,k){r.style.display=(k>=i*P&&k<(i+1)*P)?'':'none'});var pg=w.nextElementSibling;if(pg&&pg.getAttribute('data-tb')===id)pg.outerHTML=hvTbPager(id,i,n,R.length)}
+/* 261111 M-3: 글자열로 직접 짠 표(.tw 안의 table)도 같은 쪽 넘김을 쓰게 하는 뒤처리. 5줄 넘고 쪽 넘김이 없는 표에만 붙인다. 다시 그려도 보던 쪽을 지킨다(HV_TBS) */
+var HV_TBS={};
+function hvTbAuto(root){if(!root)return;[].forEach.call(root.querySelectorAll('.tw'),function(w){var nx=w.nextElementSibling;if(nx&&/hv-pg/.test(nx.className))return;var t=w.querySelector('table');if(!t||t.parentNode!==w)return;var R=w.querySelectorAll('tbody>tr'),P=HV_PG_STD;if(R.length<=P||w.querySelector('tr.sc13-dt'))return;
+ var k=(typeof cur!=='undefined'?cur:'')+'|'+[].map.call(t.querySelectorAll('th'),function(x){return x.textContent.trim()}).join('|').slice(0,80);if(!w.id)w.id='tb'+(++HV_TB);w.setAttribute('data-k',k);
+ var n=Math.ceil(R.length/P),i=Math.max(0,Math.min(n-1,+HV_TBS[k]||0));[].forEach.call(R,function(r,j){r.style.display=(j>=i*P&&j<(i+1)*P)?'':'none'});w.insertAdjacentHTML('afterend',hvTbPager(w.id,i,n,R.length))})}
+function hvTbGo(id,i){var w=document.getElementById(id);if(!w)return;var R=w.querySelectorAll('tbody>tr'),P=HV_PG_STD,n=Math.ceil(R.length/P);i=Math.max(0,Math.min(n-1,i));if(w.getAttribute('data-k'))HV_TBS[w.getAttribute('data-k')]=i;R.forEach(function(r,k){r.style.display=(k>=i*P&&k<(i+1)*P)?'':'none'});var pg=w.nextElementSibling;if(pg&&pg.getAttribute('data-tb')===id)pg.outerHTML=hvTbPager(id,i,n,R.length)}
 /* 요약 상자 공통 인터페이스(대표님 11/04 17:27·17:35): 모든 상자는 누르는 버튼. 누르면 상자 묶음 바로 아래에 그 값의 근거 데이터(항목·원천·확인 시각)를 펼치고, 다시 누르면 닫음.
    다른 화면으로 가던 상자는 펼친 내용 안의 「SC-xx에서 자세히」 버튼으로 이동. 근거: det 인자(문자열·함수) → HV_CDET[이름] → 기본(이 화면의 원천). */
 var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};/* 17:51 SC-01은 상자 1~10 순서 목록표를 상시 표출하므로 기본 펼침 없음 */
