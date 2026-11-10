@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-10 22:30	모델통제 이력 592(Fable 질타: HiDAM 재편 진행 중 멈춤·수기 메모 구독 세분 미반영) 기록	cowork/ctl/model_control_history.tsv
+ee62433	2026-11-10 22:30	모델통제 이력 592(Fable 질타: HiDAM 재편 진행 중 멈춤·수기 메모 구독 세분 미반영) 기록	cowork/ctl/model_control_history.tsv
 1dff401	2026-11-10 21:50	SC-01 기기 알림: 신뢰 기기 등록부(허용은 신분 확인 뒤 등록, 해지는 수신만 끄기·기능 해제 선택, 재허용은 신분 확인), LED 4종(허용 중·수신 끔·해지됨·미허용), SC-03 기록	sec2.js, index.html, integrity.json, worker.js(ic)
 1faf6ae	2026-11-10 21:10	대표 신분 확인 장치: ic 확인 화면(id.html)과 서버 판정(/__id), 창 번호별 통과 기록(8시간), 실패 등급·잠금, SC-03 기록 연동	id.html(ic), worker.js(ic)
 c3fd3fa	2026-11-10 20:27	SC-01 종합현황 「기기 알림 허용」 버튼 옆 상태 LED 추가(초록=허용 중, 빨강=미허용)	sec2.js, index.html, integrity.json
