@@ -1,41 +1,59 @@
 {
  "title": "HiDAM.app 기준 구현 시뮬레이션",
  "note": "만든 파일로 돌린 시뮬레이션이며 실측이 아니다",
- "policy": "HiDAM-STD-1.0",
- "code_sha256": "4193dd0ee919078d8b0fabf04fea166d8bceb73e68f1c3a85dffdb901eb2d2a0",
- "total": 31,
- "passed": 31,
+ "policy": "HiDAM-STD-1.0(작업)",
+ "app": "HDA-0.2",
+ "code_sha256": "257d2cb7973f60d2a9da9a3bc9feaa50cd99ed7c934b0bad63e932090b8c0f2f",
+ "scenario_sha256": "16157fdf9eb6c03b0796a765853d9ea7eae95d786ae2f5883acd46ef90cd8d73",
+ "ran_at": "2026-11-10T16:41:49Z",
+ "env": "Python 3.13.18 · linux",
+ "total": 59,
+ "passed": 59,
+ "groups": [
+  "가 분류·보안 분류",
+  "나 보호·자가 통제·연결",
+  "다 최적화·정합",
+  "라 미러링·자동",
+  "마 다 대 다",
+  "바 복구·원장·Cloud",
+  "사 모드·매체 역할"
+ ],
  "cases": [
   {
    "no": "TS-01",
+   "group": "가 분류·보안 분류",
    "title": "같은 파일을 두 기기에서 판정",
    "rule": "CP-06",
    "result": "통과",
-   "seen": "(('02.01', '중간', 'JR-4'), ('02.01', '중간', 'JR-4'))"
+   "seen": "('02.01', '02.01', 'ASSET_ID 같음')"
   },
   {
    "no": "TS-02",
+   "group": "가 분류·보안 분류",
    "title": "무료 미리 보기와 구독 판정",
    "rule": "CP-10",
    "result": "통과",
-   "seen": "{'높음': 0.571, '중간': 0.286, '낮음': 0.143}"
+   "seen": "{'높음': 0.444, '중간': 0.444, '낮음': 0.111}"
   },
   {
    "no": "TS-03",
+   "group": "가 분류·보안 분류",
    "title": "인증서 파일",
    "rule": "JR-1",
    "result": "통과",
-   "seen": "{'code': '00.04', 'conf': '높음', 'rank': 'JR-1', 'grade': 'D3'}"
+   "seen": "00.04 D3, 옮김 0"
   },
   {
    "no": "TS-04",
+   "group": "가 분류·보안 분류",
    "title": "휴대폰 백업 폴더",
    "rule": "JR-2",
    "result": "통과",
-   "seen": "{'code': '97.01', 'conf': '높음', 'rank': 'JR-2', 'grade': 'D3'}"
+   "seen": "97.01"
   },
   {
    "no": "TS-05",
+   "group": "가 분류·보안 분류",
    "title": "찍은 사진과 화면 캡처",
    "rule": "PV-01·02",
    "result": "통과",
@@ -43,76 +61,167 @@
   },
   {
    "no": "TS-06",
+   "group": "가 분류·보안 분류",
    "title": "찍은 정보가 없는 사진",
    "rule": "PV-09",
    "result": "통과",
-   "seen": "{'code': '99.01', 'conf': '낮음', 'rank': 'JR-8/PV-09', 'grade': 'D1'}"
+   "seen": "99.01 낮음"
   },
   {
    "no": "TS-07",
+   "group": "가 분류·보안 분류",
    "title": "묶음 안의 사진",
    "rule": "JR-9 · PV-04",
    "result": "통과",
-   "seen": "{'code': '03.01', 'conf': '중간', 'rank': 'JR-3', 'grade': 'D2'}"
+   "seen": "03.01"
   },
   {
    "no": "TS-08",
+   "group": "가 분류·보안 분류",
    "title": "사용자가 자리를 고침",
    "rule": "CP-08",
    "result": "통과",
-   "seen": "{'code': '06.08', 'conf': '높음', 'rank': '사용자 규칙', 'grade': 'D1'}"
+   "seen": "06.08"
+  },
+  {
+   "no": "TS-32",
+   "group": "가 분류·보안 분류",
+   "title": "사용자 규칙으로 인증서 자리를 바꾸려 함",
+   "rule": "CP-08 · JR-1",
+   "result": "통과",
+   "seen": "보호가 앞섬, D3 유지"
+  },
+  {
+   "no": "TS-33",
+   "group": "가 분류·보안 분류",
+   "title": "여권 사본의 등급",
+   "rule": "SV-01·02",
+   "result": "통과",
+   "seen": "01.01 D3"
+  },
+  {
+   "no": "TS-60",
+   "group": "가 분류·보안 분류",
+   "title": "같은 이름을 운영체제가 다르게 적은 경우(NFC·NFD)",
+   "rule": "TP-07 · CP-06",
+   "result": "통과",
+   "seen": "둘 다 02.01"
   },
   {
    "no": "TS-09",
+   "group": "나 보호·자가 통제·연결",
    "title": "위협이 든 매체를 꽂음",
    "rule": "AP-02 · A-05",
    "result": "통과",
-   "seen": "이중 확장자"
+   "seen": "위험 표시 — 사용자 결정 대기 · 파일은 그 자리에 둠"
+  },
+  {
+   "no": "TS-34",
+   "group": "나 보호·자가 통제·연결",
+   "title": "위협이 아닌 것을 막지 않음",
+   "rule": "AP-02",
+   "result": "통과",
+   "seen": "(None, None, ('주의', '확장자와 실제 형식이 다름'))"
   },
   {
    "no": "TS-10",
+   "group": "나 보호·자가 통제·연결",
    "title": "미등록 매체",
    "rule": "AP-03 · M3",
    "result": "통과",
-   "seen": "미등록 매체"
+   "seen": "미등록 매체 SCT-E01"
   },
   {
    "no": "TS-11",
+   "group": "나 보호·자가 통제·연결",
    "title": "1 대 다: 매체 여덟 자리, 아홉째",
    "rule": "SY-01 · TP-03",
    "result": "통과",
-   "seen": "['정상', '정상', '정상', '정상', '정상', '정상', '정상', '정상', '자리 없음']"
+   "seen": "['정상', '자리 없음']"
+  },
+  {
+   "no": "TS-25",
+   "group": "나 보호·자가 통제·연결",
+   "title": "한 기기에 세션 둘",
+   "rule": "NC-01",
+   "result": "통과",
+   "seen": "둘째 거절 SCT-E02"
   },
   {
    "no": "TS-12",
+   "group": "다 최적화·정합",
    "title": "매체 사이 완전 중복 지도",
    "rule": "DUP-A · OZ-01",
    "result": "통과",
-   "seen": "{'dup_groups': 1, 'reclaim_bytes': 800, 'version_sets': 4}"
+   "seen": "{'dup_groups': 5, 'reclaim_bytes': 904, 'version_sets': 3}"
+  },
+  {
+   "no": "TS-40",
+   "group": "다 최적화·정합",
+   "title": "옛 부호(cp949) 글자 문서가 섞여 있음",
+   "rule": "SY-07",
+   "result": "통과",
+   "seen": "SY-제안"
+  },
+  {
+   "no": "TS-35",
+   "group": "다 최적화·정합",
+   "title": "처음 만난 판들(계보 없음), 한 판이 다른 판의 줄을 다 담음",
+   "rule": "SY-03·08",
+   "result": "통과",
+   "seen": "계보가 없음. M-C의 판이 다른 판의 줄을 다 담고 있어 최신으로 보이나, 줄을 지운 고침일 수도 있어 확"
+  },
+  {
+   "no": "TS-38",
+   "group": "다 최적화·정합",
+   "title": "날짜 이름 사진·다른 폴더의 같은 이름·빈 파일",
+   "rule": "SY-03 · IX-06",
+   "result": "통과",
+   "seen": "['계획서', '그림', '옛글']"
   },
   {
    "no": "TS-13",
-   "title": "한 줄로 이어진 판(세 매체)",
-   "rule": "SY-04·06",
+   "group": "다 최적화·정합",
+   "title": "사용자가 고른 판이 최종본",
+   "rule": "SY-06·09",
    "result": "통과",
-   "seen": "M-C의 판이 다른 판의 내용을 다 담음"
+   "seen": "최종본 바이트 = 고른 판 바이트"
   },
   {
    "no": "TS-14",
-   "title": "갈라짐: 겹치지 않게 고침",
+   "group": "다 최적화·정합",
+   "title": "갈라짐: 바탕이 확인되고 겹치지 않게 고침",
    "rule": "SY-07",
    "result": "통과",
-   "seen": "머리/가 고침/나/다/라/마 고침"
+   "seen": "머리/가 고침/나/다/라/마 고침/"
   },
   {
    "no": "TS-15",
+   "group": "다 최적화·정합",
    "title": "갈라짐: 같은 대목을 다르게 고침",
    "rule": "SY-07·08",
    "result": "통과",
-   "seen": "같은 대목을 다르게 고쳤거나 바탕 판이 없음 — 양쪽을 나란히 보여 줌"
+   "seen": "같은 대목을 다르게 고침 — 양쪽을 나란히 보여 줌"
+  },
+  {
+   "no": "TS-37",
+   "group": "다 최적화·정합",
+   "title": "차례로 바꿔 쓴 사슬을 틀리게 합치지 않음",
+   "rule": "SY-07·08",
+   "result": "통과",
+   "seen": "같은 대목을 다르게 고침 — 양쪽을 나란히 보여 줌"
+  },
+  {
+   "no": "TS-36",
+   "group": "다 최적화·정합",
+   "title": "줄을 지운 것이 마지막 고침",
+   "rule": "SY-03·15",
+   "result": "통과",
+   "seen": "M-C의 판이 다른 판들의 뒤를 이음(계보 확인)"
   },
   {
    "no": "TS-16",
+   "group": "다 최적화·정합",
    "title": "날짜가 속임(가장 옛 날짜가 최신 내용)",
    "rule": "SY-03",
    "result": "통과",
@@ -120,144 +229,313 @@
   },
   {
    "no": "TS-17",
+   "group": "다 최적화·정합",
    "title": "글자 문서가 아닌 것의 갈라짐",
    "rule": "SY-07",
    "result": "통과",
-   "seen": "글자 문서가 아님 — 차이를 보여 주고 고르게 함"
+   "seen": "글자 문서가 아니거나 읽지 못하는 부호 — 차이를 보여 주고 고르게 함"
+  },
+  {
+   "no": "TS-41",
+   "group": "다 최적화·정합",
+   "title": "기기에서 최종본을 직접 고침",
+   "rule": "SY-12 · AP-03",
+   "result": "통과",
+   "seen": "덮어쓰지 않음: DEV-PC-01의 판이 다른 판들의 뒤를 이음(계보 확인)"
+  },
+  {
+   "no": "TS-42",
+   "group": "다 최적화·정합",
+   "title": "같은 정합을 되풀이",
+   "rule": "SY-09",
+   "result": "통과",
+   "seen": "판이 쌓이지 않음"
+  },
+  {
+   "no": "TS-28",
+   "group": "다 최적화·정합",
+   "title": "정합 뒤 매체의 파일",
+   "rule": "SY-09 · P-01",
+   "result": "통과",
+   "seen": "엔진이 작업 매체에 쓴 것 0"
   },
   {
    "no": "TS-18",
-   "title": "거울: 최종본만, 해시 대조",
-   "rule": "MR-03 · SY-10",
+   "group": "라 미러링·자동",
+   "title": "거울: 역할을 준 매체에만, 첫 실행은 확인 뒤",
+   "rule": "MR-08·15",
    "result": "통과",
-   "seen": "{'done': 2, 'held': 0, 'mismatch': 0, 'stopped': None}"
+   "seen": "('첫 미러링 — 미리 보기와 확인 필요', '거울 역할이 아닌 매체')"
+  },
+  {
+   "no": "TS-43",
+   "group": "라 미러링·자동",
+   "title": "엇갈림이 없는 보통 파일도 거울로",
+   "rule": "MR-03",
+   "result": "통과",
+   "seen": "{'done': 4, 'held': 0, 'mismatch': 0, 'skipped': 1, 'stopped': None}"
+  },
+  {
+   "no": "TS-44",
+   "group": "라 미러링·자동",
+   "title": "보호 등급 자산은 자동 거울에서 빠짐",
+   "rule": "SV-03 · IX-14",
+   "result": "통과",
+   "seen": "[('개인/여권사본.pdf', '보호 등급 — 금고 거울 필요')]"
+  },
+  {
+   "no": "TS-45",
+   "group": "라 미러링·자동",
+   "title": "엇갈림이 안 풀린 것은 거울로 가지 않음",
+   "rule": "SY-10",
+   "result": "통과",
+   "seen": "회의·사슬·그림 빠짐"
   },
   {
    "no": "TS-19",
+   "group": "라 미러링·자동",
    "title": "바뀌면 자동: 최신 판 → 최종본 → 거울",
    "rule": "MR-12 · AP-07·08",
    "result": "통과",
-   "seen": "{'trigger': '바뀌면', 'mirrored': 7, 'reconciled': 4, 'result': '정상', 'row': 23}"
+   "seen": "확인 대기 4건"
+  },
+  {
+   "no": "TS-29",
+   "group": "라 미러링·자동",
+   "title": "자동 실행과 기다리는 것이 화면에 보임",
+   "rule": "UD-07 · MR-14",
+   "result": "통과",
+   "seen": "['그림', '사슬', '옛글', '회의']"
   },
   {
    "no": "TS-20",
+   "group": "라 미러링·자동",
    "title": "원본에서 지움",
    "rule": "MR-04 · CON-09",
    "result": "통과",
-   "seen": "{'done': 0, 'held': 1, 'mismatch': 0, 'stopped': None}"
+   "seen": "{'done': 0, 'held': 1, 'mismatch': 0, 'skipped': 1, 'stopped': None}"
   },
   {
    "no": "TS-21",
+   "group": "라 미러링·자동",
    "title": "대량 변경",
    "rule": "MR-16 · AP-08",
    "result": "통과",
-   "seen": "대량 변경 — 확인 필요"
-  },
-  {
-   "no": "TS-22",
-   "title": "무료 복구(되돌리기) 두 번 뒤 세 번째",
-   "rule": "RT · 정-1",
-   "result": "통과",
-   "seen": "(1, 0, '구독 안내')"
-  },
-  {
-   "no": "TS-23",
-   "title": "구독 복구(원복) 다섯 번",
-   "rule": "RS",
-   "result": "통과",
-   "seen": "[True, True, True, True, True]"
-  },
-  {
-   "no": "TS-24",
-   "title": "원장 위변조",
-   "rule": "K-02",
-   "result": "통과",
-   "seen": "그 뒤 동작 중지"
-  },
-  {
-   "no": "TS-25",
-   "title": "한 기기에 세션 둘",
-   "rule": "NC-01",
-   "result": "통과",
-   "seen": "둘째 거절"
+   "seen": "새 파일 12건은 비춤 · 10건이 한꺼번에 바뀌자 멈춤"
   },
   {
    "no": "TS-26",
+   "group": "라 미러링·자동",
    "title": "매체를 뽑음",
    "rule": "UD-05",
    "result": "통과",
    "seen": "뽑힘(마지막 본 값)"
   },
   {
+   "no": "TS-46",
+   "group": "라 미러링·자동",
+   "title": "범위를 준 거울 매체(자료실 08만)",
+   "rule": "ST-02 · MR-08",
+   "result": "통과",
+   "seen": "15건 모두 08"
+  },
+  {
    "no": "TS-27",
-   "title": "다 대 다: 다른 기기의 최종본이 최신",
-   "rule": "TP-01·02 · MR-07",
+   "group": "마 다 대 다",
+   "title": "다 대 다: 다른 기기의 최신 내용을 기준으로 맞춤",
+   "rule": "SY-15·16·19",
    "result": "통과",
-   "seen": "DEV-PC-01의 판이 다른 판의 내용을 다 담음"
+   "seen": "계보 없이는 SY-갈라짐 → 계보를 받은 뒤 SY-최신"
   },
   {
-   "no": "TS-28",
-   "title": "정합 뒤 매체의 원래 판",
-   "rule": "SY-09 · P-01",
+   "no": "TS-47",
+   "group": "마 다 대 다",
+   "title": "이미 받은 판을 다시 받지 않음",
+   "rule": "SY-17",
    "result": "통과",
-   "seen": "세 매체 해시 그대로"
+   "seen": "최종본 사건 0"
   },
   {
-   "no": "TS-29",
-   "title": "자동 실행 표시",
-   "rule": "UD-07 · MR-14",
+   "no": "TS-22",
+   "group": "바 복구·원장·Cloud",
+   "title": "무료 복구(되돌리기) 두 번 뒤 세 번째",
+   "rule": "RT · 정-1",
    "result": "통과",
-   "seen": "{'trigger': '바뀌면', 'mirrored': 7, 'reconciled': 4, 'result': '정상', 'row': 23}"
+   "seen": "(1, 0, '구독 안내')"
+  },
+  {
+   "no": "TS-58",
+   "group": "바 복구·원장·Cloud",
+   "title": "베타: 다섯 번을 넘어도 계속, 다섯 번째부터 안내",
+   "rule": "RT · 정-1",
+   "result": "통과",
+   "seen": "7번 모두 됨, 5번째부터 안내"
+  },
+  {
+   "no": "TS-48",
+   "group": "바 복구·원장·Cloud",
+   "title": "무료 층에서 정합·거울",
+   "rule": "MR-01 · SY-14",
+   "result": "통과",
+   "seen": "건수만 · 거절"
+  },
+  {
+   "no": "TS-23",
+   "group": "바 복구·원장·Cloud",
+   "title": "구독 복구(원복) 다섯 번",
+   "rule": "RS",
+   "result": "통과",
+   "seen": "[True, True, True, True, True]"
+  },
+  {
+   "no": "TS-49",
+   "group": "바 복구·원장·Cloud",
+   "title": "복구한 것을 자동 실행이 되돌리지 않음",
+   "rule": "SY-11 · RS",
+   "result": "통과",
+   "seen": "복구한 내용 그대로"
+  },
+  {
+   "no": "TS-50",
+   "group": "바 복구·원장·Cloud",
+   "title": "이름이 닮은 두 자리의 판이 섞이지 않음",
+   "rule": "CON-01",
+   "result": "통과",
+   "seen": "x/a.txt ← 자기 판"
+  },
+  {
+   "no": "TS-51",
+   "group": "바 복구·원장·Cloud",
+   "title": "지워진 파일의 복구, 없는 판 고르기",
+   "rule": "RS · K-01",
+   "result": "통과",
+   "seen": "되살림 · 실패는 LED-E04로 남음"
+  },
+  {
+   "no": "TS-24",
+   "group": "바 복구·원장·Cloud",
+   "title": "원장 위변조",
+   "rule": "K-02",
+   "result": "통과",
+   "seen": "그 뒤 동작 중지"
   },
   {
    "no": "TS-30",
+   "group": "바 복구·원장·Cloud",
    "title": "Cloud로 올리는 내용",
    "rule": "UD-08·09",
    "result": "통과",
-   "seen": "항목: asset,size,code,grade"
+   "seen": "항목: asset,size,code,grade,project"
   },
   {
    "no": "TS-31",
-   "title": "원장 사슬",
-   "rule": "P-03",
+   "group": "바 복구·원장·Cloud",
+   "title": "원장 사슬과 사건 코드",
+   "rule": "P-03 · HDA-R2",
    "result": "통과",
-   "seen": "28줄"
+   "seen": "73줄, 코드 없는 사건 0"
+  },
+  {
+   "no": "TS-52",
+   "group": "사 모드·매체 역할",
+   "title": "모드 셋: 같은 자산, 다른 자리",
+   "rule": "MO-01~04",
+   "result": "통과",
+   "seen": "('HiCoffer베타2/07_품질검수', '08.01', 'P001-07')"
+  },
+  {
+   "no": "TS-53",
+   "group": "사 모드·매체 역할",
+   "title": "프로젝트 모드에서 프로젝트 밖의 파일",
+   "rule": "MO-05",
+   "result": "통과",
+   "seen": "표준 자리로 내려감: 08.05"
+  },
+  {
+   "no": "TS-54",
+   "group": "사 모드·매체 역할",
+   "title": "프로젝트 단계 읽기",
+   "rule": "PJ-03",
+   "result": "통과",
+   "seen": "P001-04"
+  },
+  {
+   "no": "TS-55",
+   "group": "사 모드·매체 역할",
+   "title": "매체에 프로젝트 역할: 그 프로젝트만 비춤",
+   "rule": "RL-03",
+   "result": "통과",
+   "seen": "['HiCoffer베타2/04_설계안/설계서.docx', 'HiCoffer베타2/07_품질검수/검수조서.pdf']"
+  },
+  {
+   "no": "TS-56",
+   "group": "사 모드·매체 역할",
+   "title": "매체 역할을 바꾸면 다시 확인받음",
+   "rule": "RL-05 · ST-04",
+   "result": "통과",
+   "seen": "역할 바꿈 SCT-E04"
+  },
+  {
+   "no": "TS-59",
+   "group": "사 모드·매체 역할",
+   "title": "화면 보기·올릴 내용 만들기는 원장에 쓰지 않음",
+   "rule": "UD-01",
+   "result": "통과",
+   "seen": "원장 줄 그대로, 줄마다 시각·행위자"
+  },
+  {
+   "no": "TS-57",
+   "group": "사 모드·매체 역할",
+   "title": "대시보드에 모드와 매체 역할",
+   "rule": "UD-05 · MO-06",
+   "result": "통과",
+   "seen": "{'P001-04': 1, 'P001-07': 1, '08.05': 1}"
   }
  ],
  "dashboard_sample": {
   "1_내기기": {
    "dev": "DEV-PC-01",
+   "mode": "시스템",
    "media": [
     {
      "dev": "M-A",
      "kind": "외장",
+     "role": "작업",
+     "scope": null,
      "state": "뽑힘(마지막 본 값)",
      "blocked": null
     },
     {
      "dev": "M-B",
      "kind": "외장",
+     "role": "작업",
+     "scope": null,
      "state": "꽂힘",
      "blocked": null
     },
     {
      "dev": "M-C",
      "kind": "외장",
+     "role": "작업",
+     "scope": null,
      "state": "꽂힘",
      "blocked": null
     },
     {
      "dev": "M-D",
      "kind": "외장",
+     "role": "거울",
+     "scope": null,
      "state": "꽂힘",
      "blocked": null
     }
    ]
   },
   "2_내디지털자산": {
-   "files": 7,
-   "area": {
-    "08": 7
+   "files": 16,
+   "by_place": {
+    "08": 15,
+    "01": 1
    },
    "conf": {
     "높음": 0.0,
@@ -265,49 +543,59 @@
     "낮음": 0.0
    },
    "dup": {
-    "dup_groups": 1,
-    "reclaim_bytes": 400,
-    "version_sets": 3
+    "dup_groups": 3,
+    "reclaim_bytes": 494,
+    "version_sets": 5
    },
-   "unsettled": 3
+   "unsettled": 5
   },
   "3_보호상태": {
-   "quarantined": 0,
+   "flagged": [],
    "unregistered": [],
-   "state": "정상"
+   "state": "살핌 필요"
   },
   "4_거울상태": {
    "mirrors": {
-    "M-A": 2,
-    "M-B": 2,
-    "M-C": 2,
-    "M-D": 1
+    "M-D": 15
    },
    "last_auto": {
     "trigger": "바뀌면",
-    "mirrored": 7,
-    "reconciled": 4,
-    "result": "정상",
-    "row": 23
-   }
+    "mirrored": 1,
+    "reconciled": 7,
+    "waiting": [
+     "그림",
+     "사슬",
+     "옛글",
+     "회의"
+    ],
+    "result": "확인 대기 4건"
+   },
+   "skipped": [
+    [
+     "개인/여권사본.pdf",
+     "보호 등급 — 금고 거울 필요"
+    ]
+   ]
   },
   "5_금고": {
-   "count": 0,
+   "count": "확인 안 됨",
    "note": "기준 구현 범위 밖"
   },
   "6_기록": {
-   "events": 28,
+   "events": 63,
    "chain_ok": true,
    "recover_used": {}
   },
   "7_구독회원": {
    "tier": "구독",
-   "devices": 1
+   "devices": "확인 안 됨(회원·기기 등록은 Cloud 쪽)"
   },
   "8_설정": {
    "auto": true,
    "mass_ratio": 0.5,
-   "policy": "HiDAM-STD-1.0"
+   "policy": "HiDAM-STD-1.0(작업)",
+   "app": "HDA-0.2",
+   "mode": "시스템"
   },
   "9_열쇠": {
    "note": "값 없음 — 이름·위치·이력만"
@@ -315,63 +603,89 @@
  },
  "ledger_tail": [
   {
-   "n": 24,
+   "seq": 69,
+   "eid": "DEV-PC-01#69",
+   "at": "2026-11-10T16:41:49Z",
+   "dev": "DEV-PC-01",
+   "actor": "엔진",
+   "code": "SYN-E01",
    "mod": "SYN",
-   "act": "자동 실행",
-   "policy": "HiDAM-STD-1.0",
-   "prev": "92820cbc3258b0a97eead7c418ce8cc812cd0f7f4386f755ae33efe217d7f5d7",
-   "trigger": "바뀌면",
-   "mirrored": 7,
-   "reconciled": 4,
-   "result": "정상",
-   "h": "6083680230afc0ac6c6fa13e80877911ee7c45088d95e78cced1e85214a15e45"
+   "act": "정합 판정",
+   "policy": "HiDAM-STD-1.0(작업)",
+   "prev": "e65e959061290bc1adc3bda2b1ecf97ef3b447256a38f8a9e64a1ce199744f5e",
+   "stem": "회의",
+   "judge": "SY-갈라짐",
+   "how": "사용자가 고름",
+   "h": "4105fc77d4890fe7998d896c63b1100e60f52549c492e96d3f7276c554804820"
   },
   {
-   "n": 25,
-   "mod": "SYN",
-   "act": "미러링",
-   "policy": "HiDAM-STD-1.0",
-   "prev": "6083680230afc0ac6c6fa13e80877911ee7c45088d95e78cced1e85214a15e45",
-   "dev": "M-D",
-   "auto": false,
-   "done": 0,
-   "held": 1,
-   "mismatch": 0,
-   "h": "3fb75f070b55327d46ac213ff3a39eda977b423f0e18f51f12ad741123e8ce20"
-  },
-  {
-   "n": 26,
+   "seq": 70,
+   "eid": "DEV-PC-01#70",
+   "at": "2026-11-10T16:41:49Z",
+   "dev": "DEV-PC-01",
+   "actor": "엔진",
+   "code": "SYN-E05",
    "mod": "SYN",
    "act": "자동 미러링 멈춤",
-   "policy": "HiDAM-STD-1.0",
-   "prev": "3fb75f070b55327d46ac213ff3a39eda977b423f0e18f51f12ad741123e8ce20",
-   "dev": "M-D",
+   "policy": "HiDAM-STD-1.0(작업)",
+   "prev": "4105fc77d4890fe7998d896c63b1100e60f52549c492e96d3f7276c554804820",
+   "medium": "M-D",
    "why": "대량 변경",
-   "change": 6,
+   "change": 10,
    "gone": 0,
    "grade": "M3",
-   "h": "69ab3e442392a2235a11361a6f72c2bcc9d2b36b87934e171075e01598e405a1"
+   "h": "e08b8915a33247dd92724f943429b609a6797b307cc078adf6406427b148aa6e"
   },
   {
-   "n": 27,
-   "mod": "LNK",
-   "act": "매체 분리",
-   "policy": "HiDAM-STD-1.0",
-   "prev": "69ab3e442392a2235a11361a6f72c2bcc9d2b36b87934e171075e01598e405a1",
-   "dev": "M-A",
-   "h": "18c486567e05e4648e877db35955e38b265a87aaed42965f85e3d8b6c92a54c2"
+   "seq": 71,
+   "eid": "DEV-PC-01#71",
+   "at": "2026-11-10T16:41:49Z",
+   "dev": "DEV-PC-01",
+   "actor": "엔진",
+   "code": "SYN-E04",
+   "mod": "SYN",
+   "act": "자동 실행",
+   "policy": "HiDAM-STD-1.0(작업)",
+   "prev": "e08b8915a33247dd92724f943429b609a6797b307cc078adf6406427b148aa6e",
+   "trigger": "꽂으면",
+   "mirrored": 0,
+   "waiting": 2,
+   "result": "멈춤: M-D(대량 변경 — 확인 필요), M-F(첫 미러링 — 미리 보기와 확인 필요)",
+   "h": "0d9b11db39e3bcf3fa6240c0d6f9756f2c059b1c9ce2d5fff890cbd201e3a3f8"
   },
   {
-   "n": 28,
-   "mod": "CLS",
-   "act": "판정",
-   "policy": "HiDAM-STD-1.0",
-   "prev": "18c486567e05e4648e877db35955e38b265a87aaed42965f85e3d8b6c92a54c2",
-   "files": 7,
-   "높음": 0.0,
-   "중간": 1.0,
-   "낮음": 0.0,
-   "h": "c920399615ed16f0f2e1efbf68cc0aa697c78896ae169477c5cb2a1b51232a63"
+   "seq": 72,
+   "eid": "DEV-PC-01#72",
+   "at": "2026-11-10T16:41:49Z",
+   "dev": "DEV-PC-01",
+   "actor": "사용자",
+   "code": "SYN-E07",
+   "mod": "SYN",
+   "act": "사용자 결정",
+   "policy": "HiDAM-STD-1.0(작업)",
+   "prev": "0d9b11db39e3bcf3fa6240c0d6f9756f2c059b1c9ce2d5fff890cbd201e3a3f8",
+   "what": "첫 미러링 확인",
+   "medium": "M-F",
+   "h": "7e13f63ca42909430786ee055b580bd3cce54bf1b8f90c8b425c5b61117a1c47"
+  },
+  {
+   "seq": 73,
+   "eid": "DEV-PC-01#73",
+   "at": "2026-11-10T16:41:49Z",
+   "dev": "DEV-PC-01",
+   "actor": "엔진",
+   "code": "SYN-E03",
+   "mod": "SYN",
+   "act": "미러링",
+   "policy": "HiDAM-STD-1.0(작업)",
+   "prev": "7e13f63ca42909430786ee055b580bd3cce54bf1b8f90c8b425c5b61117a1c47",
+   "medium": "M-F",
+   "auto": false,
+   "done": 15,
+   "held": 0,
+   "mismatch": 0,
+   "skipped": 1,
+   "h": "a931e8b5b26daf77a8a731027fc0cd44f286e111c9949761cc8090b7a5433b68"
   }
  ]
 }

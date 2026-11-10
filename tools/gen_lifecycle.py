@@ -27,7 +27,7 @@ out=[];cnt={}
 for c in rows:
   n=int(c[0]);act=(c[8] or '').strip();st=c[9];fb=c[10] if len(c)>10 else ''
   started=bool(act) and st!='미조치'
-  cls='조치 완료' if st=='조치 완료' else ('미조치' if not started else '조치 중')
+  cls='조치 완료' if st in ('조치 완료','완료','처리됨','완료(이름 변경)') else ('미조치' if not started else '조치 중')
   rp='; '.join(ref.get(n,[]))
   stage=('7 통제 확인' if fb not in ('','대기') else '6 보고서 이관' if (cls=='조치 완료' and rp) else '5 해제' if cls=='조치 완료' else '4 조치 중' if started else '2 경고·알람')
   out.append([c[0],c[1],c[3],c[4],c[5],cls,'예','예','예' if started else '아니오','예' if cls!='미조치' else '아니오','예' if cls=='조치 완료' else '아니오',rp or '아니오',fb or '대기',stage])
