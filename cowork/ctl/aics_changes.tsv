@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-11 03:18	모델통제 이력 601(자가 발견) 게시	cowork/ctl/model_control_history.tsv 외 생성물
+b1ebe26	2026-11-11 03:18	모델통제 이력 601(자가 발견) 게시	cowork/ctl/model_control_history.tsv 외 생성물
 111d0b9	2026-11-11 03:30	칭찬 크레딧 원장 8번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
 e6f8105	2026-11-11 03:25	모델통제 이력 598~600(자가 발견 · 질타 · 위반) 게시	cowork/ctl/model_control_history.tsv 외 생성물
 c0dadfd	2026-11-11 02:25	통합관제 정비(병행 에이전트 I, 감리 Fable): 「처리됨」을 완료로 세는 기준을 화면까지 맞춤(SC-01·SC-15 조치 중 87로 같음), SC-02·SC-15 긴 표에 쪽 넘김, 생성기 경로를 저장소 기준으로, 검사 스크립트 보강, 변경 이력 시각을 커밋 시각으로 맞춤, 시험 페이지 정리	views0·2·3·5·7·8.js, data.js, index.html, sec.js, sec2.js, test/index.html, tools/*, cowork/ctl/*
