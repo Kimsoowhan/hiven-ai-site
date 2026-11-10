@@ -1,8 +1,8 @@
 {
- "published": "2026-11-11 02:13",
+ "published": "2026-11-11 03:00",
  "by": "모델",
- "history_rows": 596,
- "lifecycle_rows": 596,
+ "history_rows": 599,
+ "lifecycle_rows": 599,
  "consistent": true,
  "files": [
   {
@@ -11,7 +11,7 @@
    "screen": "SC-09",
    "rows": null,
    "sha16": "7ff3ee996d603057",
-   "mtime": "2026-11-11 02:12"
+   "mtime": "2026-11-11 02:13"
   },
   {
    "file": "board.md",
@@ -19,7 +19,7 @@
    "screen": "SC-09",
    "rows": null,
    "sha16": "d65924b98161150f",
-   "mtime": "2026-11-11 02:12"
+   "mtime": "2026-11-11 02:13"
   },
   {
    "file": "log.tsv",
@@ -27,7 +27,7 @@
    "screen": "SC-09",
    "rows": 38,
    "sha16": "925b57f99d12e7a4",
-   "mtime": "2026-11-11 02:12"
+   "mtime": "2026-11-11 02:13"
   },
   {
    "file": "reports/index.json",
@@ -41,9 +41,9 @@
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-15",
-   "rows": 596,
-   "sha16": "26bf7edcabafad3f",
-   "mtime": "2026-11-11 01:56"
+   "rows": 599,
+   "sha16": "37919d72a5cb0dbf",
+   "mtime": "2026-11-11 03:00"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -57,9 +57,9 @@
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
-   "rows": 596,
-   "sha16": "155981dd24c55fe9",
-   "mtime": "2026-11-11 01:56"
+   "rows": 599,
+   "sha16": "e4a5bf0372b7c324",
+   "mtime": "2026-11-11 03:00"
   },
   {
    "file": "ctl/trace_sum.json",
