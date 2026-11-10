@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-10 20:27	SC-01 종합현황 「기기 알림 허용」 버튼 옆 상태 LED 추가(초록=허용 중, 빨강=미허용)	sec2.js, index.html, integrity.json
+c3fd3fa	2026-11-10 20:27	SC-01 종합현황 「기기 알림 허용」 버튼 옆 상태 LED 추가(초록=허용 중, 빨강=미허용)	sec2.js, index.html, integrity.json
 3a0a73a	2026-11-10 20:14	SC-03 화면 순서 정정: 제1순위 접근·침입 경로, 시험 기간 완화 안내를 현재 이 단말 문구와 경보 표 위로 이동	sec.js, index.html
 fc67156	2026-11-10 20:08	SC-03 통합·단말 경보 표를 같은 11개 항목(IP·국가·구분·상태·경로·내용·단말 포함)으로 통일, 열쇠 통과·화면 열람 기록 추가, /__sec/me 추가	sec.js, sec-lite.js, index.html, career.html, worker.js(ic)
 613f193	2026-11-10 20:02	SC-03 통합 경보 제목의 「각 기기·경로」를 「각 기기/경로」로 변경	sec.js, index.html(v=20261110v3)
