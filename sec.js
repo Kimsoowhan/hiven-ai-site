@@ -27,7 +27,7 @@ var hvSec=(function(){
  window.addEventListener('storage',function(e){if(e.key==='hvsec'||e.key==='hv_in')log(4,'저장소 변조 의심: '+e.key,ld().n)});
  if(!window.hvSecNav){window.hvSecNav=1;S.push(['SC-03','침입 예측·예방·대응·조치 시스템'])}
 
- var PGN=15,DAT={all:null,dev:[]};
+ var PGN=5,DAT={all:null,dev:[]};
  function kst(t){try{return new Date(new Date(t).getTime()+9*3600000).toISOString().slice(5,16).replace('T',' ')}catch(e){return String(t).slice(5,16)}}
  function esc(v){return String(v==null?'':v).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
  function draw(id,p){var d=document.getElementById('hvsec-'+id);if(!d)return;var A=DAT[id],all=id==='all',h;
@@ -47,8 +47,8 @@ var hvSec=(function(){
   var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>발령</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+CT[gi(e.g)]+'">'+G[gi(e.g)]+'</b></td><td>'+e.n+'</td><td>'+(e.a||al(gi(e.g),e.why))+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="5">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
   var df=[['관찰','열쇠 불일치 1회','즉시 보호 단계 전환 · 5초 입력 정지 · 경보 띠 · 기록 · 전송'],['주의','불일치 2회','15초 입력 정지 · 경보 · 기록 · 전송'],['경보','불일치 3회','30초 입력 정지 · 경보 · 전송'],['경고','불일치 4~5회','5분 입력 정지 · 경보 · 전송'],['위기','불일치 6회 이상 · 우회/변조 감지','30분(누적 배수, 최대 4시간) 입력 정지 · 입장 표식 폐기 · 전송']].map(function(r,i){return '<tr><td><b style="color:'+CT[i]+'">'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td></tr>'}).join('');
   return '<h2>SC-03 침입 예측/예방/대응/조치 시스템 (침입 경보)</h2><p class="note">HIVEN 통합사업 이상징후 및 보안체계 시스템(SC-02)의 하위 실행 시스템입니다.</p><p class="lead">열쇠 오류 1회 이상을 모두 등급으로 기록하고 즉시 경보합니다. 현재 이 단말: <b style="color:'+(s.n?CT[g]:'#1565c0')+'">'+(s.n?G[g]+' 단계 · 연속 오류 '+s.n+'회':'정상')+'</b>'+(lock()?' · 잠금 '+lock()+'초':'')+'</p>'
-   +'<h3>통합 경보 (각 기기·경로 · 최신순 누적표)</h3><p class="note">hiven.ai.kr·ic·hiven.co.kr 등 하이븐 사이트에 외부 어떤 IP로 접근했든 서버가 받은 경보를 IP와 함께 모아 보여 줍니다(통합관제 로그인 상태에서만 조회). 기록은 11/10 19시 이후부터 쌓입니다.</p><div id="hvsec-all"></div>'
-   +'<h3>단말 경보 (이 기기 · 최신순 누적표)</h3><div id="hvsec-dev"></div>'+hvSecBoot()
+   +'<h3>통합 경보 (각 기기·경로 · 최신순 누적표)</h3><p class="note">hiven.ai.kr·ic·hiven.co.kr 등 하이븐 사이트에 외부 어떤 IP로 접근했든 서버가 받은 경보를 IP와 함께 모아 보여 줍니다(통합관제 로그인 상태에서만 조회). 서버 저장은 11/10 19시에 시작했습니다. 11/01~11/09에는 저장된 기록이 없고(확인 안 됨이 아니라 기록 없음), Cloudflare 접속 로그에도 그 기간 접속 기록이 없습니다. 한 쪽에 5건씩 표시합니다.</p><div id="hvsec-all"></div>'
+   +'<h3>단말 경보 (이 기기 · 최신순 누적표)</h3><p class="note">이 단말(Dell XPS 15)은 11/10에 처음 사용해 기록이 없는 것이 정상입니다. 한 쪽에 5건씩 표시합니다.</p><div id="hvsec-dev"></div>'+hvSecBoot()
    +'<h3>제1순위 접근·침입 경로 (절대 원칙)</h3><p class="note">ic.hiven.ai.kr 인트로의 열쇠(key) 입력이 첫 경로입니다. 반복 입력 · 불일치 · 거부 · 중복 실패가 나오면 시스템을 즉시 보호 단계로 전환합니다. 입력 정지 중 재시도는 「거부」로 기록하고 3회 반복하면 실패 1회로 더하며, 같은 열쇠를 반복하면 「중복 실패」로 기록해 1회를 더합니다. 이 작은 대응 하나가 뚫리면 자동화 통합 통제 시스템 전체가 뚫립니다(대표님 11/07 14:03).</p>'
    +'<p class="note"><b>시험 기간 완화 운영 중</b> — 입력 정지 시간과 열쇠 표기 허용이 운영 기준값보다 낮게 설정되어 있습니다(대표님이 언제 어디서든 폰으로 확인하기 위함). 감지·기록·전송·12단계 판정은 완화하지 않습니다. 등록부·해제 기준·역정합 검사는 SC-02 「시험 기간 완화 운영 표준」을 보십시오.</p>'
    +'<h3>등급 기준과 즉시 대응</h3><table class="tb"><thead><tr><th>등급</th><th>조건</th><th>즉시 대응</th></tr></thead><tbody>'+df+'</tbody></table>'
