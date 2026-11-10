@@ -12,14 +12,14 @@ var hvSec=(function(){
  function send(ev){try{var b=JSON.stringify(ev);if(navigator.sendBeacon)navigator.sendBeacon('https://ic.hiven.ai.kr/__sec',b);else fetch('https://ic.hiven.ai.kr/__sec',{method:'POST',mode:'no-cors',body:b,keepalive:true})}catch(e){}}
  function bar(g,msg){var d=document.getElementById('hvsecbar');if(!d){d=document.createElement('div');d.id='hvsecbar';d.setAttribute('role','alert');d.style.cssText='position:fixed;top:0;left:0;right:0;z-index:99999;padding:10px 14px;color:#fff;font:700 14px/1.4 sans-serif;text-align:center';document.body.appendChild(d)}
   d.style.background=C[g];d.textContent='⚠ 침입 경보 · '+G[g]+' 단계 · '+msg}
- function log(g,why,n){var s=ld(),e={t:new Date().toISOString(),g:G[g],a:al(g,why),r:0,n:n,why:why,host:location.host,ua:(navigator.userAgent||'').slice(0,90)};s.L.push(e);if(s.L.length>200)s.L=s.L.slice(-200);sv(s);send(e);return e}
+ function log(g,why,n,kind,st){var s=ld(),e={t:new Date().toISOString(),g:G[g],a:al(g,why),r:0,n:n,why:why,host:location.host,path:location.pathname+location.hash,ua:(navigator.userAgent||'').slice(0,90),ip:(window.hvMe||{}).ip||'',country:(window.hvMe||{}).country||''};if(kind){e.kind=kind;e.st=st||''}s.L.push(e);if(s.L.length>200)s.L=s.L.slice(-200);sv(s);send(e);return e}
  function lock(){var s=ld(),r=Math.ceil((s.u-Date.now())/1000);return r>0?r:0}
  function fail(why,extra){var s=ld();if(Date.now()-s.t>86400000)s.n=0;s.n+=1+(extra||0);s.t=Date.now();var g=gr(s.n);s.u=Date.now()+lk(s.n)*1000;sv(s);log(g,why||'열쇠 불일치',s.n);bar(g,'보호 단계 전환 · 열쇠 불일치 '+s.n+'회'+(lock()?' · '+lock()+'초 입력 정지':''));guard();return g}
  function guard(){var i=document.getElementById('k'),e=document.getElementById('err'),r=lock();if(!i)return;if(r>0){i.disabled=true;if(e)e.textContent='보호 단계 · 입력 정지 '+r+'초 남음'}else if(i.disabled){i.disabled=false;rj=0;if(e&&/보호 단계/.test(e.textContent))e.textContent='보호 단계 유지 중 · 열쇠를 다시 입력하세요.'}}
  setInterval(guard,1000);
  var k0=window.keyOk;
  window.keyOk=function(v){var r=lock();if(r){var g=gr(ld().n);rj++;log(g,'입력 정지 중 재시도 거부 '+rj+'회',ld().n);bar(g,'보호 단계 · 입력 정지 중 재시도 거부 · '+r+'초 뒤 다시 시도');if(rj%3===0)fail('입력 정지 중 재시도 반복(중복 실패)');setTimeout(function(){var e=document.getElementById('err');if(e)e.textContent='보호 단계 · 입력 정지 중입니다. '+lock()+'초 뒤 다시 시도하세요.'},0);return false}
-  var ok=k0(v);if(ok){try{sessionStorage.setItem('hvsec_ok',String(Date.now()))}catch(e){}rj=0;lastBad='';var s=ld();if(s.n){log(0,'정상 입장(오류 '+s.n+'회 뒤 보호 단계 해제)',0);s.n=0;s.u=0;sv(s)}var b=document.getElementById('hvsecbar');if(b)b.remove()}
+  var ok=k0(v);if(ok){try{sessionStorage.setItem('hvsec_ok',String(Date.now()))}catch(e){}rj=0;lastBad='';var s=ld();log(0,s.n?'열쇠 통과 · 입장(오류 '+s.n+'회 뒤 보호 단계 해제)':'열쇠 통과 · 입장',0,'열쇠 입력','통과');if(s.n){s.n=0;s.u=0;sv(s)}var b=document.getElementById('hvsecbar');if(b)b.remove()}
   else{var h=hs(v),dup=(lastBad===h);lastBad=h;var g2=fail(dup?'열쇠 불일치 · 같은 열쇠 반복(중복 실패)':'열쇠 불일치',dup?1:0);setTimeout(function(){var e=document.getElementById('err');if(e)e.textContent='열쇠가 맞지 않습니다. 보호 단계로 전환되었습니다 · 경보 '+G[g2]+(lock()?' · '+lock()+'초 입력 정지':'')},0)}return ok};
  try{var s9=ld();if(s9.n&&Date.now()-s9.t<86400000)window.addEventListener('DOMContentLoaded',function(){bar(gr(s9.n),'보호 단계 유지 중 · 열쇠 불일치 '+s9.n+'회 기록');guard()})}catch(e){}
  /* 우회 감지: 열쇠 확인 없이 입장 표식만 있는 경우 */
@@ -30,18 +30,30 @@ var hvSec=(function(){
  var PGN=5,DAT={all:null,dev:[]};
  function kst(t){try{return new Date(new Date(t).getTime()+9*3600000).toISOString().slice(5,16).replace('T',' ')}catch(e){return String(t).slice(5,16)}}
  function esc(v){return String(v==null?'':v).replace(/[&<>]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
- function draw(id,p){var d=document.getElementById('hvsec-'+id);if(!d)return;var A=DAT[id],all=id==='all',h;
-  if(A===null){d.innerHTML='<p class="note">통합 경보를 불러오는 중입니다…</p>';return}
+ function kd(e){if(e.kind)return [e.kind,e.st||''];var w=e.why||'';
+  if(/Access/.test(w))return ['로그인(Access)',/거부/.test(w)?'거부':'통과'];
+  if(/통합관제 접속/.test(w))return ['화면 접속','통과'];
+  if(/정상 입장|열쇠 통과/.test(w))return ['열쇠 입력','통과'];
+  if(/재시도 거부/.test(w))return ['열쇠 입력','거부(입력 정지)'];
+  if(/열쇠 불일치/.test(w))return ['열쇠 입력','실패'];
+  if(/우회|변조/.test(w))return ['우회 시도','감지'];
+  if(/복제|삽입/.test(w))return ['접근 이상','감지'];
+  if(/없는 경로/.test(w))return ['경로 탐색','감지'];
+  if(/화면 열람/.test(w))return ['화면 열람','통과'];return ['기타','']}
+ function dv(ua){ua=ua||'';var o=/Windows/.test(ua)?'Windows':/Android/.test(ua)?'Android':/iPhone|iPad/.test(ua)?'iOS':/Mac/.test(ua)?'Mac':/Linux/.test(ua)?'Linux':'';var b=/Edg\//.test(ua)?'Edge':/Chrome\//.test(ua)?'Chrome':/Safari\//.test(ua)?'Safari':/Firefox\//.test(ua)?'Firefox':'';return (o+' '+b).trim()||'-'}
+ var COLS=['시각(KST)','IP','국가','구분','상태','등급','오류수','발령','경로(주소)','내용(상황)','단말'];
+ function draw(id,p){var d=document.getElementById('hvsec-'+id);if(!d)return;var A=DAT[id],h;
+  if(A===null){d.innerHTML='<p class="note">경보를 불러오는 중입니다…</p>';return}
   if(A==='ERR'){d.innerHTML='<p class="note">통합 경보를 불러오지 못했습니다. 통합관제(ic.hiven.ai.kr)에 로그인된 브라우저에서만 조회됩니다.</p>';return}
   var np=Math.max(1,Math.ceil(A.length/PGN));p=Math.min(Math.max(1,p||1),np);var R=A.slice((p-1)*PGN,p*PGN);
-  h='<table class="tb"><thead><tr><th>시각(KST)</th>'+(all?'<th>IP</th><th>국가</th>':'')+'<th>등급</th><th>오류수</th><th>발령</th><th>내용</th>'+(all?'<th>접근 주소</th>':'')+'</tr></thead><tbody>'+
-   (R.length?R.map(function(e){var gx=gi(e.g);return '<tr><td>'+kst(e.t)+'</td>'+(all?'<td>'+esc(e.ip)+'</td><td>'+esc(e.country)+'</td>':'')+'<td><b style="color:'+CT[gx]+'">'+G[gx]+'</b></td><td>'+(e.n||0)+'</td><td>'+esc(e.a||al(gx,e.why))+'</td><td>'+esc(e.why)+'</td>'+(all?'<td>'+esc(e.host)+'</td>':'')+'</tr>'}).join(''):'<tr><td colspan="'+(all?8:5)+'">기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';
+  h='<div style="overflow-x:auto"><table class="tb"><thead><tr>'+COLS.map(function(c){return '<th>'+c+'</th>'}).join('')+'</tr></thead><tbody>'+
+   (R.length?R.map(function(e){var gx=gi(e.g),k=kd(e);return '<tr><td>'+kst(e.t)+'</td><td>'+esc(e.ip||'-')+'</td><td>'+esc(e.country||'-')+'</td><td>'+esc(k[0])+'</td><td><b>'+esc(k[1]||'-')+'</b></td><td><b style="color:'+CT[gx]+'">'+G[gx]+'</b></td><td>'+(e.n||0)+'</td><td>'+esc(e.a||al(gx,e.why))+'</td><td>'+esc((e.host||'')+(e.path||''))+'</td><td>'+esc(e.why)+'</td><td>'+esc(dv(e.ua))+'</td></tr>'}).join(''):'<tr><td colspan="11">기록된 경보가 없습니다.</td></tr>')+'</tbody></table></div>';
   var pg='<div style="text-align:center;margin:6px 0">';pg+='<button style="padding:2px 8px;margin:0 1px" onclick="hvSecPg(\''+id+'\','+(p-1)+')"'+(p<=1?' disabled':'')+'>◀ 이전</button> ';
-  for(var i=1;i<=np&&i<=10;i++)pg+='<button style="padding:2px 8px;margin:0 1px" '+(i===p?'style="font-weight:700;text-decoration:underline" ':'')+'onclick="hvSecPg(\''+id+'\','+i+')">'+i+'</button> ';
+  for(var i=1;i<=np&&i<=10;i++)pg+='<button style="padding:2px 8px;margin:0 1px'+(i===p?';font-weight:700;text-decoration:underline':'')+'" onclick="hvSecPg(\''+id+'\','+i+')">'+i+'</button> ';
   pg+='<button style="padding:2px 8px;margin:0 1px" onclick="hvSecPg(\''+id+'\','+(p+1)+')"'+(p>=np?' disabled':'')+'>다음 ▶</button> <span class="note">총 '+A.length+'건</span></div>';
   d.innerHTML=h+pg}
  window.hvSecPg=draw;
- function hvSecBoot(){DAT.all=null;DAT.dev=ld().L.slice().reverse();var n=0,t=setInterval(function(){if(document.getElementById('hvsec-dev')||++n>40){clearInterval(t);draw('dev',1);draw('all',1);load()}},50);return ''}
+ function hvSecBoot(){DAT.all=null;DAT.dev=ld().L.slice().reverse();try{fetch('https://ic.hiven.ai.kr/__sec/me',{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){window.hvMe=m;try{if(!sessionStorage.getItem('hvsec_view')){sessionStorage.setItem('hvsec_view','1');log(0,'화면 열람 SC-03 (침입 경보 화면 확인)',0,'화면 열람','통과');DAT.dev=ld().L.slice().reverse();draw('dev',1)}}catch(e){}}).catch(function(){})}catch(e){}var n=0,t=setInterval(function(){if(document.getElementById('hvsec-dev')||++n>40){clearInterval(t);draw('dev',1);draw('all',1);load()}},50);return ''}
  function load(){try{fetch('https://ic.hiven.ai.kr/__sec/list?n=1000',{credentials:'include',cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(a){DAT.all=a;draw('all',1)}).catch(function(){DAT.all='ERR';draw('all',1)})}catch(e){DAT.all='ERR';draw('all',1)}}
  V['SC-03']=function(){var s=ld(),g=gr(s.n),L=s.L.slice().reverse().slice(0,15);
   var tb='<table class="tb"><thead><tr><th>시각</th><th>등급</th><th>오류수</th><th>발령</th><th>내용</th></tr></thead><tbody>'+(L.length?L.map(function(e){return '<tr><td>'+e.t.slice(5,16).replace('T',' ')+'</td><td><b style="color:'+CT[gi(e.g)]+'">'+G[gi(e.g)]+'</b></td><td>'+e.n+'</td><td>'+(e.a||al(gi(e.g),e.why))+'</td><td>'+e.why+'</td></tr>'}).join(''):'<tr><td colspan="5">이 단말에 기록된 경보가 없습니다.</td></tr>')+'</tbody></table>';

@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-10 20:08	SC-03 통합·단말 경보 표를 같은 11개 항목(IP·국가·구분·상태·경로·내용·단말 포함)으로 통일, 열쇠 통과·화면 열람 기록 추가, /__sec/me 추가	sec.js, sec-lite.js, index.html, career.html, worker.js(ic)
 613f193	2026-11-10 20:02	SC-03 통합 경보 제목의 「각 기기·경로」를 「각 기기/경로」로 변경	sec.js, index.html(v=20261110v3)
 c54a1a9	2026-11-10 20:12	통합 경보에 Cloudflare Access 로그인 기록(11/10 16:01~18:16 KST 3건, IP·국가·통과/거부)을 서버 보관 장치로 1회 이관(비공개 저장소 ic에만 기록)	worker.js(ic)
 4350088	2026-11-10 20:05	모델 통제 이력 572·573·574번 추가(지적 1, 지시거부 2: 질문에 먼저 답 안 함, 규칙 일부만 읽음, 접속 기록 지시 보류)와 생명주기 산출	cowork/ctl/model_control_history.tsv, action_lifecycle.tsv·json, model_control_index.json

@@ -5,6 +5,6 @@
  if(!OK.test(location.hostname))ev.push(['경고','복제 의심: 허용 주소가 아닌 '+location.hostname+'에서 표시']);
  try{if(window.top!==window.self)ev.push(['경보','삽입 의심: 다른 사이트 틀 안에서 표시'])}catch(e){ev.push(['경보','삽입 의심: 상위 틀 접근 차단'])}
  if(/404|찾을 수 없|not found/i.test(document.title)||document.documentElement.getAttribute('data-hv404')!==null)ev.push(['관찰','없는 경로 접근: '+location.pathname]);
- ev.forEach(function(x){var b=JSON.stringify({t:new Date().toISOString(),g:x[0],n:0,why:x[1],host:location.host,ua:(navigator.userAgent||'').slice(0,90)});if(navigator.sendBeacon)navigator.sendBeacon('https://ic.hiven.ai.kr/__sec',b)});
+ ev.forEach(function(x){var K=x[0]==='관찰'?['경로 탐색','감지']:['접근 이상','감지'];var b=JSON.stringify({t:new Date().toISOString(),g:x[0],n:0,why:x[1],kind:K[0],st:K[1],path:location.pathname,host:location.host,ua:(navigator.userAgent||'').slice(0,90)});if(navigator.sendBeacon)navigator.sendBeacon('https://ic.hiven.ai.kr/__sec',b)});
  if(ev.some(function(x){return x[0]==='경보'}))document.documentElement.style.display='none';
 }catch(e){}})();
