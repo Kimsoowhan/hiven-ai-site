@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-10 23:38	HiBiz 전 폴더 새 이름 규칙 이관 완료(13,600개 해시 일치)·HiDAM 표준 S13·S14·구독 정책 기준서 1.0(하루 1달러·35년 50%·HiSilver 50% 시작)·폴더 구조 가이드 1.0·24시간 시험 계획·PC 이력 원천 595번 동기, 이력 595 조치 결과 기입	cowork/ctl/model_control_history.tsv
 cb4fd91	2026-11-10 23:06	모델통제 이력 595(Fable 위반: 미완·남은 일을 남긴 채 승인 요청) 기록	cowork/ctl/model_control_history.tsv
 7adbdc5	2026-11-10 23:08	모델통제 이력 594 조치 결과 기입(사후 해시 대조 82건 일치·이관 재실행 완료)	cowork/ctl/model_control_history.tsv
 87f0506	2026-11-10 22:52	모델통제 이력 594(Fable 자가 발견: 이관 실행본 결함으로 사본 82건 해시 대조 없이 휴지통 이동) 기록	cowork/ctl/model_control_history.tsv
