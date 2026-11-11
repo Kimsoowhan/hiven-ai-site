@@ -169,7 +169,7 @@ class Ledger:
             return
         try:
             size = os.path.getsize(self.path) if os.path.exists(self.path) else 0
-            mt = os.stat(self.path).st_mtime_ns if size else 0
+            mt = sha(open(self.path, "rb").read()) if size else ""     # 파일 내용의 해시(Windows는 고친 시각의 눈금이 굵어 시각으로는 같은 크기의 고침을 못 봄)
             if size == self.fsize and mt == getattr(self, "fmt", None) and not full:
                 return
             full = full or bool(self.rows)
@@ -206,7 +206,7 @@ class Ledger:
         if self.path:                                    # 기기 안 파일로도 남긴다(한 줄에 한 사건)
             with open(self.path, "a", encoding="utf-8", newline="\n") as f:
                 f.write(json.dumps(row, ensure_ascii=False) + "\n")
-            self.fsize, self.fmt = os.path.getsize(self.path), os.stat(self.path).st_mtime_ns
+            self.fsize, self.fmt = os.path.getsize(self.path), sha(open(self.path, "rb").read())
         return row
 
     @staticmethod
@@ -250,7 +250,7 @@ class Ledger:
         if rows and rows[0].get("code") == "LED-E08":   # 새 사슬의 첫 줄은 앞 사슬 파일의 해시를 앞 줄 해시로 가진다
             self.genesis, self.base = rows[0]["prev"], rows[0]["seq"] - 1
         self.rows = rows
-        self.fsize, self.fmt = os.path.getsize(self.path), os.stat(self.path).st_mtime_ns
+        self.fsize, self.fmt = os.path.getsize(self.path), sha(open(self.path, "rb").read())
         self.head = rows[-1]["h"] if rows else self.genesis
         if bad or not self.verify():
             self.state = "끊김"
