@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-11 13:40	커리어 페이지 다섯 언어 빈 섬네일 3건 채움(웹 전용 실시간 경매시스템 · 삼성전자 GUI 시장조사 · 2000 JavaOne 부스·홍보물, D:\Working 원본 사용), 나머지 4건은 원본 확인 중(대표님 13:14 지시, Sonnet)	assets/img/proj/d_auction.jpg, d_sec_gui.jpg, d_javaone.jpg, career.html 외 4개 언어 외 생성물
 53bbb8d	2026-11-11 14:50	커리어 페이지 다섯 언어 사업 3건 삭제(2013 웹/모바일 통합 오피스 구축 · 2008 온라인 자동발권 시스템 구축 · 2008 업체별 브랜드 전략 및 마케팅 기획), 목록 103→100건(워크 0008 후속, 대표님 13:01 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
 fa8fdae	2026-11-11 14:20	모델통제 이력 614 기록(장애 보충, 원문 대조 I-00-02)	cowork/ctl/model_control_history.tsv 외 생성물
 c169eb3	2026-11-11 13:58	모델통제 이력 613 기록(Sonnet 지시거부)	cowork/ctl/model_control_history.tsv 외 생성물
