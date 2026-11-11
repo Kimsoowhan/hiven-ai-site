@@ -10,7 +10,20 @@ V['SC-08b1']=function(){var el='hv14';setTimeout(function(){Promise.all([hvFetch
  g+=hvTGin('sc14',{title:'배포 후 장애·조치 변동 추이',types:['미조치','조치 중','조치 완료'],colors:(typeof hvTGC01!=='undefined'?hvTGC01:null),tu:'일',ev:E.r.map(function(r){var hm=(r[2]||'').slice(0,5);return {t:Date.parse(r[1]+'T'+(hm||'12:00')+':00+09:00'),hm:hm,y:r[5],m:r[3]}}).filter(function(e){return !isNaN(e.t)}),src:'원천 cowork/ctl/deploy_beta1_events.tsv(사건 시각)'});
  g+='<h3>배포 후 사건</h3>'+(E.r.length?tbl(['#','날짜','시각','구분','내용','3분류','조치','근거'],E.r.slice().reverse().map(function(r){return r.map(hvEsc)})):'<p class="note">사건 0건 — 배포 전. 게시 뒤 O-10 확인 3항목과 접수 건이 이 표에 쌓입니다.</p>');
  n.innerHTML=g+'<p class="note">원천: cowork/ctl/deploy_beta1_gates.tsv · deploy_beta1_events.tsv(실측만)</p>'})},0);
- return '<p class="lead">HiCoffer PC 베타 1의 게이트와 배포 후 장애·문의·조치를 봅니다.</p><div id="'+el+'">읽는 중…</div>'};
+ setTimeout(hvDlLoad,0);return '<p class="lead">HiCoffer PC 베타 1의 게이트와 배포 후 장애·문의·조치를 봅니다.</p><div id="hvdl">판별 내려받기 횟수 읽는 중…</div><div id="'+el+'">읽는 중…</div>'};
+/* 판별 내려받기 횟수(대표님 11-10 21:26 수기 메모, 워크 0008 STEP 1-2). 원천: hiven.co.kr/assets/download/의 설치 파일 요청을 Cloudflare 작업자가 한 건씩 기록(ic.hiven.ai.kr/__sec/dl). 실측만.
+   판별: 설치 파일(.exe)을 처음부터 받는 GET만 센다(이어받기·HEAD·안내 글 파일 제외). 로봇으로 보이는 요청은 따로 센다. 집계 시작 전 기간은 「확인 안 됨」. */
+var HV_DL_START='2026-11-11T03:13:17Z',HV_DL_OPEN='2026-11-05 15:55';
+function hvDlLoad(){var n=document.getElementById('hvdl');if(!n)return;fetch('https://ic.hiven.ai.kr/__sec/dl',{credentials:'include',cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(L){n=document.getElementById('hvdl');if(!n)return;
+ var kst=function(t){return new Date(Date.parse(t)+9*3600e3).toISOString().replace('T',' ').slice(0,16)};
+ var V2={},D={};L.forEach(function(x){var v=x.v||'판 없음';V2[v]=V2[v]||{h:0,b:0,r:[]};V2[v][x.bot?'b':'h']++;V2[v].r.push(x);if(!x.bot){var d=kst(x.t).slice(0,10);D[d]=(D[d]||0)+1}});
+ var raw=function(R){return R.length?tbl(['받은 시각(한국)','파일','판','국가','IP','로봇','브라우저 정보'],R.map(function(x){return [kst(x.t),hvEsc(x.f),hvEsc(x.v),hvEsc(x.country),hvEsc(x.ip),x.bot?'예':'',hvEsc((x.ua||'').slice(0,60))]})):'<p class="note">집계 시작 뒤 받은 기록 0건.</p>'};
+ var ks=Object.keys(V2).sort().reverse(),tot=L.filter(function(x){return !x.bot}).length;
+ var g='<h3>판별 내려받기 횟수(판별)</h3><div class="grid">'+card('전체 판별 누적',String(tot),'집계 시작 '+kst(HV_DL_START)+' 뒤 · 로봇 '+(L.length-tot)+'건 따로',null,function(){return raw(L)})+ks.map(function(v){var o=V2[v];return card('HiCoffer '+v,String(o.h),'판별 · 로봇 '+o.b+'건 따로',null,function(){return raw(o.r)})}).join('')+'</div>';
+ var ds=Object.keys(D).sort().reverse();g+='<h3>날짜별(판별, 한국 시각)</h3>'+(ds.length?tbl(['날짜','판별 내려받기'],ds.map(function(d){return [d,String(D[d])]})):'<p class="note">집계 시작 뒤 0건.</p>');
+ g+='<p class="note">'+HV_DL_OPEN+'(베타 1 내려받기 개방) ~ '+kst(HV_DL_START)+'(집계 시작) 사이의 내려받기 횟수: <b>확인 안 됨</b> — 그 기간에는 세는 원천이 없었습니다. 원천: hiven.co.kr/assets/download/의 설치 파일 요청을 Cloudflare 작업자(hiven-ic)가 한 건씩 기록 · ic.hiven.ai.kr/__sec/dl. 숫자를 누르면 원천 기록이 나옵니다.</p>';
+ n.innerHTML=g}).catch(function(){n=document.getElementById('hvdl');if(n)n.innerHTML='<p class="note">판별 내려받기 횟수: 통합관제 로그인 상태에서만 읽힙니다.</p>'})}
+
 
 /* 14:50 대표님 지시: 메뉴 이름은 「베타 배포 모니터링」, 창 안에서 베타 1·2·3으로 구분한다. 베타 1만 실측 원천(deploy_beta1_*.tsv)이 있고, 베타 2·3은 시작 전이라 실측 0건으로 표시한다. */
 var hvBetaSel=1;
