@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-11 14:20	모델통제 이력 614 기록(장애 보충, 원문 대조 I-00-02)	cowork/ctl/model_control_history.tsv 외 생성물
 c169eb3	2026-11-11 13:58	모델통제 이력 613 기록(Sonnet 지시거부)	cowork/ctl/model_control_history.tsv 외 생성물
 aef3086	2026-11-11 13:55	커리어 페이지 건수 상자를 PMP·석사 상자와 같은 모양으로 정정(영어 한 줄 작은 글씨 줄바꿈 없음, 그 밑 한 줄 같은 글씨 크기, 둘째 상자 폭 1.05fr) + 모델통제 이력 612 기록(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html, cowork/ctl/model_control_history.tsv 외 생성물
 1e6b7f1	2026-11-11 13:30	대표님 커리어 페이지 다섯 언어: 건수 상자 100건 표시(둘째 줄 Representative Portfolio 작은 글씨, 셋째 줄 주요 사업·프로젝트 중간 글씨)·설명 문구 103→100(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
