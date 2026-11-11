@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-11 12:04	모델통제 이력 609 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
+e591020	2026-11-11 12:04	모델통제 이력 609 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
 5fcec77	2026-11-11 12:00	기기 알림 수신 켜기 실패 고침(sec2.js o3), 모델통제 이력 608	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
 874d92a	2026-11-11 11:52	모델통제 이력 606 구분 정정(지적→거부)	cowork/ctl/model_control_history.tsv 외 생성물
 6f7274c	2026-11-11 11:53	모델통제 이력 607 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
