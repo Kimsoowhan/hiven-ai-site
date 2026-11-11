@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-11 15:30	커리어 섬네일 3건(#025 통합민주당·#024 Boomber·#029 정부수립 60주년 영상)을 로고·대체 이미지 대신 실제 작업 문서(손학규 알리미 화면·Bomber 기획안·트리니티 영상사업 추진방안)로 교체, 확대 이미지 포함, 다섯 언어(대표님 14:38·14:39 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_dem2.jpg, e_boom.jpg, e_3d60.jpg 및 _full
+d08b38e	2026-11-11 15:30	커리어 섬네일 3건(#025 통합민주당·#024 Boomber·#029 정부수립 60주년 영상)을 로고·대체 이미지 대신 실제 작업 문서(손학규 알리미 화면·Bomber 기획안·트리니티 영상사업 추진방안)로 교체, 확대 이미지 포함, 다섯 언어(대표님 14:38·14:39 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_dem2.jpg, e_boom.jpg, e_3d60.jpg 및 _full
 d102973	2026-11-11 15:10	커리어 확대 이미지 주소에 버전 값을 붙여 이전 404 캐시 때문에 큰 이미지가 안 뜨던 문제 해소(#001 자바원 등), 다섯 언어(대표님 14:32 지시, Sonnet)	career.html, en/ja/ru/zh/career.html
 06f89cd	2026-11-11 15:00	커리어 섬네일 클릭 시 확대 창을 작은 원본(예: #002)도 크게 보이도록 확대 폭 지정, 다섯 언어(대표님 14:29 지시, Sonnet)	career.html, en/ja/ru/zh/career.html
 d4c25a2	2026-11-11 14:50	커리어 섬네일 클릭 시 확대 이미지 14건 보강(#001 자바원·#005 경매·#007·#008 셋톱·#010 DVD·#023·#020·#025 등), 100개 모두 확대 이미지 연결(대표님 14:26 지시, Sonnet)	assets/img/proj/*_full.jpg 14개
