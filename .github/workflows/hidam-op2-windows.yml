@@ -29,6 +29,7 @@ jobs:
           python -B sim_hidam_app.py res_sim.json *> res_sim.log
           python -B k_judge.py res_kjudge.json *> res_kjudge.log
           python -B measure04.py res_measure.json *> res_measure.log
+          python -B diag118.py *> res_diag.log
           python -c "import platform,json,sys;print(json.dumps(dict(platform=platform.platform(),release=platform.release(),version=platform.version(),machine=platform.machine(),python=sys.version),ensure_ascii=False))" > res_platform.json
           (Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber,OSArchitecture | ConvertTo-Json) > res_os.json
       - name: push results
