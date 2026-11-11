@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-11 14:50	커리어 페이지 섬네일 박스 오른쪽 하단에 번호·연도 배치(#100 2024 … #001 2000, 맨 위가 #100), 다섯 언어(대표님 13:46·13:48 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
+8da207b	2026-11-11 14:50	커리어 페이지 섬네일 박스 오른쪽 하단에 번호·연도 배치(#100 2024 … #001 2000, 맨 위가 #100), 다섯 언어(대표님 13:46·13:48 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
 753acc5	2026-11-11 14:30	커리어 페이지 섬네일 2건 교체(삼성전자 디지털 전자제품 UI → DHR 콤보 UI 화면, 통신기기 UI·2G폰 → 폰 GUI 화면), 제품 사진·광고 제거(대표님 13:42 질타 후속, Sonnet)	assets/img/proj/d_dv_ui.jpg, d_2g_ui.jpg, career.html 외 4개 언어 외 생성물
 012f3e8	2026-11-11 14:10	커리어 페이지 섬네일 정합: 국민참여단·셋톱박스 2건·PCSync 폰 메뉴·삼성전자 GUI·AUDI 텔레매틱스·ISO 인증서(업체명 가림) 교체, 기업명 3건 변경(㈜트리니티·동아시아미래재단·CODA Institute), 다섯 언어(대표님 13:38~13:40 지시, Sonnet)	assets/img/proj/d_kmc.jpg 외 7개, career.html 외 4개 언어 외 생성물
 88e4caf	2026-11-11 13:40	커리어 페이지 다섯 언어 빈 섬네일 3건 채움(웹 전용 실시간 경매시스템 · 삼성전자 GUI 시장조사 · 2000 JavaOne 부스·홍보물, D:\Working 원본 사용), 나머지 4건은 원본 확인 중(대표님 13:14 지시, Sonnet)	assets/img/proj/d_auction.jpg, d_sec_gui.jpg, d_javaone.jpg, career.html 외 4개 언어 외 생성물
