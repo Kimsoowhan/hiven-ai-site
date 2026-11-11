@@ -1,5 +1,5 @@
 커밋	시각	내용	바뀐 파일
-PENDING	2026-11-11 13:55	커리어 페이지 건수 상자를 PMP·석사 상자와 같은 모양으로 정정(영어 한 줄 작은 글씨 줄바꿈 없음, 그 밑 한 줄 같은 글씨 크기, 둘째 상자 폭 1.05fr) + 모델통제 이력 612 기록(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html, cowork/ctl/model_control_history.tsv 외 생성물
+aef3086	2026-11-11 13:55	커리어 페이지 건수 상자를 PMP·석사 상자와 같은 모양으로 정정(영어 한 줄 작은 글씨 줄바꿈 없음, 그 밑 한 줄 같은 글씨 크기, 둘째 상자 폭 1.05fr) + 모델통제 이력 612 기록(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html, cowork/ctl/model_control_history.tsv 외 생성물
 1e6b7f1	2026-11-11 13:30	대표님 커리어 페이지 다섯 언어: 건수 상자 100건 표시(둘째 줄 Representative Portfolio 작은 글씨, 셋째 줄 주요 사업·프로젝트 중간 글씨)·설명 문구 103→100(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
 cd9d28a	2026-11-11 12:41	모델통제 이력 574·575·578 조치 완료로 닫음(워크 0008 STEP 1-1 ①, Sonnet)	cowork/ctl/model_control_history.tsv 외 생성물
 ed9b89c	2026-11-11 12:50	SC-02 방어태세 표·표시 열·근거 문구·구조도 연결 문구의 옛 등급명(관찰·관심·심각·위험·위기)을 새 등급명(관찰·주의·경보·경고·위기)으로 정합(워크 0008 STEP 1-1 ④, Sonnet)	views7.js, index.html, cowork/ctl/emergency_manual.md, cowork/ctl/sec_structure.svg, tools/gen_sec_structure.py 외 생성물
