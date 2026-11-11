@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-11 11:40	SC-01 기기 알림: 신뢰 기기 세 대 이름 고르기, 세 대 초과 안내(sec2.js o1)	sec2.js, index.html 외 생성물
 661c04e	2026-11-11 11:33	모델통제 이력 602 구분 정정(질타→위반)	cowork/ctl/model_control_history.tsv 외 생성물
 3779121	2026-11-11 11:32	모델통제 이력 603 기록(Opus 위반)	cowork/ctl/model_control_history.tsv 외 생성물
 5d2d54f	2026-11-11 11:29	모델통제 이력 602 기록(Opus 질타)	cowork/ctl/model_control_history.tsv 외 생성물
