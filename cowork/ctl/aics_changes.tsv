@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-11 14:40	커리어 섬네일 공백 3칸(#025·#023·#020)에 자료 이미지 대입(PCS 모바일 GUI 2장, HOMEPORTAL 화면), 100개 전부 이미지 적용, 다섯 언어(대표님 14:24·14:25 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_pcs1.jpg, e_pcs2.jpg, e_dem.jpg
 c69ea14	2026-11-11 15:10	커리어 100건 중 이력서·프로필(261012) 기준 불일치 5건 정정(인하대병원·광주TP·강원랜드 사업명, LWT 실내측위·국가DB 연도), 다섯 언어(대표님 13:51 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
 8da207b	2026-11-11 14:50	커리어 페이지 섬네일 박스 오른쪽 하단에 번호·연도 배치(#100 2024 … #001 2000, 맨 위가 #100), 다섯 언어(대표님 13:46·13:48 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
 753acc5	2026-11-11 14:30	커리어 페이지 섬네일 2건 교체(삼성전자 디지털 전자제품 UI → DHR 콤보 UI 화면, 통신기기 UI·2G폰 → 폰 GUI 화면), 제품 사진·광고 제거(대표님 13:42 질타 후속, Sonnet)	assets/img/proj/d_dv_ui.jpg, d_2g_ui.jpg, career.html 외 4개 언어 외 생성물
