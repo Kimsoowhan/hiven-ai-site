@@ -16,7 +16,7 @@ V['SC-08b1']=function(){var el='hv14';setTimeout(function(){Promise.all([hvFetch
 var HV_DL_START='2026-11-11T03:13:17Z',HV_DL_OPEN='2026-11-05 15:55';
 function hvDlLoad(){var n=document.getElementById('hvdl');if(!n)return;fetch('https://ic.hiven.ai.kr/__sec/dl',{credentials:'include',cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(L){n=document.getElementById('hvdl');if(!n)return;
  var kst=function(t){return new Date(Date.parse(t)+9*3600e3).toISOString().replace('T',' ').slice(0,16)};
- var V2={},D={};L.forEach(function(x){var v=x.v||'판 없음';V2[v]=V2[v]||{h:0,b:0,r:[]};V2[v][x.bot?'b':'h']++;V2[v].r.push(x);if(!x.bot){var d=kst(x.t).slice(0,10);D[d]=(D[d]||0)+1}});
+ var V2={'0.1.25':{h:0,b:0,r:[]}},D={};/* 게시 중인 판은 0건이어도 보인다 */L.forEach(function(x){var v=x.v||'판 없음';V2[v]=V2[v]||{h:0,b:0,r:[]};V2[v][x.bot?'b':'h']++;V2[v].r.push(x);if(!x.bot){var d=kst(x.t).slice(0,10);D[d]=(D[d]||0)+1}});
  var raw=function(R){return R.length?tbl(['받은 시각(한국)','파일','판','국가','IP','로봇','브라우저 정보'],R.map(function(x){return [kst(x.t),hvEsc(x.f),hvEsc(x.v),hvEsc(x.country),hvEsc(x.ip),x.bot?'예':'',hvEsc((x.ua||'').slice(0,60))]})):'<p class="note">집계 시작 뒤 받은 기록 0건.</p>'};
  var ks=Object.keys(V2).sort().reverse(),tot=L.filter(function(x){return !x.bot}).length;
  var g='<h3>판별 내려받기 횟수(판별)</h3><div class="grid">'+card('전체 판별 누적',String(tot),'집계 시작 '+kst(HV_DL_START)+' 뒤 · 로봇 '+(L.length-tot)+'건 따로',null,function(){return raw(L)})+ks.map(function(v){var o=V2[v];return card('HiCoffer '+v,String(o.h),'판별 · 로봇 '+o.b+'건 따로',null,function(){return raw(o.r)})}).join('')+'</div>';

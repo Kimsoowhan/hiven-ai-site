@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-11 12:22	SC-08 게시 판 0.1.25 상자 0건 표시(views6.js d3)	views6.js, index.html 외 생성물
 a6e1240	2026-11-11 12:15	SC-08 판별 내려받기 횟수 상자(views6.js d2, 원천 ic /__sec/dl)	views6.js, index.html 외 생성물
 9128380	2026-11-11 12:12	모델통제 이력 610 조치 완료	cowork/ctl/model_control_history.tsv 외 생성물
 17e9fa0	2026-11-11 12:08	기기 알림 LED 판정 고침(sec2.js o4), 모델통제 이력 610	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
