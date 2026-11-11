@@ -91,7 +91,8 @@ w(B, "보고.md", "머리\n가 고침\n나\n다\n라\n마\n"); w(C, "보고.md",
 w(B, "회의.txt", "x\n의제\ny\n"); w(C, "회의.txt", "x\n논의\ny\n")                                           # 같은 대목을 다르게
 w(B, "사슬.txt", "x\nY\nm\nz\n"); w(C, "사슬.txt", "x\nY\nm\nZ\n")                                               # 차례로 바꿔 쓴 것(C는 B를 보고 고침)
 w(C, "지움.txt", "a\nc\n", now - 9000)                                                                            # 줄을 지운 것이 마지막 고침, 날짜는 가장 옛날
-rec = {r["stem"]: r for r in app.reconcile()}
+import collections as _co
+rec = _co.defaultdict(lambda: dict(how=None, judge=None, why="", final_from=None, final=None), {r["stem"]: r for r in app.reconcile()})
 m = rd(pcx, "기준자리/보고.md").decode() if ex(pcx, "기준자리/보고.md") else ""
 ok("TS-14", G3, "갈라짐: 바탕이 확인되고 겹치지 않게 고침", "SY-07", rec["보고"]["how"] == "자동 합침" and "가 고침" in m and "마 고침" in m, m.replace("\n", "/"))
 ok("TS-15", G3, "갈라짐: 같은 대목을 다르게 고침", "SY-07·08", rec["회의"]["how"] == "사용자가 고름" and not ex(pcx, "기준자리/회의.txt"), rec["회의"]["why"])
@@ -137,8 +138,8 @@ ok("TS-46", G4, "범위를 준 거울 매체(자료실 08만)", "ST-02 · MR-08"
 # ===== 마 =====
 pcy = mk("pcy"); app2 = HiDAMApp(pcy, device_id="DEV-PC-02", auto=False)
 w(E_, "지움.txt", "a\nb\nc\n"); app2.plug(Medium("M-E", E_)); app2.plug(Medium("DEV-PC-01", os.path.join(pcx, "기준자리"), kind="기기"))
-r2 = {r["stem"]: r for r in app2.reconcile()}; first = r2["지움"]["judge"]
-app2.import_lineage(app); r2 = {r["stem"]: r for r in app2.reconcile()}
+r2 = {r["stem"]: r for r in app2.reconcile()}; first = r2.get("지움", {}).get("judge")
+app2.import_lineage(app); r2 = _co.defaultdict(lambda: dict(how=None, judge=None, why="", final_from=None, final=None), {r["stem"]: r for r in app2.reconcile()})
 ok("TS-27", G5, "다 대 다: 다른 기기의 최신 내용을 기준으로 맞춤", "SY-15·16·19", first != "SY-최신" and r2["지움"]["judge"] == "SY-최신" and rd(pcy, "기준자리/지움.txt") == rd(pcx, "기준자리/지움.txt"), "계보 없이는 %s → 계보를 받은 뒤 %s" % (first, r2["지움"]["judge"]))
 n = len(app2.led.rows); app2.reconcile()
 ok("TS-47", G5, "이미 받은 판을 다시 받지 않음", "SY-17", not any(r["code"] == "SYN-E02" for r in app2.led.rows[n:]), "최종본 사건 0")
@@ -600,6 +601,7 @@ MUTANTS = [   # (무엇을 틀리게, [(원래 줄, 바꾼 줄)...], 실패해�
     ('K-X4 대량 변경의 10건 바닥을 없앰', [('len(have) >= 10 and', 'len(have) >= 0 and')], ['TS-119']),
     ('K-X11 미러링 해시 대조를 하지 않음', [('if sha(open(tmp, "rb").read()) != want[r]:', 'if False:')], ['TS-119']),
     ('K-X12 거울에서 물러난 것을 보류함에 두지 않고 지움', [('shutil.move(os.path.join(mroot, r), hd)', 'os.remove(os.path.join(mroot, r))')], ['TS-119']),
+    ('K-X8 계보를 거꾸로 적음(0.3부터 계보를 잇는 자리)', [('        self.anc.setdefault(child, set()).add(parent)', '        self.anc.setdefault(parent, set()).add(child)')], ['TS-103']),
     ('옛 판으로 덮어쓴 글자 문서를 뒤 판으로 이음', [('            return "확인"                                 # 글자 문서는 날짜를 믿지 않는다', '            return "잇기"                                 # 글자 문서는 날짜를 믿지 않는다')], ['TS-112']),
     ('글자가 아닌 것을 옛 날짜의 판으로 덮어써도 이음', [('        if it["ext"] not in TEXT or not it["size"] or not old_it["size"]:\n            return "확인" if older else "잇기"', '        if it["ext"] not in TEXT or not it["size"] or not old_it["size"]:\n            return "잇기"')], ['TS-113']),
     ('판 확인 제안을 내지 않음', [('                        if how == "확인":', '                        if False:')], ['TS-112']),
@@ -727,7 +729,7 @@ kept9 = rd(q9m, "_HiDAM_거울/작은/n3.txt")
 os.remove(os.path.join(q9, "작은/n0.txt")); r9d = Q9.mirror("M")
 ok("TS-119", G15, "보호 등급의 판은 자동으로 맞추지 않음 · 무료는 자동 실행이 닫힘 · 거울이 10건이 안 되면 대량 변경으로 멈추지 않음 · 미러링은 해시를 맞대어 틀린 사본을 들이지 않음 · 물러난 것은 보류함에", "SV-03 · FN-17 · MR-16 · MR-03 · MR-05",
    r9p.get("how") == "자동에서 뺌" and fa9 is None and r9m["stopped"] is None and r9m["done"] == 3 and r9h["mismatch"] == 1 and kept9 == b"n3\n"
-   and r9d["held"] == 1 and ex(q9m, "_HiDAM_보류함/작은/n0.txt") and not ex(q9m, "_HiDAM_거울/갈래.txt"), (r9p.get("how"), fa9, r9m.get("stopped"), r9h.get("mismatch"), kept9, r9d.get("held")))
+   and r9d["held"] == 1 and ex(q9m, "_HiDAM_보류함/작은/n0.txt") and rd(q9m, "_HiDAM_보류함/작은/n0.txt") == "바뀜 0\n".encode() and not ex(q9m, "_HiDAM_거울/갈래.txt"), (r9p.get("how"), fa9, r9m.get("stopped"), r9h.get("mismatch"), kept9, r9d.get("held")))
 mut_table = []
 if "--no-mutants" not in sys.argv:
     src = open(os.path.join(here, "hidam_app.py"), encoding="utf-8").read()
@@ -742,11 +744,11 @@ if "--no-mutants" not in sys.argv:
         try: failed = [c["no"] for c in json.load(open(outp, encoding="utf-8"))["cases"] if c["result"] != "통과"]; crashed = None
         except Exception: failed, crashed = [], (pr_.stderr or "").strip().split("\n")[-1][:120]
         hit = all(x in failed for x in want)
-        mut_table.append(dict(no=i, what=name, expect=want, failed=failed, verdict=("시나리오가 끝까지 돌지 못함: " + crashed) if crashed else ("잡음" if hit else "못 잡음")))
+        mut_table.append(dict(no=i, what=name, expect=want, failed=failed, verdict=("잡음(시나리오가 멈춤: " + crashed + ")") if crashed else ("잡음" if hit else "못 잡음")))
         shutil.rmtree(md, ignore_errors=True)
-    caught = sum(1 for m in mut_table if m["verdict"] == "잡음")
+    caught = sum(1 for m in mut_table if m["verdict"].startswith("잡음"))
     ok("TS-110", G13, "통과 조건이 「늘 참」이 아닌지: 엔진의 한 줄을 틀리게 바꾼 사본 %d가지에서 해당 시나리오가 실패하는가" % len(MUTANTS), "시험의 시험 · 검수 A (다)", caught == len(MUTANTS),
-       "%d/%d 잡음 · %s" % (caught, len(MUTANTS), [(m["no"], m["verdict"]) for m in mut_table if m["verdict"] != "잡음"]))
+       "%d/%d 잡음 · %s" % (caught, len(MUTANTS), [(m["no"], m["verdict"]) for m in mut_table if not m["verdict"].startswith("잡음")]))
 out = dict(title="HiDAM.app 기준 구현 시뮬레이션", note="만든 파일로 돌린 시뮬레이션이며 실측이 아니다", policy=POLICY, app=APP_VER,
            code_sha256=sha(open(os.path.join(ENGINE_DIR, "hidam_app.py"), "rb").read()), scenario_sha256=sha(open(os.path.abspath(__file__), "rb").read()),
            ran_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), env="Python %s · %s" % (sys.version.split()[0], sys.platform), total=len(R), passed=sum(1 for r in R if r["result"] == "통과"),

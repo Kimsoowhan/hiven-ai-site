@@ -8,6 +8,7 @@ NEW_MUTANTS = [
     ("K-X4 대량 변경의 10건 바닥을 없앰", [('len(have) >= 10 and', 'len(have) >= 0 and')], ["TS-119"]),
     ("K-X11 미러링 해시 대조를 하지 않음", [('if sha(open(tmp, "rb").read()) != want[r]:', 'if False:')], ["TS-119"]),
     ("K-X12 거울에서 물러난 것을 보류함에 두지 않고 지움", [('shutil.move(os.path.join(mroot, r), hd)', 'os.remove(os.path.join(mroot, r))')], ["TS-119"]),
+    ("K-X8 계보를 거꾸로 적음(0.3부터 계보를 잇는 자리)", [('        self.anc.setdefault(child, set()).add(parent)', '        self.anc.setdefault(parent, set()).add(child)')], ["TS-103"]),
     # OP-2 ① 옛 판으로 덮어씀
     ("옛 판으로 덮어쓴 글자 문서를 뒤 판으로 이음", [('            return "확인"                                 # 글자 문서는 날짜를 믿지 않는다', '            return "잇기"                                 # 글자 문서는 날짜를 믿지 않는다')], ["TS-112"]),
     ("글자가 아닌 것을 옛 날짜의 판으로 덮어써도 이음", [('        if it["ext"] not in TEXT or not it["size"] or not old_it["size"]:\n            return "확인" if older else "잇기"', '        if it["ext"] not in TEXT or not it["size"] or not old_it["size"]:\n            return "잇기"')], ["TS-113"]),
