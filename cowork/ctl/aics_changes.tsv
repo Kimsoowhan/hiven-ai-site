@@ -1,4 +1,5 @@
 커밋	시각	내용	바뀐 파일
+PENDING	2026-11-11 12:41	모델통제 이력 574·575·578 조치 완료로 닫음(워크 0008 STEP 1-1 ①, Sonnet)	cowork/ctl/model_control_history.tsv 외 생성물
 ed9b89c	2026-11-11 12:50	SC-02 방어태세 표·표시 열·근거 문구·구조도 연결 문구의 옛 등급명(관찰·관심·심각·위험·위기)을 새 등급명(관찰·주의·경보·경고·위기)으로 정합(워크 0008 STEP 1-1 ④, Sonnet)	views7.js, index.html, cowork/ctl/emergency_manual.md, cowork/ctl/sec_structure.svg, tools/gen_sec_structure.py 외 생성물
 c96a20c	2026-11-11 12:27	모델통제 이력 611 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
 dfc925b	2026-11-11 12:22	SC-08 게시 판 0.1.25 상자 0건 표시(views6.js d3)	views6.js, index.html 외 생성물

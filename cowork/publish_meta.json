@@ -1,5 +1,5 @@
 {
- "published": "2026-11-11 12:37",
+ "published": "2026-11-11 12:40",
  "by": "모델",
  "history_rows": 610,
  "lifecycle_rows": 610,
@@ -42,8 +42,8 @@
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-01·SC-15",
    "rows": 610,
-   "sha16": "816e71719fc81e14",
-   "mtime": "2026-11-11 12:27"
+   "sha16": "338b127bcf6af324",
+   "mtime": "2026-11-11 12:40"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -58,8 +58,8 @@
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-01",
    "rows": 610,
-   "sha16": "0311282b0047be7d",
-   "mtime": "2026-11-11 12:27"
+   "sha16": "10f238726700be2d",
+   "mtime": "2026-11-11 12:40"
   },
   {
    "file": "ctl/trace_sum.json",
