@@ -5,3 +5,4 @@ PC-003	2026-11-12 13:00	Sonnet 5.5	cowork/ctl/pledge_*.tsv 5종	신설(각서·�
 PC-004	2026-11-12 13:00	Sonnet 5.5	index.html·integrity.json	views9.js 등록 및 무결성 해시 추가	800
 PC-005	2026-11-12 13:10	Sonnet 5.5	views9.js	탭 「말·소통 기준」 추가(규칙 표준·종단·횡단·이행 지수)	804
 PC-006	2026-11-12 13:10	Sonnet 5.5	cowork/ctl/speech_standard.tsv, speech_flow.tsv	신설(말·소통 표준 11건, 종단 6단계)	804
+PC-007	2026-11-12 14:27	Opus 5.5	cowork/ctl/pledge_models.tsv	Opus 각서 서명(역할 변경 반영), Sonnet 재서명 대기·Fable 작성 대기 표시	848
