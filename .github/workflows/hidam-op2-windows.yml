@@ -96,6 +96,19 @@ jobs:
           # 묶음은 HiCoffer를 끄지 않는다. 남은 프로세스 수만 적는다(러너 VM은 작업 끝에 버려짐)
           ('HiCoffer 프로세스 ' + @(Get-Process -Name HiCoffer -ErrorAction SilentlyContinue).Count + '개') | Set-Content -LiteralPath (Join-Path $env:B5_ROOT '끝_프로세스.txt') -Encoding utf8
 
+      - name: 묶음 출력과 실행기록 보이기(읽기만)
+        if: always()
+        shell: pwsh
+        run: |
+          foreach ($m in 'EnvOnly','Short') {
+            $r = Join-Path $env:B5_ROOT ('T_' + $m)
+            Write-Host ('===== ' + $m + ' 표준출력/오류출력 =====')
+            foreach ($n in ('표준출력_' + $m + '.txt'), ('오류출력_' + $m + '.txt')) { $p = Join-Path $env:B5_ROOT $n; if (Test-Path -LiteralPath $p) { Write-Host ('--- ' + $n); Get-Content -LiteralPath $p -TotalCount 120 } }
+            foreach ($d in Get-ChildItem -LiteralPath $r -Directory -Filter '결과_*' -ErrorAction SilentlyContinue) {
+              foreach ($n in '실행기록.txt','단계기록.tsv') { $p = Join-Path $d.FullName $n; if (Test-Path -LiteralPath $p) { Write-Host ('--- ' + $d.Name + '\\' + $n); Get-Content -LiteralPath $p -TotalCount 150 } }
+            }
+          }
+
       - name: 결과 모으기·해시
         if: always()
         shell: pwsh
