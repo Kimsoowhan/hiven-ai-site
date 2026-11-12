@@ -10,7 +10,7 @@ function ld(u){return hvFetch(u,'text').then(function(t){return hvTsv(t)},functi
 function load(){Promise.all([ld('cowork/ctl/model_control_history.tsv'),ld('cowork/ctl/pledge_models.tsv'),ld('cowork/ctl/pledge_checks.tsv'),ld('cowork/ctl/pledge_trace.tsv'),ld('cowork/ctl/pledge_changes.tsv'),ld('cowork/ctl/pledge_config.tsv'),ld('cowork/ctl/speech_standard.tsv'),ld('cowork/ctl/speech_flow.tsv'),ld('cowork/ctl/command_ledger.tsv')]).then(function(r){
  var sg=r.map(function(x){return x?x.length+':'+(x[x.length-1]||[]).join('|').length:'-'}).join(',');
  P.H=r[0];P.M=r[1];P.C=r[2];P.T=r[3];P.G=r[4];P.F=r[5];P.SS=r[6];P.SF=r[7];P.L=r[8];P.t=Date.now();window.hvCmdLive={H:P.H,L:P.L};
- if(sg!==P.sig){P.sig=sg;fill();var ct=document.getElementById('cmd-top');if(ct&&typeof hvSc04Tbl==='function'&&hvMeta.tv)ct.innerHTML=hvSc04Tbl()}else{var s=document.getElementById('plg-time');if(s)s.textContent=kst()}})}
+ if(sg!==P.sig){P.sig=sg;fill();var p3e=document.getElementById('p3-root');if(p3e)p3e.innerHTML=p3();var ct=document.getElementById('cmd-top');if(ct&&typeof hvSc04Tbl==='function'&&hvMeta.tv)ct.innerHTML=hvSc04Tbl()}else{var s=document.getElementById('plg-time');if(s)s.textContent=kst()}})}
 function kst(){var d=new Date(Date.now()+9*3600000);return d.toISOString().replace('T',' ').slice(0,19)+' (KST)'}
 function fam(m){var s=String(m||'');if(/Sonnet/.test(s))return 'Sonnet';if(/Opus/.test(s))return 'Opus';if(/Fable/.test(s))return 'Fable';if(/Haiku/.test(s))return 'Haiku';return '기타'}
 function models(m){var s=String(m||''),o=[];['Sonnet','Opus','Fable','Haiku'].forEach(function(k){if(s.indexOf(k)>=0)o.push(k)});return o.length?o:['기타']}
@@ -57,9 +57,14 @@ function pct(m){var c=(P.C||[]).filter(function(r){return r[2]===m});if(!c.lengt
 function chk(){var C=P.C;if(!C)return hvNo('원천 pledge_checks.tsv 없음');var ms=['Sonnet 5.5','Opus 5.5','Fable 5.2'],s='<h3>이행 정도 (이행=1, 이행 중=0.5, 그 밖=0)</h3>'+tbl(['모델','점검 항목','이행','이행 중','미이행','확인 안 됨','이행 지수',''],ms.map(function(m){var c=C.filter(function(r){return r[2]===m}),k=function(x){return c.filter(function(r){return r[3]===x}).length},p=pct(m)||0;return [m,c.length,k('이행'),k('이행 중'),k('미이행'),k('확인 안 됨'),p+'%',bar(p,p>=70?'#2e7d32':p>=40?'#ef6c00':'#c62828')]}));
  ['시작 세 단계','자율 작업','자율 검수','자율 진행'].forEach(function(a){s+='<h3>'+a+'</h3>'+tbl(['항목','모델','상태','근거','갱신'],C.filter(function(r){return r[0]===a}).map(function(r){return [E(r[1]),E(r[2]),stat(r[3]),E(r[4]),E(r[5])]}))});
  return s+'<p class="note">자율 작업·자율 검수·자율 진행이 대표님의 3대 작업 원칙입니다. 점검표는 각 모델이 근거와 함께 갱신합니다. 근거가 없는 칸은 「확인 안 됨」입니다.</p>'}
-function pledge(){var M=P.M;if(!M)return hvNo('원천 pledge_models.tsv 없음');var s='<p class="lead">각 모델이 자기 역할·책임·의무를 직접 쓰고 서명일(오늘 날짜)을 적습니다. 서명하지 않은 모델은 「작성 대기」로 보입니다.</p>';
- M.forEach(function(r){s+='<div class="card" style="margin-bottom:10px"><div class="k">'+E(r[0])+' · '+stat(r[4])+(r[5]?' · 서명일 '+E(r[5]):'')+'</div><div class="s"><b>역할</b> '+E(r[1])+'</div><div class="s"><b>책임</b> '+E(r[2])+'</div><div class="s"><b>의무</b> '+E(r[3])+'</div><div class="s" style="margin-top:6px"><b>서명 문구</b> '+E(r[6])+'</div></div>'});
- return s+'<h3>서명하는 방법</h3><ol class="note"><li>모델이 <code>cowork/ctl/pledge_models.tsv</code>의 자기 줄에 역할·책임·의무·서명 문구를 쓰고 서명일에 오늘 날짜를 적습니다.</li><li>서명 상태를 「서명됨」으로 바꾸고, 변경 이력 탭에 한 줄을 더합니다.</li><li>대표님은 이 화면에서 상태를 확인하고 다시 지시합니다.</li></ol>'}
+/* 대표님 11-12 14:31(이력 850): 모델 앞 LED — 미서명·재서명 빨강, 서명 노랑, 대표님 승인 대기 주황, 대표님 승인 초록 */
+function led(c,t){var C={red:'#d32f2f',yellow:'#f9c400',orange:'#ef6c00',green:'#2e7d32',gray:'#9e9e9e'}[c];return '<span title="'+E(t)+'" style="display:inline-block;width:14px;height:14px;border-radius:50%;background:'+C+';box-shadow:0 0 6px '+C+';vertical-align:-2px;margin-right:6px"></span>'}
+function pst(r){var s=String(r[4]||''),a=String(r[7]||'');if(/해당 없음/.test(s))return {sg:'gray',ap:'gray',st:'해당 없음',at:'—'};if(/승인됨/.test(a))return {sg:'yellow',ap:'green',st:'서명됨',at:a};if(/서명됨/.test(s))return {sg:'yellow',ap:'orange',st:'서명됨',at:a||'대표님 승인 대기'};return {sg:'red',ap:'gray',st:s||'작성 대기',at:'서명 전'}}
+function pledge(){var M=(P.M||[]).filter(function(r){return r[0]!=='모델'});if(!M.length)return hvNo('원천 pledge_models.tsv 없음');
+ var s='<p class="lead">모델 앞 LED: '+led('red','')+'미서명·재서명 대기 '+led('yellow','')+'모델 서명 '+led('orange','')+'대표님 승인 대기 '+led('green','')+'대표님 승인 끝</p>';
+ s+=tbl(['상태','모델','모델 서명','서명일','대표님 확인'],M.map(function(r){var p=pst(r);return [led(p.sg,'서명')+led(p.ap,'대표님 승인'),'<b>'+E(r[0])+'</b>',E(p.st),E(r[5]||'—'),led(p.ap,'')+E(p.at)]}));
+ M.forEach(function(r){var p=pst(r);s+='<div class="card" style="margin-bottom:10px"><div class="k">'+led(p.sg,'서명')+led(p.ap,'대표님 승인')+E(r[0])+' · '+E(p.st)+(r[5]?' · 서명일 '+E(r[5]):'')+' · 대표님 확인: '+E(p.at)+'</div><div class="s"><b>역할</b> '+E(r[1])+'</div><div class="s"><b>책임</b> '+E(r[2])+'</div><div class="s"><b>의무</b> '+E(r[3])+'</div><div class="s" style="margin-top:6px"><b>서명 문구</b> '+E(r[6])+'</div></div>'});
+ return s+'<h3>서명 · 승인 차례</h3><ol class="note"><li>모델이 자기 줄에 서명(날짜·시각·이력 번호) → 노랑</li><li>대표님 승인 대기 → 주황</li><li>대표님이 「각서 승인한다」 → 받은 모델이 대표님 확인 칸에 시각을 적음 → 초록</li><li>역할이 바뀌거나 서명 전이면 빨강</li></ol>'}
 function trace(){var s='<h3>추적 매트릭스 (지시 → 요구 항목 → 구현 위치 → 상태)</h3>'+(P.T?tbl(['지시 번호','일시','지시 요지','요구 항목','구현 위치','상태'],P.T.slice().reverse().map(function(r){return [E(r[0]),E(r[1]),E(r[2]),E(r[3]),E(r[4]),stat(r[5])]})):hvNo('pledge_trace.tsv 없음'));
  s+='<h3>변경 이력</h3>'+(P.G?tbl(['순번','일시','모델','대상','변경','근거 이력'],P.G.slice().reverse().map(function(r){return r.map(E)})):hvNo('pledge_changes.tsv 없음'));
  s+='<h3>형상 (파일 해시)</h3>'+(P.F?tbl(['파일','해시(앞 16자)','크기(바이트)','기록 시각'],P.F.map(function(r){return r.map(E)})):hvNo('pledge_config.tsv 없음'));
@@ -100,7 +105,14 @@ function graph(){if(!P.H)return hvNo('model_control_history.tsv 없음');var H=P
  var pm=(P.M||[]).filter(function(r){return r[0]!=='모델'}),d='<div style="display:flex;flex-wrap:wrap;gap:10px">'+pm.map(function(r){var st=r[4]||'',c=/승인됨/.test(st)?'#2e7d32':/서명됨/.test(st)?'#1565c0':/해당 없음/.test(st)?'#9e9e9e':'#c62828';return '<div style="flex:1 1 180px;border:2px solid '+c+';border-radius:10px;padding:10px"><b>'+E(r[0])+'</b><br><span style="color:'+c+';font-weight:700">'+E(st)+'</span><br><span class="note">'+E(r[5]||'')+'</span></div>'}).join('')+'</div>';
  var flow='<p class="note">자율 진행 → 자율 작업 → 자율 검수 → Fable 판정 → 대표님 승인 → 마감</p>';
  return '<h3>오늘('+E(today)+') 모델별 구분 건수 · '+T.length+'건</h3>'+g+'<h3>시간대별 대표님 말씀·기록 건수</h3>'+l+'<h3>각인·각서 서명 상태(서명 → 대표님 승인)</h3>'+d+flow}
+
+/* 대표님 11-12 14:31(이력 850): 제목 옆 모델별 3대 원칙(자율 진행·작업·검수) 이행 — 오늘 이력에서 자동 산정, 1초 갱신 */
+var P3=[['자율 진행',/턴|끊|멈춰|멈춤|기다|대기|되묻|되물|묻지/],['자율 작업',/남기|남은 일|미루|안 했|하지 않|안 올|올리지|실행하지|거부|빠뜨|안 하/],['자율 검수',/검수|확인하지|확인 안|대조|무결성|오자|틀린|거짓/]];
+function p3(){if(!P.H)return '';var H=P.H.filter(function(x){return /^\d+$/.test(x[0])}),D=H.map(function(x){return x[1]}).sort(),today=D[D.length-1];
+ var F=H.filter(function(x){return x[1]===today&&x[5]!=='지시'});
+ var rows=['Sonnet','Opus','Fable'].map(function(m){var mine=F.filter(function(x){return String(x[4]).indexOf(m)>=0});var c=P3.map(function(k){var hit=mine.filter(function(x){return k[1].test(x[6]+' '+x[7])}),open=hit.filter(function(x){return !/조치 완료/.test(x[9])});var col=open.length?'red':hit.length?'yellow':'green';return led(col,k[0])+k[0]+' '+(hit.length?hit.length+'건'+(open.length?'(열림 '+open.length+')':''):'0')});var n=mine.length;return '<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:4px 0"><b style="min-width:70px">'+m+'</b>'+c.join('<span style="color:#bbb">|</span>')+'<span class="note">지수 '+Math.max(0,100-n*3)+'</span></div>'});
+ return '<div class="card" style="margin:6px 0 12px"><div class="k">작업 3대 원칙 이행 · 오늘('+E(today)+') · '+led('green','')+'이행 '+led('yellow','')+'어김 후 조치 끝 '+led('red','')+'어김 · 조치 중</div>'+rows.join('')+'<div class="note">산정: 오늘 이력에서 지시를 뺀 기록(거부·위반·질타·지적)을 원칙별 낱말로 분류. 지수 = 100 − 3 × 그 모델의 오늘 기록 수. 산정안이며 대표님 확정 전.</div></div>'}
 var f=V['SC-16'];
-V['SC-16']=function(){var g=f.apply(this,arguments);setTimeout(function(){if(P.t)fill();else load()},0);return g+'<hr><h2>각서·각인·지표·이행 점검</h2><p class="lead">모든 지시·작업·상태를 지표와 지수로 확인합니다. SC-15 모델 통제 화면과 별도로 관리합니다.</p><div id="plg-root"><p class="note">불러오는 중</p></div>'};
+V['SC-16']=function(){var g=f.apply(this,arguments);setTimeout(function(){if(P.t)fill();else load()},0);return g+'<hr><h2>각서·각인·지표·이행 점검</h2><div id="p3-root">'+p3()+'</div><p class="lead">모든 지시·작업·상태를 지표와 지수로 확인합니다. SC-15 모델 통제 화면과 별도로 관리합니다.</p><div id="plg-root"><p class="note">불러오는 중</p></div>'};
 load();setInterval(load,1000);
 })();
