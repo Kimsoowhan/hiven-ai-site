@@ -1,0 +1,22 @@
+name: hct-b5-diag
+on:
+  workflow_dispatch:
+jobs:
+  d:
+    runs-on: windows-2025
+    timeout-minutes: 10
+    steps:
+      - name: Test-Path after subst delete
+        shell: powershell
+        run: |
+          $PSVersionTable.PSVersion.ToString()
+          New-Item -ItemType Directory -Force -Path C:\hdiag\자료 | Out-Null
+          & subst.exe X: C:\hdiag
+          'exists-before: ' + (Test-Path -LiteralPath 'X:\자료')
+          $x = Get-ChildItem -LiteralPath C:\hdiag
+          & subst.exe X: /D | Out-Null
+          try { 'after-delete: ' + (Test-Path -LiteralPath 'X:\') } catch { 'ERR1: ' + $_.Exception.Message }
+          try { 'after-delete-noslash: ' + (Test-Path -LiteralPath 'X:') } catch { 'ERR2: ' + $_.Exception.Message }
+          try { 'after-delete-path: ' + (Test-Path -Path 'X:\') } catch { 'ERR3: ' + $_.Exception.Message }
+          $L = 'X'
+          try { 'composed: ' + (Test-Path -LiteralPath ($L + ':\')) } catch { 'ERR4: ' + $_.Exception.Message }
