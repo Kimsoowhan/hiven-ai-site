@@ -40,20 +40,20 @@ jobs:
         shell: pwsh
         run: |
           $ErrorActionPreference = 'Stop'
-          function H([string]$p) { (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant() }
+          function HcSha([string]$p) { (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant() }
           $bz = Join-Path $env:GITHUB_WORKSPACE 'hct_b5\O가2_실행묶음_시험가-261112_1.1_작업.zip'
           $pz = Join-Path $env:GITHUB_WORKSPACE 'hct_b5\HCT_시험가_묶음-261112_1.0_작업.zip'
-          if ((H $bz) -ne $env:EXPECT_BUNDLE) { throw ('실행 묶음 1.1 사본 해시 다름 ' + (H $bz)) }
-          if ((H $pz) -ne $env:EXPECT_PACK) { throw ('시험 묶음 사본 해시 다름 ' + (H $pz)) }
+          if ((HcSha $bz) -ne $env:EXPECT_BUNDLE) { throw ('실행 묶음 1.1 사본 해시 다름 ' + (HcSha $bz)) }
+          if ((HcSha $pz) -ne $env:EXPECT_PACK) { throw ('시험 묶음 사본 해시 다름 ' + (HcSha $pz)) }
           New-Item -ItemType Directory -Force -Path $env:B5_ROOT | Out-Null
           Expand-Archive -LiteralPath $bz -DestinationPath $env:B5_ROOT
           $bd = Join-Path $env:B5_ROOT 'O가2_실행묶음_시험가-261112_1.1_작업'
           Copy-Item -LiteralPath $pz -Destination $env:B5_ROOT
           $sp = Join-Path $env:B5_ROOT 'HiCoffer_Setup_0.1.25.exe'
           Invoke-WebRequest -Uri $env:SETUP_URL -OutFile $sp -UseBasicParsing
-          if ((H $sp) -ne $env:EXPECT_SETUP) { throw ('설치 파일 해시 다름 ' + (H $sp)) }
+          if ((HcSha $sp) -ne $env:EXPECT_SETUP) { throw ('설치 파일 해시 다름 ' + (HcSha $sp)) }
           # 묶음 안 파일 해시를 바-2 해시 목록과 견주도록 남김
-          Get-ChildItem -LiteralPath $bd -File | Sort-Object Name | ForEach-Object { (H $_.FullName) + '  ' + $_.Name } | Tee-Object -FilePath (Join-Path $env:B5_ROOT '묶음파일해시.txt')
+          Get-ChildItem -LiteralPath $bd -File | Sort-Object Name | ForEach-Object { (HcSha $_.FullName) + '  ' + $_.Name } | Tee-Object -FilePath (Join-Path $env:B5_ROOT '묶음파일해시.txt')
           # 일반 권한 계정(Users 묶음만). 비밀번호는 이 단계 안에서만 만들어 다음 단계로 넘기고 화면·파일에 남기지 않음
           $b = New-Object byte[] 24; [System.Security.Cryptography.RandomNumberGenerator]::Fill($b)
           $pw = 'Hc!' + [Convert]::ToBase64String($b)
