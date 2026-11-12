@@ -228,3 +228,4 @@ a844735	2026-11-05 05:34	이력 #200(Opus 위반: 승인 뒤 남은 일 보고),
 -	11-13 02:3x~02:44(정확한 시각 확인 안 됨)	정-31 최종 보고 초안 1(표 24줄+통지 문단) Fable용 작업본 PC 올림 대조	cs8/최종보고_초안1-261113_1.0_작업.md
 -	11-13 02:44	이력 1064 시각 정정(agent_gather · aics_changes · judgement_status · 판정요청 · 용어집 새 줄 · 최종 보고 초안)	agent_gather.tsv, aics_changes.tsv, judgement_status.tsv, model_control_history.tsv, command_ledger.tsv, history_reclass_log.tsv
 -	11-13 02:48	정-22 정본 명칭 대장 1.0_작업 수집(1871줄) · 판정요청 140 · 수집 대장 G-010 완료 · name_ledger.tsv 작업본 추가	name_ledger.tsv · agent_gather.tsv · judgement_status.tsv
+-	11-13 02:56	정-18 ev_bridge 1.0_작업 · hb_common 사본 · 노드/링크 표 · 브-1~10 결과표 · 판정요청 141	tools/ev_bridge.py · tools/hb_common.py · ev_bridge_nodes.tsv · ev_bridge_links.tsv · ev_bridge_verify.tsv · judgement_status.tsv
