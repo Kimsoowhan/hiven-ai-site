@@ -46,7 +46,10 @@ def add(d, label, files):
     n = nextno(d)
     for src in files:
         dst = os.path.join(sub, os.path.basename(src))
+        if os.path.exists(dst):
+            print('덮어쓰기 금지: 이미 있음', dst); sys.exit(3)
         shutil.copy2(src, dst)
+        os.chmod(dst, 0o444)
         st = os.stat(src)
         a, b = sha(src), sha(dst)
         if a != b:

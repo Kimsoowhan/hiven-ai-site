@@ -58,9 +58,9 @@ def run(tid, extra):
             f.write(f'{k}\t{v}\n')
     ins = [os.path.join(R, x.strip()) for x in r['입력'].split(',') if x.strip()]
     miss = [x for x in ins if not os.path.exists(x)]
-    ev_pack.add(d, '시작_환경', env)
+    ev_pack.add(d, '시작_환경', [env])
     if ins:
-        ev_pack.add(d, '시작_입력', *[x for x in ins if os.path.exists(x)])
+        ev_pack.add(d, '시작_입력', [x for x in ins if os.path.exists(x)])
     if miss:
         open(os.path.join(d, ev_pack.LOG), 'a', encoding='utf-8').write(f'{ev_pack.now()}\t{tid}\t입력 없음\t{";".join(miss)}\tSonnet\t사건\n')
     # P2 실행
@@ -71,14 +71,14 @@ def run(tid, extra):
     log = os.path.join(d, '실행기록.txt')
     with open(log, 'w', encoding='utf-8') as f:
         f.write(f'시작 {s0}\n끝 {s1}\n걸린 초 {time.time()-t0:.1f}\n종료 코드 {p.returncode}\n명령 {cmd}\n--- 표준출력\n{p.stdout}\n--- 표준오류\n{p.stderr}\n')
-    ev_pack.add(d, '실행', log)
+    ev_pack.add(d, '실행', [log])
     # P3 사건: 실패도 같은 증적(원-5)
     if p.returncode != 0:
         open(os.path.join(d, ev_pack.LOG), 'a', encoding='utf-8').write(f'{ev_pack.now()}\t{tid}\t사건: 종료 코드 {p.returncode}\t{log}\tSonnet\t실패도 통과와 같이 보존\n')
     # P4 끝: 산출 보존·대조·색인
     outs = [os.path.join(dp, fn) for dp, _, fs in os.walk(out) for fn in fs]
     if outs:
-        ev_pack.add(d, '끝_산출', *outs)
+        ev_pack.add(d, '끝_산출', outs)
     bad = ev_pack.verify(d)
     ev_pack.index(d)
     # P5 원장
