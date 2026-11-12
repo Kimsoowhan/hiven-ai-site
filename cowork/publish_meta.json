@@ -1,5 +1,5 @@
 {
- "published": "2026-11-13 02:25",
+ "published": "2026-11-13 02:27",
  "by": "모델",
  "history_rows": 898,
  "lifecycle_rows": 898,
@@ -10,8 +10,8 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-10",
    "rows": null,
-   "sha16": "4c3910b866c3e09d",
-   "mtime": "2026-11-13 02:25"
+   "sha16": "878f2fd8422b50cb",
+   "mtime": "2026-11-13 02:27"
   },
   {
    "file": "board.md",
@@ -66,8 +66,8 @@
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-02·SC-17",
    "rows": null,
-   "sha16": "baaf26f08c2e1a47",
-   "mtime": "2026-11-13 02:25"
+   "sha16": "ccfcd0227e25efae",
+   "mtime": "2026-11-13 02:27"
   },
   {
    "file": "ctl/trace_v.tsv",
