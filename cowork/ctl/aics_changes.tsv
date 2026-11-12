@@ -219,3 +219,8 @@ a844735	2026-11-05 05:34	이력 #200(Opus 위반: 승인 뒤 남은 일 보고),
 -	11-13 02:15	이력 1062 대표님께 승인·확인 요청 금지, 비고 정정 512	model_control_history.tsv, command_ledger.tsv, history_reclass_log.tsv
 -	11-13 02:42	에이전트 4건 산출 수집(G-004~G-007)·판정요청 121~131·PC 94_06_06 올림 대조·1.1 문구 정정	agent_gather.tsv, cs2/·cs3/·op9/·fj10/ 산출
 -	11-13 02:23	이력 1063 일이 남았는데 최종 통지로 턴을 멈춘 위반 기록	model_control_history.tsv, command_ledger.tsv
+-	11-13 02:58	정-25 음성 지시 인식 원문 짝 파일 작성(1053 일부·1056·1057·1059 + 1060~1062), 판정요청 119 문구 고침, 상태표 132~134 줄 추가	voice_original.tsv, judgement_status.tsv
+-	11-13 03:08	정-29 HiBiz 전수 검수표 ㉠㉡ 수집(G-013)·판정요청 135·PC 94_06_06 올림	agent_gather.tsv, audit_all_folders.tsv, judgement_status.tsv
+-	11-13 03:14	정-26 ①④⑦ 수집(G-012)·작업본 4건 cowork/ctl에 둠·판정요청 136	cs_inbox_raw.tsv, draft_quote_check.tsv, reply_value_label_check.tsv, quarantine.tsv, agent_gather.tsv
+-	11-13 03:22	정-23·24 수집(G-011)·source_ledger.tsv·lgu_basis.tsv 작업본·판정요청 137	source_ledger.tsv, lgu_basis.tsv, agent_gather.tsv
+-	11-13 03:32	정-28 점검표 열네 줄 지금 칸 작성(autonomy_check.tsv)·판정요청 138	autonomy_check.tsv, judgement_status.tsv
