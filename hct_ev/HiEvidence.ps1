@@ -147,13 +147,14 @@ function Do-Verify {
     if (-not (Test-Path -LiteralPath $p)) { Write-Host ('빠짐 ' + $f[0] + ' ' + $f[3]); $bad++ }
     elseif ((Sha $p) -ne $f[6]) { Write-Host ('바뀜 ' + $f[0] + ' ' + $f[3]); $bad++ }
   }
+  if (-not (Test-Path -LiteralPath $ChainP)) { Write-Host '사슬 파일 없음'; $bad++ }
   $prev = '0' * 64
-  foreach ($c in (Get-Content -LiteralPath $ChainP -Encoding UTF8 | Where-Object { $_ -ne '' } | Select-Object -Skip 1)) {
+  if (Test-Path -LiteralPath $ChainP) { foreach ($c in (Get-Content -LiteralPath $ChainP -Encoding UTF8 | Where-Object { $_ -ne '' } | Select-Object -Skip 1)) {
     $f = $c.Split([char]9)
     $body = ($f[0..5]) -join $Tab
     if ($f[5] -ne $prev -or (ShaText $body) -ne $f[6]) { Write-Host ('사슬 끊김 ' + $f[0]); $bad++ }
     $prev = $f[6]
-  }
+  } }
   Write-Host ('verify ' + $(if ($bad -eq 0) { '통과' } else { '문제 ' + $bad + '건' }))
   return $bad
 }
