@@ -8,7 +8,7 @@ function hvFbn13(v){v=(v||'').trim();if(!v)return '대기';if(/^처리 완료/.t
 var hvTR13={v:[],h:[],s:null,ok:''};
 V['SC-15']=function(){
  setTimeout(hvSC13Start,0);
- return '<div id="sc13"><h2>SC-15 모델 통제 상황</h2><p class="lead">Fable · Opus · Sonnet · Haiku(그리고 기록상 모델 미상)의 대표님 지시, 질타·개선요청·지적, 위반·지시거부, 유휴(멈춤·불이행), 장애 이력입니다. 범위: HiBiz 관련 기록만(Mbiz 시기 기록은 원천 폴더 「보관_Mbiz이전(비반영)」에 보관, 이 화면에 반영하지 않음).</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv (모델별 상세: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: hiven-ai-site /cowork/ctl/model_control_history.tsv · model_control_status.tsv (원천 파일을 그대로 복사해 푸시) → ③ 표시: 이 화면이 10초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
+ return '<div id="sc13"><h2>SC-15 모델 통제 상황</h2><p class="lead">현행 체계(11-12 15:05): 대표님 → Fable 지시문 → Opus 실행 통제 → Sonnet 에이전트 병행, Haiku 비활성. 모델별 대표님 지시, 질타·개선요청·지적, 위반·지시거부, 유휴(멈춤·불이행), 장애 이력입니다. 범위: HiBiz 관련 기록만(Mbiz 시기 기록은 원천 폴더 「보관_Mbiz이전(비반영)」에 보관, 이 화면에 반영하지 않음).</p><div class="sc13-path"><b>데이터 연동 경로</b> ① 원천: HiBiz\\01_클로_소통(COM)\\모델통제(CTL)\\모델통제_통합이력.tsv · 모델통제_현황.tsv (모델별 상세: 모델통제_Fable·Opus·Sonnet·Haiku.md) → ② 게시: hiven-ai-site /cowork/ctl/model_control_history.tsv · model_control_status.tsv (원천 파일을 그대로 복사해 푸시) → ③ 표시: 이 화면이 10초마다 읽음</div><p class="note" id="sc13-st">불러오는 중…</p><div id="sc13-b"></div></div>';
 };
 function hvSC13Start(){
  if(hvT13){clearInterval(hvT13);hvT13=null}
