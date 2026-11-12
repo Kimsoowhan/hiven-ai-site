@@ -1,8 +1,8 @@
 {
- "published": "2026-11-12 14:38",
- "by": "Opus",
- "history_rows": 692,
- "lifecycle_rows": 692,
+ "published": "2026-11-12 17:03",
+ "by": "모델",
+ "history_rows": 767,
+ "lifecycle_rows": 767,
  "consistent": true,
  "files": [
   {
@@ -10,8 +10,8 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-10",
    "rows": null,
-   "sha16": "7ff3ee996d603057",
-   "mtime": "2026-11-11 02:13"
+   "sha16": "cd1d9e7d39ec485e",
+   "mtime": "2026-11-12 17:03"
   },
   {
    "file": "board.md",
@@ -34,56 +34,56 @@
    "source": "COM\\일일보고\\",
    "screen": "SC-10",
    "rows": null,
-   "sha16": "7f4a4fed986bf787",
-   "mtime": "2026-11-05 14:53"
+   "sha16": "2446748c4523a4ef",
+   "mtime": "2026-11-12 17:03"
   },
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
    "screen": "SC-02·SC-16",
-   "rows": 692,
-   "sha16": "9182ce87fbfbd818",
-   "mtime": "2026-11-12 14:38"
+   "rows": 767,
+   "sha16": "055f97b7f00acd78",
+   "mtime": "2026-11-12 17:03"
   },
   {
    "file": "ctl/model_control_status.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_현황.tsv",
    "screen": "SC-16",
-   "rows": 5,
-   "sha16": "a9e2f351b6113de1",
-   "mtime": "2026-11-05 08:00"
+   "rows": 4,
+   "sha16": "c1e93c64615d0d21",
+   "mtime": "2026-11-12 16:42"
   },
   {
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
    "screen": "SC-02",
-   "rows": 692,
-   "sha16": "67cdd8b7b0fab9d4",
-   "mtime": "2026-11-12 14:38"
+   "rows": 767,
+   "sha16": "46172f5f1ed80b95",
+   "mtime": "2026-11-12 17:03"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-02·SC-17",
    "rows": null,
-   "sha16": "dde57b1c8cafc414",
-   "mtime": "2026-11-05 08:22"
+   "sha16": "de7b414b59fac132",
+   "mtime": "2026-11-12 17:03"
   },
   {
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
    "screen": "SC-17",
-   "rows": 429,
-   "sha16": "2b5347e7fea1dd59",
-   "mtime": "2026-11-06 16:59"
+   "rows": 548,
+   "sha16": "778fb5deb5ab9e31",
+   "mtime": "2026-11-12 16:31"
   },
   {
    "file": "ctl/qa_checks.tsv",
    "source": "승인전재검 xlsx(91_Fable)",
    "screen": "SC-02·SC-13",
    "rows": 16,
-   "sha16": "310c8875c4861cbf",
-   "mtime": "2026-11-05 08:00"
+   "sha16": "e95eef17a3d01476",
+   "mtime": "2026-11-12 16:42"
   },
   {
    "file": "ctl/bg_lifecycle.tsv",

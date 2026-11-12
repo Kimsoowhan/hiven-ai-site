@@ -1,57 +1,57 @@
 커밋	시각	내용	바뀐 파일
 -	2026-11-11 16:30	커리어 추이 차트 최종: 인터미디어파크 530(역산, 대표님 확인), 휴미트·AWA 근거 값으로 환원, 합계 2,029건·「총 2,000건 이상」 버튼, 시유재산 2017(대표님 16:06~16:29 지시, Sonnet)	career.html 외 4개
-0b3f0d7	2026-11-11 16:12	커리어 「회사별 사업·과업 추이」 2000~2024 전 연도 채움: 13개사, 시유재산(AKT) 2017 시작, AWA 2017~2018 분산, 엘솔·LG U+·코스콤·LH 추가, 시유재산 항목 연도 2017, 다섯 언어 동일(대표님 16:06~16:11 지시, Sonnet)	career.html 외 4개
-c1ea058	2026-11-11 16:10	커리어 100건 일괄 정합: #001·#003·#006·#025·#033·#035·#088 이미지 교체, #001 제목 원복, 섬네일 57건 확대 원본 기준 재생성, 다섯 언어 동일 반영(대표님 15:43~16:05 지시, Sonnet)	assets/img/proj, career.html, en·ja·ru·zh/career.html
-78a982c	2026-11-11 15:50	커리어 #088 마이데이터 오퍼레이터 서비스 구성도 페이지로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 2개
-d971ede	2026-11-11 16:10	커리어 #064 누벨르 쇼핑몰 PC 화면설계서 상품 화면 페이지로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 2개
-a0a071d	2026-11-11 16:00	커리어 #060 SGIS 개발자사이트 메뉴 구조도, #061 국가DB연계 서비스 기획서 화면으로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 4개
-b510120	2026-11-11 15:58	커리어 #088 이미지를 지시 범위 밖 변경이므로 원래 이미지로 복원	career.html 외 4개
-2319133	2026-11-11 15:55	커리어 #088 마이데이터 생태계 수행계획서의 서비스 구성도(1845x1044)로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 2개
-76b0d72	2026-11-11 15:50	커리어 #076 AADS·TunnelView 서비스 구조도, #080 112종합상황실 접수·출동 체계도로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 4개
-983c622	2026-11-11 15:40	커리어 #082 울산 바이오데이터팜 섬네일·확대 원본을 KCC 제안서 구성도(1842x1275)로 교체	career.html 외 4개, 이미지 2개
-5ef0091	2026-11-11 15:30	커리어 #087 섬네일·확대 원본을 고해상도 홍보 포스터(1191x1747)로 교체	career.html 외 4개, 이미지 2개
-64f9c0c	2026-11-11 15:10	커리어 섬네일↔확대 원본 100건 내용 대조 후 불일치 4건(#067·#020·#078·#092) 섬네일을 원본 기준으로 재생성	career.html 외 4개, 이미지 8개
-b244855	2026-11-11 15:02	커리어 #001을 JKD소프트 Annual Business Plan 표지로 교체(5개 언어)	career.html 외 4개, d_jkdplan 이미지 2개
-d08b38e	2026-11-11 15:30	커리어 섬네일 3건(#025 통합민주당·#024 Boomber·#029 정부수립 60주년 영상)을 로고·대체 이미지 대신 실제 작업 문서(손학규 알리미 화면·Bomber 기획안·트리니티 영상사업 추진방안)로 교체, 확대 이미지 포함, 다섯 언어(대표님 14:38·14:39 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_dem2.jpg, e_boom.jpg, e_3d60.jpg 및 _full
-d102973	2026-11-11 15:10	커리어 확대 이미지 주소에 버전 값을 붙여 이전 404 캐시 때문에 큰 이미지가 안 뜨던 문제 해소(#001 자바원 등), 다섯 언어(대표님 14:32 지시, Sonnet)	career.html, en/ja/ru/zh/career.html
-06f89cd	2026-11-11 15:00	커리어 섬네일 클릭 시 확대 창을 작은 원본(예: #002)도 크게 보이도록 확대 폭 지정, 다섯 언어(대표님 14:29 지시, Sonnet)	career.html, en/ja/ru/zh/career.html
-d4c25a2	2026-11-11 14:50	커리어 섬네일 클릭 시 확대 이미지 14건 보강(#001 자바원·#005 경매·#007·#008 셋톱·#010 DVD·#023·#020·#025 등), 100개 모두 확대 이미지 연결(대표님 14:26 지시, Sonnet)	assets/img/proj/*_full.jpg 14개
-62dbc54	2026-11-11 14:40	커리어 섬네일 공백 3칸(#025·#023·#020)에 자료 이미지 대입(PCS 모바일 GUI 2장, HOMEPORTAL 화면), 100개 전부 이미지 적용, 다섯 언어(대표님 14:24·14:25 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_pcs1.jpg, e_pcs2.jpg, e_dem.jpg
-c69ea14	2026-11-11 15:10	커리어 100건 중 이력서·프로필(261012) 기준 불일치 5건 정정(인하대병원·광주TP·강원랜드 사업명, LWT 실내측위·국가DB 연도), 다섯 언어(대표님 13:51 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
-8da207b	2026-11-11 14:50	커리어 페이지 섬네일 박스 오른쪽 하단에 번호·연도 배치(#100 2024 … #001 2000, 맨 위가 #100), 다섯 언어(대표님 13:46·13:48 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
-753acc5	2026-11-11 14:30	커리어 페이지 섬네일 2건 교체(삼성전자 디지털 전자제품 UI → DHR 콤보 UI 화면, 통신기기 UI·2G폰 → 폰 GUI 화면), 제품 사진·광고 제거(대표님 13:42 질타 후속, Sonnet)	assets/img/proj/d_dv_ui.jpg, d_2g_ui.jpg, career.html 외 4개 언어 외 생성물
-012f3e8	2026-11-11 14:10	커리어 페이지 섬네일 정합: 국민참여단·셋톱박스 2건·PCSync 폰 메뉴·삼성전자 GUI·AUDI 텔레매틱스·ISO 인증서(업체명 가림) 교체, 기업명 3건 변경(㈜트리니티·동아시아미래재단·CODA Institute), 다섯 언어(대표님 13:38~13:40 지시, Sonnet)	assets/img/proj/d_kmc.jpg 외 7개, career.html 외 4개 언어 외 생성물
-88e4caf	2026-11-11 13:40	커리어 페이지 다섯 언어 빈 섬네일 3건 채움(웹 전용 실시간 경매시스템 · 삼성전자 GUI 시장조사 · 2000 JavaOne 부스·홍보물, D:\Working 원본 사용), 나머지 4건은 원본 확인 중(대표님 13:14 지시, Sonnet)	assets/img/proj/d_auction.jpg, d_sec_gui.jpg, d_javaone.jpg, career.html 외 4개 언어 외 생성물
-53bbb8d	2026-11-11 14:50	커리어 페이지 다섯 언어 사업 3건 삭제(2013 웹/모바일 통합 오피스 구축 · 2008 온라인 자동발권 시스템 구축 · 2008 업체별 브랜드 전략 및 마케팅 기획), 목록 103→100건(워크 0008 후속, 대표님 13:01 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
-fa8fdae	2026-11-11 14:20	모델통제 이력 614 기록(장애 보충, 원문 대조 I-00-02)	cowork/ctl/model_control_history.tsv 외 생성물
-c169eb3	2026-11-11 13:58	모델통제 이력 613 기록(Sonnet 지시거부)	cowork/ctl/model_control_history.tsv 외 생성물
-aef3086	2026-11-11 13:55	커리어 페이지 건수 상자를 PMP·석사 상자와 같은 모양으로 정정(영어 한 줄 작은 글씨 줄바꿈 없음, 그 밑 한 줄 같은 글씨 크기, 둘째 상자 폭 1.05fr) + 모델통제 이력 612 기록(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html, cowork/ctl/model_control_history.tsv 외 생성물
-1e6b7f1	2026-11-11 13:30	대표님 커리어 페이지 다섯 언어: 건수 상자 100건 표시(둘째 줄 Representative Portfolio 작은 글씨, 셋째 줄 주요 사업·프로젝트 중간 글씨)·설명 문구 103→100(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
-cd9d28a	2026-11-11 12:41	모델통제 이력 574·575·578 조치 완료로 닫음(워크 0008 STEP 1-1 ①, Sonnet)	cowork/ctl/model_control_history.tsv 외 생성물
-ed9b89c	2026-11-11 12:50	SC-02 방어태세 표·표시 열·근거 문구·구조도 연결 문구의 옛 등급명(관찰·관심·심각·위험·위기)을 새 등급명(관찰·주의·경보·경고·위기)으로 정합(워크 0008 STEP 1-1 ④, Sonnet)	views7.js, index.html, cowork/ctl/emergency_manual.md, cowork/ctl/sec_structure.svg, tools/gen_sec_structure.py 외 생성물
+0b3f0d7	2026-11-11 16:09	커리어 「회사별 사업·과업 추이」 2000~2024 전 연도 채움: 13개사, 시유재산(AKT) 2017 시작, AWA 2017~2018 분산, 엘솔·LG U+·코스콤·LH 추가, 시유재산 항목 연도 2017, 다섯 언어 동일(대표님 16:06~16:11 지시, Sonnet)	career.html 외 4개
+c1ea058	2026-11-11 16:05	커리어 100건 일괄 정합: #001·#003·#006·#025·#033·#035·#088 이미지 교체, #001 제목 원복, 섬네일 57건 확대 원본 기준 재생성, 다섯 언어 동일 반영(대표님 15:43~16:05 지시, Sonnet)	assets/img/proj, career.html, en·ja·ru·zh/career.html
+78a982c	2026-11-11 15:42	커리어 #088 마이데이터 오퍼레이터 서비스 구성도 페이지로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 2개
+d971ede	2026-11-11 15:38	커리어 #064 누벨르 쇼핑몰 PC 화면설계서 상품 화면 페이지로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 2개
+a0a071d	2026-11-11 15:35	커리어 #060 SGIS 개발자사이트 메뉴 구조도, #061 국가DB연계 서비스 기획서 화면으로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 4개
+b510120	2026-11-11 15:33	커리어 #088 이미지를 지시 범위 밖 변경이므로 원래 이미지로 복원	career.html 외 4개
+2319133	2026-11-11 15:33	커리어 #088 마이데이터 생태계 수행계획서의 서비스 구성도(1845x1044)로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 2개
+76b0d72	2026-11-11 15:29	커리어 #076 AADS·TunnelView 서비스 구조도, #080 112종합상황실 접수·출동 체계도로 섬네일·확대 원본 교체	career.html 외 4개, 이미지 4개
+983c622	2026-11-11 15:26	커리어 #082 울산 바이오데이터팜 섬네일·확대 원본을 KCC 제안서 구성도(1842x1275)로 교체	career.html 외 4개, 이미지 2개
+5ef0091	2026-11-11 15:22	커리어 #087 섬네일·확대 원본을 고해상도 홍보 포스터(1191x1747)로 교체	career.html 외 4개, 이미지 2개
+64f9c0c	2026-11-11 15:05	커리어 섬네일↔확대 원본 100건 내용 대조 후 불일치 4건(#067·#020·#078·#092) 섬네일을 원본 기준으로 재생성	career.html 외 4개, 이미지 8개
+b244855	2026-11-11 15:00	커리어 #001을 JKD소프트 Annual Business Plan 표지로 교체(5개 언어)	career.html 외 4개, d_jkdplan 이미지 2개
+d08b38e	2026-11-11 14:40	커리어 섬네일 3건(#025 통합민주당·#024 Boomber·#029 정부수립 60주년 영상)을 로고·대체 이미지 대신 실제 작업 문서(손학규 알리미 화면·Bomber 기획안·트리니티 영상사업 추진방안)로 교체, 확대 이미지 포함, 다섯 언어(대표님 14:38·14:39 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_dem2.jpg, e_boom.jpg, e_3d60.jpg 및 _full
+d102973	2026-11-11 14:33	커리어 확대 이미지 주소에 버전 값을 붙여 이전 404 캐시 때문에 큰 이미지가 안 뜨던 문제 해소(#001 자바원 등), 다섯 언어(대표님 14:32 지시, Sonnet)	career.html, en/ja/ru/zh/career.html
+06f89cd	2026-11-11 14:30	커리어 섬네일 클릭 시 확대 창을 작은 원본(예: #002)도 크게 보이도록 확대 폭 지정, 다섯 언어(대표님 14:29 지시, Sonnet)	career.html, en/ja/ru/zh/career.html
+d4c25a2	2026-11-11 14:27	커리어 섬네일 클릭 시 확대 이미지 14건 보강(#001 자바원·#005 경매·#007·#008 셋톱·#010 DVD·#023·#020·#025 등), 100개 모두 확대 이미지 연결(대표님 14:26 지시, Sonnet)	assets/img/proj/*_full.jpg 14개
+62dbc54	2026-11-11 14:26	커리어 섬네일 공백 3칸(#025·#023·#020)에 자료 이미지 대입(PCS 모바일 GUI 2장, HOMEPORTAL 화면), 100개 전부 이미지 적용, 다섯 언어(대표님 14:24·14:25 지시, Sonnet)	career.html, en/ja/ru/zh/career.html, assets/img/proj/e_pcs1.jpg, e_pcs2.jpg, e_dem.jpg
+c69ea14	2026-11-11 13:53	커리어 100건 중 이력서·프로필(261012) 기준 불일치 5건 정정(인하대병원·광주TP·강원랜드 사업명, LWT 실내측위·국가DB 연도), 다섯 언어(대표님 13:51 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
+8da207b	2026-11-11 13:50	커리어 페이지 섬네일 박스 오른쪽 하단에 번호·연도 배치(#100 2024 … #001 2000, 맨 위가 #100), 다섯 언어(대표님 13:46·13:48 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
+753acc5	2026-11-11 13:43	커리어 페이지 섬네일 2건 교체(삼성전자 디지털 전자제품 UI → DHR 콤보 UI 화면, 통신기기 UI·2G폰 → 폰 GUI 화면), 제품 사진·광고 제거(대표님 13:42 질타 후속, Sonnet)	assets/img/proj/d_dv_ui.jpg, d_2g_ui.jpg, career.html 외 4개 언어 외 생성물
+012f3e8	2026-11-11 13:41	커리어 페이지 섬네일 정합: 국민참여단·셋톱박스 2건·PCSync 폰 메뉴·삼성전자 GUI·AUDI 텔레매틱스·ISO 인증서(업체명 가림) 교체, 기업명 3건 변경(㈜트리니티·동아시아미래재단·CODA Institute), 다섯 언어(대표님 13:38~13:40 지시, Sonnet)	assets/img/proj/d_kmc.jpg 외 7개, career.html 외 4개 언어 외 생성물
+88e4caf	2026-11-11 13:17	커리어 페이지 다섯 언어 빈 섬네일 3건 채움(웹 전용 실시간 경매시스템 · 삼성전자 GUI 시장조사 · 2000 JavaOne 부스·홍보물, D:\Working 원본 사용), 나머지 4건은 원본 확인 중(대표님 13:14 지시, Sonnet)	assets/img/proj/d_auction.jpg, d_sec_gui.jpg, d_javaone.jpg, career.html 외 4개 언어 외 생성물
+53bbb8d	2026-11-11 13:02	커리어 페이지 다섯 언어 사업 3건 삭제(2013 웹/모바일 통합 오피스 구축 · 2008 온라인 자동발권 시스템 구축 · 2008 업체별 브랜드 전략 및 마케팅 기획), 목록 103→100건(워크 0008 후속, 대표님 13:01 지시, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
+fa8fdae	2026-11-11 12:59	모델통제 이력 614 기록(장애 보충, 원문 대조 I-00-02)	cowork/ctl/model_control_history.tsv 외 생성물
+c169eb3	2026-11-11 12:57	모델통제 이력 613 기록(Sonnet 지시거부)	cowork/ctl/model_control_history.tsv 외 생성물
+aef3086	2026-11-11 12:53	커리어 페이지 건수 상자를 PMP·석사 상자와 같은 모양으로 정정(영어 한 줄 작은 글씨 줄바꿈 없음, 그 밑 한 줄 같은 글씨 크기, 둘째 상자 폭 1.05fr) + 모델통제 이력 612 기록(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html, cowork/ctl/model_control_history.tsv 외 생성물
+1e6b7f1	2026-11-11 12:47	대표님 커리어 페이지 다섯 언어: 건수 상자 100건 표시(둘째 줄 Representative Portfolio 작은 글씨, 셋째 줄 주요 사업·프로젝트 중간 글씨)·설명 문구 103→100(워크 0008 STEP 1-2, Sonnet)	career.html, en/career.html, ja/career.html, ru/career.html, zh/career.html 외 생성물
+cd9d28a	2026-11-11 12:40	모델통제 이력 574·575·578 조치 완료로 닫음(워크 0008 STEP 1-1 ①, Sonnet)	cowork/ctl/model_control_history.tsv 외 생성물
+ed9b89c	2026-11-11 12:37	SC-02 방어태세 표·표시 열·근거 문구·구조도 연결 문구의 옛 등급명(관찰·관심·심각·위험·위기)을 새 등급명(관찰·주의·경보·경고·위기)으로 정합(워크 0008 STEP 1-1 ④, Sonnet)	views7.js, index.html, cowork/ctl/emergency_manual.md, cowork/ctl/sec_structure.svg, tools/gen_sec_structure.py 외 생성물
 c96a20c	2026-11-11 12:27	모델통제 이력 611 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
-dfc925b	2026-11-11 12:22	SC-08 게시 판 0.1.25 상자 0건 표시(views6.js d3)	views6.js, index.html 외 생성물
-a6e1240	2026-11-11 12:15	SC-08 판별 내려받기 횟수 상자(views6.js d2, 원천 ic /__sec/dl)	views6.js, index.html 외 생성물
-9128380	2026-11-11 12:12	모델통제 이력 610 조치 완료	cowork/ctl/model_control_history.tsv 외 생성물
-17e9fa0	2026-11-11 12:08	기기 알림 LED 판정 고침(sec2.js o4), 모델통제 이력 610	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
-e591020	2026-11-11 12:04	모델통제 이력 609 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
-5fcec77	2026-11-11 12:00	기기 알림 수신 켜기 실패 고침(sec2.js o3), 모델통제 이력 608	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
+dfc925b	2026-11-11 12:18	SC-08 게시 판 0.1.25 상자 0건 표시(views6.js d3)	views6.js, index.html 외 생성물
+a6e1240	2026-11-11 12:13	SC-08 판별 내려받기 횟수 상자(views6.js d2, 원천 ic /__sec/dl)	views6.js, index.html 외 생성물
+9128380	2026-11-11 12:09	모델통제 이력 610 조치 완료	cowork/ctl/model_control_history.tsv 외 생성물
+17e9fa0	2026-11-11 12:06	기기 알림 LED 판정 고침(sec2.js o4), 모델통제 이력 610	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
+e591020	2026-11-11 12:03	모델통제 이력 609 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
+5fcec77	2026-11-11 11:57	기기 알림 수신 켜기 실패 고침(sec2.js o3), 모델통제 이력 608	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
 874d92a	2026-11-11 11:52	모델통제 이력 606 구분 정정(지적→거부)	cowork/ctl/model_control_history.tsv 외 생성물
-6f7274c	2026-11-11 11:53	모델통제 이력 607 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
-c1abd1d	2026-11-11 11:52	신뢰 기기 목록(노트북 세 대 + 대표님 폰) 화면 반영(sec2.js o2), 모델통제 이력 606	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
-4bf6a5f	2026-11-11 11:48	모델통제 이력 605 기록(Opus 질타)	cowork/ctl/model_control_history.tsv 외 생성물
-1c09f3c	2026-11-11 11:42	모델통제 이력 604 기록(Opus 위반)	cowork/ctl/model_control_history.tsv 외 생성물
-fe22c5c	2026-11-11 11:40	SC-01 기기 알림: 신뢰 기기 세 대 이름 고르기, 세 대 초과 안내(sec2.js o1)	sec2.js, index.html 외 생성물
-661c04e	2026-11-11 11:33	모델통제 이력 602 구분 정정(질타→위반)	cowork/ctl/model_control_history.tsv 외 생성물
-3779121	2026-11-11 11:32	모델통제 이력 603 기록(Opus 위반)	cowork/ctl/model_control_history.tsv 외 생성물
+6f7274c	2026-11-11 11:50	모델통제 이력 607 기록(Opus 거부)	cowork/ctl/model_control_history.tsv 외 생성물
+c1abd1d	2026-11-11 11:49	신뢰 기기 목록(노트북 세 대 + 대표님 폰) 화면 반영(sec2.js o2), 모델통제 이력 606	sec2.js, index.html, cowork/ctl/model_control_history.tsv 외 생성물
+4bf6a5f	2026-11-11 11:47	모델통제 이력 605 기록(Opus 질타)	cowork/ctl/model_control_history.tsv 외 생성물
+1c09f3c	2026-11-11 11:43	모델통제 이력 604 기록(Opus 위반)	cowork/ctl/model_control_history.tsv 외 생성물
+fe22c5c	2026-11-11 11:34	SC-01 기기 알림: 신뢰 기기 세 대 이름 고르기, 세 대 초과 안내(sec2.js o1)	sec2.js, index.html 외 생성물
+661c04e	2026-11-11 11:32	모델통제 이력 602 구분 정정(질타→위반)	cowork/ctl/model_control_history.tsv 외 생성물
+3779121	2026-11-11 11:31	모델통제 이력 603 기록(Opus 위반)	cowork/ctl/model_control_history.tsv 외 생성물
 5d2d54f	2026-11-11 11:29	모델통제 이력 602 기록(Opus 질타)	cowork/ctl/model_control_history.tsv 외 생성물
-cd27139	2026-11-11 03:47	칭찬 크레딧 원장 10번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
-3597e61	2026-11-11 03:45	칭찬 크레딧 원장 9번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
-29a017d	2026-11-11 03:40	모델통제 이력 600 · 601의 조치와 상태(조치 완료) 갱신	cowork/ctl/model_control_history.tsv 외 생성물
-b1ebe26	2026-11-11 03:18	모델통제 이력 601(자가 발견) 게시	cowork/ctl/model_control_history.tsv 외 생성물
-111d0b9	2026-11-11 03:30	칭찬 크레딧 원장 8번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
-e6f8105	2026-11-11 03:25	모델통제 이력 598~600(자가 발견 · 질타 · 위반) 게시	cowork/ctl/model_control_history.tsv 외 생성물
-c0dadfd	2026-11-11 02:25	통합관제 정비(병행 에이전트 I, 감리 Fable): 「처리됨」을 완료로 세는 기준을 화면까지 맞춤(SC-01·SC-15 조치 중 87로 같음), SC-02·SC-15 긴 표에 쪽 넘김, 생성기 경로를 저장소 기준으로, 검사 스크립트 보강, 변경 이력 시각을 커밋 시각으로 맞춤, 시험 페이지 정리	views0·2·3·5·7·8.js, data.js, index.html, sec.js, sec2.js, test/index.html, tools/*, cowork/ctl/*
+cd27139	2026-11-11 03:30	칭찬 크레딧 원장 10번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
+3597e61	2026-11-11 03:29	칭찬 크레딧 원장 9번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
+29a017d	2026-11-11 03:26	모델통제 이력 600 · 601의 조치와 상태(조치 완료) 갱신	cowork/ctl/model_control_history.tsv 외 생성물
+b1ebe26	2026-11-11 03:16	모델통제 이력 601(자가 발견) 게시	cowork/ctl/model_control_history.tsv 외 생성물
+111d0b9	2026-11-11 03:05	칭찬 크레딧 원장 8번 기록	cowork/ctl/praise_credit_ledger.tsv 외 생성물
+e6f8105	2026-11-11 03:00	모델통제 이력 598~600(자가 발견 · 질타 · 위반) 게시	cowork/ctl/model_control_history.tsv 외 생성물
+c0dadfd	2026-11-11 02:13	통합관제 정비(병행 에이전트 I, 감리 Fable): 「처리됨」을 완료로 세는 기준을 화면까지 맞춤(SC-01·SC-15 조치 중 87로 같음), SC-02·SC-15 긴 표에 쪽 넘김, 생성기 경로를 저장소 기준으로, 검사 스크립트 보강, 변경 이력 시각을 커밋 시각으로 맞춤, 시험 페이지 정리	views0·2·3·5·7·8.js, data.js, index.html, sec.js, sec2.js, test/index.html, tools/*, cowork/ctl/*
 46cb2b7	2026-11-11 01:56	HiDAM.app 기준 구현 0.2(병행 검수 A의 높음 16건 고침: 계보로 최신 판정·거울 역할·보호 등급 제외·격리 표시·사건 코드, 모드와 매체 역할)와 시나리오 59건, 시험 페이지 갱신. 조치 생명주기 3분류에서 상태 「완료」「처리됨」을 조치 완료로 셈(병행 검수 B H-2). 통제어가 든 폴더 이름 두 줄을 가림(views7.js · emergency_manual.md, H-6). 모델통제 이력 #596 고침·#597	tools/hidam_app.py · tools/sim_hidam_app.py · cowork/ctl/sim_hidam_app_result.json · test/hidam.html · tools/gen_lifecycle.py · cowork/ctl/action_lifecycle.* · views7.js · cowork/ctl/emergency_manual.md · cowork/ctl/model_control_history.tsv
 26feb1e	2026-11-11 01:15	HiDAM.app 기준 구현 0.1(tools/hidam_app.py)과 시나리오 31건 시뮬레이션(tools/sim_hidam_app.py, 결과 cowork/ctl/sim_hidam_app_result.json), 시험 페이지 test/hidam.html — 시뮬레이션 값이며 원본 대시보드에는 올리지 않음. 모델통제 이력 #596(자가 발견)	tools/hidam_app.py · tools/sim_hidam_app.py · cowork/ctl/sim_hidam_app_result.json · test/hidam.html · cowork/ctl/model_control_history.tsv
 dd76723	2026-11-11 00:45	다중화 서비스 통제 시뮬레이션: 사건 생성기·규칙 판정기(tools/sim_multi.py), 결과(cowork/ctl/sim_multi_result.json), 시험 페이지 test/sim.html — 시뮬레이션 값이며 원본 대시보드에는 올리지 않음	tools/sim_multi.py · cowork/ctl/sim_multi_result.json · test/sim.html

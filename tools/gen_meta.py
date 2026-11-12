@@ -50,7 +50,7 @@ def sync_reports():
         if re.search(r'Haiku_261104(_1\.[0-3]_작업)?\.txt$',nm):continue  # Haiku 최종본(1.4)만
         shutil.copy(f,G+'reports/'+nm)
         mdl=nm.split('_')[1];w=re.search(r'워크(\d{4})',nm)
-        idx.append({'file':nm,'model':mdl,'date':'2026-11-04' if '261104' in nm else '워크 '+w.group(1),'title':nm[:-4]})
+        idx.append({'file':nm,'model':mdl,'date':'2026-11-04' if '261104' in nm else ('워크 '+w.group(1) if w else (re.search(r'(\d{6})',nm).group(1) if re.search(r'(\d{6})',nm) else '확인 안 됨')),'title':nm[:-4]})
     idx.sort(key=lambda x:(x['date'],x['model']),reverse=True)
     json.dump(idx,open(G+'reports/index.json','w',encoding='utf-8'),ensure_ascii=False,indent=1)
     return len(idx)

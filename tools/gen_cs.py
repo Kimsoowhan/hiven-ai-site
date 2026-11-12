@@ -16,11 +16,11 @@ def classify(text):
   return (r[2],r[3],r[4],r[5],'·'.join(h[0] for h in hit))
 inbox=os.path.join(C,'cs_inbox.tsv');tk=os.path.join(C,'cs_tickets.tsv')
 if not os.path.exists(inbox): print('수집분 없음');raise SystemExit
-T=open(tk,encoding='utf-8').read().rstrip('\n').split('\n');seen={(l.split('\t')+['']*6)[1]+'|'+(l.split('\t')+['']*6)[5] for l in T[1:]}
+T=open(tk,encoding='utf-8').read().rstrip('\n').split('\n');seen={(l.split('\t')+['']*6)[1]+'|'+(l.split('\t')+['']*6)[5] for l in T[1:]};seent={(l.split('\t')+['']*6)[1] for l in T[1:]}
 n=max([int(l.split('\t')[0][3:]) for l in T[1:] if l.startswith('CS-')]+[0]);add=0
 for l in open(inbox,encoding='utf-8').read().rstrip('\n').split('\n')[1:]:
   c=(l.split('\t')+['']*5)[:5]
-  if c[0]+'|'+c[3] in seen: continue
+  if c[0]+'|'+c[3] in seen or c[0] in seent: continue  # 같은 받은 시각은 같은 메일
   text=re.sub(r'\b\d{6}\b','******',c[3]+' '+c[4])
   cls,urg,act,own,rid=classify(text)
   n+=1;add+=1
