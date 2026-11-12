@@ -1,7 +1,7 @@
 {
  "algo": "sha256",
  "files": {
-  "app.js": "d642ba8248c13e65cef9b6c85973253d67779fb70f3993239cb719afa5b727a4",
+  "app.js": "545408f717cc5b7cddcf945b5bd01bfbcbabc6c27a8afc986a96a081b632eea3",
   "data.js": "3b61d6d7c82f3e83d1965a412dbab986a462ad2e85a79fa32e45211afe45f8cf",
   "sec-lite.js": "8ed32026af75a2ce482df33c1ad20e29f5bbf38dcaa79b42976876c894dfab55",
   "sec.js": "555c0dc3c0e0376b0efd67bf55cef2d5eeda81798b0eb3e32efb5281a666aefb",

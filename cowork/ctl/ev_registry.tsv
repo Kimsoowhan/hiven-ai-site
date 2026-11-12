@@ -1,0 +1,9 @@
+﻿대상ID	종류	설명	실행	입력	산출	실행 위치	적용 방법	적용 지점	상태	담당	비고
+SIM-HIDAM-APP	시뮬레이션	HiDAM.app 기준 구현 시뮬레이션(시험 사례 TS-xx)	python3 tools/sim_hidam_app.py {OUT}/sim_hidam_app_result.json	tools/hidam_app.py,tools/sim_hidam_app.py	{OUT}/sim_hidam_app_result.json	클라우드	ev_run	P0·P1·P2·P3·P4·P5	적용	Sonnet	시뮬레이션 값은 실측이 아님 — 증적에도 그렇게 표시
+SIM-MULTI	시뮬레이션	HIVEN 다중화 서비스 시뮬레이션(30일)	python3 tools/sim_multi.py {OUT}/sim_multi_result.json	tools/sim_multi.py	{OUT}/sim_multi_result.json	클라우드	ev_run	P0·P1·P2·P3·P4·P5	적용	Sonnet	시뮬레이션 값은 실측이 아님
+WIN-HCT-GA	시험	시험 가(가-갑) 24시간 무중단, Windows 11 시험 PC	HiEvidence.ps1 -Mode Start (시험 묶음과 같은 회차에 참여)	tools/HiEvidence.ps1		Windows 11 시험 PC	HiEvidence	P0·P1·P2·P3·P4·P5	계획: 러너 실행 시험 뒤 시험 PC 실행(시작 방법은 판정 가-9)	Sonnet·Opus	묶음 1.2 보존 걸음(다-4)과 겹치지 않게 역할 분담은 페이블 판정
+RUNNER-WIN	러너	GitHub Actions Windows 러너 실행(hidam-op2-windows)	워크플로 단계에서 HiEvidence.ps1 실행	tools/HiEvidence.ps1		Windows 러너	HiEvidence	P0·P1·P2·P3·P4	적용(hct-ev-test 시험)	Sonnet	산출물 내려받기가 막혀 있어 로그에 사슬·해시 목록을 찍음
+EMU-ANDROID	에뮬레이터	Android 에뮬레이터 시험(HiCoffer Android, 개발 2026-12 예정)	emu_android 시험 파일이 생기면 ev_run 으로 실행, adb logcat·screencap 을 캡처 지점 P2에 포함			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록 — 시험 파일이 생기는 순간 ev_run check 가 등록 없음으로 막음	Opus·Sonnet	캡처 항목: logcat · screencap · 앱 버전 · 에뮬레이터 이미지 해시
+EMU-IOS	에뮬레이터	iPhone 시뮬레이터 시험(Android 상용화 시점 착수)	ev_run + xcrun simctl 캡처			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록	Opus·Sonnet	착수 때 같은 점검으로 걸림
+EMU-MAC	에뮬레이터	macOS 시험(2027-03 개발)	ev_run + 화면 캡처			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록	Opus·Sonnet	착수 때 같은 점검으로 걸림
+VERIFY-READER	시험	증적 판독기·시험 도구 18건(오파스 산출)	ev_run 으로 판독 실행(받은 증적 사본 입력)			클라우드	ev_run	P0·P1·P2·P3·P4·P5	계획: 오파스 산출 파일 위치 확정 뒤 등록행 완성(가-4)	Opus	판독기는 증적 폴더에 쓰지 않음(판정 105)

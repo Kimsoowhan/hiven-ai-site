@@ -112,5 +112,13 @@ else:
     if diff4: fail('공통 4종 정합: %d종 다름 %s (짝 %s)'%(len(diff4),'; '.join('%s 이쪽 %s · 짝 %s'%d for d in diff4),PEER))
     else: print('공통 4종 정합: 4/4 같음 (짝 %s)'%PEER)
 if STRICT and note: bad+=note
+# ── ⑩ 증적 적용 점검(261113 이력 1048): 새 시험·시뮬레이션·에뮬레이터 파일이 증적 등록부에 없으면 실패
+_e=subprocess.run([sys.executable,R+'/tools/ev_run.py','check'],capture_output=True,text=True)
+_pl=0
+for _l in _e.stdout.splitlines():
+    if _l.startswith('실패:'): fail('증적 '+_l[3:].strip())
+    elif _l.startswith('알림:'): _pl+=1
+if _e.returncode not in (0,1): fail('ev_run check 실행 오류 '+(_e.stderr or '')[-120:])
+if _pl: warn('증적 등록부 알림 %d건(계획 상태·실행 기록 없음, python3 tools/ev_run.py check)'%_pl)
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
