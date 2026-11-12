@@ -10,7 +10,7 @@ function ld(u){return hvFetch(u,'text').then(function(t){return hvTsv(t)},functi
 function load(){Promise.all([ld('cowork/ctl/model_control_history.tsv'),ld('cowork/ctl/pledge_models.tsv'),ld('cowork/ctl/pledge_checks.tsv'),ld('cowork/ctl/pledge_trace.tsv'),ld('cowork/ctl/pledge_changes.tsv'),ld('cowork/ctl/pledge_config.tsv'),ld('cowork/ctl/speech_standard.tsv'),ld('cowork/ctl/speech_flow.tsv'),ld('cowork/ctl/command_ledger.tsv')]).then(function(r){
  var sg=r.map(function(x){return x?x.length+':'+(x[x.length-1]||[]).join('|').length:'-'}).join(',');
  P.H=r[0];P.M=r[1];P.C=r[2];P.T=r[3];P.G=r[4];P.F=r[5];P.SS=r[6];P.SF=r[7];P.L=r[8];P.t=Date.now();window.hvCmdLive={H:P.H,L:P.L};
- if(sg!==P.sig){P.sig=sg;fill();var p3e=document.getElementById('p3-root');if(p3e)p3e.innerHTML=p3();var ct=document.getElementById('cmd-top');if(ct&&typeof hvSc04Tbl==='function'&&hvMeta.tv)ct.innerHTML=hvSc04Tbl()}else{var s=document.getElementById('plg-time');if(s)s.textContent=kst()}})}
+ if(sg!==P.sig){P.sig=sg;fill();var p3e=document.getElementById('p3-root');if(p3e)p3e.innerHTML=p3();var p31=document.getElementById('p3-01');if(p31)p31.innerHTML=p3();var ct=document.getElementById('cmd-top');if(ct&&typeof hvSc04Tbl==='function'&&hvMeta.tv)ct.innerHTML=hvSc04Tbl()}else{var s=document.getElementById('plg-time');if(s)s.textContent=kst()}})}
 function kst(){var d=new Date(Date.now()+9*3600000);return d.toISOString().replace('T',' ').slice(0,19)+' (KST)'}
 function fam(m){var s=String(m||'');if(/Sonnet/.test(s))return 'Sonnet';if(/Opus/.test(s))return 'Opus';if(/Fable/.test(s))return 'Fable';if(/Haiku/.test(s))return 'Haiku';return '기타'}
 function models(m){var s=String(m||''),o=[];['Sonnet','Opus','Fable','Haiku'].forEach(function(k){if(s.indexOf(k)>=0)o.push(k)});return o.length?o:['기타']}
@@ -112,6 +112,9 @@ function p3(){if(!P.H)return '';var H=P.H.filter(function(x){return /^\d+$/.test
  var F=H.filter(function(x){return x[1]===today&&x[5]!=='지시'});
  var rows=['Sonnet','Opus','Fable'].map(function(m){var mine=F.filter(function(x){return String(x[4]).indexOf(m)>=0});var c=P3.map(function(k){var hit=mine.filter(function(x){return k[1].test(x[6]+' '+x[7])}),open=hit.filter(function(x){return !/조치 완료/.test(x[9])});var col=open.length?'red':hit.length?'yellow':'green';return led(col,k[0])+k[0]+' '+(hit.length?hit.length+'건'+(open.length?'(열림 '+open.length+')':''):'0')});var n=mine.length;return '<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:4px 0"><b style="min-width:70px">'+m+'</b>'+c.join('<span style="color:#bbb">|</span>')+'<span class="note">지수 '+Math.max(0,100-n*3)+'</span></div>'});
  return '<div class="card" style="margin:6px 0 12px"><div class="k">작업 3대 원칙 이행 · 오늘('+E(today)+') · '+led('green','')+'이행 '+led('yellow','')+'어김 후 조치 끝 '+led('red','')+'어김 · 조치 중</div>'+rows.join('')+'<div class="note">산정: 오늘 이력에서 지시를 뺀 기록(거부·위반·질타·지적)을 원칙별 낱말로 분류. 지수 = 100 − 3 × 그 모델의 오늘 기록 수. 산정안이며 대표님 확정 전.</div></div>'}
+window.hvP3=function(){return p3()};
+/* 대표님 11-12 14:09 ⑤(이력 837) · W0010 T-5: SC-01 종합 현황에 모델별 3대 원칙 이행을 띄운다 */
+var f01=V['SC-01'];V['SC-01']=function(){var g=f01.apply(this,arguments);setTimeout(function(){if(!P.t)load();var e=document.getElementById('p3-01');if(e)e.innerHTML=p3()},0);var i=g.indexOf('</p>');var box='<div id="p3-01">'+p3()+'</div>';return i>0?g.slice(0,i+4)+box+g.slice(i+4):box+g};
 var f=V['SC-16'];
 V['SC-16']=function(){var g=f.apply(this,arguments);setTimeout(function(){if(P.t)fill();else load()},0);return g+'<hr><h2>각서·각인·지표·이행 점검</h2><div id="p3-root">'+p3()+'</div><p class="lead">모든 지시·작업·상태를 지표와 지수로 확인합니다. SC-15 모델 통제 화면과 별도로 관리합니다.</p><div id="plg-root"><p class="note">불러오는 중</p></div>'};
 load();setInterval(load,1000);
