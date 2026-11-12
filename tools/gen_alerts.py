@@ -13,7 +13,7 @@ def add(rule,lv,tgt,txt,key,act,st):
 hc=datetime.datetime(2026,11,3,20,54);h=int((now-hc).total_seconds()//3600)
 add('CR-01 원천 정지','경고','HiClo 판정','HiClo 마지막 판정 11-03 20:54 뒤 %d시간 갱신 없음(PC 실측: 93_25_HiClo_앱 마지막 파일 11-03 20:54)'%h,'HiClo_기억상태-261103.json','재가동 방법 결정 반영(결재 A-008 허가 15:47)','조치 중')
 for c in rows('model_control_history.tsv'):
-  if len(c)>9 and c[5] in ('지시거부','위반') and not any(k in c[9] for k in('조치 완료','처리됨')):
+  if len(c)>9 and c[1]>='2026-11-12' and c[5] in ('지시거부','위반') and not any(k in c[9] for k in('조치 완료','처리됨')):
     add('CR-02 지시 거부','경보' if '조치 중' in c[9] else '위기',c[4],'이력 #'+c[0]+' '+c[9],'#'+c[0],'지시자 재확인','조치 중' if '조치 중' in c[9] else '미조치')
 for c in rows('model_calls.tsv'):
   add('CR-03 지시자 호출','경보',c[1],'#'+c[3]+' 깜빡임 '+c[4]+'분','#'+c[3],c[5],'미조치')
