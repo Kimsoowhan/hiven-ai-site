@@ -24,5 +24,5 @@ for l in open(inbox,encoding='utf-8').read().rstrip('\n').split('\n')[1:]:
   text=re.sub(r'\b\d{6}\b','******',c[3]+' '+c[4])
   cls,urg,act,own,rid=classify(text)
   n+=1;add+=1
-  T.insert(1,'\t'.join(['CS-%03d'%n,c[0],c[1],'HIVEN assist(ai.kr)' if 'ai.kr' in c[1] else 'HIVEN contact(co.kr)',c[2],c[3],cls+(' · '+urg),own,'선대응 필요' if urg in('긴급','높음') else '접수','SC-17 · '+('SC-03' if cls=='보안' else 'SC-05' if cls=='기술 장애' else 'SC-00'),act+(' · 규칙 '+rid if rid else '')]))
+  T.insert(1,'\t'.join(['CS-%03d'%n,c[0],c[1],'HIVEN assist(ai.kr)' if 'ai.kr' in c[1] else 'HIVEN contact(co.kr)',c[2],c[3],cls+(' · '+urg),own,'선대응 필요' if urg in('긴급','높음') else '접수','SC-01 · '+('SC-04' if cls=='보안' else 'SC-06' if cls=='기술 장애' else 'SC-00'),act+(' · 규칙 '+rid if rid else '')]))
 open(tk,'w',encoding='utf-8').write('\n'.join(T)+'\n');print('신규',add,'건')

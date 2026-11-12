@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""SC-06 경보 원장 갱신(Fable W0010 T-3, 이력 910): 모델이 호출될 때마다(커밋 관문마다) 실측 원천에서 경보를 만든다.
+"""SC-07 경보 원장 갱신(Fable W0010 T-3, 이력 910): 모델이 호출될 때마다(커밋 관문마다) 실측 원천에서 경보를 만든다.
 원천: model_control_history(열린 지시 거부), model_calls(지시자 호출), cs_tickets(고객 지원 열린 건), approval_line(결재 대기), HiClo 판정 정지(마지막 판정 11-03 20:54, PC 실측 16:27)."""
 import datetime,os
 R=os.path.dirname(os.path.dirname(os.path.abspath(__file__)));C=os.path.join(R,'cowork','ctl')

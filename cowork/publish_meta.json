@@ -8,7 +8,7 @@
   {
    "file": "progress.json",
    "source": "COM\\CoWork_진행상황판-261104.md",
-   "screen": "SC-09",
+   "screen": "SC-10",
    "rows": null,
    "sha16": "7ff3ee996d603057",
    "mtime": "2026-11-11 02:13"
@@ -16,7 +16,7 @@
   {
    "file": "board.md",
    "source": "COM\\CoWork_진행상황판-261104.md",
-   "screen": "SC-09",
+   "screen": "SC-10",
    "rows": null,
    "sha16": "d65924b98161150f",
    "mtime": "2026-11-11 02:13"
@@ -24,7 +24,7 @@
   {
    "file": "log.tsv",
    "source": "—(게시 전용 append)",
-   "screen": "SC-09",
+   "screen": "SC-10",
    "rows": 38,
    "sha16": "925b57f99d12e7a4",
    "mtime": "2026-11-11 02:13"
@@ -32,7 +32,7 @@
   {
    "file": "reports/index.json",
    "source": "COM\\일일보고\\",
-   "screen": "SC-09",
+   "screen": "SC-10",
    "rows": null,
    "sha16": "7f4a4fed986bf787",
    "mtime": "2026-11-05 14:53"
@@ -40,7 +40,7 @@
   {
    "file": "ctl/model_control_history.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_통합이력.tsv",
-   "screen": "SC-01·SC-15",
+   "screen": "SC-02·SC-16",
    "rows": 692,
    "sha16": "9182ce87fbfbd818",
    "mtime": "2026-11-12 14:38"
@@ -48,7 +48,7 @@
   {
    "file": "ctl/model_control_status.tsv",
    "source": "COM\\모델통제(CTL)\\모델통제_현황.tsv",
-   "screen": "SC-15",
+   "screen": "SC-16",
    "rows": 5,
    "sha16": "a9e2f351b6113de1",
    "mtime": "2026-11-05 08:00"
@@ -56,7 +56,7 @@
   {
    "file": "ctl/action_lifecycle.tsv",
    "source": "tools/gen_lifecycle.py 산출",
-   "screen": "SC-01",
+   "screen": "SC-02",
    "rows": 692,
    "sha16": "67cdd8b7b0fab9d4",
    "mtime": "2026-11-12 14:38"
@@ -64,7 +64,7 @@
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
-   "screen": "SC-01·SC-16",
+   "screen": "SC-02·SC-17",
    "rows": null,
    "sha16": "dde57b1c8cafc414",
    "mtime": "2026-11-05 08:22"
@@ -72,7 +72,7 @@
   {
    "file": "ctl/trace_v.tsv",
    "source": "지시추적매트릭스 종단",
-   "screen": "SC-16",
+   "screen": "SC-17",
    "rows": 429,
    "sha16": "2b5347e7fea1dd59",
    "mtime": "2026-11-06 16:59"
@@ -80,7 +80,7 @@
   {
    "file": "ctl/qa_checks.tsv",
    "source": "승인전재검 xlsx(91_Fable)",
-   "screen": "SC-01·SC-12",
+   "screen": "SC-02·SC-13",
    "rows": 16,
    "sha16": "310c8875c4861cbf",
    "mtime": "2026-11-05 08:00"
@@ -88,7 +88,7 @@
   {
    "file": "ctl/bg_lifecycle.tsv",
    "source": "사업부 설정안 6장(AICS 접점)",
-   "screen": "SC-04",
+   "screen": "SC-05",
    "rows": 0,
    "sha16": "8367be15586663ab",
    "mtime": "2026-11-05 02:46"

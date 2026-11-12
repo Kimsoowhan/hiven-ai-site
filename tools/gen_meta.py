@@ -69,10 +69,10 @@ def ftime(rel):
     return datetime.datetime.fromtimestamp(os.path.getmtime(G+rel),datetime.timezone(datetime.timedelta(hours=9))).strftime('%Y-%m-%d %H:%M')
 def meta():
     t=KST().strftime('%Y-%m-%d %H:%M')
-    F=[('progress.json','COM\\CoWork_진행상황판-261104.md','SC-09',None),('board.md','COM\\CoWork_진행상황판-261104.md','SC-09',None),('log.tsv','—(게시 전용 append)','SC-09','log.tsv'),('reports/index.json','COM\\일일보고\\','SC-09',None),
-       ('ctl/model_control_history.tsv','COM\\모델통제(CTL)\\모델통제_통합이력.tsv','SC-01·SC-15','ctl/model_control_history.tsv'),('ctl/model_control_status.tsv','COM\\모델통제(CTL)\\모델통제_현황.tsv','SC-15','ctl/model_control_status.tsv'),
-       ('ctl/action_lifecycle.tsv','tools/gen_lifecycle.py 산출','SC-01','ctl/action_lifecycle.tsv'),('ctl/trace_sum.json','지시추적매트릭스(91_Fable)','SC-01·SC-16',None),('ctl/trace_v.tsv','지시추적매트릭스 종단','SC-16','ctl/trace_v.tsv'),
-       ('ctl/qa_checks.tsv','승인전재검 xlsx(91_Fable)','SC-01·SC-12','ctl/qa_checks.tsv'),('ctl/bg_lifecycle.tsv','사업부 설정안 6장(AICS 접점)','SC-04','ctl/bg_lifecycle.tsv')]
+    F=[('progress.json','COM\\CoWork_진행상황판-261104.md','SC-10',None),('board.md','COM\\CoWork_진행상황판-261104.md','SC-10',None),('log.tsv','—(게시 전용 append)','SC-10','log.tsv'),('reports/index.json','COM\\일일보고\\','SC-10',None),
+       ('ctl/model_control_history.tsv','COM\\모델통제(CTL)\\모델통제_통합이력.tsv','SC-02·SC-16','ctl/model_control_history.tsv'),('ctl/model_control_status.tsv','COM\\모델통제(CTL)\\모델통제_현황.tsv','SC-16','ctl/model_control_status.tsv'),
+       ('ctl/action_lifecycle.tsv','tools/gen_lifecycle.py 산출','SC-02','ctl/action_lifecycle.tsv'),('ctl/trace_sum.json','지시추적매트릭스(91_Fable)','SC-02·SC-17',None),('ctl/trace_v.tsv','지시추적매트릭스 종단','SC-17','ctl/trace_v.tsv'),
+       ('ctl/qa_checks.tsv','승인전재검 xlsx(91_Fable)','SC-02·SC-13','ctl/qa_checks.tsv'),('ctl/bg_lifecycle.tsv','사업부 설정안 6장(AICS 접점)','SC-05','ctl/bg_lifecycle.tsv')]
     out=[]
     for f,src,sc,cnt in F:
         p=G+f

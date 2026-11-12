@@ -3,10 +3,10 @@ var $=function(i){return document.getElementById(i)};
 function pad(n){return (n<10?'0':'')+n}
 function kst(){var d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+' '+pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds())}
 var S=[/* 261111 L-1: 16개 화면을 번호순으로 한곳에 둠(이름 = cowork/ctl/sc_renumber_261107.json). views7·sec는 이미 있으면 다시 넣지 않음 */
- ['SC-01','종합 현황'],['SC-02','이상징후 및 보안체계 시스템'],['SC-03','침입 예측·예방·대응·조치 시스템'],['SC-04','사업군 통제'],
- ['SC-05','구동 상태'],['SC-06','대응·경보'],['SC-07','체계 배포'],['SC-08','베타 배포 모니터링'],
- ['SC-09','통합사업 작업상황'],['SC-10','수집·연동'],['SC-11','형상·변경'],['SC-12','검수·품질'],
- ['SC-13','고객 지원'],['SC-14','문서 자동 생성'],['SC-15','모델 통제 상황'],['SC-16','말 명령']
+ ['SC-02','종합 현황'],['SC-03','이상징후 및 보안체계 시스템'],['SC-04','침입 예측·예방·대응·조치 시스템'],['SC-05','사업군 통제'],
+ ['SC-06','구동 상태'],['SC-07','대응·경보'],['SC-08','체계 배포'],['SC-09','베타 배포 모니터링'],
+ ['SC-10','통합사업 작업상황'],['SC-11','수집·연동'],['SC-12','형상·변경'],['SC-13','검수·품질'],
+ ['SC-14','고객 지원'],['SC-15','문서 자동 생성'],['SC-16','모델 통제 상황'],['SC-17','말 명령']
 ];
 function hvSHas(id){return S.some(function(x){return x[0]===id})}
 /* 번호·이름·역할·통제 접점·상태·표시색 */
@@ -19,10 +19,10 @@ var BG=[
  ['#6','HiSilver','시니어 디지털 유산·엔딩노트','N4','정상','ok'],
  ['#7','HiTrade','AI 에이전트 거래 시장','N4','구성 중','warn']
 ];
-/* 상태 칸 대응표(261111 H-2): 이력 상태 칸의 말(9가지)은 그대로 두고, 세는 쪽이 이 표 하나로 「조치 완료」를 가른다. 산출 쪽 같은 표 = tools/gen_lifecycle.py DONE. SC-01·SC-12·SC-15 공통 */
+/* 상태 칸 대응표(261111 H-2): 이력 상태 칸의 말(9가지)은 그대로 두고, 세는 쪽이 이 표 하나로 「조치 완료」를 가른다. 산출 쪽 같은 표 = tools/gen_lifecycle.py DONE. SC-02·SC-13·SC-16 공통 */
 var HV_ST_DONE=['조치 완료','완료','처리됨','완료(이름 변경)'];
 function hvStDone(s){return HV_ST_DONE.indexOf(String(s||'').trim())>=0}
-/* 경보 시각 표기 통일(261111 D-4): 자료(협정 세계시 ISO)는 그대로 두고, 보일 때만 한국 시각 「MM-DD HH:MM」. SC-01 띠·SC-03 표 공통 */
+/* 경보 시각 표기 통일(261111 D-4): 자료(협정 세계시 ISO)는 그대로 두고, 보일 때만 한국 시각 「MM-DD HH:MM」. SC-02 띠·SC-04 표 공통 */
 function hvKstMD(t){try{var d=new Date(t);if(isNaN(d))return String(t).slice(5,16).replace('T',' ');return new Date(d.getTime()+9*3600000).toISOString().slice(5,16).replace('T',' ')}catch(e){return String(t).slice(5,16)}}
 function tag(t,c){return '<span class="tag '+c+'">'+t+'</span>'}
 /* 표 표출 기준 통일(대표님 11/04 17:49): 모든 표 한 쪽 5줄 + 같은 쪽 넘김(◀ 이전 · 쪽 번호 · 다음 ▶). tbl 표는 화면 안에서 쪽을 넘김 */
@@ -43,7 +43,7 @@ function hvTbAuto(root){if(!root)return;[].forEach.call(root.querySelectorAll('.
 function hvTbGo(id,i){var w=document.getElementById(id);if(!w)return;var R=w.querySelectorAll('tbody>tr'),P=HV_PG_STD,n=Math.ceil(R.length/P);i=Math.max(0,Math.min(n-1,i));if(w.getAttribute('data-k'))HV_TBS[w.getAttribute('data-k')]=i;R.forEach(function(r,k){r.style.display=(k>=i*P&&k<(i+1)*P)?'':'none'});var pg=w.nextElementSibling;if(pg&&pg.getAttribute('data-tb')===id)pg.outerHTML=hvTbPager(id,i,n,R.length)}
 /* 요약 상자 공통 인터페이스(대표님 11/04 17:27·17:35): 모든 상자는 누르는 버튼. 누르면 상자 묶음 바로 아래에 그 값의 근거 데이터(항목·원천·확인 시각)를 펼치고, 다시 누르면 닫음.
    다른 화면으로 가던 상자는 펼친 내용 안의 「SC-xx에서 자세히」 버튼으로 이동. 근거: det 인자(문자열·함수) → HV_CDET[이름] → 기본(이 화면의 원천). */
-var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};/* 17:51 SC-01은 상자 1~10 순서 목록표를 상시 표출하므로 기본 펼침 없음 */
+var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};/* 17:51 SC-02은 상자 1~10 순서 목록표를 상시 표출하므로 기본 펼침 없음 */
 function hvIsTest(){return /\/test\//.test(location.pathname)}
 function card(k,v,s,to,det){var id='cd'+(++HVCDn),key=(typeof cur!=='undefined'?cur:'')+'|'+k;HVCD[id]={k:k,v:v,s:s,to:to,det:det,key:key};
  var on=HVCDo===key;if(on)setTimeout(function(){hvCardPanel(id)},0);
@@ -60,7 +60,7 @@ function hvCardPanel(id){var c=HVCD[id],b=document.querySelector('[data-cd="'+id
 var V={};
 /* 공통 표 규칙(대표님 11/04 14:29~14:33 지시): 모든 표는 ① 맨 위가 가장 최근(최신순) ② 한 쪽 줄 수는 화면 크기에 맞춰 자동 계산(폰·태블릿·PC 공통: 화면 높이에서 머리글·필터 몫을 뺀 뒤 기준 줄 높이(폰 58·PC 44)로 나눔, 같은 화면의 모든 표가 같은 줄 수, 최대 15줄(대표님 11/04 14:41 지시: 15줄을 넘지 않음), 최소 4줄) ③ 표 아래 「◀ 이전 · 쪽 번호 · 다음 ▶」 토글(현재 쪽/전체 쪽 표시). 창 크기·방향이 바뀌면 다시 계산해 다시 그린다. */
 var HV_PG_MAX=15,HV_PG_MIN=4,HV_PG_STD=5,hvPgS={},hvRowH={};/* 17:49 대표님: 모든 표 한 쪽 5줄로 통일 */
-/* 11/04 14:45·15:08 대표님 지시: 한 쪽 줄 수는 화면마다 기준 표(SC-15=이력, SC-09=진척도)의 영역 전체(제목·필터·표 머리·줄·쪽 번호)가
+/* 11/04 14:45·15:08 대표님 지시: 한 쪽 줄 수는 화면마다 기준 표(SC-16=이력, SC-10=진척도)의 영역 전체(제목·필터·표 머리·줄·쪽 번호)가
    창 높이 안에 고정되게 실측으로 정한다. 어느 쪽을 펴도 영역이 창을 넘지 않는 가장 큰 줄 수(1~15), 같은 화면의 모든 표는 같은 줄 수.
    표 영역 높이는 고정(마지막 쪽에서 줄이 적어도 쪽 번호 위치가 움직이지 않음). 창 크기·방향이 바뀌면 다시 잰다. */
 var hvPgFix={},hvPgAll=null;
@@ -93,7 +93,7 @@ var hvRsT=null;window.addEventListener('resize',function(){clearTimeout(hvRsT);h
 function hvPager(pg,unit,fn){var PP=pg.per||HV_PG_MAX,a=pg.tot?pg.i*PP+1:0,b=Math.min(pg.tot,(pg.i+1)*PP),nums='';
  for(var j=0;j<pg.n;j++){if(pg.n>9&&Math.abs(j-pg.i)>3&&j!==0&&j!==pg.n-1){if(nums.slice(-1)!=='…')nums+='…';continue}nums+='<button type="button" class="'+(j===pg.i?'on':'')+'" onclick="hvPgGo(\''+pg.key+'\','+j+',\''+fn+'\')">'+(j+1)+'</button>'}
  return '<div class="hv-pg" data-pg="'+pg.key+'"><button type="button" class="hv-pg-a" '+(pg.i<=0?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i-1)+',\''+fn+'\')">◀ 이전</button>'+nums+'<button type="button" class="hv-pg-a" '+(pg.i>=pg.n-1?'disabled':'')+' onclick="hvPgGo(\''+pg.key+'\','+(pg.i+1)+',\''+fn+'\')">다음 ▶</button><span class="hv-pg-i">'+(pg.i+1)+'/'+pg.n+'쪽 · '+a+'~'+b+' / 전체 '+pg.tot+unit+' · 최신순 · 한 쪽 '+PP+'줄(모든 표 통일)</span></div>'}
-var cur='SC-01';
+var cur='SC-02';
 /* 열쇠 확인(샘플 인트로: 화면 안내용이며 서버 보안이 아님) */
 var KEY=[111,110,108,121,111,117];
 function hk2en(v){var M={'ㅂ':'q','ㅈ':'w','ㄷ':'e','ㄱ':'r','ㅅ':'t','ㅛ':'y','ㅕ':'u','ㅑ':'i','ㅐ':'o','ㅔ':'p','ㅁ':'a','ㄴ':'s','ㅇ':'d','ㄹ':'f','ㅎ':'g','ㅗ':'h','ㅓ':'j','ㅏ':'k','ㅣ':'l','ㅋ':'z','ㅌ':'x','ㅊ':'c','ㅍ':'v','ㅠ':'b','ㅜ':'n','ㅡ':'m','ㅃ':'q','ㅉ':'w','ㄸ':'e','ㄲ':'r','ㅆ':'t','ㅒ':'o','ㅖ':'p'},C=['ㄱ','ㄲ','ㄴ','ㄷ','ㄸ','ㄹ','ㅁ','ㅂ','ㅃ','ㅅ','ㅆ','ㅇ','ㅈ','ㅉ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'],V=['ㅏ','ㅐ','ㅑ','ㅒ','ㅓ','ㅔ','ㅕ','ㅖ','ㅗ','ㅘ','ㅙ','ㅚ','ㅛ','ㅜ','ㅝ','ㅞ','ㅟ','ㅠ','ㅡ','ㅢ','ㅣ'],T=['','ㄱ','ㄲ','ㄳ','ㄴ','ㄵ','ㄶ','ㄷ','ㄹ','ㄺ','ㄻ','ㄼ','ㄽ','ㄾ','ㄿ','ㅀ','ㅁ','ㅂ','ㅄ','ㅅ','ㅆ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'],X={'ㅘ':'ㅗㅏ','ㅙ':'ㅗㅐ','ㅚ':'ㅗㅣ','ㅝ':'ㅜㅓ','ㅞ':'ㅜㅔ','ㅟ':'ㅜㅣ','ㅢ':'ㅡㅣ','ㄳ':'ㄱㅅ','ㄵ':'ㄴㅈ','ㄶ':'ㄴㅎ','ㄺ':'ㄹㄱ','ㄻ':'ㄹㅁ','ㄼ':'ㄹㅂ','ㄽ':'ㄹㅅ','ㄾ':'ㄹㅌ','ㄿ':'ㄹㅍ','ㅀ':'ㄹㅎ','ㅄ':'ㅂㅅ'},o='';for(var i=0;i<v.length;i++){var c=v.charCodeAt(i),j=[];if(c>=44032&&c<=55203){var n=c-44032;j=[C[Math.floor(n/588)],V[Math.floor(n%588/28)],T[n%28]];}else j=[v.charAt(i)];for(var k=0;k<j.length;k++){var u=X[j[k]]||j[k];for(var m=0;m<u.length;m++){var h=u.charAt(m);o+=(M[h]||h);}}}return o;}

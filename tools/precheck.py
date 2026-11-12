@@ -57,16 +57,16 @@ hist=[T(l.split('\t')[1]+' '+l.split('\t')[3].split(' ')[-1]) for l in HL if l.c
 hist=[x for x in hist if x]; HT=max(hist) if hist else None
 pm=J(R+'/cowork/publish_meta.json') or {}; lcj=J(C+'action_lifecycle.json') or {}; ts=J(C+'trace_sum.json') or {}; ix=J(idx) or {}; pg=J(R+'/cowork/progress.json') or {}; ph=J(C+'phrase_scan.json') or {}
 FRESH=[  # (화면, 자료, 자료 안의 마지막 시각)
- ('SC-01·SC-10','publish_meta.json 「published」',T(pm.get('published'))),
- ('SC-01','action_lifecycle.json 「산출」',T(lcj.get('산출'))),
- ('SC-01·SC-15','trace_sum.json 「산출」',T(ts.get('산출'))),
- ('SC-09','progress.json 「updated」',T(pg.get('updated'))),
- ('SC-11','aics_changes.tsv 시각 칸',col('aics_changes.tsv',1)),
- ('SC-12','aics_qa.tsv 결함 줄의 마지막 시각',max([T(x[2]) for x in (tsv('aics_qa.tsv') or []) if x and x[0]=='결함' and T(x[2])] or [None],key=lambda v:v or datetime.datetime.min)),
- ('SC-14','aics_docgen.tsv 마지막 갱신 칸',col('aics_docgen.tsv',5)),
- ('SC-15','model_control_status.tsv 갱신 칸',col('model_control_status.tsv',5)),
- ('SC-16','trace_v.tsv 날짜·시각 칸',col('trace_v.tsv',2,1)),
- ('SC-08','deploy_beta1_events.tsv 시각 칸',col('deploy_beta1_events.tsv',2,1)),
+ ('SC-02·SC-11','publish_meta.json 「published」',T(pm.get('published'))),
+ ('SC-02','action_lifecycle.json 「산출」',T(lcj.get('산출'))),
+ ('SC-02·SC-16','trace_sum.json 「산출」',T(ts.get('산출'))),
+ ('SC-10','progress.json 「updated」',T(pg.get('updated'))),
+ ('SC-12','aics_changes.tsv 시각 칸',col('aics_changes.tsv',1)),
+ ('SC-13','aics_qa.tsv 결함 줄의 마지막 시각',max([T(x[2]) for x in (tsv('aics_qa.tsv') or []) if x and x[0]=='결함' and T(x[2])] or [None],key=lambda v:v or datetime.datetime.min)),
+ ('SC-15','aics_docgen.tsv 마지막 갱신 칸',col('aics_docgen.tsv',5)),
+ ('SC-16','model_control_status.tsv 갱신 칸',col('model_control_status.tsv',5)),
+ ('SC-17','trace_v.tsv 날짜·시각 칸',col('trace_v.tsv',2,1)),
+ ('SC-09','deploy_beta1_events.tsv 시각 칸',col('deploy_beta1_events.tsv',2,1)),
 ]
 print('— 신선도(이력 마지막 시각 %s, 간격 %g시간)'%(HT,GAP))
 for sc,nm,t in FRESH:
@@ -76,18 +76,18 @@ for sc,nm,t in FRESH:
 # ── ⑧ 화면 사이 건수 일치: 이력 건수를 쓰는 화면들의 값이 같은가
 N=len(HL)
 lc=tsv('action_lifecycle.tsv') or []
-if len(lc)!=N: fail('건수 SC-01 생명주기 %d줄 ≠ 이력 %d건 — tools/gen_lifecycle.py 실행 필요'%(len(lc),N))
+if len(lc)!=N: fail('건수 SC-02 생명주기 %d줄 ≠ 이력 %d건 — tools/gen_lifecycle.py 실행 필요'%(len(lc),N))
 s3=sum((lcj.get('3분류') or {}).values())
 if s3!=N: fail('건수 action_lifecycle.json 3분류 합 %d ≠ 이력 %d건'%(s3,N))
-CNT=[('SC-01·SC-15 색인 history_rows',ix.get('history_rows')),('SC-10 publish_meta history_rows',pm.get('history_rows')),('SC-10 publish_meta lifecycle_rows',pm.get('lifecycle_rows')),
-     ('SC-10 publish_meta 파일표의 이력 건수',next((f.get('rows') for f in pm.get('files',[]) if f.get('file')=='ctl/model_control_history.tsv'),None)),
-     ('SC-14 aics_docgen의 생명주기 행 수',next((int(x[4]) for x in (tsv('aics_docgen.tsv') or []) if x[0]=='ctl/action_lifecycle.tsv' and x[4].isdigit()),None)),
-     ('SC-01 trace_sum 기준의 이력 건수',(lambda m:int(m.group(1)) if m else None)(re.search(r'이력\s*(\d+)건',ts.get('기준','')))) ]
+CNT=[('SC-02·SC-16 색인 history_rows',ix.get('history_rows')),('SC-11 publish_meta history_rows',pm.get('history_rows')),('SC-11 publish_meta lifecycle_rows',pm.get('lifecycle_rows')),
+     ('SC-11 publish_meta 파일표의 이력 건수',next((f.get('rows') for f in pm.get('files',[]) if f.get('file')=='ctl/model_control_history.tsv'),None)),
+     ('SC-15 aics_docgen의 생명주기 행 수',next((int(x[4]) for x in (tsv('aics_docgen.tsv') or []) if x[0]=='ctl/action_lifecycle.tsv' and x[4].isdigit()),None)),
+     ('SC-02 trace_sum 기준의 이력 건수',(lambda m:int(m.group(1)) if m else None)(re.search(r'이력\s*(\d+)건',ts.get('기준','')))) ]
 for nm,v in CNT:
     if v!=N: warn('건수 %s = %s ≠ 이력 %d건'%(nm,v,N))
 DF=('지적(자가 발견)','위반','지적','장애')
 nd=sum(1 for l in HL if l.split('\t')[5] in DF); qd=sum(1 for x in (tsv('aics_qa.tsv') or []) if x and x[0]=='결함')
-if nd!=qd: warn('건수 SC-12 결함 대장 %d건 ≠ 이력의 위반·지적·자가 발견·장애 %d건 — tools/gen_aics_src.py qa 실행 필요'%(qd,nd))
+if nd!=qd: warn('건수 SC-13 결함 대장 %d건 ≠ 이력의 위반·지적·자가 발견·장애 %d건 — tools/gen_aics_src.py qa 실행 필요'%(qd,nd))
 # 화면 쪽 완료 대응표와 산출 쪽 완료 대응표가 같은가(H-2)
 try:
     js=re.search(r"HV_ST_DONE=\[([^\]]*)\]",open(R+'/data.js',encoding='utf-8').read()).group(1); py=re.search(r"^DONE=(.*)$",open(R+'/tools/gen_lifecycle.py',encoding='utf-8').read(),re.M).group(1)
