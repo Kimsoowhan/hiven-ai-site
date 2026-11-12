@@ -218,5 +218,8 @@ setInterval(function(){var e=document.getElementById('cs-17');if(e){var h=cs17()
 /* SC-17 양방향 연동 줄(대표님 11-12 16:01, 이력 895): SC-00~16 각 화면 맨 아래 */
 function cs17Foot(id){var r=(P.CSL||[]).filter(function(x){return x[0]===id})[0];if(!r)return '';var o=(P.CS17||[]).filter(function(x){return /^CS-/.test(x[0])&&x[8]!=='종결'}).length;return '<div class="card" id="cs17f" style="margin-top:14px;border:2px solid #1e3a8a"><div class="k">SC-17 고객 지원 대응·응대 연동 · 열린 건 '+o+'</div><div>받는 것: '+E(r[2])+' · 보내는 것: '+E(r[3])+'</div><div>선후행: '+E(r[4])+' · 조치: '+E(r[5])+' · 검증: '+E(r[6])+'</div><button type="button" onclick="hvgo(\'SC-17\')" style="margin-top:4px;padding:4px 10px;border:1px solid #1e3a8a;border-radius:7px;background:#fff;cursor:pointer">SC-17로 가기</button></div>'}
 setInterval(function(){var mn=document.getElementById('main');if(!mn)return;var h=mn.querySelector('h2');var m=h&&/^SC-(\d\d)/.exec(h.textContent);if(!m||m[0]==='SC-17')return;var id=m[0];var f=document.getElementById('cs17f');var html=cs17Foot(id);if(!html)return;if(!f){var d=document.createElement('div');d.innerHTML=html;mn.appendChild(d.firstChild)}},1000);
+
+/* SC-17 표 한 줄 표시(대표님 11-12 16:10, 이력 901): 칸마다 한 줄, 넘치면 …, 칸을 누르면 전체 글 펼침 */
+(function(){var st=document.createElement('style');st.textContent='#main table td,#main table th{white-space:nowrap;max-width:280px;overflow:hidden;text-overflow:ellipsis;vertical-align:middle;padding-top:6px;padding-bottom:6px}#main table td.hv-open{white-space:normal;max-width:none}#cs17f{word-break:keep-all}';document.head.appendChild(st);document.addEventListener('click',function(e){var td=e.target.closest&&e.target.closest('#main td');if(td&&!e.target.closest('button'))td.classList.toggle('hv-open')})})();
 load();setInterval(load,1000);
 })();
