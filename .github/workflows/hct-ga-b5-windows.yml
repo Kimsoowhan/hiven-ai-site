@@ -1,0 +1,128 @@
+# 현행 소통 작업 규칙·시행착오 기록을 준수한다.
+# 바-5 · Opus 5.5 · 실행 묶음 1.1 환경 기록·3분 맛보기를 windows-2025 러너에서 실제로 돌리는 워크플로우 초안(1.0 작업본)
+# 근거: Fable_지시문_Sonnet·Opus_수행결과판정·다음일감-261112_2216 5절 가. 바-5, 3-1 Q-10 ①, 2-1 P-4
+# 두는 자리: 저장소 hiven-ai-site의 새 작업 가지 hct-ga-b5-win2025 (main 아님. 운영 배포 GitHub Pages는 main에서만 일어남)
+#   파일 자리: .github/workflows/hct-ga-b5-windows.yml
+#   같은 가지에 PC 사본 두 개: hct_b5/O가2_실행묶음_시험가-261112_1.1_작업.zip (f777af86…ac05), hct_b5/HCT_시험가_묶음-261112_1.0_작업.zip (1f66c88a…12fe)
+#   설치 파일은 공개 저장소 hiven-site의 고정 커밋 3c5963d1에서 받고 fe346ab5…7059와 대조한다(운영 사이트·IC 경로를 거치지 않음, 내려받기 수에 들어가지 않음)
+# 지키는 것: 수동 실행(workflow_dispatch)만, push 트리거 없음, 배포 단계 없음, 저장소에 쓰지 않음(contents: read), 결과는 실행 산출물로만 올림
+# 묶음 1.1은 고치지 않는다. 러너의 기본 계정은 높은 권한이라 ⓪에서 종료 코드 4로 멈추므로, 러너 안에 일반 권한 계정을 하나 만들어 그 계정으로 묶음을 돌린다(비밀번호는 실행 중에만 만들고 어디에도 적지 않음)
+
+name: hct-ga-b5-windows
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '돌릴 방식 (EnvOnly · Short · Both)'
+        required: true
+        default: 'Both'
+        type: choice
+        options: [Both, EnvOnly, Short]
+permissions:
+  contents: read
+concurrency:
+  group: hct-ga-b5
+  cancel-in-progress: false
+jobs:
+  taste:
+    runs-on: windows-2025
+    timeout-minutes: 45
+    env:
+      B5_ROOT: 'C:\HCT_러너'
+      EXPECT_BUNDLE: 'f777af8650bdee91637c8e64a48efaa81be145e6fc1d868356ddeb7e6bfdac05'
+      EXPECT_PACK: '1f66c88a57c2109a476d45e337291eb06aeae65ca5ae2a4fbcbaf622fc1712fe'
+      EXPECT_SETUP: 'fe346ab53c4a1a433f32f63b267935040adba7c047de4deaef6ba9e2da3b7059'
+      SETUP_URL: 'https://raw.githubusercontent.com/Kimsoowhan/hiven-site/3c5963d1c812990dee521749f2be69f5df69a8c0/assets/download/HiCoffer_Setup_0.1.25.exe'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 고정 값 대조와 준비
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function H([string]$p) { (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant() }
+          $bz = Join-Path $env:GITHUB_WORKSPACE 'hct_b5\O가2_실행묶음_시험가-261112_1.1_작업.zip'
+          $pz = Join-Path $env:GITHUB_WORKSPACE 'hct_b5\HCT_시험가_묶음-261112_1.0_작업.zip'
+          if ((H $bz) -ne $env:EXPECT_BUNDLE) { throw ('실행 묶음 1.1 사본 해시 다름 ' + (H $bz)) }
+          if ((H $pz) -ne $env:EXPECT_PACK) { throw ('시험 묶음 사본 해시 다름 ' + (H $pz)) }
+          New-Item -ItemType Directory -Force -Path $env:B5_ROOT | Out-Null
+          Expand-Archive -LiteralPath $bz -DestinationPath $env:B5_ROOT
+          $bd = Join-Path $env:B5_ROOT 'O가2_실행묶음_시험가-261112_1.1_작업'
+          Copy-Item -LiteralPath $pz -Destination $env:B5_ROOT
+          $sp = Join-Path $env:B5_ROOT 'HiCoffer_Setup_0.1.25.exe'
+          Invoke-WebRequest -Uri $env:SETUP_URL -OutFile $sp -UseBasicParsing
+          if ((H $sp) -ne $env:EXPECT_SETUP) { throw ('설치 파일 해시 다름 ' + (H $sp)) }
+          # 묶음 안 파일 해시를 바-2 해시 목록과 견주도록 남김
+          Get-ChildItem -LiteralPath $bd -File | Sort-Object Name | ForEach-Object { (H $_.FullName) + '  ' + $_.Name } | Tee-Object -FilePath (Join-Path $env:B5_ROOT '묶음파일해시.txt')
+          # 일반 권한 계정(Users 묶음만). 비밀번호는 이 단계 안에서만 만들어 다음 단계로 넘기고 화면·파일에 남기지 않음
+          $b = New-Object byte[] 24; [System.Security.Cryptography.RandomNumberGenerator]::Fill($b)
+          $pw = 'Hc!' + [Convert]::ToBase64String($b)
+          $sec = ConvertTo-SecureString $pw -AsPlainText -Force
+          New-LocalUser -Name 'hctrun' -Password $sec -PasswordNeverExpires -AccountNeverExpires -Description 'HCT b5 standard user' | Out-Null
+          Add-LocalGroupMember -Group 'Users' -Member 'hctrun'
+          & icacls.exe $env:B5_ROOT /grant 'hctrun:(OI)(CI)M' /T /Q | Out-Null
+          $f = Join-Path $env:RUNNER_TEMP 'b5k.xml'
+          ($sec | ConvertFrom-SecureString) | Set-Content -LiteralPath $f -Encoding ascii
+          Remove-Variable pw, b
+          # 러너 기록
+          $os = Get-CimInstance Win32_OperatingSystem
+          [ordered]@{ ImageOS = $env:ImageOS; ImageVersion = $env:ImageVersion; Caption = $os.Caption; Version = $os.Version; Build = $os.BuildNumber; Arch = $os.OSArchitecture; LastBoot = $os.LastBootUpTime.ToString('s'); NetRelease = (Get-ItemProperty 'HKLM:\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full').Release; Session = (Get-Process -Id $PID).SessionId } | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:B5_ROOT '러너환경.json') -Encoding utf8
+
+      - name: 일반 권한 계정으로 묶음 돌리기
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $sec = Get-Content -LiteralPath (Join-Path $env:RUNNER_TEMP 'b5k.xml') | ConvertTo-SecureString
+          $cred = New-Object System.Management.Automation.PSCredential('hctrun', $sec)
+          $bd = Join-Path $env:B5_ROOT 'O가2_실행묶음_시험가-261112_1.1_작업'
+          $rb = Join-Path $bd 'run_bundle.ps1'
+          $modes = switch ('${{ inputs.mode }}') { 'EnvOnly' { @('EnvOnly') } 'Short' { @('Short') } default { @('EnvOnly','Short') } }
+          $codes = [ordered]@{}
+          foreach ($m in $modes) {
+            $tr = Join-Path $env:B5_ROOT ('T_' + $m)
+            $so = Join-Path $env:B5_ROOT ('표준출력_' + $m + '.txt'); $se = Join-Path $env:B5_ROOT ('오류출력_' + $m + '.txt')
+            # 시작.cmd 한 줄과 같은 명령(powershell.exe -NoProfile -ExecutionPolicy Bypass -File run_bundle.ps1 인자)
+            $a = @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"' + $rb + '"'),'-Mode',$m,'-TestRoot',('"' + $tr + '"'))
+            try {
+              $p = Start-Process -FilePath 'powershell.exe' -ArgumentList $a -Credential $cred -LoadUserProfile -WorkingDirectory $bd -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -Wait
+              $codes[$m] = $p.ExitCode
+            } catch {
+              $codes[$m] = '시작 실패: ' + $_.Exception.Message
+            }
+            Write-Host ('방식 ' + $m + ' · 종료 코드 ' + $codes[$m])
+          }
+          $codes | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $env:B5_ROOT '종료코드.json') -Encoding utf8
+          Remove-Item -LiteralPath (Join-Path $env:RUNNER_TEMP 'b5k.xml') -Force
+          # 묶음은 HiCoffer를 끄지 않는다. 남은 프로세스 수만 적는다(러너 VM은 작업 끝에 버려짐)
+          ('HiCoffer 프로세스 ' + @(Get-Process -Name HiCoffer -ErrorAction SilentlyContinue).Count + '개') | Set-Content -LiteralPath (Join-Path $env:B5_ROOT '끝_프로세스.txt') -Encoding utf8
+
+      - name: 결과 모으기·해시
+        if: always()
+        shell: pwsh
+        run: |
+          $o = Join-Path $env:RUNNER_TEMP 'b5out'
+          New-Item -ItemType Directory -Force -Path $o | Out-Null
+          foreach ($n in '러너환경.json','묶음파일해시.txt','종료코드.json','끝_프로세스.txt') { $p = Join-Path $env:B5_ROOT $n; if (Test-Path -LiteralPath $p) { Copy-Item -LiteralPath $p -Destination $o } }
+          Get-ChildItem -LiteralPath $env:B5_ROOT -File -Filter '*출력_*.txt' -ErrorAction SilentlyContinue | Copy-Item -Destination $o
+          foreach ($t in Get-ChildItem -LiteralPath $env:B5_ROOT -Directory -Filter 'T_*' -ErrorAction SilentlyContinue) {
+            foreach ($r in Get-ChildItem -LiteralPath $t.FullName -Directory -Filter '결과_*' -ErrorAction SilentlyContinue) { Copy-Item -LiteralPath $r.FullName -Destination (Join-Path $o ($t.Name + '_' + $r.Name)) -Recurse }
+          }
+          Get-ChildItem -LiteralPath $o -File -Recurse | Sort-Object FullName | ForEach-Object { (Get-FileHash -LiteralPath $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant() + '  ' + $_.FullName.Substring($o.Length + 1) } | Set-Content -LiteralPath (Join-Path $env:RUNNER_TEMP '결과해시_러너.txt') -Encoding utf8
+          Move-Item -LiteralPath (Join-Path $env:RUNNER_TEMP '결과해시_러너.txt') -Destination $o
+          $c = if (Test-Path -LiteralPath (Join-Path $o '종료코드.json')) { Get-Content -LiteralPath (Join-Path $o '종료코드.json') -Raw } else { '없음' }
+          ("### 바-5 windows-2025 결과`n`n종료 코드: " + $c + "`n`n코드 뜻: 0 정상 · 2 묶음 오류 · 3 P-5 · 4 ⓪ · 5 ② · 6 ③ · 7 ④ · 8 ⑤ · 9 ⑥ · 11 ⑧") | Add-Content -LiteralPath $env:GITHUB_STEP_SUMMARY -Encoding utf8
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: hct-ga-b5-windows2025
+          path: ${{ runner.temp }}/b5out
+          retention-days: 14
+
+      - name: 판정(0이 아니면 실패로 표시)
+        shell: pwsh
+        run: |
+          $j = Get-Content -LiteralPath (Join-Path $env:B5_ROOT '종료코드.json') -Raw | ConvertFrom-Json
+          $bad = @($j.PSObject.Properties | Where-Object { "$($_.Value)" -ne '0' })
+          if ($bad.Count -gt 0) { Write-Host ('0이 아닌 방식: ' + (($bad | ForEach-Object { $_.Name + '=' + $_.Value }) -join ', ')); exit 1 }
+          Write-Host '모든 방식 종료 코드 0'
