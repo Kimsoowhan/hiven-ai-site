@@ -1,6 +1,8 @@
 name: hct-b5-diag
 on:
-  workflow_dispatch:
+  push:
+    branches: [hct-ga-b5-win2025]
+    paths: ['.github/workflows/hct-b5-diag.yml']
 jobs:
   d:
     runs-on: windows-2025
