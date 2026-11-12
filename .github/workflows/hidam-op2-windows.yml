@@ -85,7 +85,7 @@ jobs:
             # 러너가 만든 계정은 Start-Process -Credential로 띄우면 LOCALAPPDATA 등이 비므로 감싸기 스크립트로 채움(묶음 코드는 고치지 않음)
             $wr = Join-Path $env:B5_ROOT ('wrap_' + $m + '.ps1')
             $wc = "`$h='C:\Users\hctrun'; `$env:USERPROFILE=`$h; `$env:LOCALAPPDATA=`$h+'\AppData\Local'; `$env:APPDATA=`$h+'\AppData\Roaming'; `$env:HOMEPATH='\Users\hctrun'; `$env:USERNAME='hctrun'; New-Item -ItemType Directory -Force -Path `$env:LOCALAPPDATA,`$env:APPDATA | Out-Null; & '" + $rb + "' -Mode '" + $m + "' -TestRoot '" + $tr + "'; exit `$LASTEXITCODE"
-            Set-Content -LiteralPath $wr -Value $wc -Encoding utf8
+            Set-Content -LiteralPath $wr -Value $wc -Encoding utf8BOM
             $a = @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"' + $wr + '"'))
             try {
               $p = Start-Process -FilePath 'powershell.exe' -ArgumentList $a -Credential $cred -LoadUserProfile -WorkingDirectory $bd -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -Wait
