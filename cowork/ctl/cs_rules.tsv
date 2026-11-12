@@ -3,7 +3,7 @@ R-01	도움, 도와주세요, 문의, 질문, 알려주세요, help, support, qu
 R-02	안 돼, 안 됩니다, 오류, 에러, 실패, 멈춤, 튕김, 설치 안, 실행 안, error, fail, crash, bug	기술 장애	높음	즉시 재현·영향 범위 확인(SC-06·SC-09)	Opus(기술)
 R-03	불편, 불만, 클레임, 항의, 실망, 화가, complaint	불편·클레임	높음	즉시 사실 확인, 대표님 결재(SC-00) 뒤 응대	Sonnet(서비스)·대표님 결재
 R-04	환불, 결제, 구독, 해지, 청구, refund, payment, subscription, cancel	결제·구독	높음	결제 사실 확인, 대표님 결재 뒤 응대	Sonnet(서비스)·대표님 결재
-R-05	개인정보, 유출, 해킹, 비밀번호, 로그인 코드, 보안, phishing, password, breach	보안	긴급	즉시 차단·SC-04 대응	Opus(기술)
+R-05	개인정보, 유출, 해킹, 비밀번호, 로그인 코드, 인증 코드, 보안, phishing, password, breach, login code, verification code, sign-in code	보안	긴급	즉시 차단·SC-04 대응	Opus(기술)
 R-06	데이터, 백업, 복구, 사라짐, 삭제됨, 금고, restore, lost	데이터 손실	긴급	즉시 복구 경로 확인(HiCoffer·HiDAM)	Opus(기술)
 R-07	제휴, 투자, 협력, 후원, partnership, invest	사업 제안(contact@)	보통	대표님께 바로 전달	대표님
 R-NT	전 모델(Opus·Sonnet·Fable)	「도구가 없다·명령 도구가 없다」를 사유로 보고·답변하지 않는다. 방법을 찾아 수행하고, 남은 일은 남은 일과 다음 수행 방법만 적는다	261112 16:35 대표님
