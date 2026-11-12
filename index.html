@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ko">
-<head><script src="/sec-lite.js?v=20261112r6"></script>
+<head><script src="/sec-lite.js?v=20261112r7"></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
@@ -41,19 +41,19 @@
  <nav class="mvn" aria-label="scroll"><button type="button" data-d="-1" aria-label="위로">▲</button><button type="button" data-d="1" aria-label="아래로">▼</button></nav>
 </div>
 
-<script src="data.js?v=20261112r6"></script>
-<script src="views1.js?v=20261112r6"></script>
-<script src="views2.js?v=20261112r6"></script>
-<script src="views3.js?v=20261112r6"></script><script src="views4.js?v=20261112r6"></script>
-<script src="views0.js?v=20261112r6"></script>
-<script src="views5.js?v=20261112r6"></script>
-<script src="views6.js?v=20261112r6"></script>
-<script src="views7.js?v=20261112r6"></script>
-<script src="views8.js?v=20261112r6"></script>
-<script src="views9.js?v=20261112r6"></script>
-<script src="sec.js?v=20261112r6"></script>
-<script src="sec2.js?v=20261112r6"></script>
-<script src="app.js?v=20261112r6"></script>
+<script src="data.js?v=20261112r7"></script>
+<script src="views1.js?v=20261112r7"></script>
+<script src="views2.js?v=20261112r7"></script>
+<script src="views3.js?v=20261112r7"></script><script src="views4.js?v=20261112r7"></script>
+<script src="views0.js?v=20261112r7"></script>
+<script src="views5.js?v=20261112r7"></script>
+<script src="views6.js?v=20261112r7"></script>
+<script src="views7.js?v=20261112r7"></script>
+<script src="views8.js?v=20261112r7"></script>
+<script src="views9.js?v=20261112r7"></script>
+<script src="sec.js?v=20261112r7"></script>
+<script src="sec2.js?v=20261112r7"></script>
+<script src="app.js?v=20261112r7"></script>
 <script>hvWrap()</script>
 <script id="mvn-js">(function(){var n=document.querySelector(".mvn");if(!n)return;n.querySelectorAll("button").forEach(function(b){var d=+b.dataset.d,t=null,r=null,h=false;function stop(){clearTimeout(t);cancelAnimationFrame(r);r=null}var lt=0;function loop(ts){var dt=lt?Math.min(50,ts-lt):16;lt=ts;window.scrollBy({top:d*1.0*dt,behavior:"instant"});r=requestAnimationFrame(loop)}/* 18:26 대표님: 길게 누름 속도 중간 = 초당 1,000px(시간 기준, 부드러운 스크롤 끄고 즉시 이동) */b.addEventListener("pointerdown",function(e){e.preventDefault();h=false;t=setTimeout(function(){h=true;lt=0;r=requestAnimationFrame(loop)},280)});["pointerup","pointerleave","pointercancel"].forEach(function(ev){b.addEventListener(ev,function(){var was=h;stop();if(ev=="pointerup"&&!was){window.scrollTo({top:d<0?0:document.documentElement.scrollHeight,behavior:"smooth"})}h=false})});b.addEventListener("contextmenu",function(e){e.preventDefault()})})})();</script>
 </body>
