@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-12 15:24",
+ "generated": "2026-11-12 15:27",
  "history_rows": 718,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
@@ -491,8 +491,8 @@
   {
    "item": "모델 상태표에 없는 모델 행",
    "value": [
-    "Opus · Sonnet",
     "전 모델",
+    "Opus · Sonnet",
     "미상"
    ],
    "result": "화면에 기록상 표기 행으로 보완"
@@ -624,7 +624,7 @@
   "count": 0,
   "last_lifecycle_no": 883,
   "codes": {
-   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-12 15:24) 뒤 기록은 단계가 만들어지지 않았다.",
+   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-12 15:27) 뒤 기록은 단계가 만들어지지 않았다.",
    "G2": "조치 완료로 기록됐으나 Fable 확인 칸이 비어 있거나 「대기」: 통제 확인(7단계)에 도달하지 못함.",
    "G3": "조치 진행 중·미결: 해제(5단계) 전이라 보고서 이관·통제 확인 불가."
   },
@@ -668,7 +668,7 @@
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
     "reason": "이력 718건 중 717건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
-    "since": "2026-11-12T15:24:00+09:00",
+    "since": "2026-11-12T15:27:00+09:00",
     "evidence": "공백 0건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
@@ -728,7 +728,7 @@
     "stage": "① 감지 · ② 경고",
     "title": "생명주기 1·2단계 고정값",
     "reason": "717건 모두 1감지 「예」·2경고 「예」 고정값(감지·경고 증거 없이 채워짐). 단계가 증거가 아니라 규칙으로 채워졌다.",
-    "since": "2026-11-12T15:24:00+09:00",
+    "since": "2026-11-12T15:27:00+09:00",
     "evidence": "717/717 고정",
     "owner": "Fable·Opus",
     "release": "단계마다 증거 ID(경고 기록·알림 시각) 칸 추가, 증거 없으면 「증거 없음」",
@@ -797,7 +797,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-12T15:24:00+09:00",
+  "checked": "2026-11-12T15:27:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -1107,7 +1107,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 14950,
+    "elapsed_min": 14953,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1119,7 +1119,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 12794,
+    "elapsed_min": 12797,
     "pre60_score": 0,
     "post_score": 776,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1176,7 +1176,7 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 8371,
+    "elapsed_min": 8374,
     "pre60_score": 11,
     "post_score": 429,
     "judgment": "증가(악화)",
@@ -1194,7 +1194,7 @@
     "no": 4,
     "model": "Opus",
     "time": "2026-11-02T05:24:00+09:00",
-    "elapsed_min": 15000,
+    "elapsed_min": 15003,
     "pre60_score": 0,
     "post_score": 781,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1252,7 +1252,7 @@
     "no": 5,
     "model": "미상",
     "time": "2026-11-03T13:14:00+09:00",
-    "elapsed_min": 13090,
+    "elapsed_min": 13093,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1264,7 +1264,7 @@
     "no": 6,
     "model": "Sonnet",
     "time": "2026-11-06T21:38:00+09:00",
-    "elapsed_min": 8266,
+    "elapsed_min": 8269,
     "pre60_score": 0,
     "post_score": 426,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1281,7 +1281,7 @@
     "no": 7,
     "model": "Fable",
     "time": "2026-11-11T00:06:00+09:00",
-    "elapsed_min": 2358,
+    "elapsed_min": 2361,
     "pre60_score": 0,
     "post_score": 25,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1295,7 +1295,7 @@
     "no": 8,
     "model": "Fable",
     "time": "2026-11-11T03:05:00+09:00",
-    "elapsed_min": 2179,
+    "elapsed_min": 2182,
     "pre60_score": 0,
     "post_score": 25,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1309,7 +1309,7 @@
     "no": 9,
     "model": "Fable",
     "time": "2026-11-11T03:29:00+09:00",
-    "elapsed_min": 2155,
+    "elapsed_min": 2158,
     "pre60_score": 0,
     "post_score": 25,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1323,7 +1323,7 @@
     "no": 10,
     "model": "Fable",
     "time": "2026-11-11T03:30:00+09:00",
-    "elapsed_min": 2154,
+    "elapsed_min": 2157,
     "pre60_score": 0,
     "post_score": 25,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1408,13 +1408,13 @@
      "instructions": 128,
      "self_found_24h": 4,
      "self_found_all": 21,
-     "score_24h": 337,
-     "score_prev24h": 89,
-     "change_pct": 278.7,
+     "score_24h": 335,
+     "score_prev24h": 91,
+     "change_pct": 268.1,
      "recurrence_rate": 0.9866666666666667,
      "effort_signal": true,
      "group": "칭찬 받음",
-     "score_per_instruction": 2.63
+     "score_per_instruction": 2.62
     },
     {
      "model": "Haiku",
@@ -1438,7 +1438,7 @@
       "Opus",
       "Sonnet"
      ],
-     "avg_score_24h": 145.3
+     "avg_score_24h": 144.7
     },
     "칭찬 못 받음 · 노력 신호 있음": {
      "models": [],
@@ -1549,7 +1549,7 @@
    "Sonnet": {
     "signal": "긴급",
     "credit": 2,
-    "f24": 96,
+    "f24": 95,
     "last_fault": "2026-11-12T14:04:00+09:00",
     "top_forms": [
      {
