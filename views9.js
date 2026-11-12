@@ -9,8 +9,8 @@ function E(s){return typeof hvEsc==='function'?hvEsc(s):String(s==null?'':s)}
 function ld(u){return hvFetch(u,'text').then(function(t){return hvTsv(t)},function(){return null})}
 function load(){Promise.all([ld('cowork/ctl/model_control_history.tsv'),ld('cowork/ctl/pledge_models.tsv'),ld('cowork/ctl/pledge_checks.tsv'),ld('cowork/ctl/pledge_trace.tsv'),ld('cowork/ctl/pledge_changes.tsv'),ld('cowork/ctl/pledge_config.tsv'),ld('cowork/ctl/speech_standard.tsv'),ld('cowork/ctl/speech_flow.tsv'),ld('cowork/ctl/command_ledger.tsv')]).then(function(r){
  var sg=r.map(function(x){return x?x.length+':'+(x[x.length-1]||[]).join('|').length:'-'}).join(',');
- P.H=r[0];P.M=r[1];P.C=r[2];P.T=r[3];P.G=r[4];P.F=r[5];P.SS=r[6];P.SF=r[7];P.L=r[8];P.t=Date.now();
- if(sg!==P.sig){P.sig=sg;fill()}else{var s=document.getElementById('plg-time');if(s)s.textContent=kst()}})}
+ P.H=r[0];P.M=r[1];P.C=r[2];P.T=r[3];P.G=r[4];P.F=r[5];P.SS=r[6];P.SF=r[7];P.L=r[8];P.t=Date.now();window.hvCmdLive={H:P.H,L:P.L};
+ if(sg!==P.sig){P.sig=sg;fill();var ct=document.getElementById('cmd-top');if(ct&&typeof hvSc04Tbl==='function'&&hvMeta.tv)ct.innerHTML=hvSc04Tbl()}else{var s=document.getElementById('plg-time');if(s)s.textContent=kst()}})}
 function kst(){var d=new Date(Date.now()+9*3600000);return d.toISOString().replace('T',' ').slice(0,19)+' (KST)'}
 function fam(m){var s=String(m||'');if(/Sonnet/.test(s))return 'Sonnet';if(/Opus/.test(s))return 'Opus';if(/Fable/.test(s))return 'Fable';if(/Haiku/.test(s))return 'Haiku';return '기타'}
 function models(m){var s=String(m||''),o=[];['Sonnet','Opus','Fable','Haiku'].forEach(function(k){if(s.indexOf(k)>=0)o.push(k)});return o.length?o:['기타']}

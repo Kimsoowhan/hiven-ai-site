@@ -185,8 +185,12 @@ function hvBg7(){var S=['감지','경고·알람','조치 착수','조치 중','
  return tbl(['사업군'].concat(S),rows)+'<p class="note">원천 ctl/bg_lifecycle.tsv · 게시 '+hvEsc(hvMeta.m?hvMeta.m.published:'확인 안 됨')+' · 실제 건은 사업부 설정안 6장(AICS 접점) 확정 뒤 기록됩니다.</p>'}
 function hvSc04(){var g='<h2>SC-16 말 명령</h2><p class="lead">대표님 지시(음성·글)가 해석되어 별도지시대장·모델통제 이력에 빠짐없이 들어갔는지 봅니다. 원본은 표출만 하고 명령 입력·실행은 하지 않습니다(입력은 <a href="test/#SC-16">시험 페이지</a>).</p>';
  if(!hvMeta.t)return g+'<p class="note">불러오는 중</p>';if(!hvMeta.tv)return g+hvNo('원천 ctl/trace_v.tsv 없음')+hvChk();
- var R=hvMeta.tv.slice().reverse().map(function(x){return [hvEsc(x[0]),hvEsc((x[1]||'').slice(5)+' '+(x[2]||'')),hvEsc(x[3]),hvEsc(x[4]),hvEsc(x[5]||x[6]||'—'),hvEsc(x[12]||'')]});
- return g+tbl(['순번','시각','지시 요지','구분','등록 위치','교차 판정'],R)+'<p class="note">원천 ctl/trace_v.tsv '+R.length+'건 · 게시 '+hvEsc(hvMeta.m?hvMeta.m.published:'확인 안 됨')+'</p>'+hvChk()}
+ return g+'<div id="cmd-top">'+hvSc04Tbl()+'</div>'+hvChk()}
+/* 11-12 14:15 대표님 질타(이력 840): 맨 위 표가 11-05(S122)에서 멈춤 → trace_v.tsv(11-04~11-05 추적 매트릭스) 위에 그 뒤의 대표님 말씀을 이력·지시대장에서 실시간으로 이어 붙인다 */
+function hvSc04Tbl(){var R=hvMeta.tv.slice().reverse().map(function(x){return [hvEsc(x[0]),hvEsc((x[1]||'').slice(5)+' '+(x[2]||'')),hvEsc(x[3]),hvEsc(x[4]),hvEsc(x[5]||x[6]||'—'),hvEsc(x[12]||'')]});
+ var live=[],c=window.hvCmdLive;if(c&&c.H){var L={};(c.L||[]).forEach(function(x){L[x[0]]=1});var last=0;hvMeta.tv.forEach(function(x){String(x[6]||'').replace(/#(\d+)/g,function(m,n){if(+n>last)last=+n})});
+  live=c.H.filter(function(x){return /^\d+$/.test(x[0])&&+x[0]>last&&/^대표님/.test(x[6]||'')}).reverse().map(function(x){return ['#'+hvEsc(x[0]),hvEsc((x[1]||'').slice(5)+' '+String(x[3]||'').replace(/^\d+\/\d+ /,'')),hvEsc(x[6]),hvEsc(x[5]),L[x[0]]?'지시대장 #'+hvEsc(x[0]):'이력 #'+hvEsc(x[0]),L[x[0]]?'일치':tag('대장 없음','warn')]})}
+ return tbl(['순번','시각','지시 요지','구분','등록 위치','교차 판정'],live.concat(R))+'<p class="note">실시간 '+live.length+'건(원천 ctl/model_control_history.tsv · command_ledger.tsv, 1초 갱신) + 추적 매트릭스 '+R.length+'건(원천 ctl/trace_v.tsv, 11-04~11-05 지시)</p>'}
 function hvMetaTbl(){if(!hvMeta.m)return '<h3>게시 원천</h3>'+hvNo('publish_meta.json 없음');
  return '<h3>게시 원천(파일별)</h3>'+tbl(['파일','노트북 원천','화면','건수','게시 파일 시각'],hvMeta.m.files.map(function(f){return [hvEsc(f.file),hvEsc(f.source),hvEsc(f.screen),f.rows===null?'—':f.rows,hvEsc(f.mtime)]}))+'<p class="note">게시 '+hvEsc(hvMeta.m.published)+' · '+hvEsc(hvMeta.m.by)+' · 이력 '+hvMeta.m.history_rows+'건 / 생명주기 '+hvMeta.m.lifecycle_rows+'건</p>'}
 function hvMismatch(h,l){var m=hvMeta.m;var bad=(m&&m.consistent===false)||(h&&l&&h!==l);return bad?'<p class="note" style="color:#c62828;font-weight:700">원천 불일치 · 재산출 필요 — 이력 '+h+'건 / 생명주기 '+l+'건</p>':''}
