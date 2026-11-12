@@ -1,0 +1,198 @@
+{
+ "engine": "HDA-0.5",
+ "engine_sha256": "f85456dfe94922e9959bdef1b659d6e3dff0c3d2de45c985d0b13493baafd360",
+ "env": "Python 3.12.10 · win32",
+ "ran_at": "2026-11-12T01:44:51Z",
+ "U1_번갈아_20번": {
+  "runs": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same_steps": 20,
+  "all_edits_in_final": true,
+  "dashboard": "정상",
+  "steps": [
+   {
+    "step": 0,
+    "medium": "A",
+    "doc": "보고서.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 1,
+    "medium": "B",
+    "doc": "회의록.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 2,
+    "medium": "A",
+    "doc": "예산.csv",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 3,
+    "medium": "B",
+    "doc": "일정.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 4,
+    "medium": "A",
+    "doc": "메모.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 5,
+    "medium": "B",
+    "doc": "보고서.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 6,
+    "medium": "A",
+    "doc": "회의록.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 7,
+    "medium": "B",
+    "doc": "예산.csv",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 8,
+    "medium": "A",
+    "doc": "일정.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 9,
+    "medium": "B",
+    "doc": "메모.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 10,
+    "medium": "A",
+    "doc": "보고서.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 11,
+    "medium": "B",
+    "doc": "회의록.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 12,
+    "medium": "A",
+    "doc": "예산.csv",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 13,
+    "medium": "B",
+    "doc": "일정.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 14,
+    "medium": "A",
+    "doc": "메모.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 15,
+    "medium": "B",
+    "doc": "보고서.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 16,
+    "medium": "A",
+    "doc": "회의록.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 17,
+    "medium": "B",
+    "doc": "예산.csv",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 18,
+    "medium": "A",
+    "doc": "일정.txt",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   },
+   {
+    "step": 19,
+    "medium": "B",
+    "doc": "메모.md",
+    "result": "정상",
+    "asked": false,
+    "media_same": true
+   }
+  ]
+ },
+ "U2_첫날_매체넷": {
+  "groups": 10,
+  "asked": 0,
+  "ratio": 0.0,
+  "how": {
+   "자동": 10
+  },
+  "media_files": 248,
+  "media_same": true,
+  "mirrored": 15,
+  "vault": 0,
+  "protected_waiting": 0,
+  "state": "정상"
+ },
+ "끝난기준3": {
+  "U1": true,
+  "U2": true
+ },
+ "끝난기준4": {
+  "U1_steps_same": true,
+  "U2_same": true
+ }
+}

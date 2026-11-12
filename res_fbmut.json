@@ -1,0 +1,422 @@
+[
+ {
+  "no": 1,
+  "line": 1373,
+  "before": "if not c[\"bundle\"]:",
+  "after": "if c[\"bundle\"]:",
+  "verdict": "잡음(실패 7)"
+ },
+ {
+  "no": 2,
+  "line": 2183,
+  "before": "elif k in self.path_asset and self._aid(self.path_asset[k]) != self._aid(aid):",
+  "after": "elif k in self.path_asset or self._aid(self.path_asset[k]) != self._aid(aid):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 3,
+  "line": 1724,
+  "before": "plan = {p[\"rel\"]: p for p in self.plan_places()} if (new or self.mode != \"일반\") else {}",
+  "after": "plan = {p[\"rel\"]: p for p in self.plan_places()} if (new and self.mode != \"일반\") else {}",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 4,
+  "line": 1738,
+  "before": "if wait and (not asked_before or len(wait) >= 5) and not any(p[\"kind\"] == \"자리 묶음\" and p[\"state\"] == \"열림\" for p",
+  "after": "if wait and (not asked_before and len(wait) >= 5) and not any(p[\"kind\"] == \"자리 묶음\" and p[\"state\"] == \"열림\" for ",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 5,
+  "line": 1240,
+  "before": "taken = [b[\"folder\"] for b in self.bundles.values() if b[\"state\"] == \"씀\" and b[\"kind\"] != \"보관\"]",
+  "after": "taken = [b[\"folder\"] for b in self.bundles.values() if b[\"state\"] == \"씀\" or b[\"kind\"] != \"보관\"]",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 6,
+  "line": 1406,
+  "before": "if not mem:",
+  "after": "if mem:",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 7,
+  "line": 1592,
+  "before": "return None, \"받아들인 묶음(%s) 안 — 묶음 폴더를 지킴\" % b[\"kind\"]",
+  "after": "return 0, \"받아들인 묶음(%s) 안 — 묶음 폴더를 지킴\" % b[\"kind\"]",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 8,
+  "line": 1087,
+  "before": "return True",
+  "after": "return False",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 9,
+  "line": 2648,
+  "before": "threats=cnt(\"AAD-E01\", \"AAD-E02\") + sum(1 for r in rows if r[\"code\"] == \"AAD-E01\" and r[\"res\"] == \"멈춤\"), bundl",
+  "after": "threats=cnt(\"AAD-E01\", \"AAD-E02\") + sum(1 for r in rows if r[\"code\"] != \"AAD-E01\" and r[\"res\"] == \"멈춤\"), bundl",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 10,
+  "line": 510,
+  "before": "stem = name[:-(len(e) + 1)] if e else name",
+  "after": "stem = name[:-(len(e) + 2)] if e else name",
+  "verdict": "잡음(실패 4)"
+ },
+ {
+  "no": 11,
+  "line": 1397,
+  "before": "if mem and c[\"grade\"] > mem.get(\"grade\", \"D0\"):",
+  "after": "if mem or c[\"grade\"] > mem.get(\"grade\", \"D0\"):",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 12,
+  "line": 1825,
+  "before": "if top(i) != top(j) and self._same_thing(items[j], items[i]):",
+  "after": "if top(i) == top(j) and self._same_thing(items[j], items[i]):",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 13,
+  "line": 1793,
+  "before": "if it[\"ext\"] == \"zip\" and it[\"size\"]:",
+  "after": "if it[\"ext\"] != \"zip\" and it[\"size\"]:",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 14,
+  "line": 1393,
+  "before": "if not aid:",
+  "after": "if aid:",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 15,
+  "line": 857,
+  "before": "if a == b:",
+  "after": "if a != b:",
+  "verdict": "잡음(시간 넘김)"
+ },
+ {
+  "no": 16,
+  "line": 747,
+  "before": "if i > len(self.led.rows) or (0 < i <= len(self.led.rows) and self.led.rows[i - 1][\"h\"] != card[\"led_head\"]):",
+  "after": "if i > len(self.led.rows) or (0 >= i <= len(self.led.rows) and self.led.rows[i - 1][\"h\"] != card[\"led_head\"]):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 17,
+  "line": 619,
+  "before": "self.index, self.blocked, self.flags, self.first_ok = {}, None, {}, False",
+  "after": "self.index, self.blocked, self.flags, self.first_ok = {}, None, {}, True",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 18,
+  "line": 317,
+  "before": "return True",
+  "after": "return False",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 19,
+  "line": 2440,
+  "before": "return None",
+  "after": "return 0",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 20,
+  "line": 1162,
+  "before": "elif k == \"매체 역할\":",
+  "after": "elif k != \"매체 역할\":",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 21,
+  "line": 1509,
+  "before": "(app or self)._note(\"CLS\", \"묶음 대응\", old=b[\"id\"], new=list(new_ids), why=why)",
+  "after": "(app and self)._note(\"CLS\", \"묶음 대응\", old=b[\"id\"], new=list(new_ids), why=why)",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 22,
+  "line": 2245,
+  "before": "if self.known is not None:",
+  "after": "if self.known is None:",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 23,
+  "line": 2263,
+  "before": "for key, items in sets_ or [((it[\"stem\"], it[\"ext\"], 0), [])]:   # 복구는 사용자의 결정이다. 그 무리의 다른 판을 모두 「본 것」으로 적는다(자",
+  "after": "for key, items in sets_ and [((it[\"stem\"], it[\"ext\"], 0), [])]:   # 복구는 사용자의 결정이다. 그 무리의 다른 판을 모두 「본 것」으로 적는다(",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 24,
+  "line": 2364,
+  "before": "if self.tier != \"구독\":",
+  "after": "if self.tier == \"구독\":",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 25,
+  "line": 2227,
+  "before": "meta = next((v for v in self.vmeta.get(aid, []) if v[\"ver\"] == ver), None)",
+  "after": "meta = next((v for v in self.vmeta.get(aid, []) if v[\"ver\"] != ver), None)",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 26,
+  "line": 2629,
+  "before": "if len(where) > 1 and any(w.startswith(bid + \"/\") for w in where):",
+  "after": "if len(where) > 1 or any(w.startswith(bid + \"/\") for w in where):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 27,
+  "line": 2683,
+  "before": "dup=opt, unsettled=unsettled, bundles=sum(1 for b in self.bundles.values() if b[\"state\"] == \"씀\"),",
+  "after": "dup=opt, unsettled=unsettled, bundles=sum(1 for b in self.bundles.values() if b[\"state\"] != \"씀\"),",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 28,
+  "line": 1962,
+  "before": "return False",
+  "after": "return True",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 29,
+  "line": 1773,
+  "before": "if d1 == d2 and (f1.startswith(f2 + \"/\") or f2.startswith(f1 + \"/\")):",
+  "after": "if d1 == d2 or (f1.startswith(f2 + \"/\") or f2.startswith(f1 + \"/\")):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 30,
+  "line": 522,
+  "before": "return (new, \"판이 있는 문서(NM-01)\") if new != name else (name, None)",
+  "after": "return (new, \"판이 있는 문서(NM-01)\") if new == name else (name, None)",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 31,
+  "line": 2474,
+  "before": "if g and aid not in b[\"outs\"]:",
+  "after": "if g or aid not in b[\"outs\"]:",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 32,
+  "line": 138,
+  "before": "if blob[:3] != b\"HV1\" or len(blob) < 3 + 16 + 4 + 32:",
+  "after": "if blob[:3] != b\"HV1\" or len(blob) >= 3 + 16 + 4 + 32:",
+  "verdict": "잡음(실패 5)"
+ },
+ {
+  "no": 33,
+  "line": 440,
+  "before": "if e in IMG or e in VID:",
+  "after": "if e in IMG and e in VID:",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 34,
+  "line": 2226,
+  "before": "return dict(ok=False, name=name, note=note, left=0, guide=\"구독 안내\")",
+  "after": "return dict(ok=True, name=name, note=note, left=0, guide=\"구독 안내\")",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 35,
+  "line": 2194,
+  "before": "n = len(lst) + 1",
+  "after": "n = len(lst) + 2",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 36,
+  "line": 1783,
+  "before": "elif h1 <= h2 or h2 <= h1:",
+  "after": "elif h1 <= h2 and h2 <= h1:",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 37,
+  "line": 2614,
+  "before": "if not any(l[\"a\"] == rq for l in b[\"links\"]):",
+  "after": "if not any(l[\"a\"] != rq for l in b[\"links\"]):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 38,
+  "line": 2393,
+  "before": "if auto and ((len(have) >= 10 and (len(altered) + len(gone)) / len(have) > self.mass_ratio) or (len(have) >= 3",
+  "after": "if auto and ((len(have) >= 10 and (len(altered) + len(gone)) / len(have) > self.mass_ratio) and (len(have) >= ",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 39,
+  "line": 2674,
+  "before": "in_vault = {rel for d, v in self.vault.items() for rel, h in v.items() if self.dev.index.get(rel, {}).get(\"has",
+  "after": "in_vault = {rel for d, v in self.vault.items() for rel, h in v.items() if self.dev.index.get(rel, {}).get(\"has",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 40,
+  "line": 1257,
+  "before": "elif \"(주)\" in base or \"㈜\" in base or any(t.endswith(tl) and len(t) > len(tl) for t in _TOK.findall(base) for t",
+  "after": "elif \"(주)\" in base or \"㈜\" in base or any(t.endswith(tl) and len(t) <= len(tl) for t in _TOK.findall(base) for ",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 41,
+  "line": 2614,
+  "before": "if not any(l[\"a\"] == rq for l in b[\"links\"]):",
+  "after": "if any(l[\"a\"] == rq for l in b[\"links\"]):",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 42,
+  "line": 2662,
+  "before": "prev, stat = self.preview(log=False)",
+  "after": "prev, stat = self.preview(log=True)",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 43,
+  "line": 2024,
+  "before": "miss = [h for h in hs if fh and h != fh and not self._desc(fh, h)]",
+  "after": "miss = [h for h in hs if fh or h != fh and not self._desc(fh, h)]",
+  "verdict": "잡음(실패 13)"
+ },
+ {
+  "no": 44,
+  "line": 1317,
+  "before": "if self.tier != \"구독\" or not (led and hasattr(led, \"verify\") and led.verify() and isinstance(getattr(other, \"an",
+  "after": "if self.tier != \"구독\" and not (led and hasattr(led, \"verify\") and led.verify() and isinstance(getattr(other, \"a",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 45,
+  "line": 603,
+  "before": "bak = sum(1 for r in rels if any(p.lower().startswith(\"backup\") or p.lower() == \"phone data\" or has_word(p, \"백",
+  "after": "bak = sum(1 for r in rels if any(p.lower().startswith(\"backup\") or p.lower() != \"phone data\" or has_word(p, \"백",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 46,
+  "line": 1010,
+  "before": "if it[\"ext\"] in TEXT and 0 < it[\"size\"] <= 1 << 20 and self.tier == \"구독\":",
+  "after": "if it[\"ext\"] in TEXT and 0 >= it[\"size\"] <= 1 << 20 and self.tier == \"구독\":",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 47,
+  "line": 1371,
+  "before": "if c[\"rank\"] not in (\"JR-1\", \"사용자 규칙\") and mem[\"code\"][:2] != \"99\":   # 보호와 사용자 규칙은 기억보다 앞서고, 판정 대기는 붙잡아 두지 않는",
+  "after": "if c[\"rank\"] in (\"JR-1\", \"사용자 규칙\") and mem[\"code\"][:2] != \"99\":   # 보호와 사용자 규칙은 기억보다 앞서고, 판정 대기는 붙잡아 두지 않는다",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 48,
+  "line": 2611,
+  "before": "if not end.startswith(\"RQ\") and end not in now:",
+  "after": "if end.startswith(\"RQ\") and end not in now:",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 49,
+  "line": 2622,
+  "before": "if not self._alive(h):",
+  "after": "if self._alive(h):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 50,
+  "line": 2678,
+  "before": "projs = [self.project_view(b[\"id\"]) for b in self.bundles.values() if b[\"kind\"] == \"프로젝트\" and b[\"state\"] == \"씀",
+  "after": "projs = [self.project_view(b[\"id\"]) for b in self.bundles.values() if b[\"kind\"] == \"프로젝트\" or b[\"state\"] == \"씀\"",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 51,
+  "line": 1880,
+  "before": "and difflib.SequenceMatcher(None, bs[i], xs[j], autojunk=False).ratio() >= 0.6 for j in range(m)] for i in ran",
+  "after": "and difflib.SequenceMatcher(None, bs[i], xs[j], autojunk=True).ratio() >= 0.6 for j in range(m)] for i in rang",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 52,
+  "line": 1141,
+  "before": "for p in sorted(self.props.values(), key=lambda p: p[\"no\"]) if all_ or p[\"state\"] == \"열림\"]",
+  "after": "for p in sorted(self.props.values(), key=lambda p: p[\"no\"]) if all_ or p[\"state\"] != \"열림\"]",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 53,
+  "line": 1371,
+  "before": "if c[\"rank\"] not in (\"JR-1\", \"사용자 규칙\") and mem[\"code\"][:2] != \"99\":   # 보호와 사용자 규칙은 기억보다 앞서고, 판정 대기는 붙잡아 두지 않는",
+  "after": "if c[\"rank\"] not in (\"JR-1\", \"사용자 규칙\") and mem[\"code\"][:2] == \"99\":   # 보호와 사용자 규칙은 기억보다 앞서고, 판정 대기는 붙잡아 두지 않는",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 54,
+  "line": 2267,
+  "before": "self.recover_count[aid] = used + 1",
+  "after": "self.recover_count[aid] = used + 2",
+  "verdict": "잡음(실패 4)"
+ },
+ {
+  "no": 55,
+  "line": 2678,
+  "before": "projs = [self.project_view(b[\"id\"]) for b in self.bundles.values() if b[\"kind\"] == \"프로젝트\" and b[\"state\"] == \"씀",
+  "after": "projs = [self.project_view(b[\"id\"]) for b in self.bundles.values() if b[\"kind\"] != \"프로젝트\" and b[\"state\"] == \"씀",
+  "verdict": "잡음(멈춤)"
+ },
+ {
+  "no": 56,
+  "line": 2604,
+  "before": "if no in now and now[no][1] != h:",
+  "after": "if no in now or now[no][1] != h:",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 57,
+  "line": 1933,
+  "before": "ed = sorted([(i1, i2, rep) for i1, i2, rep in ea + eb + merged_lines] + [(i, i, ra if ra == rb else ra + rb) f",
+  "after": "ed = sorted([(i1, i2, rep) for i1, i2, rep in ea + eb + merged_lines] + [(i, i, ra if ra != rb else ra + rb) f",
+  "verdict": "잡음(실패 3)"
+ },
+ {
+  "no": 58,
+  "line": 1415,
+  "before": "elif f[\"conf\"] != \"낮음\" and rank_ord(f[\"rank\"]) < rank_ord(mem[\"rank\"]):",
+  "after": "elif f[\"conf\"] != \"낮음\" and rank_ord(f[\"rank\"]) >= rank_ord(mem[\"rank\"]):",
+  "verdict": "잡음(실패 2)"
+ },
+ {
+  "no": 59,
+  "line": 1668,
+  "before": "if norm(d) == norm(os.path.dirname(rel)):",
+  "after": "if norm(d) != norm(os.path.dirname(rel)):",
+  "verdict": "잡음(실패 1)"
+ },
+ {
+  "no": 60,
+  "line": 2353,
+  "before": "if not m or not os.path.exists(key_p):",
+  "after": "if not m and not os.path.exists(key_p):",
+  "verdict": "잡음(실패 1)"
+ }
+]

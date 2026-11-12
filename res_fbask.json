@@ -1,0 +1,162 @@
+[
+ {
+  "tag": "F1s1",
+  "seed": 1,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s2",
+  "seed": 2,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s3",
+  "seed": 3,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s4",
+  "seed": 4,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s5",
+  "seed": 5,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s6",
+  "seed": 6,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s7",
+  "seed": 7,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s8",
+  "seed": 8,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s9",
+  "seed": 9,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F1s10",
+  "seed": 10,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F2s11",
+  "seed": 11,
+  "steps": 30,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 30,
+  "edits_in_final": "30/30",
+  "final_missing": []
+ },
+ {
+  "tag": "F2s12",
+  "seed": 12,
+  "steps": 30,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 30,
+  "edits_in_final": "30/30",
+  "final_missing": []
+ },
+ {
+  "tag": "F2s13",
+  "seed": 13,
+  "steps": 30,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 30,
+  "edits_in_final": "30/30",
+  "final_missing": []
+ },
+ {
+  "tag": "F3s21",
+  "seed": 21,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F3s22",
+  "seed": 22,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ },
+ {
+  "tag": "F3s23",
+  "seed": 23,
+  "steps": 20,
+  "asked": 0,
+  "ratio": 0.0,
+  "media_same": 20,
+  "edits_in_final": "20/20",
+  "final_missing": []
+ }
+]
