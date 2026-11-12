@@ -88,8 +88,9 @@ jobs:
             Set-Content -LiteralPath $wr -Value $wc -Encoding utf8BOM
             $a = @('-NoProfile','-ExecutionPolicy','Bypass','-File',('"' + $wr + '"'))
             try {
-              $p = Start-Process -FilePath 'powershell.exe' -ArgumentList $a -Credential $cred -LoadUserProfile -WorkingDirectory $bd -RedirectStandardOutput $so -RedirectStandardError $se -PassThru -Wait
-              $codes[$m] = $p.ExitCode
+              $p = Start-Process -FilePath 'powershell.exe' -ArgumentList $a -Credential $cred -LoadUserProfile -WorkingDirectory $bd -RedirectStandardOutput $so -RedirectStandardError $se -PassThru
+              # -Wait는 남겨진 HiCoffer까지 기다려 멈추므로 쓰지 않고, 묶음 프로세스만 최대 900초 기다린다
+              if ($p.WaitForExit(900000)) { $codes[$m] = $p.ExitCode } else { $codes[$m] = '900초 안에 안 끝남(P-9 판독 필요)' }
             } catch {
               $codes[$m] = '시작 실패: ' + $_.Exception.Message
             }
