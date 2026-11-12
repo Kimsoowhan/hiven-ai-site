@@ -1,0 +1,46 @@
+name: hct-ev-test
+on:
+  push:
+    branches: [hct-ga-b5-win2025]
+    paths: ['.github/workflows/hct-ev-test.yml', 'hct_ev/**']
+jobs:
+  ev:
+    runs-on: windows-2025
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: HiEvidence 실행 시험
+        shell: powershell
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $PSVersionTable.PSVersion.ToString()
+          (Get-CimInstance Win32_OperatingSystem).Caption + ' ' + (Get-CimInstance Win32_OperatingSystem).Version
+          $S = Join-Path $PWD 'hct_ev\HiEvidence.ps1'
+          'app sha256: ' + (Get-FileHash -Algorithm SHA256 $S).Hash.ToLower()
+          [void](New-Item -ItemType Directory -Force C:\evt\watch)
+          'a-시험결과' | Set-Content C:\evt\watch\생존감시.tsv -Encoding UTF8
+          'b-자원' | Set-Content C:\evt\watch\자원기록.csv -Encoding UTF8
+          'input' | Set-Content C:\evt\input.bin -Encoding UTF8
+          $t = Start-Process ping -ArgumentList '-n','35','127.0.0.1' -PassThru -WindowStyle Hidden
+          'target pid ' + $t.Id
+          & powershell -NoProfile -ExecutionPolicy Bypass -File $S -Mode Start -Case 러너시험 -Root C:\evt\root -Watch C:\evt\watch -Target PING -Inputs C:\evt\input.bin -Interval 15 -Poll 2 -MaxMinutes 1
+          'Start 종료코드: ' + $LASTEXITCODE
+          & powershell -NoProfile -ExecutionPolicy Bypass -File $S -Mode Event -Root C:\evt\root -Label 사건_수동 -Note 수동사건시험
+          'Event 종료코드: ' + $LASTEXITCODE
+          & powershell -NoProfile -ExecutionPolicy Bypass -File $S -Mode Verify -Root C:\evt\root
+          'Verify(정상) 종료코드: ' + $LASTEXITCODE
+          '--- 증적체인.tsv'
+          Get-Content C:\evt\root\증적체인.tsv -Encoding UTF8
+          '--- 해시목록.tsv'
+          Get-Content C:\evt\root\해시목록.tsv -Encoding UTF8
+          '--- GS증빙색인 줄 수'
+          (Get-Content C:\evt\root\GS증빙색인.tsv -Encoding UTF8).Count
+          '--- 폴더 목록'
+          Get-ChildItem C:\evt\root -Recurse -File | ForEach-Object { $_.FullName.Substring(9) + ' ' + $_.Length }
+          '--- 대상 폴더 원본 불변 확인'
+          Get-ChildItem C:\evt\watch -File | ForEach-Object { $_.Name + ' ' + (Get-FileHash -Algorithm SHA256 $_.FullName).Hash.ToLower() }
+          '--- 변조 시험: 사본 하나를 고침'
+          $v = Get-ChildItem C:\evt\root\스냅샷_시작 -File | Select-Object -First 1
+          Add-Content $v.FullName 'x'
+          & powershell -NoProfile -ExecutionPolicy Bypass -File $S -Mode Verify -Root C:\evt\root
+          'Verify(변조) 종료코드: ' + $LASTEXITCODE
