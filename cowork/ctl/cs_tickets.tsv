@@ -1,0 +1,9 @@
+번호	받은 시각(KST)	받는 주소	구분	보낸 곳	제목	분류	담당	단계	연관 SC	미진·다음 조치
+CS-008	2026-10-29 19:07	contact@hiven.co.kr	HIVEN contact(co.kr)	assist@hiven.ai.kr(내부)	HIVEN 지원 안내 Test	내부 시험	Sonnet(서비스)	종결	SC-17	없음 — 두 주소 간 보내기·받기 시험 성공
+CS-007	2026-10-29 19:00	assist@hiven.ai.kr	HIVEN assist(ai.kr)	gmail-noreply@google.com	Gmail 확인 — assist@로 메일 보내기	시스템 알림(계정 설정)	Opus(기술)	종결	SC-03 · SC-17	없음 — 보내기 주소 등록 완료(10-29 assist@ 발신 시험 성공으로 확인)
+CS-006	2026-10-29 18:23	assist@hiven.ai.kr	HIVEN assist(ai.kr)	contact@hiven.co.kr(내부)	contact@ → assist@ Test 메일	내부 시험	Sonnet(서비스)	종결	SC-17	없음 — 2통 왕복 확인
+CS-005	2026-10-27 23:18	contact@hiven.co.kr	HIVEN contact(co.kr)	noreply@notify.cloudflare.com	Cloudflare Access 로그인 코드(옛 통제어 주소)	보안 알림	Opus(기술)	대응 중	SC-03 · SC-15	선대응 15:59~: ic 작업자 경로에 옛 통제어 주소 없음(wrangler routes 확인). DNS 레코드 실측은 Cloudflare 연결(A-003 허가 15:43) 뒤 Opus가 확인·삭제. 코드 값은 기록하지 않음
+CS-004	2026-10-27 22:36	contact@hiven.co.kr	HIVEN contact(co.kr)	noreply@notify.cloudflare.com	Cloudflare Access 로그인 코드(hiven.ai.kr)	보안 알림	Opus(기술)	종결	SC-03	없음 — 대표님 로그인으로 확인, 코드 값은 기록하지 않음
+CS-003	2026-10-23 06:28	contact@hiven.co.kr	HIVEN contact(co.kr)	대표님 개인 메일	HiCoffer web site 오픈축하	내부(대표님)	Sonnet(서비스)	종결	SC-04(HiCoffer)	없음
+CS-002	2026-10-22 23:06	contact@hiven.co.kr	HIVEN contact(co.kr)	대표님 개인 메일	축하한다~ 고생하셨어요!!	내부(대표님)	Sonnet(서비스)	종결	SC-17	없음
+CS-001	2026-10-22 22:06	contact@hiven.co.kr	HIVEN contact(co.kr)	gmail-noreply@google.com	Gmail 확인 — contact@로 메일 보내기	시스템 알림(계정 설정)	Opus(기술)	종결	SC-03 · SC-17	없음 — 보내기 주소 등록 완료
