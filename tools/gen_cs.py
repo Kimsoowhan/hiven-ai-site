@@ -12,7 +12,7 @@ def classify(text):
     for w in [x.strip() for x in r[1].split(',')]:
       if w and w.lower() in text.lower(): hit.append(r);break
   if not hit: return ('일반·확인 필요','보통','분류 확인','Sonnet(서비스)','')
-  hit.sort(key=lambda r:-lvl.get(r[3],0));r=hit[0]
+  hit.sort(key=lambda r:(-lvl.get(r[3],0),-int(r[0][2:])));r=hit[0]
   return (r[2],r[3],r[4],r[5],'·'.join(h[0] for h in hit))
 inbox=os.path.join(C,'cs_inbox.tsv');tk=os.path.join(C,'cs_tickets.tsv')
 if not os.path.exists(inbox): print('수집분 없음');raise SystemExit
