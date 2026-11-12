@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """수정 뒤 검사(대표님 21:42 질타 재발 방지): 통과하지 못하면 종료 코드 1, 이 경우 커밋·푸시·보고를 하지 않는다.
 검사: ① tools/*.py 문법 ② 사이트 js 문법(node --check) ③ cowork/ctl json 형식 ④ 이력 tsv 11칸 ⑤ 색인 생성기 실행 종료 코드 0·산출물 갱신·생명주기 공백 0 ⑥ 무결성 목록
-      ⑦ 화면별 자료 신선도(알림) ⑧ 화면 사이 건수 일치(이력 ↔ 생명주기는 실패, 그 밖은 알림)
+      ⑦ 화면별 자료 신선도(알림) ⑧ 화면 사이 건수 일치(이력 ↔ 생명주기는 실패, 그 밖은 알림) ⑨ 두 저장소 공통 4종 sha256 일치(261112 OJ-3)
 261111 H-3: 색인 생성기는 저장소 안 tools/index_build.py 하나만 돌린다(저장소 밖 생성기 의존 없앰). 저장소만 받은 곳에서도 같은 검사가 된다.
-사용: python3 tools/precheck.py [--strict] [--gap 시간]
+사용: python3 tools/precheck.py [--strict] [--gap 시간] [--peer 짝저장소경로]
   --strict  알림도 실패로 본다        --gap N  신선도 간격(시간, 기본 24)
 알아 둘 것: ⑤는 색인 생성기를 실제로 돌리므로 cowork/ctl/model_control_index.json의 시각 칸이 바뀐다."""
 import sys,os,glob,json,subprocess,py_compile,time,re,csv,datetime
@@ -93,6 +93,24 @@ try:
     js=re.search(r"HV_ST_DONE=\[([^\]]*)\]",open(R+'/data.js',encoding='utf-8').read()).group(1); py=re.search(r"^DONE=(.*)$",open(R+'/tools/gen_lifecycle.py',encoding='utf-8').read(),re.M).group(1)
     if sorted(re.findall(r"'([^']*)'",js))!=sorted(re.findall(r"'([^']*)'",py)): fail('완료 대응표가 화면(data.js)과 산출(gen_lifecycle.py)에서 다름')
 except Exception as e: fail('완료 대응표 읽기 실패 '+str(e)[:80])
+# ── ⑨ 두 저장소 공통 4종 정합(Fable 지시문 261112_1940 마-1 OJ-2 · 마-3): 데이터 파일은 「변조」가 아니라 「정합」으로 감시한다.
+#    짝 저장소(hiven-ai-site ↔ hiven-ic)의 approval_line · model_control_history · alerts · trace_v sha256이 같아야 통과. 짝을 찾지 못해도 실패(확인 안 됨으로 넘기지 않음).
+#    짝 자리: --peer 경로 > 환경 변수 HV_PEER > 이 저장소 옆 폴더(hiven-ic · hs · hiven-ai-site) 중 자기 아닌 것.
+import hashlib
+COMMON4=('approval_line.tsv','model_control_history.tsv','alerts.tsv','trace_v.tsv')
+def _peer():
+    if '--peer' in A: return [A[A.index('--peer')+1]]
+    if os.environ.get('HV_PEER'): return [os.environ['HV_PEER']]
+    up=os.path.dirname(R); return [os.path.join(up,n) for n in ('hiven-ic','hs','hiven-ai-site')]
+PEER=next((p for p in _peer() if os.path.isdir(os.path.join(p,'cowork','ctl')) and os.path.realpath(p)!=os.path.realpath(R)),None)
+if not PEER: fail('공통 4종 정합: 짝 저장소를 찾지 못함(--peer 경로 또는 HV_PEER 지정)')
+else:
+    def _h(p):
+        try: return hashlib.sha256(open(p,'rb').read()).hexdigest()
+        except FileNotFoundError: return None
+    diff4=[(n,(_h(C+n) or '없음')[:12],(_h(os.path.join(PEER,'cowork','ctl',n)) or '없음')[:12]) for n in COMMON4 if _h(C+n) is None or _h(C+n)!=_h(os.path.join(PEER,'cowork','ctl',n))]
+    if diff4: fail('공통 4종 정합: %d종 다름 %s (짝 %s)'%(len(diff4),'; '.join('%s 이쪽 %s · 짝 %s'%d for d in diff4),PEER))
+    else: print('공통 4종 정합: 4/4 같음 (짝 %s)'%PEER)
 if STRICT and note: bad+=note
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
