@@ -1,5 +1,5 @@
 {
- "published": "2026-11-12 22:33",
+ "published": "2026-11-12 22:54",
  "by": "모델",
  "history_rows": 835,
  "lifecycle_rows": 835,
@@ -10,8 +10,8 @@
    "source": "COM\\CoWork_진행상황판-261104.md",
    "screen": "SC-10",
    "rows": null,
-   "sha16": "04b51285f80f67dd",
-   "mtime": "2026-11-12 22:33"
+   "sha16": "5ab9ef2c33f592d6",
+   "mtime": "2026-11-12 22:54"
   },
   {
    "file": "board.md",
@@ -43,7 +43,7 @@
    "screen": "SC-02·SC-16",
    "rows": 835,
    "sha16": "ae1e35e7cba0ecc8",
-   "mtime": "2026-11-12 22:33"
+   "mtime": "2026-11-12 22:34"
   },
   {
    "file": "ctl/model_control_status.tsv",
@@ -59,15 +59,15 @@
    "screen": "SC-02",
    "rows": 835,
    "sha16": "1f66840751a237cd",
-   "mtime": "2026-11-12 22:33"
+   "mtime": "2026-11-12 22:34"
   },
   {
    "file": "ctl/trace_sum.json",
    "source": "지시추적매트릭스(91_Fable)",
    "screen": "SC-02·SC-17",
    "rows": null,
-   "sha16": "8cd40555e1599e9d",
-   "mtime": "2026-11-12 22:33"
+   "sha16": "3af4bbef7879eabd",
+   "mtime": "2026-11-12 22:54"
   },
   {
    "file": "ctl/trace_v.tsv",
@@ -75,7 +75,7 @@
    "screen": "SC-17",
    "rows": 659,
    "sha16": "ca96a618b8cf62e5",
-   "mtime": "2026-11-12 22:33"
+   "mtime": "2026-11-12 22:34"
   },
   {
    "file": "ctl/qa_checks.tsv",
