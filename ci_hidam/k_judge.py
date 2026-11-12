@@ -3,7 +3,7 @@
 결과를 글로 보지 않고 값으로 맞댄다. 엔진 폴더는 HIDAM_APP으로 준다. 대상 폴더에는 쓰지 않는다(임시 폴더만)."""
 import os, sys, json, shutil, tempfile, time, random
 sys.dont_write_bytecode = True
-sys.path.insert(0, os.environ.get("HIDAM_APP", "/home/claude/op2/eng04"))
+sys.path.insert(0, os.environ.get("HIDAM_APP") or os.path.dirname(os.path.abspath(__file__)))
 import hidam_app as H
 from hidam_app import HiDAMApp, Medium, sha
 T = tempfile.mkdtemp(prefix="kj_")

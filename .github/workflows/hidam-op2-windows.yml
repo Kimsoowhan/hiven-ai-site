@@ -12,7 +12,7 @@ jobs:
       matrix:
         os: [windows-11-arm, windows-2025]
     runs-on: ${{ matrix.os }}
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,7 +29,8 @@ jobs:
           python -B sim_hidam_app.py res_sim.json *> res_sim.log
           python -B k_judge.py res_kjudge.json *> res_kjudge.log
           python -B measure04.py res_measure.json *> res_measure.log
-          python -B diag118.py *> res_diag.log
+          python -B fb_ask_ci.py *> res_fbask.log
+          python -B fb_mut_ci.py *> res_fbmut.log
           python -c "import platform,json,sys;print(json.dumps(dict(platform=platform.platform(),release=platform.release(),version=platform.version(),machine=platform.machine(),python=sys.version),ensure_ascii=False))" > res_platform.json
           (Get-CimInstance Win32_OperatingSystem | Select-Object Caption,Version,BuildNumber,OSArchitecture | ConvertTo-Json) > res_os.json
       - name: push results
@@ -43,5 +44,5 @@ jobs:
           git switch --orphan "op2-win11-result-$o"
           git rm -rf --quiet . 2>$null
           Copy-Item "$env:RUNNER_TEMP\r\*" .
-          git add res_*; git commit -q -m "OP-2 0.4 Windows result ($o)"
+          git add res_*; git commit -q -m "OP-2 0.5 Windows result ($o)"
           git push -f origin "op2-win11-result-$o"

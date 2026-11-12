@@ -730,6 +730,7 @@ os.remove(os.path.join(q9, "작은/n0.txt")); r9d = Q9.mirror("M")
 ok("TS-119", G15, "보호 등급의 판은 자동으로 맞추지 않음 · 무료는 자동 실행이 닫힘 · 거울이 10건이 안 되면 대량 변경으로 멈추지 않음 · 미러링은 해시를 맞대어 틀린 사본을 들이지 않음 · 물러난 것은 보류함에", "SV-03 · FN-17 · MR-16 · MR-03 · MR-05",
    r9p.get("how") == "자동에서 뺌" and fa9 is None and r9m["stopped"] is None and r9m["done"] == 3 and r9h["mismatch"] == 1 and kept9 == b"n3\n"
    and r9d["held"] == 1 and ex(q9m, "_HiDAM_보류함/작은/n0.txt") and rd(q9m, "_HiDAM_보류함/작은/n0.txt") == "바뀜 0\n".encode() and not ex(q9m, "_HiDAM_거울/갈래.txt"), (r9p.get("how"), fa9, r9m.get("stopped"), r9h.get("mismatch"), kept9, r9d.get("held")))
+exec(open(os.path.join(here, "sim05_add.py"), encoding="utf-8").read())
 mut_table = []
 if "--no-mutants" not in sys.argv:
     src = open(os.path.join(here, "hidam_app.py"), encoding="utf-8").read()
@@ -752,7 +753,7 @@ if "--no-mutants" not in sys.argv:
 out = dict(title="HiDAM.app 기준 구현 시뮬레이션", note="만든 파일로 돌린 시뮬레이션이며 실측이 아니다", policy=POLICY, app=APP_VER,
            code_sha256=sha(open(os.path.join(ENGINE_DIR, "hidam_app.py"), "rb").read()), scenario_sha256=sha(open(os.path.abspath(__file__), "rb").read()),
            ran_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), env="Python %s · %s" % (sys.version.split()[0], sys.platform), total=len(R), passed=sum(1 for r in R if r["result"] == "통과"),
-           groups=[G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12, G13, G14], cases=R, measures=MEASURES, always_true_check=mut_table, dashboard_sample=d, ledger_tail=Z.led.rows[-5:])
+           groups=[G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12, G13, G14, G15, G16], cases=R, measures=MEASURES, always_true_check=mut_table, dashboard_sample=d, ledger_tail=Z.led.rows[-5:])
 json.dump(out, open(ARGS[0] if ARGS else os.path.join(here, "sim_hidam_app_result.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
 for r in R:
     if r["result"] != "통과" or "-v" in sys.argv: print(r["no"], r["result"], r["title"], "|", r["seen"][:150])

@@ -18,7 +18,7 @@
 모듈: CLS · AAD · OPT · SEC · SCT · LNK · SYN · LED · DSH · CLD · PJT(이 판에서 더함).  표준 라이브러리만 쓴다."""
 import os, re, json, hashlib, hmac, shutil, difflib, time, unicodedata, zipfile, functools
 
-POLICY, APP_VER = "HiDAM-STD-1.0(작업)", "HDA-0.4"
+POLICY, APP_VER = "HiDAM-STD-1.0(작업)", "HDA-0.5"
 FP_LEN = 16                                   # 지문에 쓰는 해시 앞자리 수(ID-15: 맞대는 것은 언제나 전체 해시)
 PROTECT_EXT = {"key", "pem", "cer", "crt", "der", "pfx", "p12"}
 INSTALL_EXT = {"exe", "msi", "apk", "dll", "bat", "ps1"}
@@ -1814,14 +1814,23 @@ class HiDAMApp:
         for (stem, e), items in g.items():
             if len({x[2]["hash"] for x in items}) < 2:
                 continue
-            groups = []
-            for x in items:
-                for grp in groups:
-                    if self._same_thing(grp[0], x):
-                        grp.append(x)
-                        break
-                else:
-                    groups.append([x])
+            up = list(range(len(items)))                  # 0.5: 무리는 맨 앞 하나와만 견주지 않고 둘씩 모두 견주어 잇는다(앞 판과 멀어진 묵은 사본이 따로 떨어져 조용히 빠지던 것, F2 seed13)
+            def top(i):
+                while up[i] != i:
+                    up[i] = up[up[i]]
+                    i = up[i]
+                return i
+            for i in range(len(items)):
+                for j in range(i):
+                    if top(i) != top(j) and self._same_thing(items[j], items[i]):
+                        up[top(i)] = top(j)
+            groups, at = [], {}
+            for i, x in enumerate(items):
+                r = top(i)
+                if r not in at:
+                    at[r] = len(groups)
+                    groups.append([])
+                groups[at[r]].append(x)
             for i, grp in enumerate(groups):
                 if len({x[2]["hash"] for x in grp}) > 1:
                     sets[(stem, e, i)] = grp
@@ -1830,6 +1839,9 @@ class HiDAMApp:
     def _same_thing(self, a, b):
         if a[2]["hash"] == b[2]["hash"] or self._desc(a[2]["hash"], b[2]["hash"]) or self._desc(b[2]["hash"], a[2]["hash"]):
             return True
+        nd = lambda x: x[2]["dir"][len("기준자리/"):] if x[2]["dir"].startswith("기준자리/") else ("" if x[2]["dir"] == "기준자리" else x[2]["dir"])
+        if nd(a) == nd(b) and self._ancs(a[2]["hash"]) & self._ancs(b[2]["hash"]):
+            return True                                   # 0.5: 같은 자리의 두 판이 계보로 같은 앞 판에 닿으면 내용이 많이 갈라졌어도 같은 것(묵은 사본에서 고친 것)
         if a[2]["ext"] in TEXT:
             ta, tb = decode(open(a[0].path(a[1]), "rb").read()), decode(open(b[0].path(b[1]), "rb").read())
             if ta and tb:
@@ -1860,11 +1872,41 @@ class HiDAMApp:
     def _merge3(base, a, b):
         """바탕이 계보로 확인된 때만 쓴다. 겹치지 않게 고친 것만 합치고, 닿거나 겹치면 None.
         두 쪽이 같은 자리에 줄을 「더하기만」 한 것은 겹침으로 보지 않고 a(먼저 고친 쪽)의 줄 뒤에 b의 줄을 잇는다(어느 쪽도 지우지 않음)."""
+        def pair(bs, xs):
+            """줄 수가 다른 바꿈 안에서 「고친 줄」(글자가 반 넘게 같은 줄)을 차례를 지켜 맞댄다(0.5): 끼운 줄과 고친 줄이 한 덩어리로 묶여
+            겹침으로 잘못 보이는 것을 막는다. 돌려주는 것은 (바탕 줄 번호, 새 줄 번호)의 짝."""
+            n, m = len(bs), len(xs)
+            sim = [[isinstance(bs[i], str) and isinstance(xs[j], str) and len(bs[i]) > 1 and len(xs[j]) > 1
+                    and difflib.SequenceMatcher(None, bs[i], xs[j], autojunk=False).ratio() >= 0.6 for j in range(m)] for i in range(n)]
+            dp = [[0] * (m + 1) for _ in range(n + 1)]
+            for i in range(n - 1, -1, -1):
+                for j in range(m - 1, -1, -1):
+                    dp[i][j] = max(dp[i + 1][j], dp[i][j + 1], dp[i + 1][j + 1] + 1 if sim[i][j] else 0)
+            out, i, j = [], 0, 0
+            while i < n and j < m:
+                if sim[i][j] and dp[i][j] == dp[i + 1][j + 1] + 1:
+                    out.append((i, j))
+                    i, j = i + 1, j + 1
+                elif dp[i + 1][j] >= dp[i][j + 1]:
+                    i += 1
+                else:
+                    j += 1
+            return out
+
         def edits(x):
             out = []
             for t, i1, i2, j1, j2 in difflib.SequenceMatcher(None, base, x, autojunk=False).get_opcodes():
                 if t == "replace" and i2 - i1 == j2 - j1:  # 줄 수가 같은 바꿈은 줄마다 나눈다(한쪽이 두 줄, 다른 쪽이 그 가운데 한 줄을 고친 것을 줄마다 맞대게)
                     out += [(i1 + n, i1 + n + 1, [x[j1 + n]]) for n in range(i2 - i1) if base[i1 + n] != x[j1 + n]]
+                elif t == "replace" and isinstance(base[i1], str) and len(base[i1]) != 1:
+                    pi, pj = i1, j1                        # 줄 수가 다른 바꿈: 고친 줄은 줄마다, 그 사이는 끼움·지움으로 잘게 나눈다
+                    for a_, b_ in pair(base[i1:i2], x[j1:j2]) + [(i2 - i1, j2 - j1)]:
+                        bi, xj = i1 + a_, j1 + b_
+                        if bi > pi or xj > pj:
+                            out.append((pi, bi, x[pj:xj]))
+                        if bi < i2 and base[bi] != x[xj]:
+                            out.append((bi, bi + 1, [x[xj]]))
+                        pi, pj = bi + 1, xj + 1
                 elif t != "equal":
                     out.append((i1, i2, x[j1:j2]))
             return out
@@ -1977,11 +2019,21 @@ class HiDAMApp:
                         self._cur_items = items
                         if not self._lineage_merge(uniq, hs, e, row):
                             self._diverged(uniq, hs, e, row)
+            if row["how"] in ("자동", "자동 합침") and row.get("final"):
+                fh = self.finals.get(row["final"])           # 0.5 원칙: 매체의 판이 최종본에 하나라도 들지 않았으면 「정상」으로 넘기지 않고 묻는다
+                miss = [h for h in hs if fh and h != fh and not self._desc(fh, h)]
+                if not fh or miss:
+                    row.update(judge="SY-갈라짐", how="확인 필요", why="최종본에 들지 않은 판 %d개 — 스스로 합치지 못함(매체의 판은 그대로)" % max(len(miss), 1))
             wait = row["how"] in ("확인 필요", "사용자가 고름", "자동에서 뺌")
             self.led.add("SYN", "정합 판정", stem=stem, judge=row["judge"], how=row["how"], res="멈춤" if wait else "됨", rc=("RC-10" if row["judge"] == "SY-보류" else "RC-23") if wait else None)
             if wait:                                      # 묻는 것은 제안 목록 한 곳으로 낸다. 권하는 답이 있으면 먼저 보인다
-                pk = "판|%s|%s|%d|%s" % (stem, e, gi, sha("".join(sorted(hs)).encode())[:12])
+                pk = "판|%s|%s|%d" % (stem, e, gi)            # 0.5: 한 무리에 열린 물음은 하나. 내용이 바뀌면 새 물음을 만들지 않고 그 물음을 고쳐 쓴다
                 open_keys.add(pk)
+                old_p = self.props.get(self.pkeys.get(pk))
+                if old_p and old_p["state"] == "열림":
+                    old_p.update(what="「%s.%s」의 판 %d개 가운데 최종본을 골라 주세요" % (stem, e, len(hs)), answer=row.get("suggest"), why=row["why"], at=now_z())
+                elif old_p:
+                    del self.pkeys[pk]                    # 닫힌 물음은 그대로 두고(기록) 새 물음을 연다
                 self._propose("판 고르기", pk, "「%s.%s」의 판 %d개 가운데 최종본을 골라 주세요" % (stem, e, len(hs)), row.get("suggest"), row["why"],
                               "최종본을 만들지 않고 기다립니다. 매체의 판은 그대로 있고 거울로도 가지 않습니다", who="한 번", data=dict(stem=stem, ext=e, gi=gi))
             res.append(row)
