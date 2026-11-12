@@ -15,7 +15,7 @@ EVR = os.environ.get('EV_ROOT', '/mnt/user-data/outputs/ev3')
 sys.path.insert(0, HERE)
 import ev_pack
 
-HEAD = ['대상ID', '종류', '설명', '실행', '입력', '산출', '실행 위치', '적용 방법', '적용 지점', '상태', '담당', '비고']
+HEAD = ['대상ID', '종류', '설명', '실행', '입력', '산출', '실행 위치', '적용 방법', '적용 지점', '상태', '담당', '비고', '사업군', '증적 자리 전체 경로', '사례표 자리', '구분', '0~Z 적용 단계', '마지막 실행 일련']
 
 def load():
     rows = []
@@ -105,6 +105,8 @@ def check():
         for k in ('대상ID', '종류', '실행 위치', '적용 방법', '상태', '담당'):
             if not r[k].strip():
                 print('실패:', r['대상ID'] or '(이름 없음)', '칸 비어 있음 —', k); fail += 1
+        if not r['상태'].startswith(('계획', '구현됨', '실행 확인', '적용', '지난 실행')):
+            print('실패:', r['대상ID'], '상태 낱말이 넷(계획·구현됨·실행 확인·적용)과 지난 실행 밖 —', r['상태'][:30]); fail += 1
         if r['상태'].startswith('적용') and r['적용 방법'] == 'ev_run' and ('\t' + r['대상ID'] + '\t') not in ledger:
             print('알림:', r['대상ID'], '적용 상태이나 증적 원장에 실행 기록 없음')
         if r['상태'].startswith('계획'):

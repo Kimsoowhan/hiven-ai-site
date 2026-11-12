@@ -1,9 +1,29 @@
-﻿대상ID	종류	설명	실행	입력	산출	실행 위치	적용 방법	적용 지점	상태	담당	비고
-SIM-HIDAM-APP	시뮬레이션	HiDAM.app 기준 구현 시뮬레이션(시험 사례 TS-xx)	python3 tools/sim_hidam_app.py {OUT}/sim_hidam_app_result.json	tools/hidam_app.py,tools/sim_hidam_app.py	{OUT}/sim_hidam_app_result.json	클라우드	ev_run	P0·P1·P2·P3·P4·P5	적용	Sonnet	시뮬레이션 값은 실측이 아님 — 증적에도 그렇게 표시
-SIM-MULTI	시뮬레이션	HIVEN 다중화 서비스 시뮬레이션(30일)	python3 tools/sim_multi.py {OUT}/sim_multi_result.json	tools/sim_multi.py	{OUT}/sim_multi_result.json	클라우드	ev_run	P0·P1·P2·P3·P4·P5	적용	Sonnet	시뮬레이션 값은 실측이 아님
-WIN-HCT-GA	시험	시험 가(가-갑) 24시간 무중단, Windows 11 시험 PC	HiEvidence.ps1 -Mode Start (시험 묶음과 같은 회차에 참여)	tools/HiEvidence.ps1		Windows 11 시험 PC	HiEvidence	P0·P1·P2·P3·P4·P5	계획: 러너 실행 시험 뒤 시험 PC 실행(시작 방법은 판정 가-9)	Sonnet·Opus	묶음 1.2 보존 걸음(다-4)과 겹치지 않게 역할 분담은 페이블 판정
-RUNNER-WIN	러너	GitHub Actions Windows 러너 실행(hidam-op2-windows)	워크플로 단계에서 HiEvidence.ps1 실행	tools/HiEvidence.ps1		Windows 러너	HiEvidence	P0·P1·P2·P3·P4	적용(hct-ev-test 시험)	Sonnet	산출물 내려받기가 막혀 있어 로그에 사슬·해시 목록을 찍음
-EMU-ANDROID	에뮬레이터	Android 에뮬레이터 시험(HiCoffer Android, 개발 2026-12 예정)	emu_android 시험 파일이 생기면 ev_run 으로 실행, adb logcat·screencap 을 캡처 지점 P2에 포함			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록 — 시험 파일이 생기는 순간 ev_run check 가 등록 없음으로 막음	Opus·Sonnet	캡처 항목: logcat · screencap · 앱 버전 · 에뮬레이터 이미지 해시
-EMU-IOS	에뮬레이터	iPhone 시뮬레이터 시험(Android 상용화 시점 착수)	ev_run + xcrun simctl 캡처			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록	Opus·Sonnet	착수 때 같은 점검으로 걸림
-EMU-MAC	에뮬레이터	macOS 시험(2027-03 개발)	ev_run + 화면 캡처			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록	Opus·Sonnet	착수 때 같은 점검으로 걸림
-VERIFY-READER	시험	증적 판독기·시험 도구 18건(오파스 산출)	ev_run 으로 판독 실행(받은 증적 사본 입력)			클라우드	ev_run	P0·P1·P2·P3·P4·P5	계획: 오파스 산출 파일 위치 확정 뒤 등록행 완성(가-4)	Opus	판독기는 증적 폴더에 쓰지 않음(판정 105)
+﻿대상ID	종류	설명	실행	입력	산출	실행 위치	적용 방법	적용 지점	상태	담당	비고	사업군	증적 자리 전체 경로	사례표 자리	구분	0~Z 적용 단계	마지막 실행 일련
+SIM-HIDAM-APP	시뮬레이션	HiDAM.app 기준 구현 시뮬레이션(시험 사례 TS-xx)	python3 tools/sim_hidam_app.py {OUT}/sim_hidam_app_result.json	tools/hidam_app.py,tools/sim_hidam_app.py	{OUT}/sim_hidam_app_result.json	클라우드	ev_run	P0·P1·P2·P3·P4·P5	구현됨	Sonnet	시뮬레이션 값은 실측이 아님 — 증적에도 그렇게 표시 · 11-13 02:05 정-2: 원장에 실행 줄 있음(SIM 2건 01:55) · Fable 재실행 전이라 「실행 확인」 아님	14 HiDAM	/mnt/user-data/outputs/ev3/SIM-HIDAM-APP/261113_015515 (클라우드 작업 자리, PC 보존 자리 확인 안 됨)	시험 사례 TS-xx(확인 안 됨)	시뮬레이션	0·B·C·D·E·F·H	261113_015515
+SIM-MULTI	시뮬레이션	HIVEN 다중화 서비스 시뮬레이션(30일)	python3 tools/sim_multi.py {OUT}/sim_multi_result.json	tools/sim_multi.py	{OUT}/sim_multi_result.json	클라우드	ev_run	P0·P1·P2·P3·P4·P5	구현됨	Sonnet	시뮬레이션 값은 실측이 아님 · 11-13 02:05 정-2: 원장에 실행 줄 있음(SIM 2건 01:55) · Fable 재실행 전이라 「실행 확인」 아님	통합(AICS)	/mnt/user-data/outputs/ev3/SIM-MULTI/261113_015511 (클라우드 작업 자리, PC 보존 자리 확인 안 됨)		시뮬레이션	0·B·C·D·E·F·H	261113_015511
+WIN-HCT-GA	시험	시험 가(가-갑) 24시간 무중단, Windows 11 시험 PC	HiEvidence.ps1 -Mode Start (시험 묶음과 같은 회차에 참여)	tools/HiEvidence.ps1		Windows 11 시험 PC	HiEvidence	P0·P1·P2·P3·P4·P5	계획: 러너 실행 시험 뒤 시험 PC 실행(시작 방법은 판정 가-9)	Sonnet·Opus	묶음 1.2 보존 걸음(다-4)과 겹치지 않게 역할 분담은 페이블 판정	12 HiCoffer	확인 안 됨(시작 전)		실측	0	없음
+RUNNER-WIN	러너	GitHub Actions Windows 러너 실행(hidam-op2-windows)	워크플로 단계에서 HiEvidence.ps1 실행	tools/HiEvidence.ps1		Windows 러너	HiEvidence	P0·P1·P2·P3·P4	구현됨	Sonnet	산출물 내려받기가 막혀 있어 로그에 사슬·해시 목록을 찍음 · 원장 줄 없음(로그에만) → 「구현됨」	12 HiCoffer	실행 로그 안(산출물 내려받기 막힘) · GitHub Actions 실행 43263044208		실측	0·B·C·D·E·F	43263044208
+EMU-ANDROID	에뮬레이터	Android 에뮬레이터 시험(HiCoffer Android, 개발 2026-12 예정)	emu_android 시험 파일이 생기면 ev_run 으로 실행, adb logcat·screencap 을 캡처 지점 P2에 포함			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록 — 시험 파일이 생기는 순간 ev_run check 가 등록 없음으로 막음	Opus·Sonnet	캡처 항목: logcat · screencap · 앱 버전 · 에뮬레이터 이미지 해시	12 HiCoffer(Android)	없음(대상 없음)		에뮬레이터 실측	0	없음
+EMU-IOS	에뮬레이터	iPhone 시뮬레이터 시험(Android 상용화 시점 착수)	ev_run + xcrun simctl 캡처			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록	Opus·Sonnet	착수 때 같은 점검으로 걸림	12 HiCoffer(iPhone)	없음(대상 없음)		에뮬레이터 실측	0	없음
+EMU-MAC	에뮬레이터	macOS 시험(2027-03 개발)	ev_run + 화면 캡처			개발 환경	ev_run	P0·P1·P2·P3·P4·P5	계획: 사전 등록	Opus·Sonnet	착수 때 같은 점검으로 걸림	12 HiCoffer(macOS)	없음(대상 없음)		에뮬레이터 실측	0	없음
+VERIFY-READER	시험	증적 판독기·시험 도구 18건(오파스 산출)	ev_run 으로 판독 실행(받은 증적 사본 입력)			클라우드	ev_run	P0·P1·P2·P3·P4·P5	계획: 오파스 산출 파일 위치 확정 뒤 등록행 완성(가-4)	Opus	판독기는 증적 폴더에 쓰지 않음(판정 105)	통합(AICS)	확인 안 됨(오파스 산출 위치 확정 전)		시뮬레이션	0	없음
+PAST-HIDAM-OCT	시험	10월 HiDAM 테스트베드(14_08_시범테스트 파일 6건)	(지난 실행)			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	지난 실행의 증적을 지어 넣지 않음 · 해시목록·색인 없음(빈-9)	14 HiDAM	14_08_시범테스트 안 파일 6건(전체 경로·해시 확인 안 됨)		실측	0(사후)	없음
+PAST-CFG-0908	시험	09_08_시범테스트(파일 1건이 맨 위)	(지난 실행)			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	00 색인 폴더 없음(빈-9)	09 형상관리	09_08_시범테스트(전체 경로 확인 안 됨)		실측	0(사후)	없음
+PAST-KEYCOVER	시험	08_26_키커버_시험 · 08_27_키커버_해제_증적	(지난 실행)			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	해시목록 유무 확인 안 됨	08 운영관리	08_26 · 08_27(전체 경로 확인 안 됨)		실측	0(사후)	없음
+PAST-WEB-DATA	시험	39_08 · 39_28_test_data	(지난 실행)			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	폴더만 확인	39 홈페이지	39_08 · 39_28(전체 경로 확인 안 됨)		실측	0(사후)	없음
+SITE-QA	점검	사이트 자동 검수(qa_checks.tsv 17줄 · aics_qa.tsv)	tools/gen_aics_src.py qa			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	결과 줄은 저장소에 있고 증빙번호 연결 없음	hiven.ai.kr·ic	cowork/ctl/qa_checks.tsv · aics_qa.tsv		점검	0(사후)	없음
+GATE-PRECHECK	점검	커밋 전 검사 tools/precheck.py 자체	python3 tools/precheck.py			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	11-13 01:55 ⑩ 증적 등록부 점검 연결	통합(AICS)	실행 출력(보존 자리 확인 안 됨)		점검	0(사후)	없음
+GATE-DEPLOY	점검	배포 관문 기록(deploy_beta1_gates.tsv · deploy_beta1_events.tsv)	(지난 실행)			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	관문 줄 ↔ 증빙번호 연결 없음	12 HiCoffer(서비스)	cowork/ctl/deploy_beta1_gates.tsv · deploy_beta1_events.tsv		점검	0(사후)	없음
+PAST-CS-MAIL	시험	CS 메일 왕복 시험(CS-006 · CS-008)	(지난 실행)			확인 안 됨	수동 점검	P0	지난 실행 · 사후 등록	Sonnet	실제 고객 건 아님 · 증적 자리 확인 안 됨	40 고객 지원	확인 안 됨		실측	0(사후)	없음
+REPRO-1	시험	원인 가름 재현(0142 증-3, 오파스 수행 중 · 시나리오 C1·C2·C3·E)	오파스 산출물 안 재현 도구			확인 안 됨	ev_run	P0	계획	Opus	오파스 산출 위치 확정 뒤 완성(나-3)	12 HiCoffer	확인 안 됨		시뮬레이션	0	없음
+SIM-CS-RULES	시뮬레이션	고객 지원 규칙 R-01~R-07 합성 시험(정-14, 입력은 시험 입력으로만)	ev_run(정-5 실행 확인 뒤)			확인 안 됨	ev_run	P0	계획	Sonnet·Opus	원본 cs_inbox · cs_tickets는 건드리지 않고 앞뒤 해시 대조 · 결과는 「시뮬레이션 · 실측 아님」	40 고객 지원	확인 안 됨		시뮬레이션	0	없음
+PLAN-11	시험	11 HiASI 시뮬레이션·검증이 생기는 순간의 사전 등록 줄(대상 없음)	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet	지금은 설정·설계 단계	11 HiASI	없음(대상 없음)		시뮬레이션	0	없음
+PLAN-13	시험	13 HiICT 시뮬레이션·검증이 생기는 순간의 사전 등록 줄(대상 없음)	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet	지금은 설정·설계 단계	13 HiICT	없음(대상 없음)		시뮬레이션	0	없음
+PLAN-15	시험	15 HiServe 시뮬레이션·검증이 생기는 순간의 사전 등록 줄(대상 없음)	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet	지금은 설정·설계 단계	15 HiServe	없음(대상 없음)		시뮬레이션	0	없음
+PLAN-16	시험	16 HiSilver 시뮬레이션·검증이 생기는 순간의 사전 등록 줄(대상 없음)	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet	지금은 설정·설계 단계	16 HiSilver	없음(대상 없음)		시뮬레이션	0	없음
+PLAN-17	시험	17 HiTrade 시뮬레이션·검증이 생기는 순간의 사전 등록 줄(대상 없음)	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet	지금은 설정·설계 단계	17 HiTrade	없음(대상 없음)		시뮬레이션	0	없음
+PLAN-12	시험	12 HiCoffer 베타 2·3 시험 · 시험 가 2회차 사전 등록	대상 없음(2회차 때)			확인 안 됨	ev_run	P0	계획	Sonnet·Opus	2회차 폴더 · 묶음 1.2 보존 걸음 필요(가-3)	12 HiCoffer	없음		실측	0	없음
+PLAN-SEC	시험	31 보안(SEC) · SC-03·04 침입 경보 시험·시험기간 운영 표준 기록	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet·Opus	폴더만 확인	31 보안	없음		실측	0	없음
+PLAN-DEV	시험	32 개발 코드 · 33 앱 빌드·단위 시험·러너 실행(HiAad·android)	대상 없음			확인 안 됨	ev_run	P0	계획	Opus	다른 저장소는 check가 보지 않음(빈-3)	32·33	없음		실측	0	없음
+PLAN-WEB-SCREEN	점검	39 홈페이지 5개 언어 화면 대조(쪽·언어·시각·커밋) 및 공개 사이트에 시험 수치·「GS」 문구 없음 확인	대상 없음			확인 안 됨	ev_run	P0	계획	Opus·Sonnet	화면 대조 증적 표준 없음	39 홈페이지	없음		점검	0	없음
+PLAN-CS	점검	40 고객 지원(CS·VOC·고객 서비스·고객 관리) 증적 연결(길 1·2·3)	대상 없음			확인 안 됨	ev_run	P0	계획	Sonnet·Opus	실제 고객 건 0건 · 대장 셋은 정-9	40 고객 지원	40_08 · 40_06(폴더 만들기 전)		점검	0	없음
