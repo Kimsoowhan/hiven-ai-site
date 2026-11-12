@@ -165,10 +165,7 @@ function backoffice(){var T=(P.CT||[]).filter(function(r){return /^G\d/.test(r[0
 /* W0010 T-2(이력 822 · 837): 시험 페이지에서 입력한 말 명령을 걸러(태그·제어 문자 제거, 300자) ic.hiven.ai.kr에 접수 → 실측 SC-16에 「시험 페이지 접수」로 1초마다 표출, 모델이 이력 · 지시대장 번호를 붙이면 「등록」 */
 var CMDAPI='https://ic.hiven.ai.kr/__cmd/',CQ=null;
 function cmdLoad(){try{fetch(CMDAPI+'list',{credentials:'include',cache:'no-store'}).then(function(r){return r.json()}).then(function(a){if(Array.isArray(a)){CQ=a;var e=document.getElementById('cq-16');if(e)e.innerHTML=cmdBox()}}).catch(function(){CQ=CQ||'off';var e=document.getElementById('cq-16');if(e)e.innerHTML=cmdBox()})}catch(e){}}
-function cmdBox(){var test=/\/test\//.test(location.pathname);var s='<div class="card" style="margin:6px 0 12px"><div class="k">'+led(CQ==='off'?'gray':'green','')+'말 명령 접수(시험 페이지 → 실측)</div>';
- if(test)s+='<div style="display:flex;gap:8px;margin:6px 0"><input id="cq-in" class="cmd" placeholder="말 명령을 입력하세요(300자까지)" style="flex:1" autocomplete="off"><button type="button" onclick="hvCmdSend()" style="padding:6px 14px;border:1px solid #1565c0;border-radius:6px;background:#e3f2fd;color:#0d47a1;font-weight:700;white-space:nowrap">보내기</button></div><p id="cq-m" class="note"></p>';
- if(CQ==='off'||CQ===null)return s+'<p class="note">'+(CQ===null?'불러오는 중':'접수 장치(ic.hiven.ai.kr)에 닿지 않습니다 — ic 빌드 복구(결재 A-003) 뒤 동작')+'</p></div>';
- return s+tbl(['접수 시각','말 명령','출처','상태'],CQ.slice(0,15).map(function(x){return [E(String(x.t).replace('T',' ').slice(0,19)),E(x.text),E(x.src),E(x.st)]}))+'</div>'}
+function cmdBox(){return ''}/* 이력 906: 배포 안 된 ic 접수 장치에 기대던 입력 상자 제거, 말 명령은 지시대장 → SC-16 1초 반영 */
 window.hvCmdSend=function(){var i=document.getElementById('cq-in'),m=document.getElementById('cq-m');if(!i||i.value.trim().length<2){if(m)m.textContent='두 글자 이상 입력하세요.';return}fetch(CMDAPI+'add',{method:'POST',credentials:'include',body:JSON.stringify({text:i.value,src:'시험 페이지'})}).then(function(r){return r.json()}).then(function(r){if(r.ok){i.value='';if(m)m.textContent='접수했습니다. 실측 SC-16에 1초 안에 올라갑니다.';cmdLoad()}else if(m)m.textContent=r.why==='login'?'통합관제에 로그인된 상태에서만 접수됩니다.':'접수하지 못했습니다.'}).catch(function(){if(m)m.textContent='접수 장치에 닿지 않습니다(ic.hiven.ai.kr 빌드 복구 필요).'})};
 cmdLoad();setInterval(cmdLoad,1000);
 
