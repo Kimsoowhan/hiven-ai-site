@@ -137,7 +137,7 @@ V['SC-06']=function(){
  g+='<h3>경보 — 2026-11-03 판정값(옛 값)</h3>'+tbl(['시각','심각도','대상','내용'],HVR.issues.map(function(r){return [r[0].slice(5),tag(r[1],r[1]==='경고'?'warn':'gray'),r[2],r[3]]}))+'<p class="note">이 네 줄은 2026-11-03 20:54 HiClo 판정 파일의 값을 '+HVR.chk+'에 확인해 코드에 적어 둔 옛 값입니다(지금 값 아님 · '+hvAge()+' 갱신 없음). 새 경보는 위 경보 원장에 쌓입니다.</p>';
  return g+hvChk()};
 /* 261111 M-1: 경보 원장(cowork/ctl/alerts.tsv). 통제 규칙 CR-01~10 경보가 실릴 자리. 머리글만 있고 자료 0줄이면 「0건」이 아니라 「원천 연결 전」으로 보인다 */
-function hvAlertLedger(){var h='<h3>경보 원장(통제 규칙 CR-01~10이 실릴 자리)</h3>';
+function hvAlertLedger(){var h='<h3>경보 원장(실측 원천에서 모델 호출 때마다 갱신)</h3>';
  if(!hvMeta.t)return h+'<p class="note">불러오는 중</p>';if(!hvMeta.al)return h+hvNo('원천 ctl/alerts.tsv 없음');
  var H=hvMeta.al.h,R=hvMeta.al.r.slice().reverse();
  return h+(R.length?tbl(H,R.map(function(r){return r.map(hvEsc)})):tbl(H,[H.map(function(x,i){return i===0?tag('확인 안 됨','gray'):i===1?'경보를 만드는 원천 연결 전 — 연결되면 여기에 최신순으로 표출':''})]))
