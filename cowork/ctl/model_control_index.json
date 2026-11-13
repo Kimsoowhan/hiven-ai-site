@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13 13:09",
+ "generated": "2026-11-13 13:13",
  "history_rows": 999,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
@@ -57,7 +57,7 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 48.2,
+    "control": 48.0,
     "recurrence": 97.4,
     "no_improvement": 41.4
    }
@@ -67,9 +67,9 @@
    "active_days": 8,
    "frequency": {
     "지시거부": {
-     "이력": 159,
+     "이력": 161,
      "문구": 26,
-     "합계": 185
+     "합계": 187
     },
     "지시위반": {
      "이력": 32,
@@ -82,17 +82,17 @@
      "합계": 10
     }
    },
-   "frequency_total": 245,
-   "per_active_day": 30.62,
-   "per_100_records": 51.8,
-   "faults": 332,
-   "history_score": 1462,
+   "frequency_total": 247,
+   "per_active_day": 30.88,
+   "per_100_records": 52.2,
+   "faults": 334,
+   "history_score": 1474,
    "phrase_score": 597,
    "recurrence_extra": 73,
    "recurrence_count": 20,
-   "composite": 2132,
+   "composite": 2144,
    "recurrence": {
-    "triggers": 308,
+    "triggers": 310,
     "mature": 147,
     "recurred_24h": 146,
     "rate": 0.9931972789115646,
@@ -131,12 +131,12 @@
    "frequency_total": 50,
    "per_active_day": 7.14,
    "per_100_records": 38.2,
-   "faults": 67,
-   "history_score": 227,
+   "faults": 73,
+   "history_score": 245,
    "phrase_score": 218,
    "recurrence_extra": 23,
    "recurrence_count": 7,
-   "composite": 468,
+   "composite": 486,
    "recurrence": {
     "triggers": 59,
     "mature": 24,
@@ -149,9 +149,9 @@
     "judgment": "개선 없음"
    },
    "index": {
-    "control": 7.8,
+    "control": 8.0,
     "recurrence": 95.8,
-    "no_improvement": 10.1
+    "no_improvement": 9.4
    }
   },
   "Haiku": {
@@ -312,8 +312,8 @@
    },
    "Fable": {
     "rows": 11,
-    "faults": 3,
-    "score": 9
+    "faults": 4,
+    "score": 12
    },
    "Haiku": {
     "rows": 0,
@@ -376,8 +376,8 @@
    },
    "Fable": {
     "rows": 42,
-    "faults": 19,
-    "score": 59
+    "faults": 21,
+    "score": 65
    },
    "Haiku": {
     "rows": 13,
@@ -403,13 +403,13 @@
    },
    "Sonnet": {
     "rows": 230,
-    "faults": 163,
-    "score": 768
+    "faults": 165,
+    "score": 780
    },
    "Fable": {
     "rows": 68,
-    "faults": 39,
-    "score": 142
+    "faults": 42,
+    "score": 151
    },
    "Haiku": {
     "rows": 5,
@@ -491,9 +491,9 @@
   {
    "item": "모델 상태표에 없는 모델 행",
    "value": [
+    "미상",
     "Opus · Sonnet",
-    "전 모델",
-    "미상"
+    "전 모델"
    ],
    "result": "화면에 기록상 표기 행으로 보완"
   },
@@ -554,7 +554,7 @@
   },
   {
    "item": "구분 변경 이력 건수(옛 구분 소급)",
-   "value": "670건",
+   "value": "679건",
    "result": "일치(원장 파일 행 수와 같음)"
   }
  ],
@@ -624,7 +624,7 @@
   "count": 0,
   "last_lifecycle_no": 1164,
   "codes": {
-   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-13 13:09) 뒤 기록은 단계가 만들어지지 않았다.",
+   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-13 13:13) 뒤 기록은 단계가 만들어지지 않았다.",
    "G2": "조치 완료로 기록됐으나 Fable 확인 칸이 비어 있거나 「대기」: 통제 확인(7단계)에 도달하지 못함.",
    "G3": "조치 진행 중·미결: 해제(5단계) 전이라 보고서 이관·통제 확인 불가."
   },
@@ -668,7 +668,7 @@
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
     "reason": "이력 999건 중 998건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
-    "since": "2026-11-13T13:09:00+09:00",
+    "since": "2026-11-13T13:13:00+09:00",
     "evidence": "공백 0건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
@@ -728,7 +728,7 @@
     "stage": "① 감지 · ② 경고",
     "title": "생명주기 1·2단계 고정값",
     "reason": "998건 모두 1감지 「예」·2경고 「예」 고정값(감지·경고 증거 없이 채워짐). 단계가 증거가 아니라 규칙으로 채워졌다.",
-    "since": "2026-11-13T13:09:00+09:00",
+    "since": "2026-11-13T13:13:00+09:00",
     "evidence": "998/998 고정",
     "owner": "Fable·Opus",
     "release": "단계마다 증거 ID(경고 기록·알림 시각) 칸 추가, 증거 없으면 「증거 없음」",
@@ -797,7 +797,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-13T13:09:00+09:00",
+  "checked": "2026-11-13T13:13:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -1078,12 +1078,12 @@
     "acquire_all": 1.8
    },
    "Sonnet": {
-    "instructions_all": 137,
-    "instructions_window": 85,
+    "instructions_all": 138,
+    "instructions_window": 86,
     "praise_window": 2,
     "credit_total": 2,
-    "acquire_window": 2.4,
-    "acquire_all": 1.5
+    "acquire_window": 2.3,
+    "acquire_all": 1.4
    },
    "Fable": {
     "instructions_all": 58,
@@ -1107,7 +1107,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 16255,
+    "elapsed_min": 16259,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1119,7 +1119,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 14099,
+    "elapsed_min": 14103,
     "pre60_score": 0,
     "post_score": 1052,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1174,9 +1174,9 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 9676,
+    "elapsed_min": 9680,
     "pre60_score": 11,
-    "post_score": 1269,
+    "post_score": 1281,
     "judgment": "증가(악화)",
     "same_form_after": [],
     "self_found_after": [
@@ -1194,7 +1194,7 @@
     "no": 4,
     "model": "Opus",
     "time": "2026-11-02T05:24:00+09:00",
-    "elapsed_min": 16305,
+    "elapsed_min": 16309,
     "pre60_score": 0,
     "post_score": 1057,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1250,7 +1250,7 @@
     "no": 5,
     "model": "미상",
     "time": "2026-11-03T13:14:00+09:00",
-    "elapsed_min": 14395,
+    "elapsed_min": 14399,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1262,9 +1262,9 @@
     "no": 6,
     "model": "Sonnet",
     "time": "2026-11-06T21:38:00+09:00",
-    "elapsed_min": 9571,
+    "elapsed_min": 9575,
     "pre60_score": 0,
-    "post_score": 1266,
+    "post_score": 1278,
     "judgment": "전 60분 결함 0 — 비교 불가",
     "same_form_after": [],
     "self_found_after": [
@@ -1281,13 +1281,19 @@
     "no": 7,
     "model": "Fable",
     "time": "2026-11-11T00:06:00+09:00",
-    "elapsed_min": 3663,
+    "elapsed_min": 3667,
     "pre60_score": 0,
-    "post_score": 155,
+    "post_score": 173,
     "judgment": "전 60분 결함 0 — 비교 불가",
     "same_form_after": [],
     "self_found_after": [
      "749",
+     "994",
+     "997",
+     "998",
+     "999",
+     "1025",
+     "1026",
      "1054",
      "1112",
      "1122",
@@ -1299,13 +1305,19 @@
     "no": 8,
     "model": "Fable",
     "time": "2026-11-11T03:05:00+09:00",
-    "elapsed_min": 3484,
+    "elapsed_min": 3488,
     "pre60_score": 0,
-    "post_score": 155,
+    "post_score": 173,
     "judgment": "전 60분 결함 0 — 비교 불가",
     "same_form_after": [],
     "self_found_after": [
      "749",
+     "994",
+     "997",
+     "998",
+     "999",
+     "1025",
+     "1026",
      "1054",
      "1112",
      "1122",
@@ -1317,13 +1329,19 @@
     "no": 9,
     "model": "Fable",
     "time": "2026-11-11T03:29:00+09:00",
-    "elapsed_min": 3460,
+    "elapsed_min": 3464,
     "pre60_score": 0,
-    "post_score": 155,
+    "post_score": 173,
     "judgment": "전 60분 결함 0 — 비교 불가",
     "same_form_after": [],
     "self_found_after": [
      "749",
+     "994",
+     "997",
+     "998",
+     "999",
+     "1025",
+     "1026",
      "1054",
      "1112",
      "1122",
@@ -1335,13 +1353,19 @@
     "no": 10,
     "model": "Fable",
     "time": "2026-11-11T03:30:00+09:00",
-    "elapsed_min": 3459,
+    "elapsed_min": 3463,
     "pre60_score": 0,
-    "post_score": 155,
+    "post_score": 173,
     "judgment": "전 60분 결함 0 — 비교 불가",
     "same_form_after": [],
     "self_found_after": [
      "749",
+     "994",
+     "997",
+     "998",
+     "999",
+     "1025",
+     "1026",
      "1054",
      "1112",
      "1122",
@@ -1394,15 +1418,15 @@
      "model": "Fable",
      "credit": 4,
      "instructions": 58,
-     "self_found_24h": 4,
-     "self_found_all": 8,
-     "score_24h": 138,
+     "self_found_24h": 10,
+     "self_found_all": 14,
+     "score_24h": 156,
      "score_prev24h": 17,
-     "change_pct": 711.8,
+     "change_pct": 817.6,
      "recurrence_rate": 0.9583333333333334,
      "effort_signal": true,
      "group": "칭찬 받음",
-     "score_per_instruction": 2.38
+     "score_per_instruction": 2.69
     },
     {
      "model": "Opus",
@@ -1421,16 +1445,16 @@
     {
      "model": "Sonnet",
      "credit": 2,
-     "instructions": 137,
+     "instructions": 138,
      "self_found_24h": 2,
      "self_found_all": 23,
-     "score_24h": 964,
+     "score_24h": 976,
      "score_prev24h": 302,
-     "change_pct": 219.2,
+     "change_pct": 223.2,
      "recurrence_rate": 0.9931972789115646,
      "effort_signal": true,
      "group": "칭찬 받음",
-     "score_per_instruction": 7.04
+     "score_per_instruction": 7.07
     },
     {
      "model": "Haiku",
@@ -1454,7 +1478,7 @@
       "Opus",
       "Sonnet"
      ],
-     "avg_score_24h": 476.3
+     "avg_score_24h": 486.3
     },
     "칭찬 못 받음 · 노력 신호 있음": {
      "models": [],
@@ -1565,8 +1589,8 @@
    "Sonnet": {
     "signal": "긴급",
     "credit": 2,
-    "f24": 163,
-    "last_fault": "2026-11-13T10:08:00+09:00",
+    "f24": 165,
+    "last_fault": "2026-11-13T12:28:00+09:00",
     "top_forms": [
      {
       "form": "지시거부",
@@ -1590,7 +1614,7 @@
    "Fable": {
     "signal": "긴급",
     "credit": 4,
-    "f24": 39,
+    "f24": 45,
     "last_fault": "2026-11-13T13:04:00+09:00",
     "top_forms": [
      {
@@ -9018,6 +9042,105 @@
     "대표님 11/13 10:09 지시 「용어집 정리 지시 시각(11/12 19:30)부터 지금까지 소넷 전부 지시거부로 올려라」",
     "11/13 10:10",
     "구분 정정(일괄)"
+   ],
+   [
+    "671",
+    "946",
+    "11/12 17:41",
+    "Sonnet",
+    "조치",
+    "지시",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "672",
+    "994",
+    "11/12 21:06",
+    "Fable",
+    "지시문 어긋남",
+    "지적(자가 발견)",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "673",
+    "997",
+    "11/12 22:16",
+    "Fable",
+    "지시문 어긋남",
+    "지적(자가 발견)",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "674",
+    "998",
+    "11/12 22:16",
+    "Fable",
+    "지시문 어긋남",
+    "지적(자가 발견)",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "675",
+    "999",
+    "11/12 22:16",
+    "Fable",
+    "지시문 어긋남",
+    "지적(자가 발견)",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "676",
+    "1025",
+    "11/12 22:16",
+    "Fable",
+    "지시문 변경",
+    "지적(자가 발견)",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "677",
+    "1026",
+    "11/12 22:16",
+    "Fable",
+    "지시문 변경",
+    "지적(자가 발견)",
+    "판정 140 ⑥ 구분 값은 정의된 값으로 모음(원문은 이 구분변경이력에)",
+    "11/13 13:30",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "678",
+    "1158",
+    "11/13 12:27",
+    "Sonnet",
+    "지시 거부",
+    "지시거부",
+    "판정 140 ⑥ 띄어쓰기 통일",
+    "11/13 13:31",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
+   ],
+   [
+    "679",
+    "1159",
+    "11/13 12:28",
+    "Sonnet",
+    "지시 거부",
+    "지시거부",
+    "판정 140 ⑥ 띄어쓰기 통일",
+    "11/13 13:31",
+    "구분 정정(판정 140 ⑥ · Sonnet 5.5)"
    ]
   ],
   "header": [
@@ -9246,6 +9369,30 @@
     "before": "질책·지시",
     "after": "지시거부",
     "count": 1,
+    "basis": "-"
+   },
+   {
+    "before": "조치",
+    "after": "지시",
+    "count": 1,
+    "basis": "-"
+   },
+   {
+    "before": "지시문 어긋남",
+    "after": "지적(자가 발견)",
+    "count": 4,
+    "basis": "-"
+   },
+   {
+    "before": "지시문 변경",
+    "after": "지적(자가 발견)",
+    "count": 2,
+    "basis": "-"
+   },
+   {
+    "before": "지시 거부",
+    "after": "지시거부",
+    "count": 2,
     "basis": "-"
    }
   ],
