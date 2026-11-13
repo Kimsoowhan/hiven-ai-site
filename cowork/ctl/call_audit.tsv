@@ -15,3 +15,4 @@ hiven-ic	id.html	10·13	신분 확인	열 때·누를 때	/__id/state · /__id/*
 hiven-ic	worker.js	-	내려받기 기록	설치 파일 요청 때	hiven.co.kr/assets/download/*	예	요청당 1	적합(고객 쪽 사건)	2026-11-13 10:34
 hiven-site	(전체)	-	주기 호출	없음	-	아니오	0	적합	2026-11-13 10:34
 (고쳐진 것)	views9.js	-	말 명령 1초 · 결재 10초(두 저장소)	1000 · 10000	/__cmd/list · /__apr/list · /__sec/list	예	95,040	위반이었음 → 11-13 고침(커밋 b40935a · 341e258 · 7dc6cd7)	2026-11-13 10:34
+(결재 체계)	views9.js · worker.js	-	대표님 결재 승인(누를 때)	누를 때	/__apr/approve · /__id/*	예	지시문 30건이면 90	적합(내부 배분 4%)	2026-11-13 10:41

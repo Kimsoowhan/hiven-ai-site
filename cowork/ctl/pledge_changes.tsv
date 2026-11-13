@@ -7,3 +7,4 @@ PC-005	2026-11-12 13:10	Sonnet 5.5	views9.js	탭 「말·소통 기준」 추가
 PC-006	2026-11-12 13:10	Sonnet 5.5	cowork/ctl/speech_standard.tsv, speech_flow.tsv	신설(말·소통 표준 11건, 종단 6단계)	804
 PC-007	2026-11-12 14:27	Opus 5.5	cowork/ctl/pledge_models.tsv	Opus 각서 서명(역할 변경 반영), Sonnet 재서명 대기·Fable 작성 대기 표시	848
 PC-008	2026-11-13 10:37	Fable 5.2	cowork/ctl/pledge_resign.tsv · tools/pledge_resign.py · 검사 ⑫	정책 변경 때마다 각서 재서명 틀 신설, PR-001~005 발행, Fable 서명 5건, Opus·Sonnet 서명 대기	1114
+PC-009	2026-11-13 10:42	Fable 5.2	tools/pledge_resign.py · pledge_resign.tsv · approval_line.tsv · pledge_trace.tsv	각서·서명 갈래 구분, 발행 때 결재 줄 자동 생성(A-017~A-023), 시행 보고(done), 추적 줄 연결, PR-006·007 발행	1115
