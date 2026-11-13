@@ -160,6 +160,12 @@ for _l in _r.stdout.splitlines():
     elif _l.startswith('알림:'): warn('규칙 '+_l[3:].strip())
     elif _l.startswith('규칙 검사'): print(_l)
 if _r.returncode not in (0,1): fail('rule_checks 실행 오류 '+(_r.stderr or '')[-120:])
+# ── ⑯-2 규칙 강제 검사(이력 1221, 대표님 11-13 15:41): 보-8·보-9 금지 글 · 선-2 개발 일감의 기준 문서 · 선-6 선행 줄 · 규칙 줄 보존. 어기면 올리지 못함
+_g=subprocess.run([sys.executable,R+'/tools/rule_guard.py'],capture_output=True,text=True)
+for _l in _g.stdout.splitlines():
+    if _l.startswith('규칙 강제 실패:'): fail(_l)
+    elif _l.startswith('규칙 강제 검사'): print(_l)
+if _g.returncode not in (0,1): fail('rule_guard 실행 오류 '+(_g.stderr or '')[-120:])
 # ── ⑰ HiBiz 맨 위 파일 0(판정 138 ③): 이 컨테이너에서 읽는 것은 PC 폴더를 받아 둔 사본이라 결과는 알림으로만 올림(PC 실측은 PC 명령 도구가 있는 세션에서)
 _x=subprocess.run([sys.executable,R+'/tools/index_root_check.py'],capture_output=True,text=True)
 _xl=[l for l in _x.stdout.splitlines() if l.startswith('맨 위 파일 검사')]
