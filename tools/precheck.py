@@ -126,5 +126,12 @@ for _l in _c.stdout.splitlines():
     if _l.startswith('실패:'): fail('호출 정책 '+_l[3:].strip())
     elif _l.startswith('호출 정책 검사'): print(_l)
 if _c.returncode not in (0,1): fail('call_policy_check 실행 오류 '+(_c.stderr or '')[-120:])
+# ── ⑫ 각서 재서명 점검(261113 이력 1114): 정책·지시문이 바뀌었는데 재서명 요구가 없으면 실패, 서명 대기는 알림
+_p=subprocess.run([sys.executable,R+'/tools/pledge_resign.py','check'],capture_output=True,text=True)
+for _l in _p.stdout.splitlines():
+    if _l.startswith('실패:'): fail('각서 '+_l[3:].strip())
+    elif _l.startswith('알림:'): warn(_l[3:].strip())
+    elif _l.startswith('각서 재서명 점검'): print(_l)
+if _p.returncode not in (0,1): fail('pledge_resign 실행 오류 '+(_p.stderr or '')[-120:])
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
