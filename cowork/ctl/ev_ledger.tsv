@@ -1,3 +1,3 @@
-시각	대상ID	일련	종료코드	증빙수	대조	증적 폴더	해시목록 sha256
+시각	대상ID	일련	종료코드	증빙수	대조	증적 폴더	해시목록 sha256	구분
 2026-11-13T01:55:12	SIM-MULTI	261113_015511	0	4	통과	/mnt/user-data/outputs/ev3/SIM-MULTI/261113_015511	a9847e5f49349a62e2dc83f35a88bc188ea1281eba561bd28af2eb1a807b0895
 2026-11-13T01:55:16	SIM-HIDAM-APP	261113_015515	0	5	통과	/mnt/user-data/outputs/ev3/SIM-HIDAM-APP/261113_015515	7c1014623b159e757c8d9890d1fc3fa80a32f808adfa84af88c3c210f1ad32bf

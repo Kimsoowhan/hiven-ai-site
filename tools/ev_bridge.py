@@ -29,6 +29,7 @@ NH = ['ASSET_ID', '종류', '전체경로', '이름', '판', '상태', 'sha256',
       '꼬리표D', '꼬리표R', '꼬리표M', '꼬리표K', '원천여부', '올린모델', '올린때', '해시방식', '비고']
 LH = ['관계번호', '앞자산번호', '뒤자산번호', '관계종류', '근거', '올린때']
 NA, UN = '해당없음', '미부여'
+EVK = '증적'   # 판정 141 ③(11-13 Fable): 증적 대상·실행·사건 줄 노드는 새 노드 종류 「증적」(CS·VOC·결함 줄은 「이력」 그대로)
 HIDE_MARK = '[통제어 계열 낱말·글자 생략]'
 
 def norm(s):
@@ -150,7 +151,7 @@ def build(stamp, prev=None, past=None, root=R):
         tid = r[0]
         kind = r[idx.get('구분', 15)] if '구분' in idx else ''
         note = '증적:대상 · 종류=%s · 구분=%s · 범위=%s · 상태=%s' % (r[idx['종류']], kind or '확인 안 됨', r[idx['사업군']] if '사업군' in idx and r[idx['사업군']] else '확인 안 됨', r[idx['상태']][:40])
-        regs[tid] = (g.line_node('이력', 'cowork/ctl/ev_registry.tsv#' + tid, tid, r[idx['상태']][:20], l, note, '대상'), kind or '확인 안 됨', r[idx['사업군']] if r[idx['사업군']] else '확인 안 됨')
+        regs[tid] = (g.line_node(EVK, 'cowork/ctl/ev_registry.tsv#' + tid, tid, r[idx['상태']][:20], l, note, '대상'), kind or '확인 안 됨', r[idx['사업군']] if r[idx['사업군']] else '확인 안 됨')
 
     led_head, led_rows = read_tsv(os.path.join(ctl, 'ev_ledger.tsv'))
     led_lines = read_lines(os.path.join(ctl, 'ev_ledger.tsv'))
@@ -168,7 +169,7 @@ def build(stamp, prev=None, past=None, root=R):
         gubun, scope0 = (reg[1], reg[2]) if reg else ('확인 안 됨', '확인 안 됨')
         key = 'cowork/ctl/ev_ledger.tsv#%s/%s' % (tid, rn) if not run['past'] else 'ev_past#%s/%s' % (tid, rn)
         note = '증적:실행 · %s구분=%s · 범위=%s %s · 종료 코드 %s · 대조 %s' % ('지난 실행 · 사후 등록 · ' if run['past'] else '', gubun, scope0, rn, run['code'], run['cmp'])
-        eid = g.line_node('이력', key, '%s %s' % (tid, rn), '실행', run['line'], note, '실행')
+        eid = g.line_node(EVK, key, '%s %s' % (tid, rn), '실행', run['line'], note, '실행')
         run['id'] = eid
         if reg:
             g.link('시험 실행', reg[0], eid, '등록부 %s 한 줄 → 증적 원장 %s 한 줄' % (tid, rn))
@@ -194,7 +195,7 @@ def build(stamp, prev=None, past=None, root=R):
         for l in read_lines(os.path.join(folder, '인수기록.tsv')):
             f = l.split('\t')
             if len(f) >= 3 and f[2].startswith('사건'):
-                ev = g.line_node('이력', folder.rstrip('/') + '/인수기록.tsv#%s/%s' % (f[0], f[2]), '사건 ' + f[0], '사건', l, '증적:사건 · 구분=%s · 범위=%s · %s' % (gubun, rn, f[2][:40]), '사건')
+                ev = g.line_node(EVK, folder.rstrip('/') + '/인수기록.tsv#%s/%s' % (f[0], f[2]), '사건 ' + f[0], '사건', l, '증적:사건 · 구분=%s · 범위=%s · %s' % (gubun, rn, f[2][:40]), '사건')
                 g.link('사건', eid, ev, '인수기록의 사건 줄')
         env = os.path.join(folder, '환경기록.tsv')
         if os.path.exists(env):

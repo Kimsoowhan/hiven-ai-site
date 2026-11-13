@@ -15,6 +15,8 @@ EVR = os.environ.get('EV_ROOT', '/mnt/user-data/outputs/ev3')
 sys.path.insert(0, HERE)
 import ev_pack
 
+# 판정 132: 원장 9번째 칸 「구분」(등록부 구분 칸 값). 앞서 쓰인 줄(8칸)은 원본 그대로 두고 머리줄만 9칸 — 빈 칸은 등록부 값으로 읽는다
+LED_HEAD = ['시각', '대상ID', '일련', '종료코드', '증빙수', '대조', '증적 폴더', '해시목록 sha256', '구분']
 HEAD = ['대상ID', '종류', '설명', '실행', '입력', '산출', '실행 위치', '적용 방법', '적용 지점', '상태', '담당', '비고', '사업군', '증적 자리 전체 경로', '사례표 자리', '구분', '0~Z 적용 단계', '마지막 실행 일련']
 
 def load():
@@ -45,7 +47,7 @@ def run(tid, extra):
         print('P0 실패: 적용 방법이 ev_run 이 아님', r['적용 방법']); return 3
     rid = time.strftime('%y%m%d_%H%M%S')
     d = os.path.join(EVR, tid, rid)
-    ev_pack.init(d, tid, f'{r["설명"]} · 실행 증적 자동 가동')
+    ev_pack.init(d, tid, f'{r["설명"]} · 실행 증적 자동 가동', r['구분'] if r['구분'] in ev_pack.LABELS else '확인 안 됨')
     out = os.path.join(d, '산출_원본')          # 대상이 쓰는 자리(보존 사본과 별도)
     os.makedirs(out, exist_ok=True)
     # P1 시작: 환경·입력 해시
@@ -85,8 +87,9 @@ def run(tid, extra):
     man = os.path.join(d, ev_pack.MAN)
     n = sum(1 for _ in open(man, encoding='utf-8')) - 1
     if not os.path.exists(LED):
-        open(LED, 'w', encoding='utf-8').write('시각\t대상ID\t일련\t종료코드\t증빙수\t대조\t증적 폴더\t해시목록 sha256\n')
-    open(LED, 'a', encoding='utf-8').write(f'{ev_pack.now()}\t{tid}\t{rid}\t{p.returncode}\t{n}\t{"통과" if not bad else "문제"}\t{d}\t{sha_file(man)}\n')
+        open(LED, 'w', encoding='utf-8').write('\t'.join(LED_HEAD) + '\n')
+    kind = r['구분'] if r['구분'] in ev_pack.LABELS else '확인 안 됨'
+    open(LED, 'a', encoding='utf-8').write(f'{ev_pack.now()}\t{tid}\t{rid}\t{p.returncode}\t{n}\t{"통과" if not bad else "문제"}\t{d}\t{sha_file(man)}\t{kind}\n')
     print(f'ev_run {tid} 종료 코드 {p.returncode} · 증빙 {n}건 · 대조 {"통과" if not bad else "문제"} · {d}')
     sys.stdout.write(p.stdout[-400:])
     return 20 if bad else p.returncode
@@ -101,14 +104,18 @@ def check():
             if rel not in names:
                 print('실패: 시험·시뮬레이션·에뮬레이터 파일이 증적 등록부에 없음 —', rel, '(cowork/ctl/ev_registry.tsv 에 행을 추가해야 함)'); fail += 1
     ledger = open(LED, encoding='utf-8').read() if os.path.exists(LED) else ''
+    if ledger and ledger.split('\n', 1)[0].split('\t') != LED_HEAD:
+        print('실패: 증적 원장 머리줄이 9칸(… 해시목록 sha256 · 구분)이 아님 — 판정 132'); fail += 1
     for r in rows:
         for k in ('대상ID', '종류', '실행 위치', '적용 방법', '상태', '담당'):
             if not r[k].strip():
                 print('실패:', r['대상ID'] or '(이름 없음)', '칸 비어 있음 —', k); fail += 1
         if not r['상태'].startswith(('계획', '구현됨', '실행 확인', '적용', '지난 실행')):
             print('실패:', r['대상ID'], '상태 낱말이 넷(계획·구현됨·실행 확인·적용)과 지난 실행 밖 —', r['상태'][:30]); fail += 1
+        if r['구분'] not in ev_pack.LABELS:
+            print('실패:', r['대상ID'], '구분 칸 값이 딱지 여덟 값·점검 밖(판정 132) —', r['구분'][:30] or '(빈 칸)'); fail += 1
         if r['상태'].startswith('적용') and r['적용 방법'] == 'ev_run' and ('\t' + r['대상ID'] + '\t') not in ledger:
-            print('알림:', r['대상ID'], '적용 상태이나 증적 원장에 실행 기록 없음')
+            print('실패:', r['대상ID'], '적용 상태이나 증적 원장에 실행 기록 없음(판정 138 ① 알림 → 실패)'); fail += 1
         if r['상태'].startswith('계획'):
             print('알림:', r['대상ID'], '계획 상태 —', r['비고'][:80])
     print('ev_run check', '통과' if not fail else f'실패 {fail}건', f'(대상 {len(rows)}건)')
