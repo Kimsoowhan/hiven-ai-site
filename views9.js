@@ -258,17 +258,17 @@ setInterval(fix,500);fix()})();
 function hvFitBtn(){['hv-cs','hv-apr'].forEach(function(id){var b=document.getElementById(id);if(!b)return;if(!b.closest||!b.closest('.hv-act')){if(b.style.fontSize){b.style.fontSize='';b.removeAttribute('data-fit')}return}var k=b.textContent+'|'+b.clientWidth;if(b.getAttribute('data-fit')===k)return;var s=15;b.style.fontSize=s+'px';while(b.scrollWidth>b.clientWidth&&s>8){s-=.5;b.style.fontSize=s+'px'}b.setAttribute('data-fit',b.textContent+'|'+b.clientWidth)});var L=['hv-cs','hv-apr'].map(function(id){return document.getElementById(id)}).filter(function(b){return b&&b.closest&&b.closest('.hv-act')&&b.style.fontSize});if(L.length===2){var m=Math.min(parseFloat(L[0].style.fontSize),parseFloat(L[1].style.fontSize));L.forEach(function(b){if(parseFloat(b.style.fontSize)!==m)b.style.fontSize=m+'px'})}}
 setInterval(hvFitBtn,400);window.addEventListener('resize',function(){['hv-cs','hv-apr'].forEach(function(id){var b=document.getElementById(id);if(b)b.removeAttribute('data-fit')})});window.hvFitBtn=hvFitBtn})();
 
-/* SC-01 통로 3 · 단계 5 상황판(대표님 11-13 22:01, 이력 1369). 탭 셋: Contact(co.kr) · Assist(ai.kr) · 콘텐츠/시스템(폼). 탭을 누르면 아래 상자만 바뀐다.
-   단계 다섯: 접수 → 대응 → 조치(처리 결과) → 응대(조치 뒤 회신 메일. Contact로 온 것은 contact@hiven.co.kr에서 답변) → 완료(회신이 가고 상대 확인 · 후속 조치까지 끝남).
+/* SC-01 통로 3 · 단계 6 상황판(대표님 11-13 22:01 이력 1369, 11-14 00:04 이력 1406: 아래 처리 내비게이션과 같은 6단계). 탭 셋: Contact(co.kr) · Assist(ai.kr) · 콘텐츠/시스템(폼). 탭을 누르면 아래 상자만 바뀐다.
+   단계 여섯(여섯째 종결·기록은 이력 1406에서 더함): 접수 → 대응 → 조치(처리 결과) → 응대(조치 뒤 회신 메일. Contact로 온 것은 contact@hiven.co.kr에서 답변) → 완료(회신이 가고 상대 확인 · 후속 조치까지 끝남).
    원천: 메일 두 통로는 cowork/ctl/cs_tickets.tsv(Gmail 수신분), 폼은 앱 「도움 요청 · 의견 보내기」가 hiven.co.kr/api/support로 보낸 건(ic.hiven.ai.kr 접수 저장, 실시간). */
 (function(){
-var ST=['접수','대응','조치','응대','완료'],SC={'접수':'#d32f2f','대응':'#ef6c00','조치':'#1565c0','응대':'#6a1b9a','완료':'#2e7d32'};
+var ST=['접수','대응','조치','응대','완료','종결·기록'],SC={'접수':'#d32f2f','대응':'#ef6c00','조치':'#fbc02d','응대':'#2e7d32','완료':'#1565c0','종결·기록':'#6a1b9a'},FG=function(v){return v==='조치'?'#14215c':'#fff'};
 var TABS=[['co','contact@hiven.co.kr'],['ai','assist@hiven.ai.kr'],['form','콘텐츠/시스템(폼)']];
 var HR={L:null,err:'',tab:'co',f:{co:'',ai:'',form:''},sel:'',memo:null,busy:false,t:0},U='https://ic.hiven.ai.kr/__cs/';
 function E(s){return typeof hvEsc==='function'?hvEsc(s):String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
-/* 옛 단계 이름을 다섯 단계로 옮김: 메일 대장(선대응 필요 · 대응 중 · 결재 대기 · 응대 중 · 종결), 폼 첫 판(미조치 · 조치 중 · 조치 완료) */
-function st5(v){v=String(v||'');if(ST.indexOf(v)>=0)return v;return ({'선대응 필요':'접수','미조치':'접수','대응 중':'대응','조치 중':'대응','조치 완료':'조치','결재 대기':'응대','응대 중':'응대','종결':'완료'})[v]||'접수'}
-function chip(v,blink){return '<span'+(blink&&v==='접수'?' class="hvblink"':'')+' style="display:inline-block;min-width:44px;text-align:center;padding:3px 10px;border-radius:999px;border:0;background:'+SC[v]+';color:#fff;font-weight:800;font-size:13px;white-space:nowrap">'+v+'</span>'}
+/* 옛 단계 이름을 여섯 단계로 옮김: 메일 대장(선대응 필요 · 대응 중 · 결재 대기 · 응대 중 · 종결), 폼 첫 판(미조치 · 조치 중 · 조치 완료) */
+function st5(v){v=String(v||'');if(ST.indexOf(v)>=0)return v;return ({'선대응 필요':'접수','미조치':'접수','대응 중':'대응','조치 중':'대응','조치 완료':'조치','결재 대기':'응대','응대 중':'응대','종결':'종결·기록'})[v]||'접수'}
+function chip(v,blink){return '<span'+(blink&&v==='접수'?' class="hvblink"':'')+' style="display:inline-block;min-width:44px;text-align:center;padding:3px 10px;border-radius:999px;border:0;background:'+SC[v]+';color:'+FG(v)+';font-weight:800;font-size:13px;white-space:nowrap">'+v+'</span>'}
 function pull(){fetch(U+'list?v=2',{credentials:'include',cache:'no-store'}).then(function(r){if(!r.ok)throw r.status;return r.json()}).then(function(a){HR.L=Array.isArray(a)?a:[];HR.err='';HR.t=Date.now()}).catch(function(e){HR.err=(e===403?'로그인 확인 필요':'접수 저장에 닿지 못함')+'('+e+')'})}
 setInterval(function(){if(document.getElementById('cs-17')&&Date.now()-HR.t>20000){HR.t=Date.now();pull()}},1500);
 window.hvCsTab=function(t){HR.tab=t;HR.sel='';HR.memo=null};window.hvCsF=function(v){HR.f[HR.tab]=HR.f[HR.tab]===v?'':v};window.hvCsSel=function(id){HR.sel=HR.sel===id?'':id;HR.memo=null};window.hvCsMemo=function(v){HR.memo=v};
@@ -277,7 +277,7 @@ function one(v,n){v=String(v||'').replace(/\s+/g,' ');return E(v.length>n?v.slic
 function board(T){
  T=T||[];var F=HR.L||[];
  var rows={co:T.filter(function(r){return /co\.kr/.test(r[3])}).map(function(r){return {id:r[0],st:st5(r[8]),r:r}}),ai:T.filter(function(r){return /ai\.kr/.test(r[3])}).map(function(r){return {id:r[0],st:st5(r[8]),r:r}}),form:F.map(function(r){return {id:r.id,st:st5(r.st),r:r}})};
- var open=function(k){return rows[k].filter(function(x){return x.st!=='완료'}).length};
+ var open=function(k){return rows[k].filter(function(x){return x.st!=='완료'&&x.st!=='종결·기록'}).length};
  var tabs='<div style="display:flex;flex-wrap:wrap;gap:8px;margin:0 0 10px">'+TABS.map(function(t){var a=HR.tab===t[0],o=open(t[0]);return '<button type="button" onclick="hvCsTab(\''+t[0]+'\')" style="flex:1 1 180px;padding:12px 14px;border-radius:10px 10px 0 0;border:2px solid #14215c;border-bottom-width:'+(a?'5px':'2px')+';background:'+(a?'#14215c':'#fff')+';color:'+(a?'#fff':'#14215c')+';font-weight:800;font-size:15px;white-space:nowrap;cursor:pointer">'+E(t[1])+'<span style="color:#a9afc4;font-weight:400;padding:0 10px">|</span><span style="font-weight:700;opacity:.9">'+rows[t[0]].length+' 건'+(o?' · 열린 '+o:'')+'</span></button>'}).join('')+'</div>';
  var k=HR.tab,R=rows[k],f=HR.f[k];
  var stat='<div style="display:flex;flex-wrap:wrap;gap:6px;align-items:stretch;margin:0 0 10px">'+ST.map(function(s,i){var n=R.filter(function(x){return x.st===s}).length,a=f===s;return (i?'<span style="align-self:center;color:#14215c;font-weight:800">→</span>':'')+'<button type="button" onclick="hvCsF(\''+s+'\')" style="flex:1 1 96px;padding:10px 8px;border-radius:10px;border:2px solid '+(a?SC[s]:'#c5cde0')+';background:'+(a?'#f3f5fb':'#fff')+';cursor:pointer;text-align:center;white-space:nowrap">'+chip(s,false)+'<div style="font-size:22px;font-weight:800;color:#14215c;margin-top:4px">'+n+'<span style="font-size:13px"> 건</span></div></button>'}).join('')+'</div>';
@@ -291,13 +291,13 @@ function board(T){
    +'<div class="k">세부 요청사항 및 건의 · 제안</div><div style="white-space:pre-wrap;border:1px solid #c5cde0;border-radius:8px;padding:10px;background:#f7f8fc;color:#14215c;margin:4px 0 10px">'+E(r.detail)+'</div>'
    +'<div class="k">기타</div><div style="white-space:pre-wrap;border:1px solid #c5cde0;border-radius:8px;padding:10px;background:#f7f8fc;color:#14215c;margin:4px 0 10px">'+E(r.etc||'—')+'</div>'
    +'<div class="k">조치 메모(대응 · 조치 · 응대 내용, 500자)</div><textarea rows="2" style="width:100%;box-sizing:border-box;border:1px solid #9fb0cf;border-radius:8px;padding:8px;margin:4px 0 8px" oninput="hvCsMemo(this.value)">'+E(HR.memo!==null?HR.memo:(r.memo||''))+'</textarea>'
-   +'<div>'+ST.map(function(x){var a=s.st===x;return '<button type="button" onclick="hvCsSet(\''+E(r.id)+'\',\''+x+'\')" style="'+SB+'border:0;background:'+(a?SC[x]:'#e6e9f2')+';color:'+(a?'#fff':'#14215c')+'">'+x+'</button>'}).join('')+'<button type="button" onclick="hvCsSet(\''+E(r.id)+'\',\'\')" style="'+SB+'border:1px solid #9fb0cf;background:#fff;color:#14215c">메모만 저장</button></div><div class="note">응대(회신)는 assist@hiven.ai.kr에서 위 회신받을 주소로 보냅니다(대표님 결재 SC-00 뒤).</div></div>';
+   +'<div>'+ST.map(function(x){var a=s.st===x;return '<button type="button" onclick="hvCsSet(\''+E(r.id)+'\',\''+x+'\')" style="'+SB+'border:0;background:'+(a?SC[x]:'#e6e9f2')+';color:'+(a?FG(x):'#14215c')+'">'+x+'</button>'}).join('')+'<button type="button" onclick="hvCsSet(\''+E(r.id)+'\',\'\')" style="'+SB+'border:1px solid #9fb0cf;background:#fff;color:#14215c">메모만 저장</button></div><div class="note">응대(회신)는 assist@hiven.ai.kr에서 위 회신받을 주소로 보냅니다(대표님 결재 SC-00 뒤).</div></div>';
   else d='<div style="border:2px solid #14215c;border-radius:12px;padding:14px;margin:10px 0"><div class="k">'+chip(s.st,false)+' '+E(r[0])+' · '+E(r[5])+'</div>'+G([['받은 시각',r[1]],['받는 주소',r[2]],['보낸 곳',r[4]],['분류',r[6]],['담당',r[7]],['대장의 단계',r[8]],['연관 화면',r[9]],['미진 · 다음 조치',r[10]]])+'</div>';}
  var why={co:'contact@hiven.co.kr로 들어온 메일(투자 · 협력 · 후원 문의). 응대는 contact@hiven.co.kr에서 회신합니다.',ai:'assist@hiven.ai.kr로 들어온 메일(고객 지원). 응대는 assist@hiven.ai.kr에서 회신합니다.',form:'앱 「도움 요청 · 의견 보내기」 양식으로 들어온 건(기능 · 동작·구동 · 디지털금고 · 부가서비스 · 저장 매체별 동기화). 응대는 assist@hiven.ai.kr에서 회신받을 주소로 회신합니다.'}[k];
- return '<div class="card hv-nosw" style="margin:6px 0 12px;border:2px solid #14215c"><div class="k"><b>고객 지원 상황판 · 통로 3 · 단계 5</b></div>'+tabs
+ return '<div class="card hv-nosw" style="margin:6px 0 12px;border:2px solid #14215c"><div class="k"><b>고객 지원 상황판 · 통로 3 · 단계 6</b></div>'+tabs
   +'<div style="border:2px solid #14215c;border-radius:0 0 12px 12px;padding:12px;margin-top:-10px"><div class="note" style="margin:0 0 8px">'+E(why)+'</div>'+stat
   +(k==='form'&&HR.err?'<div class="note" style="color:#b71c1c">폼 접수 저장을 읽지 못했습니다: '+E(HR.err)+'</div>':'')+(k==='form'&&HR.L===null&&!HR.err?'<div class="note">폼 접수 저장을 읽는 중입니다.</div>':'')
   +(V.length?t:'<div class="note">'+E(f&&R.length?'「'+f+'」 단계인 건이 없습니다.':empty)+'</div>')+d+'</div>'
-  +'<div class="note">단계: 접수(들어옴) → 대응(사실 확인 · 위험 차단) → 조치(처리 결과) → 응대(조치 뒤 회신 메일, 대표님 결재 SC-00 뒤에만 보냄) → 완료(회신이 가고 상대 확인 · 후속 조치까지 끝남). 원천: 메일 cowork/ctl/cs_tickets.tsv · 폼 접수 서버 실시간 저장(받는 항목은 처리방침의 「수집하는 것」뿐, 접속 주소 · 파일 이름 · 경로 · 금고 정보는 받지 않음).</div></div>'}
+  +'<div class="note">단계: 접수(들어옴) → 대응(사실 확인 · 위험 차단) → 조치(처리 결과) → 응대(조치 뒤 회신 메일, 대표님 결재 SC-00 뒤에만 보냄) → 완료(회신 초안 → 대표님 결재 SC-00, 회신이 가고 상대 확인) → 종결·기록(SC-05 사업군, SC-16 모델 통제에 기록하고 닫음). 원천: 메일 cowork/ctl/cs_tickets.tsv · 폼 접수 서버 실시간 저장(받는 항목은 처리방침의 「수집하는 것」뿐, 접속 주소 · 파일 이름 · 경로 · 금고 정보는 받지 않음).</div></div>'}
 window.hvCsBoard=board;window.hvCsState=HR;
 })();
