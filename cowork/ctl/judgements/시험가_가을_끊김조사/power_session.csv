@@ -1,0 +1,4 @@
+﻿"Time","Id","Provider","Msg"
+"2026-11-13T12:36:58","12","Microsoft-Windows-UserModePowerService","C:\Windows\System32\powercfg.exe 프로세스(프로세스 ID:13168)가 {381b4222-f694-41f0-9685-ff5bb260df2e}에서 {381b4222-f694-41f0-9685-ff5bb260df2e}(으)로 정책 구성표를 다시 설정했습니다."
+"2026-11-13T12:40:48","12","Microsoft-Windows-UserModePowerService","C:\Windows\System32\powercfg.exe 프로세스(프로세스 ID:8596)가 {381b4222-f694-41f0-9685-ff5bb260df2e}에서 {381b4222-f694-41f0-9685-ff5bb260df2e}(으)로 정책 구성표를 다시 설정했습니다."
+"2026-11-13T12:45:38","12","Microsoft-Windows-UserModePowerService","C:\Windows\System32\powercfg.exe 프로세스(프로세스 ID:3692)가 {381b4222-f694-41f0-9685-ff5bb260df2e}에서 {381b4222-f694-41f0-9685-ff5bb260df2e}(으)로 정책 구성표를 다시 설정했습니다."
