@@ -1,0 +1,19 @@
+대표 지시 한 장 — 이력 425
+
+때: 2026-11-06 (11/06 18:20)
+받은 모델: Opus
+이력 구분: 장애
+창: 페이블 261104
+
+[이력에 적힌 말씀 요지] (원문은 이 창 기록에 남아 있지 않아 이력의 요지를 적음)
+대표님 「모델이 직접 접속해 확인하라」
+
+[원인]
+긴급 발견: 로그인 없이 공개 접속됨 ① hiven-admin.pages.dev(9일 전 옛 대시보드 전체, wellness.html·data/status.json 200 응답) ② hiven-admin-git 옛 배포본 주소(예: 64ee25cb.hiven-admin-git.pages.dev, 옛 대시보드 표시). admin.hiven.ai.kr·ic.hiven.ai.kr은 현재 접속 안 됨(도메인 연결 해제 상태)
+
+[조치]
+두 Pages 프로젝트(hiven-admin, hiven-admin-git) 삭제 시 모두 사라짐, 대표님 삭제 진행 중 / 19:05 두 Pages 프로젝트 삭제 확인(화면 목록 + 옛 주소 접속 불가)
+
+[상태] 조치 완료
+
+맞대는 자리: SC-17 말 명령 · SC-13 모델통제 이력의 번호 425 (원천 cowork/ctl/model_control_history.tsv)

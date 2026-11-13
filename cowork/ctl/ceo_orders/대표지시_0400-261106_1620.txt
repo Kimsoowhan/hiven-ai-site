@@ -1,0 +1,19 @@
+대표 지시 한 장 — 이력 400
+
+때: 2026-11-06 (11/06 16:20)
+받은 모델: Sonnet
+이력 구분: 개선요청
+창: 페이블 261104
+
+[이력에 적힌 말씀 요지] (원문은 이 창 기록에 남아 있지 않아 이력의 요지를 적음)
+대표님 「hiven.co.kr과 hiven.ai.kr, hiven.ai 사이트 모두 적용하라」
+
+[원인]
+푸터 로고가 hiven.ai.kr 저장소에는 옛 이미지로 남아 있었음
+
+[조치]
+hiven.ai.kr 저장소 8쪽을 같은 261106 로고로 교체·배포(c49450b). hiven.ai.kr은 Cloudflare Access 로그인 뒤라 게시 화면 확인 못함, hiven.ai는 접속 거부로 확인 못함 · 17:12 Fable: hiven.co.kr 36쪽·hiven.ai.kr 8쪽 적용 확인, hiven.ai만 접속 거부로 미확인(배포 위치 불명)
+
+[상태] 조치 중
+
+맞대는 자리: SC-17 말 명령 · SC-13 모델통제 이력의 번호 400 (원천 cowork/ctl/model_control_history.tsv)

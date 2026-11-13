@@ -133,5 +133,12 @@ for _l in _p.stdout.splitlines():
     elif _l.startswith('알림:'): warn(_l[3:].strip())
     elif _l.startswith('각서'): print(_l)
 if _p.returncode not in (0,1): fail('pledge_resign 실행 오류 '+(_p.stderr or '')[-120:])
+# ── ⑬ 대표 지시 장 점검(261113 이력 1129): 이력에 대표님 말씀이 있는데 한 장 텍스트가 없으면 실패, 폴더 올림 대기는 알림
+_o=subprocess.run([sys.executable,R+'/tools/ceo_order_file.py','check'],capture_output=True,text=True)
+for _l in _o.stdout.splitlines():
+    if _l.startswith('실패:'): fail('대표 지시 '+_l[3:].strip())
+    elif _l.startswith('알림:'): warn(_l[3:].strip())
+    elif _l.startswith('대표 지시 장'): print(_l)
+if _o.returncode not in (0,1): fail('ceo_order_file 실행 오류 '+(_o.stderr or '')[-120:])
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
