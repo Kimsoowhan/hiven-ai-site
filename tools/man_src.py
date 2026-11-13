@@ -4,6 +4,8 @@
 import json, os, sys
 sys.path.insert(0, os.path.dirname(__file__))
 from man_bench import BENCH, LAW, DMG, FOLLOW, CASE_MISTAKES
+from man_src_261111 import ADD   # 판정 139: 정본 PC 40_20 261111판의 「판:」 줄과 맨 끝 장
+VER = '261111'
 
 STEPS = ['관심','주의','경계','경고','위험','위기','긴급','피해발생','조치','복구/복호화','안정','안심']
 ROOT = os.path.join(os.path.dirname(__file__), '..', 'cowork', 'ctl')
@@ -65,7 +67,7 @@ add('M2','서비스 매뉴얼 · 고객용','HIVEN 서비스를 쓰는 고객이
  ['월 1회: 배너·공지 화면이 단계별로 뜨는지 모의 확인.','분기 1회: 고객 화면 문구를 사용자 시점으로 점검.'],
  '공지 기록: 게시 시각 | 단계 | 문구 | 승인자 | 해제 시각')
 
-add('M3','서비스 매뉴얼 · 관리자용','서비스를 운영하는 관리자 화면 사용자(대표님·IC가 지정한 운영 담당). 통제어 계정은 두지 않는다.',
+add('M3','서비스 매뉴얼 · 통합관제용','서비스를 운영하는 통합관제 화면 사용자(대표님·IC가 지정한 운영 담당). 통제어 계정은 두지 않는다.',
  '서비스 운영 화면에서 제한·중단·재개와 영향 고객 확인을 질서 있게 수행한다.',
  '경보 단계 주의 이상 전체. 운영 화면 접근은 대표님·IC가 허용한 담당만.',
  '대표님 → IC → 지정 운영 담당. 호출: IC 경보띠, 대표님 직접 연락.',
@@ -228,7 +230,8 @@ def build():
     return out
 
 def md(m, d):
-    s = ['# %s (%s)' % (m['name'], m['code']), '', '대상: ' + m['target'], '목적: ' + m['purpose'], '사용 시점: ' + m['when'],
+    a = ADD.get(m['code'], {})
+    s = ['# %s (%s)' % (m['name'], m['code']), ''] + ([a['pan'], ''] if a.get('pan') else []) + ['대상: ' + m['target'], '목적: ' + m['purpose'], '사용 시점: ' + m['when'],
          '담당·호출: ' + m['owner'], '창구: ' + m['channel'], '발령권자: ' + COMMON_HEAD['발령권자'], '제1원칙: ' + COMMON_HEAD['원칙'], '',
          '## 경보 12단계별 해야 할 일', '', '| 단계 | 해야 할 일 | 안내·응대·보고 문구 |', '|---|---|---|']
     for r in m['steps']:
@@ -247,14 +250,14 @@ def md(m, d):
     s += ['| %s | %s | %s | %s | %s |' % tuple(x) for x in d['expand']]
     s += ['', '## 벤치마킹 근거', '', '| 출처 | 핵심 | 반영 | 확인 상태 |', '|---|---|---|---|']
     s += ['| %s | %s | %s | %s |' % tuple(x) for x in d['bench']]
-    return '\n'.join(s) + '\n'
+    return '\n'.join(s) + (('\n\n' + a['tail']) if a.get('tail') else '\n')
 
 if __name__ == '__main__':
     d = build()
     outdir = sys.argv[1] if len(sys.argv) > 1 else '/tmp/man_out'
     os.makedirs(outdir, exist_ok=True)
     for m in M:
-        open(os.path.join(outdir, 'HIVEN_%s_%s_261107.md' % (m['code'], m['name'].replace(' ', '').replace('·', '_').replace('(', '_').replace(')', ''))), 'w', encoding='utf-8').write(md(m, d))
+        open(os.path.join(outdir, 'HIVEN_%s_%s_%s.md' % (m['code'], m['name'].replace(' ', '').replace('·', '_').replace('(', '_').replace(')', ''), VER)), 'w', encoding='utf-8').write(md(m, d))
     ov = ['# HIVEN 이상징후 및 보안체계 — 종단·횡단 일람과 작업 전개 (261107)', '',
           '종단: 하위 침입 예측/예방/대응/조치 시스템(SC-04) → 최우선 이상징후 및 보안체계 시스템(SC-03) → 최상위 자동화 통합 통제 시스템(대표님 결정). 횡단: 같은 단계에서 7개 매뉴얼이 동시에 하는 일.', '']
     for c in d['cross']:
