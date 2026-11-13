@@ -10,3 +10,4 @@ PC-008	2026-11-13 10:37	Fable 5.2	cowork/ctl/pledge_resign.tsv · tools/pledge_r
 PC-009	2026-11-13 10:42	Fable 5.2	tools/pledge_resign.py · pledge_resign.tsv · approval_line.tsv · pledge_trace.tsv	각서·서명 갈래 구분, 발행 때 결재 줄 자동 생성(A-017~A-023), 시행 보고(done), 추적 줄 연결, PR-006·007 발행	1115
 PC-010	2026-11-13 10:45	Fable 5.2	cowork/ctl/policy_docs · tools/pledge_resign.py · HiBiz 91_02_03_정책지시(Fable)	지시문 갈래 신설(03 정책지시, 04~06 번호 예약)·스스로 찾는 경로 정책, work_docs 추적 추가, PR-008 발행	1116
 PC-011	2026-11-13 10:52	Fable 5.2	tools/pledge_resign.py(retire) · retired_docs.tsv · work_docs · HiBiz 91_02_99_파기된지시문(보존)	파기된 지시문 정의·보존함·파기 대장, PR-005·006·008 파기 처리, PR-010·011 발행	1119
+PC-012	2026-11-13 11:02	Fable 5.2	policy_docs · work_docs	수행 체계(Sonnet 대표 수행자·Opus 개발)·사용량 예비 10%·정기 계획 정책, Sonnet 총괄 전수 재검수 워크 지시, PR-012·013	1123
