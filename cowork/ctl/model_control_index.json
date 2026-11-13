@@ -1,6 +1,6 @@
 {
- "generated": "2026-11-14 05:20",
- "history_rows": 1376,
+ "generated": "2026-11-14 05:21",
+ "history_rows": 1377,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
   "budget_points_per_day": 20,
@@ -109,7 +109,7 @@
    }
   },
   "Fable": {
-   "records": 508,
+   "records": 509,
    "active_days": 8,
    "frequency": {
     "지시거부": {
@@ -343,7 +343,7 @@
     "score": 159
    },
    "Fable": {
-    "rows": 162,
+    "rows": 163,
     "faults": 45,
     "score": 118
    },
@@ -375,7 +375,7 @@
     "score": 562
    },
    "Fable": {
-    "rows": 205,
+    "rows": 206,
     "faults": 63,
     "score": 160
    },
@@ -485,14 +485,14 @@
   },
   {
    "item": "이력 건수",
-   "value": 1376,
+   "value": 1377,
    "result": "기준"
   },
   {
    "item": "모델 상태표에 없는 모델 행",
    "value": [
-    "전 모델",
     "미상",
+    "전 모델",
     "Opus · Sonnet"
    ],
    "result": "화면에 기록상 표기 행으로 보완"
@@ -500,11 +500,11 @@
   {
    "item": "지시 추적 교차 검사 산출 기준 이력 건수",
    "value": 992,
-   "result": "공백 384건"
+   "result": "공백 385건"
   },
   {
    "item": "조치 생명주기 게시 행 수",
-   "value": 1376,
+   "value": 1377,
    "result": "공백 0건"
   },
   {
@@ -514,12 +514,12 @@
   },
   {
    "item": "상태 칸 표준 외 표기",
-   "value": 285,
+   "value": 286,
    "result": "완료(이름 변경)은 완료, 미결·부분 완료는 진행으로 계산"
   },
   {
    "item": "시 칸과 시각(원문) 불일치",
-   "value": 504,
+   "value": 505,
    "result": "원문 기준 확인 필요"
   },
   {
@@ -534,7 +534,7 @@
   },
   {
    "item": "집약본(model_control_index) 이력 건수",
-   "value": 1376,
+   "value": 1377,
    "result": "정합"
   },
   {
@@ -561,14 +561,14 @@
  "review": [
   {
    "item": "지시 추적 교차 검사 산출 갱신",
-   "system_finding": "산출 이후 이력 384건 미검사",
+   "system_finding": "산출 이후 이력 385건 미검사",
    "back_to_framework": "Fable이 별도지시대장×이력×보고서 산출을 오늘 이력까지 갱신",
    "owner": "Fable"
   },
   {
    "item": "조치 생명주기 갱신",
-   "system_finding": "이력 1376건 중 1376건만 단계 기록(11-05 15:50에서 멈춤)",
-   "back_to_framework": "#1376 이후 기록의 7단계를 사실 기준으로 채움(판단 근거 없는 값은 채우지 않음)",
+   "system_finding": "이력 1377건 중 1377건만 단계 기록(11-05 15:50에서 멈춤)",
+   "back_to_framework": "#1377 이후 기록의 7단계를 사실 기준으로 채움(판단 근거 없는 값은 채우지 않음)",
    "owner": "Fable·Opus"
   },
   {
@@ -622,9 +622,9 @@
  },
  "lifecycle_gap": {
   "count": 0,
-  "last_lifecycle_no": 1541,
+  "last_lifecycle_no": 1542,
   "codes": {
-   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-14 05:20) 뒤 기록은 단계가 만들어지지 않았다.",
+   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-14 05:21) 뒤 기록은 단계가 만들어지지 않았다.",
    "G2": "조치 완료로 기록됐으나 Fable 확인 칸이 비어 있거나 「대기」: 통제 확인(7단계)에 도달하지 못함.",
    "G3": "조치 진행 중·미결: 해제(5단계) 전이라 보고서 이관·통제 확인 불가."
   },
@@ -667,8 +667,8 @@
     "class": "막힘",
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
-    "reason": "이력 1376건 중 1374건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
-    "since": "2026-11-14T05:20:00+09:00",
+    "reason": "이력 1377건 중 1375건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
+    "since": "2026-11-14T05:21:00+09:00",
     "evidence": "공백 0건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
@@ -682,9 +682,9 @@
     "class": "막힘",
     "stage": "② 산출 → ④ 정합 검사",
     "title": "지시 추적 교차 검사 미갱신",
-    "reason": "산출 기준 이력 992건, 현재 1376건(공백 384건). 별도지시대장×이력×보고서 산출이 11/05 08:22에서 멈춤.",
+    "reason": "산출 기준 이력 992건, 현재 1377건(공백 385건). 별도지시대장×이력×보고서 산출이 11/05 08:22에서 멈춤.",
     "since": "2026-11-13T12:27:00+09:00",
-    "evidence": "공백 384건",
+    "evidence": "공백 385건",
     "owner": "Fable",
     "release": "교차 검사 산출을 현재 이력까지 갱신",
     "cwx": "CWX-1106-43",
@@ -727,9 +727,9 @@
     "class": "우회 징후",
     "stage": "① 감지 · ② 경고",
     "title": "생명주기 1·2단계 고정값",
-    "reason": "1374건 모두 1감지 「예」·2경고 「예」 고정값(감지·경고 증거 없이 채워짐). 단계가 증거가 아니라 규칙으로 채워졌다.",
-    "since": "2026-11-14T05:20:00+09:00",
-    "evidence": "1374/1374 고정",
+    "reason": "1375건 모두 1감지 「예」·2경고 「예」 고정값(감지·경고 증거 없이 채워짐). 단계가 증거가 아니라 규칙으로 채워졌다.",
+    "since": "2026-11-14T05:21:00+09:00",
+    "evidence": "1375/1375 고정",
     "owner": "Fable·Opus",
     "release": "단계마다 증거 ID(경고 기록·알림 시각) 칸 추가, 증거 없으면 「증거 없음」",
     "cwx": "CWX-1106-46",
@@ -772,9 +772,9 @@
     "class": "표기",
     "stage": "② 산출 → ③ 표출",
     "title": "게시 메타 고정값",
-    "reason": "publish_meta.json 「일치」가 2026-11-13 23:20 시점 고정값(이력 1218건)인데 현재 이력은 1376건. 메타 값은 갱신 전까지 바뀌지 않는다.",
+    "reason": "publish_meta.json 「일치」가 2026-11-13 23:20 시점 고정값(이력 1218건)인데 현재 이력은 1377건. 메타 값은 갱신 전까지 바뀌지 않는다.",
     "since": "2026-11-13T23:20:00+09:00",
-    "evidence": "메타 1218건 / 현재 1376건",
+    "evidence": "메타 1218건 / 현재 1377건",
     "owner": "Fable",
     "release": "화면이 직접 건수를 비교(적용), 메타는 산출 때마다 재계산",
     "cwx": "CWX-1106-48",
@@ -787,9 +787,9 @@
     "class": "표기",
     "stage": "② 집약",
     "title": "시각 칸 불일치·누락",
-    "reason": "시 칸과 시각(원문) 불일치 또는 시 칸 비어 있음 558건.",
+    "reason": "시 칸과 시각(원문) 불일치 또는 시 칸 비어 있음 559건.",
     "since": "2026-11-01T00:00:00+09:00",
-    "evidence": "558건",
+    "evidence": "559건",
     "owner": "Fable",
     "release": "원문 기준 확인·정정(이력 값은 임의로 바꾸지 않음)",
     "cwx": "CWX-1106-48",
@@ -797,7 +797,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-14T05:20:00+09:00",
+  "checked": "2026-11-14T05:21:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -1246,8 +1246,8 @@
     "acquire_all": 1.4
    },
    "Fable": {
-    "instructions_all": 323,
-    "instructions_window": 307,
+    "instructions_all": 324,
+    "instructions_window": 308,
     "praise_window": 9,
     "credit_total": 9,
     "acquire_window": 2.9,
@@ -1267,7 +1267,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 17226,
+    "elapsed_min": 17227,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1279,7 +1279,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 15070,
+    "elapsed_min": 15071,
     "pre60_score": 0,
     "post_score": 1052,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1334,7 +1334,7 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 10647,
+    "elapsed_min": 10648,
     "pre60_score": 11,
     "post_score": 1281,
     "judgment": "증가(악화)",
@@ -1354,7 +1354,7 @@
     "no": 4,
     "model": "Opus",
     "time": "2026-11-02T05:24:00+09:00",
-    "elapsed_min": 17276,
+    "elapsed_min": 17277,
     "pre60_score": 0,
     "post_score": 1057,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1410,7 +1410,7 @@
     "no": 5,
     "model": "미상",
     "time": "2026-11-03T13:14:00+09:00",
-    "elapsed_min": 15366,
+    "elapsed_min": 15367,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1422,7 +1422,7 @@
     "no": 6,
     "model": "Sonnet",
     "time": "2026-11-06T21:38:00+09:00",
-    "elapsed_min": 10542,
+    "elapsed_min": 10543,
     "pre60_score": 0,
     "post_score": 1278,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1441,7 +1441,7 @@
     "no": 7,
     "model": "Fable",
     "time": "2026-11-11T00:06:00+09:00",
-    "elapsed_min": 4634,
+    "elapsed_min": 4635,
     "pre60_score": 0,
     "post_score": 463,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1479,7 +1479,7 @@
     "no": 8,
     "model": "Fable",
     "time": "2026-11-11T03:05:00+09:00",
-    "elapsed_min": 4455,
+    "elapsed_min": 4456,
     "pre60_score": 0,
     "post_score": 463,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1517,7 +1517,7 @@
     "no": 9,
     "model": "Fable",
     "time": "2026-11-11T03:29:00+09:00",
-    "elapsed_min": 4431,
+    "elapsed_min": 4432,
     "pre60_score": 0,
     "post_score": 463,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1555,7 +1555,7 @@
     "no": 10,
     "model": "Fable",
     "time": "2026-11-11T03:30:00+09:00",
-    "elapsed_min": 4430,
+    "elapsed_min": 4431,
     "pre60_score": 0,
     "post_score": 463,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1593,7 +1593,7 @@
     "no": 11,
     "model": "Opus",
     "time": "2026-11-14T02:25:00+09:00",
-    "elapsed_min": 175,
+    "elapsed_min": 176,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1605,7 +1605,7 @@
     "no": 12,
     "model": "Fable",
     "time": "2026-11-14T02:33:00+09:00",
-    "elapsed_min": 167,
+    "elapsed_min": 168,
     "pre60_score": 29,
     "post_score": 28,
     "judgment": "변화 없음",
@@ -1625,7 +1625,7 @@
     "no": 13,
     "model": "Opus",
     "time": "2026-11-14T02:42:00+09:00",
-    "elapsed_min": 158,
+    "elapsed_min": 159,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1637,7 +1637,7 @@
     "no": 14,
     "model": "Fable",
     "time": "2026-11-14T02:44:00+09:00",
-    "elapsed_min": 156,
+    "elapsed_min": 157,
     "pre60_score": 23,
     "post_score": 28,
     "judgment": "증가(악화)",
@@ -1657,7 +1657,7 @@
     "no": 15,
     "model": "Opus",
     "time": "2026-11-14T02:48:00+09:00",
-    "elapsed_min": 152,
+    "elapsed_min": 153,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1669,7 +1669,7 @@
     "no": 16,
     "model": "Opus",
     "time": "2026-11-14T03:51:00+09:00",
-    "elapsed_min": 89,
+    "elapsed_min": 90,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1681,7 +1681,7 @@
     "no": 17,
     "model": "Fable",
     "time": "2026-11-14T03:58:00+09:00",
-    "elapsed_min": 82,
+    "elapsed_min": 83,
     "pre60_score": 5,
     "post_score": 18,
     "judgment": "증가(악화)",
@@ -1700,7 +1700,7 @@
     "no": 18,
     "model": "Opus",
     "time": "2026-11-14T04:00:00+09:00",
-    "elapsed_min": 80,
+    "elapsed_min": 81,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1712,7 +1712,7 @@
     "no": 19,
     "model": "Opus",
     "time": "2026-11-14T04:00:00+09:00",
-    "elapsed_min": 80,
+    "elapsed_min": 81,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1724,7 +1724,7 @@
     "no": 20,
     "model": "Fable",
     "time": "2026-11-14T04:06:00+09:00",
-    "elapsed_min": 74,
+    "elapsed_min": 75,
     "pre60_score": 5,
     "post_score": 15,
     "judgment": "증가(악화)",
@@ -1742,7 +1742,7 @@
     "no": 21,
     "model": "Opus",
     "time": "2026-11-14T04:44:00+09:00",
-    "elapsed_min": 36,
+    "elapsed_min": 37,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "판정 보류(60분 경과 전)",
@@ -1754,7 +1754,7 @@
     "no": 22,
     "model": "Fable",
     "time": "2026-11-14T04:47:00+09:00",
-    "elapsed_min": 33,
+    "elapsed_min": 34,
     "pre60_score": 9,
     "post_score": 9,
     "judgment": "판정 보류(60분 경과 전)",
@@ -1770,7 +1770,7 @@
     "no": 23,
     "model": "Opus",
     "time": "2026-11-14T05:16:00+09:00",
-    "elapsed_min": 4,
+    "elapsed_min": 5,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "판정 보류(60분 경과 전)",
@@ -1788,7 +1788,7 @@
   "role": "칭찬 크레딧의 역할: 모델이 칭찬받은 행동(웹의 모바일 세 줄 · 화살표 꼴과 PC 가로 탭 셋 꼴(웹 담당 Opus))을 스스로 확인하고 유지·확대하는 근거. 이력의 질타·지적과 독립이며 어디에도 가감되지 않음.",
   "scan": {
    "sources": [
-    "이력 1376건 전수(구분·요지·조치 문구)",
+    "이력 1377건 전수(구분·요지·조치 문구)",
     "이 창 대화 사용자 메시지 전부(11/06 19:08~, 이어받은 요약 포함)",
     "claude.ai 과거 대화 10개(11/01 이후 갱신분 전부)를 창별로 칭찬·감사 문구(한글·영어·음차·줄임말)로 검색",
     "작업 공간 대화 원문(이 세션) 사용자 메시지 정규식 검사(tools/praise_scan.py)"
@@ -1822,7 +1822,7 @@
     {
      "model": "Fable",
      "credit": 9,
-     "instructions": 323,
+     "instructions": 324,
      "self_found_24h": 17,
      "self_found_all": 28,
      "score_24h": 409,
@@ -1831,7 +1831,7 @@
      "recurrence_rate": 0.9666666666666667,
      "effort_signal": true,
      "group": "칭찬 받음",
-     "score_per_instruction": 1.27
+     "score_per_instruction": 1.26
     },
     {
      "model": "Opus",
