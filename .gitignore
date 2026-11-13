@@ -6,3 +6,5 @@ cowork/ctl/master_milestones.tsv
 cowork/ctl/hiven_wbs.tsv
 sched.enc.json.tmp
 cowork/ctl/notes/HIVEN_WBS_*
+cowork/ctl/watch_targets.tsv
+cowork/ctl/watch_log.tsv
