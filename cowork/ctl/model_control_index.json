@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13 14:07",
+ "generated": "2026-11-13 14:09",
  "history_rows": 1014,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
@@ -343,7 +343,7 @@
     "score": 159
    },
    "Fable": {
-    "rows": 35,
+    "rows": 33,
     "faults": 17,
     "score": 45
    },
@@ -491,9 +491,9 @@
   {
    "item": "모델 상태표에 없는 모델 행",
    "value": [
+    "미상",
     "전 모델",
-    "Opus · Sonnet",
-    "미상"
+    "Opus · Sonnet"
    ],
    "result": "화면에 기록상 표기 행으로 보완"
   },
@@ -624,7 +624,7 @@
   "count": 0,
   "last_lifecycle_no": 1179,
   "codes": {
-   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-13 14:07) 뒤 기록은 단계가 만들어지지 않았다.",
+   "G1": "생명주기 산출 미실행: 산출 스크립트(gen_lifecycle.py)는 모델이 손으로 실행하는 방식(자동 실행 장치 아님, 11/04 금지 4조항 준수)이고, 이력 기록 절차에 산출 실행 단계가 없어 마지막 산출(2026-11-13 14:09) 뒤 기록은 단계가 만들어지지 않았다.",
    "G2": "조치 완료로 기록됐으나 Fable 확인 칸이 비어 있거나 「대기」: 통제 확인(7단계)에 도달하지 못함.",
    "G3": "조치 진행 중·미결: 해제(5단계) 전이라 보고서 이관·통제 확인 불가."
   },
@@ -668,7 +668,7 @@
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
     "reason": "이력 1014건 중 1013건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
-    "since": "2026-11-13T14:07:00+09:00",
+    "since": "2026-11-13T14:09:00+09:00",
     "evidence": "공백 0건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
@@ -728,7 +728,7 @@
     "stage": "① 감지 · ② 경고",
     "title": "생명주기 1·2단계 고정값",
     "reason": "1013건 모두 1감지 「예」·2경고 「예」 고정값(감지·경고 증거 없이 채워짐). 단계가 증거가 아니라 규칙으로 채워졌다.",
-    "since": "2026-11-13T14:07:00+09:00",
+    "since": "2026-11-13T14:09:00+09:00",
     "evidence": "1013/1013 고정",
     "owner": "Fable·Opus",
     "release": "단계마다 증거 ID(경고 기록·알림 시각) 칸 추가, 증거 없으면 「증거 없음」",
@@ -797,7 +797,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-13T14:07:00+09:00",
+  "checked": "2026-11-13T14:09:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -1107,7 +1107,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 16313,
+    "elapsed_min": 16315,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1119,7 +1119,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 14157,
+    "elapsed_min": 14159,
     "pre60_score": 0,
     "post_score": 1052,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1174,7 +1174,7 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 9734,
+    "elapsed_min": 9736,
     "pre60_score": 11,
     "post_score": 1281,
     "judgment": "증가(악화)",
@@ -1194,7 +1194,7 @@
     "no": 4,
     "model": "Opus",
     "time": "2026-11-02T05:24:00+09:00",
-    "elapsed_min": 16363,
+    "elapsed_min": 16365,
     "pre60_score": 0,
     "post_score": 1057,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1250,7 +1250,7 @@
     "no": 5,
     "model": "미상",
     "time": "2026-11-03T13:14:00+09:00",
-    "elapsed_min": 14453,
+    "elapsed_min": 14455,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1262,7 +1262,7 @@
     "no": 6,
     "model": "Sonnet",
     "time": "2026-11-06T21:38:00+09:00",
-    "elapsed_min": 9629,
+    "elapsed_min": 9631,
     "pre60_score": 0,
     "post_score": 1278,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1281,7 +1281,7 @@
     "no": 7,
     "model": "Fable",
     "time": "2026-11-11T00:06:00+09:00",
-    "elapsed_min": 3721,
+    "elapsed_min": 3723,
     "pre60_score": 0,
     "post_score": 191,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1305,7 +1305,7 @@
     "no": 8,
     "model": "Fable",
     "time": "2026-11-11T03:05:00+09:00",
-    "elapsed_min": 3542,
+    "elapsed_min": 3544,
     "pre60_score": 0,
     "post_score": 191,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1329,7 +1329,7 @@
     "no": 9,
     "model": "Fable",
     "time": "2026-11-11T03:29:00+09:00",
-    "elapsed_min": 3518,
+    "elapsed_min": 3520,
     "pre60_score": 0,
     "post_score": 191,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1353,7 +1353,7 @@
     "no": 10,
     "model": "Fable",
     "time": "2026-11-11T03:30:00+09:00",
-    "elapsed_min": 3517,
+    "elapsed_min": 3519,
     "pre60_score": 0,
     "post_score": 191,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1449,8 +1449,8 @@
      "self_found_24h": 2,
      "self_found_all": 23,
      "score_24h": 852,
-     "score_prev24h": 396,
-     "change_pct": 115.2,
+     "score_prev24h": 391,
+     "change_pct": 117.9,
      "recurrence_rate": 0.9940476190476191,
      "effort_signal": true,
      "group": "칭찬 받음",

@@ -28,8 +28,8 @@ function show(on){
 }
 $('f').addEventListener('submit',function(e){
  e.preventDefault();
- if(keyOk($('k').value)){sset(true);show(true);}
- else{$('err').textContent='열쇠가 맞지 않습니다. 다시 입력하세요.';$('k').select();}
+ Promise.resolve(keyOk($('k').value)).then(function(ok){if(ok){sset(true);show(true);}
+ else{$('err').textContent='열쇠가 맞지 않습니다. 다시 입력하세요.';$('k').select();}});
 });
 $('so').addEventListener('click',function(){sset(false);show(false);});
 

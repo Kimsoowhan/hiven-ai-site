@@ -182,7 +182,7 @@ var hvEM={
 if(!(typeof hvSHas==='function'&&hvSHas('SC-03')))S.push(['SC-03','이상징후 및 보안체계 시스템']);
 function hvStdCheck(){var R=[],st=[5,15,30,300,300,1800],ok=function(b){return b?'<b style="color:#2e7d32">일치</b>':'<b style="color:#c62828">불일치</b>'};
  var H=window.hvSec;[1,2,3,4,5,6].forEach(function(n,i){var v=H&&H.lk?H.lk(n):null;var tid=['T-01','T-02','T-03','T-04','T-04','T-05'][i];R.push(['입력 정지 · 불일치 '+n+'회'+(n==4||n==5?' (4~5회 구간)':n==6?' (6회 이상 구간)':''),st[i]+'초('+tid+')',v===null?'확인 안 됨':v+'초',v===null?'<b>확인 안 됨</b>':ok(v===st[i])])});
- var hk=typeof hk2en==='function'?hk2en('ㅐㅜㅣㅛㅐㅕ'):'';R.push(['열쇠 표기 허용(T-06)','한글 자판 입력 허용(시험값)',hk==='onlyou'?'한글 자판 변환 동작':'변환 없음',ok(hk==='onlyou')]);
+ var hk=typeof hk2en==='function'?hk2en('ㅁㅂㅈ'):'';/* 판정 147: 열쇠 값 대신 열쇠가 아닌 표본으로 자판 변환만 잼 */R.push(['열쇠 표기 허용(T-06)','한글 자판 입력 허용(시험값)',hk==='aqw'?'한글 자판 변환 동작':'변환 없음',ok(hk==='aqw')]);
  R.push(['감지·기록·전송(불변 1)','불일치 1회부터 기록·전송',H&&H.log&&(navigator.sendBeacon||window.fetch)?'기록 함수·전송 수단 있음':'없음',ok(!!(H&&H.log&&(navigator.sendBeacon||window.fetch)))]);
  try{if(window.hvChip)window.hvChip()}catch(e){}var cm=document.getElementById('chip-mode');R.push(['머리띠 표시(불변 2·3)','머리띠에 단계·발령 표시',cm?cm.textContent.slice(0,40):'머리띠 없음',ok(!!(cm&&/발령/.test(cm.textContent)))]);
  R.push(['SC-02 최상위 상자(역순환 ③)','SC-02 맨 위에 단계 상자',V['SC-02']&&V['SC-02']._em?'상자 연결됨':'연결 안 됨',ok(!!(V['SC-02']&&V['SC-02']._em))]);
