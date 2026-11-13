@@ -129,7 +129,7 @@ for top,kw,nm in [('41_HIVEN_Stakeholder(STK)','Stakeholder_목록','Stakeholder
 if os.path.exists(C+'aics_cover.tsv'):
     for l in open(C+'aics_cover.tsv',encoding='utf-8').read().split('\n')[1:]:
         c=l.split('\t')
-        if len(c)>4 and c[4]!='이어짐': add('K19',c[0],'어느 화면(SC-00~SC-20)에도 원천으로 이어지지 않음','이을 화면을 정해 구조표에 넣음')
+        if len(c)>4 and c[4]!='이어짐': add('K19',c[0],'어느 화면(SC-00~SC-21)에도 원천으로 이어지지 않음','이을 화면을 정해 구조표에 넣음')
 # K20 개인정보 처리(DR-19): 처리 대장에서 보유 기간·파기 방법·근거 조항이 정해지지 않은 줄
 PIL=C+'pip_ledger.tsv'
 if os.path.exists(PIL):

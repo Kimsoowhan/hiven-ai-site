@@ -7,8 +7,8 @@ SC-04	침입 예측·예방·대응·조치 시스템	스스로 도는 것	31_HI
 SC-05	사업군 통제	사업군	05_HIVEN_비즈정책(HIBP) · 06_HIVEN_통합사업(HV)	폴더안내	맞음
 SC-06	구동 상태	사업군	04_HIVEN_컨트롤타워_AICS(HCT) · 08_HIVEN_운영관리(OPS)	-	맞음
 SC-07	대응·경보	사업군	31_HIVEN_이상징후_및_보안체계(SEC)	-	맞음
-SC-08	체계 및 시스템/서비스	사업군	00_HIVE_아이덴티티(HID) · 01_HIVE_Group&Holdings · 07_HIVEN_명명분류(STD) · 14_HIVEN_HiDAM	HIVEN_서비스_기반_목록 · HIVEN_분류_체계_총괄서 · HIVEN_협업_분류_체계	맞음
-SC-09	배포 모니터링	사업군	12_HIVEN_HiCoffer	HIVEN_배포_판_대장	맞음
+SC-08	체계 및 시스템/서비스	사업군	00_HIVE_아이덴티티(HID) · 01_HIVE_Group&Holdings · 04_HIVEN_컨트롤타워_AICS(HCT) · 06_HIVEN_통합사업(HV) · 07_HIVEN_명명분류(STD) · 14_HIVEN_HiDAM · 44_HIVEN_이용약관_정책(PCY)	HIVEN_서비스_기반_목록 · HIVEN_분류_체계_총괄서 · HIVEN_협업_분류_체계	맞음
+SC-09	배포 모니터링	사업군	06_HIVEN_통합사업(HV) · 12_HIVEN_HiCoffer	HIVEN_배포_판_대장	맞음
 SC-10	통합사업 작업상황	사업군	06_HIVEN_통합사업(HV) · 20_HIVEN_마케팅(MKT) · 94_Claude_Fable · 94_Claude_작업 · 95_Claude outputs	-	맞음
 SC-11	수집·연동	사업군	09_HIVEN_형상관리(CFG) · 80_HIVEN_참고자료(SRC)	-	맞음
 SC-12	형상·변경	사업군	09_HIVEN_형상관리(CFG) · 32_HIVEN_개발_코드(DEV) · 33_HIVEN_HiClo_앱(APP) · 39_HIVEN_홈페이지(WEB)	-	맞음

@@ -2,7 +2,7 @@
 조직	HIVEN 정관 초안	-	0.3	44_HIVEN_이용약관_정책(PCY)\44_11_정관\HIVEN_정관_초안-261113_0.3_작업.md	SC-08 · SC-20 정관	조직의 정의(제27~31조)와 조직 규정 뼈대(붙임 1). 법률 검토 전
 조직	HIVEN 사업화 방향 및 조직체계 설정안	1.10	-	06_HIVEN_통합사업(HV)\06_03_HV_SET_DM_설정안\HIVEN_사업화_방향_및_조직체계_설정안-261101_1.10.pdf	SC-08 · SC-05	내부 조직(전사경영부 · 미래전략사업부 · 사업부). 사업부 다섯 기준이라 사업군 일곱에 맞춘 다음 판이 필요
 조직	HIVEN 조직(E) 데이터 모델 설계서	1.4	-	06_HIVEN_통합사업(HV)\06_04_HV_ALL_DMHIVEN_자동화_통제체계\HV_PLN_DM_설계_계획\HIVEN_조직(E)_데이터_모델_설계서-261101_1.4.pdf	SC-08 · SC-20 회원관리	HiSilver가 쓸 조직 체계의 데이터 모델. 내용 대조 전
-조직	사업군 일곱(HiASI · HiCoffer · HiICT · HiDAM · HiServe · HiSilver · HiTrade)	-	-	11_HIVEN_HiASI ~ 17_HIVEN_HiTrade	SC-05 · SC-21	계약 갈래 CT-01~07과 같은 구분
+조직	사업군 일곱(HiASI · HiCoffer · HiICT · HiDAM · HiServe · HiSilver · HiTrade)	-	-	11_HIVEN_HiASI · 12_HIVEN_HiCoffer · 13_HIVEN_HiICT · 14_HIVEN_HiDAM · 15_HIVEN_HiServe · 16_HIVEN_HiSilver · 17_HIVEN_HiTrade	SC-05 · SC-21	계약 갈래 CT-01~07과 같은 구분
 조직	HIVE 그룹 · HIVE 홀딩스	-	-	01_HIVE_Group&Holdings	SC-21	지주 기능은 지금 전사경영부가 맡음(정관 초안 제28조). 계약 갈래 CT-09 · CT-10
 체계	HiDAM 데이터 분류 체계	2.1	2.2 (작업본)	14_HIVEN_HiDAM\14_01_기준원칙\HiDAM_데이터_분류_체계-261111_2.1.md	SC-08	
 체계	HiDAM 문서 분류·명명 지침	2.0	2.1 (작업본)	14_HIVEN_HiDAM\14_01_기준원칙\HiDAM_문서분류명명_지침-261110_2.0.md	SC-08	
@@ -22,7 +22,7 @@
 시스템	증적 보존 공통 틀(ev_registry · ev_run · ev_pack · HiEvidence)	확인 안 됨	-	저장소 hs tools · 09_HIVEN_형상관리(CFG)\09_25_증적_보존	SC-13 · SC-15	
 시스템	문서 자동 생성·검사 도구(hibiz_doc_check 등)	0.1	-	저장소 hs tools	SC-15	검사 K01~K20
 앱	HiCoffer (PC, Windows 10·11)	0.1.27	-	12_HIVEN_HiCoffer	SC-09	베타1 시험 준비
-앱	HiAad.app	0.2 (작업본)	-	14_HIVEN_HiDAM\14_04_설계안 · 14_06_수행결과	SC-09	설계·구현 착수 기록
+앱	HiAad.app	0.2 (작업본)	-	14_HIVEN_HiDAM\14_04_설계안 · 14_HIVEN_HiDAM\14_06_수행결과	SC-09	설계·구현 착수 기록
 앱	HiDAM.app 기준 구현	확인 안 됨	-	14_HIVEN_HiDAM\14_05_수행안\14_05_01_HiDAM_app_기준구현	SC-08	
 앱	HiClo.app · HIVEN.app	확인 안 됨	-	04_HIVEN_컨트롤타워_AICS(HCT) · 33_HIVEN_HiClo_앱(APP)	SC-06	구동 판정 원천은 2026-11-03 뒤 멈춤
 협업 프로그램	Claude 작업 모델(Fable 5.2 · Opus 5.5 · Sonnet 5.5)	-	-	91_Claude_소통(COM) · 94_Claude_Fable	SC-16 · SC-17 · SC-18(SK-003)	

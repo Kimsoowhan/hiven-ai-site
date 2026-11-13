@@ -78,6 +78,9 @@ function draw20(){var D=T20.D;if(!D)return '';var pl=D[0],me=D[1],be=D[2],pi=D[3
  var h='<div class="grid">'+card('정관',ch.r.length+'건',ch.none?'정관 대장 만들기 전(0건)':'정관 대장')+card('약관 · 정책',pl.r.length+'건','PL 번호')+card('회원',me.r.length+'명',me.r.length?'회원 관리 대장':'회원 0명(베타 배포 전)')+card('베타 설치',be.r.length+'건',be.r.length?'베타 설치 대장':'베타 설치 기록 0건')+card('개인정보 묶음',pi.r.length+'묶음','PI 번호')+card('DR-19 어긋남',dr19.length+'줄',dr19.length?tag('채울 것','bad'):tag('없음','ok'))+'</div>';
  h+=alertBox(al);
  h+='<div style="margin:10px 0">'+TABS20.map(function(t){var on=T20.tab===t[0];return '<button type="button" class="tab'+(on?' on':'')+'" data-t20="'+t[0]+'" onclick="hv10Tab20(\''+t[0]+'\')" style="margin:0 6px 6px 0;padding:6px 12px;border:1px solid #c5cde0;border-radius:8px;background:'+(on?'#1a2a5e':'#fff')+';color:'+(on?'#fff':'#1a2a5e')+';cursor:pointer;white-space:nowrap">'+t[1]+'</button>'}).join('')+'</div>';
+ /* PDF 인쇄본 버튼(대표님 11-13 20:12, 이력 1329): 정관 · 이용약관 및 정책 · 개인정보 처리 탭에서 문서 전체를 PDF로 연다. */
+ var PDF20={ch:['정관 초안 0.3 · 8쪽','dl/HIVEN_정관_초안-261113_0.3_작업.pdf'],pl:['HiCoffer 이용약관 1.0','dl/HiCoffer_이용약관-261030_1.0.pdf'],pi:['HiCoffer 개인정보처리방침 1.0','dl/HiCoffer_개인정보처리방침-261030_1.0.pdf']}[T20.tab];
+ if(PDF20)h+='<div style="margin:0 0 12px"><a class="hv10-pdf" href="/'+encodeURI(PDF20[1])+'?v=20261113p1" target="_blank" rel="noopener" style="display:inline-block;padding:8px 16px;border-radius:8px;background:#1a2a5e;color:#fff;font-weight:700;text-decoration:none;white-space:nowrap">PDF 인쇄본</a> <span class="note" style="margin-left:8px;white-space:nowrap">'+E(PDF20[0])+'</span></div>';
  var lines=me.r.length+be.r.length;
  h+='<p class="note"><b>맞물림</b> 회원 한 줄 · 설치 한 줄 → 동의한 약관 판(PL 번호) · 개인정보 묶음(PI 번호). 지금 회원 '+me.r.length+'명 · 베타 설치 기록 '+be.r.length+'건'+(lines?' · 어긋남 '+miss.length+'건':' — 맞물림을 볼 줄이 아직 없습니다(베타 배포 전)')+'.</p>';
  if(T20.tab==='ch')h+=charter(ch,cp);
