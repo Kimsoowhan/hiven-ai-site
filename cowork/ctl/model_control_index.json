@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-13 11:51",
+ "generated": "2026-11-13 11:53",
  "history_rows": 980,
  "basis": "이력 TSV + 문구 스캔(phrase_scan.json). 가중치·한도·판정 임계는 산정안(대표님 확정 전).",
  "thresholds": {
@@ -492,8 +492,8 @@
    "item": "모델 상태표에 없는 모델 행",
    "value": [
     "미상",
-    "Opus · Sonnet",
-    "전 모델"
+    "전 모델",
+    "Opus · Sonnet"
    ],
    "result": "화면에 기록상 표기 행으로 보완"
   },
@@ -668,7 +668,7 @@
     "stage": "② 산출 → ③ 표출",
     "title": "조치 생명주기 게시본 미갱신",
     "reason": "이력 980건 중 979건만 단계 기록(0건 공백). 산출 스크립트가 수동 실행이고 기록 절차에 실행 단계가 없음.",
-    "since": "2026-11-13T11:51:00+09:00",
+    "since": "2026-11-13T11:53:00+09:00",
     "evidence": "공백 0건(lifecycle_gap)",
     "owner": "Fable·Opus",
     "release": "생명주기 재산출, 단계마다 증거 기입, 건수 일치",
@@ -683,7 +683,7 @@
     "stage": "② 산출 → ④ 정합 검사",
     "title": "지시 추적 교차 검사 미갱신",
     "reason": "산출 기준 이력 980건, 현재 980건(공백 0건). 별도지시대장×이력×보고서 산출이 11/05 08:22에서 멈춤.",
-    "since": "2026-11-13T11:51:00+09:00",
+    "since": "2026-11-13T11:53:00+09:00",
     "evidence": "공백 0건",
     "owner": "Fable",
     "release": "교차 검사 산출을 현재 이력까지 갱신",
@@ -797,7 +797,7 @@
     "open": true
    }
   ],
-  "checked": "2026-11-13T11:51:00+09:00",
+  "checked": "2026-11-13T11:53:00+09:00",
   "open_block": 6,
   "matrix_rule": "차단 경보가 열리면 같은 시각에 지시 추적 매트릭스(CWX)에 추적 행을 발동한다. 시스템 연결이 안 될 때도 CWX 행은 수동으로 먼저 만든다."
  },
@@ -1107,7 +1107,7 @@
     "no": 1,
     "model": "미상",
     "time": "2026-11-02T06:14:00+09:00",
-    "elapsed_min": 16177,
+    "elapsed_min": 16179,
     "pre60_score": 0,
     "post_score": 4,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1119,7 +1119,7 @@
     "no": 2,
     "model": "Opus",
     "time": "2026-11-03T18:10:00+09:00",
-    "elapsed_min": 14021,
+    "elapsed_min": 14023,
     "pre60_score": 0,
     "post_score": 1052,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1174,7 +1174,7 @@
     "no": 3,
     "model": "Sonnet",
     "time": "2026-11-06T19:53:00+09:00",
-    "elapsed_min": 9598,
+    "elapsed_min": 9600,
     "pre60_score": 11,
     "post_score": 1269,
     "judgment": "증가(악화)",
@@ -1194,7 +1194,7 @@
     "no": 4,
     "model": "Opus",
     "time": "2026-11-02T05:24:00+09:00",
-    "elapsed_min": 16227,
+    "elapsed_min": 16229,
     "pre60_score": 0,
     "post_score": 1057,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1250,7 +1250,7 @@
     "no": 5,
     "model": "미상",
     "time": "2026-11-03T13:14:00+09:00",
-    "elapsed_min": 14317,
+    "elapsed_min": 14319,
     "pre60_score": 0,
     "post_score": 0,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1262,7 +1262,7 @@
     "no": 6,
     "model": "Sonnet",
     "time": "2026-11-06T21:38:00+09:00",
-    "elapsed_min": 9493,
+    "elapsed_min": 9495,
     "pre60_score": 0,
     "post_score": 1266,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1281,7 +1281,7 @@
     "no": 7,
     "model": "Fable",
     "time": "2026-11-11T00:06:00+09:00",
-    "elapsed_min": 3585,
+    "elapsed_min": 3587,
     "pre60_score": 0,
     "post_score": 111,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1299,7 +1299,7 @@
     "no": 8,
     "model": "Fable",
     "time": "2026-11-11T03:05:00+09:00",
-    "elapsed_min": 3406,
+    "elapsed_min": 3408,
     "pre60_score": 0,
     "post_score": 111,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1317,7 +1317,7 @@
     "no": 9,
     "model": "Fable",
     "time": "2026-11-11T03:29:00+09:00",
-    "elapsed_min": 3382,
+    "elapsed_min": 3384,
     "pre60_score": 0,
     "post_score": 111,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1335,7 +1335,7 @@
     "no": 10,
     "model": "Fable",
     "time": "2026-11-11T03:30:00+09:00",
-    "elapsed_min": 3381,
+    "elapsed_min": 3383,
     "pre60_score": 0,
     "post_score": 111,
     "judgment": "전 60분 결함 0 — 비교 불가",
@@ -1422,15 +1422,15 @@
      "model": "Sonnet",
      "credit": 2,
      "instructions": 137,
-     "self_found_24h": 4,
+     "self_found_24h": 3,
      "self_found_all": 23,
-     "score_24h": 997,
-     "score_prev24h": 269,
-     "change_pct": 270.6,
+     "score_24h": 994,
+     "score_prev24h": 272,
+     "change_pct": 265.4,
      "recurrence_rate": 0.9928571428571429,
      "effort_signal": true,
      "group": "칭찬 받음",
-     "score_per_instruction": 7.28
+     "score_per_instruction": 7.26
     },
     {
      "model": "Haiku",
@@ -1454,7 +1454,7 @@
       "Opus",
       "Sonnet"
      ],
-     "avg_score_24h": 477.3
+     "avg_score_24h": 476.3
     },
     "칭찬 못 받음 · 노력 신호 있음": {
      "models": [],
@@ -1565,7 +1565,7 @@
    "Sonnet": {
     "signal": "긴급",
     "credit": 2,
-    "f24": 172,
+    "f24": 171,
     "last_fault": "2026-11-13T10:08:00+09:00",
     "top_forms": [
      {
