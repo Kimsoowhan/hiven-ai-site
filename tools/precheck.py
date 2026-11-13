@@ -2,6 +2,7 @@
 """수정 뒤 검사(대표님 21:42 질타 재발 방지): 통과하지 못하면 종료 코드 1, 이 경우 커밋·푸시·보고를 하지 않는다.
 검사: ① tools/*.py 문법 ② 사이트 js 문법(node --check) ③ cowork/ctl json 형식 ④ 이력 tsv 11칸 ⑤ 색인 생성기 실행 종료 코드 0·산출물 갱신·생명주기 공백 0 ⑥ 무결성 목록
       ⑦ 화면별 자료 신선도(알림) ⑧ 화면 사이 건수 일치(이력 ↔ 생명주기는 실패, 그 밖은 알림) ⑨ 두 저장소 공통 4종 sha256 일치(261112 OJ-3)
+      ⑩ 증적 등록부 ⑪ 호출 정책 ⑫ 각서 ⑬ 대표 지시 장 ⑭ 에이전트 대장 ⑮ 증적 브릿지(판정 141 ④) ⑯ 규칙 검사 묶음(판정 138 ② · 147 ③) ⑰ HiBiz 맨 위 파일(판정 138 ③, 사본 기준 알림)
 261111 H-3: 색인 생성기는 저장소 안 tools/index_build.py 하나만 돌린다(저장소 밖 생성기 의존 없앰). 저장소만 받은 곳에서도 같은 검사가 된다.
 사용: python3 tools/precheck.py [--strict] [--gap 시간] [--peer 짝저장소경로]
   --strict  알림도 실패로 본다        --gap N  신선도 간격(시간, 기본 24)
@@ -148,5 +149,21 @@ try:
         if 'haiku' in _a[2].lower(): fail('에이전트 사용 대장: Haiku 구동 줄(%s) — Haiku는 배제'%_a[0])
         if not _a[5].strip() or _a[5].strip()=='재지 않음': fail('에이전트 사용 대장: 구동 전 예상이 없는 줄(%s)'%_a[0])
 except FileNotFoundError: fail('agent_usage.tsv 없음')
+# ── ⑮ 증적 → HiDAM 관계망 브릿지 점검(판정 141 ④, 11-13): 증적 원장 줄 수 = 브릿지 실행 노드 수(사후 등록 제외). 다르면 실패
+_b=subprocess.run([sys.executable,R+'/tools/ev_bridge.py','--check'],capture_output=True,text=True)
+if _b.returncode: fail('브릿지 '+(_b.stdout.strip() or (_b.stderr or '')[-120:])+' — python3 tools/ev_bridge.py --stamp … 다시 내야 함')
+else: print(_b.stdout.strip())
+# ── ⑯ 규칙 검사 묶음(판정 138 ② 점검표 줄 5·6·7·9·10·13 · 판정 147 ③ 문구 스캔·추적 건수 차이)
+_r=subprocess.run([sys.executable,R+'/tools/rule_checks.py'],capture_output=True,text=True)
+for _l in _r.stdout.splitlines():
+    if _l.startswith('실패:'): fail('규칙 '+_l[3:].strip())
+    elif _l.startswith('알림:'): warn('규칙 '+_l[3:].strip())
+    elif _l.startswith('규칙 검사'): print(_l)
+if _r.returncode not in (0,1): fail('rule_checks 실행 오류 '+(_r.stderr or '')[-120:])
+# ── ⑰ HiBiz 맨 위 파일 0(판정 138 ③): 이 컨테이너에서 읽는 것은 PC 폴더를 받아 둔 사본이라 결과는 알림으로만 올림(PC 실측은 PC 명령 도구가 있는 세션에서)
+_x=subprocess.run([sys.executable,R+'/tools/index_root_check.py'],capture_output=True,text=True)
+_xl=[l for l in _x.stdout.splitlines() if l.startswith('맨 위 파일 검사')]
+if _x.returncode==1: warn('HiBiz 사본 기준 '+(_xl[0] if _xl else '맨 위 파일 있음')+' (PC 실측 아님)')
+elif _xl: print(_xl[0])
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
