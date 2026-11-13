@@ -54,6 +54,9 @@ def page_setup(b, port, hold_text):
         if not u.startswith('http://localhost:%d' % port):
             st['ext'].append(u)
             return r.abort()
+        if '/cowork/ctl/command_ledger.tsv' in u and st.get('extra'):
+            body = open(os.path.join(HS, 'cowork', 'ctl', 'command_ledger.tsv'), encoding='utf-8').read() + '9999\t11/13 23:59\t시험 줄\t\t\n'
+            return r.fulfill(status=200, body=body.encode('utf-8'), headers={'content-type': 'text/plain; charset=utf-8'})
         if '/cowork/ctl/id_recheck_hold.tsv' in u:
             st['hold'] += 1
             return r.fulfill(status=200, body=hold_text[0].encode('utf-8'), headers={'content-type': 'text/plain; charset=utf-8'})
@@ -69,7 +72,8 @@ def hs_tests(b, port):
     ctx, pg, st = page_setup(b, port, hold)
     pg.goto('http://localhost:%d/index.html' % port, wait_until='load')
     pg.wait_for_function("typeof render==='function'")
-    pg.evaluate("render('SC-00')")
+    # 시험에서만 첫 화면 가림막을 걷는다(열쇠 판정·잠금 코드는 부르지도 바꾸지도 않음)
+    pg.evaluate("document.getElementById('intro').classList.add('hide');document.getElementById('app').classList.remove('hide');render('SC-00')")
     pg.wait_for_function("(document.querySelector('#hv-idh-00 button')||{}).textContent && !/읽는 중/.test(document.querySelector('#hv-idh-00 button').textContent)", timeout=15000)
     t = pg.inner_text('#hv-idh-00 button')
     ok('화-1', 'SC-00 한 줄(빈 표): 보류 0 · 무효 0 · 통과 0', t == '신분 재확인 · 보류 0 · 무효 0 · 통과 0', t)
@@ -81,7 +85,7 @@ def hs_tests(b, port):
     pg.wait_for_timeout(3500)
     ok('화-4', '바뀐 것이 없으면 3.5초 동안 다시 읽지 않음(폴링 없음)', st['hold'] == n0, '읽은 횟수 %d → %d' % (n0, st['hold']))
     hold[0] = hold_rows(20)
-    pg.evaluate("window.hvCmdLive={H:(window.hvCmdLive||{}).H||[],L:((window.hvCmdLive||{}).L||[]).concat([['9999','11/13 23:59','시험','','']])}")
+    st['extra'] = True  # 지시 대장에 한 줄이 더해진 것처럼 보낸다(SC-17 이 이미 1초마다 읽는 자료)
     pg.wait_for_function("/보류 6/.test(document.querySelector('#hv-idh-00 button').textContent)", timeout=5000)
     pg.wait_for_timeout(2500)
     ok('화-5', '지시 대장이 바뀐 때 한 번만 다시 읽음', st['hold'] == n0 + 1, '읽은 횟수 %d → %d' % (n0, st['hold']))
