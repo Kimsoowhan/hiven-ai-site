@@ -17,6 +17,8 @@ for r in rows:
         n=len([x for x in r['시도한 길'].split('|') if x.strip()])
         if n<3: bad.append((r,'「막힘」인데 시도한 길이 %d개(3개 이상이어야 함)'%n))
         if not r['판정 요청'].strip(): bad.append((r,'「막힘」인데 Fable 판정 요청 번호가 없음'))
+    elif s in('넘김','닫음'):
+        if not r['판정 요청'].strip() or '조건' not in r['시도한 길']+r['끝 증거'] and s=='넘김': bad.append((r,'「%s」인데 판정 번호나 다시 시작할 조건이 없음'%s))
     else:
         bad.append((r,'상태 「%s」 — 아직 수행하지 않았거나 수행 중'%s))
 if bad:
