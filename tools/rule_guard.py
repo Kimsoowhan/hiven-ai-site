@@ -30,6 +30,15 @@ for _d,_,_fs in _os.walk('/mnt/user-data/outputs/hb'):
     for _f in _fs:
         if _re.search(r'_20\d{6}(\D|$)', _f) or _re.search(r'_\d{6}(_|\.)[^-]*$', _f) and not _re.search(r'-\d{6}', _f):
             bad.append('명-1 파일 이름(제목-yymmdd 아님): '+_f)
+# 명-2(이력 1237): 응용 프로그램 화면 시안·보기판은 네모 꼴(모서리 2·3·4px, 도는 원만 50%)
+import glob as _gl
+for _p in _gl.glob('/home/claude/out/hicoffer_ui/HiCoffer_화면_*.html'):
+    _s=_re.sub(r'base64,[A-Za-z0-9+/=]+','',open(_p,encoding='utf-8').read())
+    for _m in _re.finditer(r'([.#][\w.# >-]*)\{[^}]*border-radius:\s*([^;}]+)',_s):
+        _v=_m.group(2).strip()
+        if _re.fullmatch(r'((0|[234]px)\s*)+',_v): continue
+        if _v=='50%' and _re.search(r'spin|circ',_m.group(1)): continue
+        bad.append('명-2 둥근 꼴 %s{%s} · %s'%(_m.group(1)[:30],_v,_p[-30:]))
 for b in bad: print('규칙 강제 실패:',b)
-print('규칙 강제 검사(보-8·9 · 선-2·6 · 명-1 · 규칙 줄): '+('통과' if not bad else '실패 %d건'%len(bad)))
+print('규칙 강제 검사(보-8·9 · 선-2·6 · 명-1·2 · 규칙 줄): '+('통과' if not bad else '실패 %d건'%len(bad)))
 sys.exit(1 if bad else 0)
