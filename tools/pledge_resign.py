@@ -28,8 +28,8 @@ def al_sync(rs):
         for x in a:
             if x[0]==an and not any(k in x[7] for k in ('허가','승인','되돌림','파기','대체됨','확인함')) and x[7]!=st: x[7]=st; ch+=1
     if ch: wr(AL,a,bom)
-a=argparse.ArgumentParser(); a.add_argument('cmd',choices=['issue','sign','done','check','sync'])
-for k in ('doc','why','change','order','id','model','text','kind','basis'): a.add_argument('--'+k)
+a=argparse.ArgumentParser(); a.add_argument('cmd',choices=['issue','sign','done','check','sync','retire'])
+for k in ('doc','why','change','order','id','model','text','kind','basis','by'): a.add_argument('--'+k)
 A=a.parse_args(); rs=rows()
 if A.cmd=='issue':
     p=A.doc if os.path.isabs(A.doc) else os.path.join(R,A.doc)
@@ -58,6 +58,23 @@ elif A.cmd in ('sign','done'):
     for x in tr:
         if x[0]==A.id: x[5]=al_state(rs,A.id)
     wr(TR,tr); print('%s %s · %s → %s'%('서명' if A.cmd=='sign' else '시행 보고',A.id,A.model,al_state(rs,A.id)))
+elif A.cmd=='retire':
+    # 261113 이력 1119: 새 요구로 대체된 요구는 「파기된 지시문」으로 표시하고 기록으로만 보존(지우지 않음). 서명 대기는 닫힌다.
+    if not A.by: sys.exit('--by 에 대체한 새 요구 번호(PR-…)를 적습니다')
+    t=now(); an=None; n=0
+    for r in rs:
+        if r[0]==A.id:
+            an=r[14]
+            if r[9]=='서명 대기': r[9]='파기된 지시문(기록 보존) · %s로 대체 %s'%(A.by,t); n+=1
+            if r[12]=='시행 전': r[12]='파기(시행 대상 아님)'
+    if an is None: sys.exit('없는 번호: '+A.id)
+    al=rd(AL)
+    for x in al:
+        if x[0]==an: x[7]='파기(기록 보존) · 파기된 지시문 — %s로 대체'%A.by
+    wr(AL,al,al_bom()); save(rs); tr=rd(TR)
+    for x in tr:
+        if x[0]==A.id: x[5]='파기된 지시문(기록 보존) · %s로 대체'%A.by
+    wr(TR,tr); print('파기 처리 %s → %s (서명 대기 %d줄 닫음)'%(A.id,A.by,n))
 elif A.cmd=='sync': al_sync(rs); print('결재선 맞춤')
 else:
     bad=0; last={}

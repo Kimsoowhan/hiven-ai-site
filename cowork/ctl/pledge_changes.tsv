@@ -9,3 +9,4 @@ PC-007	2026-11-12 14:27	Opus 5.5	cowork/ctl/pledge_models.tsv	Opus 각서 서명
 PC-008	2026-11-13 10:37	Fable 5.2	cowork/ctl/pledge_resign.tsv · tools/pledge_resign.py · 검사 ⑫	정책 변경 때마다 각서 재서명 틀 신설, PR-001~005 발행, Fable 서명 5건, Opus·Sonnet 서명 대기	1114
 PC-009	2026-11-13 10:42	Fable 5.2	tools/pledge_resign.py · pledge_resign.tsv · approval_line.tsv · pledge_trace.tsv	각서·서명 갈래 구분, 발행 때 결재 줄 자동 생성(A-017~A-023), 시행 보고(done), 추적 줄 연결, PR-006·007 발행	1115
 PC-010	2026-11-13 10:45	Fable 5.2	cowork/ctl/policy_docs · tools/pledge_resign.py · HiBiz 91_02_03_정책지시(Fable)	지시문 갈래 신설(03 정책지시, 04~06 번호 예약)·스스로 찾는 경로 정책, work_docs 추적 추가, PR-008 발행	1116
+PC-011	2026-11-13 10:52	Fable 5.2	tools/pledge_resign.py(retire) · retired_docs.tsv · work_docs · HiBiz 91_02_99_파기된지시문(보존)	파기된 지시문 정의·보존함·파기 대장, PR-005·006·008 파기 처리, PR-010·011 발행	1119
