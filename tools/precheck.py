@@ -120,5 +120,11 @@ for _l in _e.stdout.splitlines():
     elif _l.startswith('알림:'): _pl+=1
 if _e.returncode not in (0,1): fail('ev_run check 실행 오류 '+(_e.stderr or '')[-120:])
 if _pl: warn('증적 등록부 알림 %d건(계획 상태·실행 기록 없음, python3 tools/ev_run.py check)'%_pl)
+# ── ⑪ 호출 정책 검사(261113 이력 1113, 법인 설립 전 무료 운영 정책): 외부 저장소를 부르는 60초 미만 주기 호출·옛 목록 호출·누적 집계 누락이면 실패
+_c=subprocess.run([sys.executable,R+'/tools/call_policy_check.py'],capture_output=True,text=True)
+for _l in _c.stdout.splitlines():
+    if _l.startswith('실패:'): fail('호출 정책 '+_l[3:].strip())
+    elif _l.startswith('호출 정책 검사'): print(_l)
+if _c.returncode not in (0,1): fail('call_policy_check 실행 오류 '+(_c.stderr or '')[-120:])
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
