@@ -244,7 +244,7 @@ setInterval(fix,500);fix()})();
 (function(){if(window.hvApTipOn)return;window.hvApTipOn=1;var T;
  function box(){if(!T){T=document.createElement('div');T.id='hvApTip';T.style.cssText='position:fixed;z-index:99999;display:none;max-width:min(560px,92vw);max-height:80vh;overflow:auto;background:#fff8e1;color:#3e2723;border:2px solid #f9a825;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.28);padding:12px 14px;font-size:14px;line-height:1.55;pointer-events:none;word-break:keep-all;overflow-wrap:anywhere';document.body.appendChild(T)}return T}
  function row(k,v){return '<div style="display:flex;gap:10px;padding:3px 0;border-bottom:1px dashed #f0d58a"><b style="flex:0 0 96px;color:#8d6e00">'+k+'</b><span style="flex:1;min-width:0;white-space:pre-wrap">'+v+'</span></div>'}
- function show(tr,x,y){var d=tr.querySelector('.hvap');if(!d)return;var t=box(),g=function(k){return E(d.getAttribute('data-'+k)||'')};
+ function show(tr,x,y){var d=tr.querySelector('.hvap');if(!d)return;var t=box(),g=function(k){return String(d.getAttribute('data-'+k)||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
   t.innerHTML='<div style="font-weight:800;margin-bottom:6px">'+g('n')+' · '+g('st')+'</div>'+row('번호',g('n'))+row('종류',g('k'))+row('상황',g('s'))+row('결재 사항(내용)',g('w'))+row('근거',g('b'))+row('올린 모델',g('m'))+row('결재 상태',g('st'));
   t.style.display='block';var w=t.offsetWidth,h=t.offsetHeight,W=innerWidth,H=innerHeight,l=x+16,p=y+16;if(l+w>W-8)l=Math.max(8,x-w-16);if(p+h>H-8)p=Math.max(8,H-h-8);t.style.left=l+'px';t.style.top=p+'px'}
  function hide(){if(T)T.style.display='none'}
