@@ -24,6 +24,12 @@ for r in rows[1:]:
 pol=''.join(open(f,encoding='utf-8').read() for f in glob.glob(R+'/cowork/ctl/policy_docs/Fable_지시문_수행체계*.md'))
 for k in ['선-1','선-2','선-3','선-4','선-5','선-6','보-8','보-9','점-9']:
     if k not in pol: bad.append('수행 체계 지시문에 %s 줄 없음'%k)
+# 명-1(이력 1230): 올림 대기 산출물 이름은 제목-yymmdd. 날짜 8자리·날짜 앞 언더바 금지
+import re as _re, os as _os
+for _d,_,_fs in _os.walk('/mnt/user-data/outputs/hb'):
+    for _f in _fs:
+        if _re.search(r'_20\d{6}(\D|$)', _f) or _re.search(r'_\d{6}(_|\.)[^-]*$', _f) and not _re.search(r'-\d{6}', _f):
+            bad.append('명-1 파일 이름(제목-yymmdd 아님): '+_f)
 for b in bad: print('규칙 강제 실패:',b)
-print('규칙 강제 검사(보-8·9 · 선-2·6 · 규칙 줄): '+('통과' if not bad else '실패 %d건'%len(bad)))
+print('규칙 강제 검사(보-8·9 · 선-2·6 · 명-1 · 규칙 줄): '+('통과' if not bad else '실패 %d건'%len(bad)))
 sys.exit(1 if bad else 0)
