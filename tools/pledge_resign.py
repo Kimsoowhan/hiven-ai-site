@@ -18,16 +18,15 @@ def rows(): return rd(L)[1:]
 def save(rs): wr(L,[HEAD]+rs)
 def al_bom(): return open(AL,'rb').read(3)==b'\xef\xbb\xbf'
 def al_state(rs,pid):
+    # 261113 이력 1117: 각서·서명 결재는 승인이 아니라 상황 확인용. 발행 즉시 「확인 대기」로 오르고 진행 정도를 함께 보인다. 작업은 결재를 기다리지 않는다.
     g=[r for r in rs if r[0]==pid]; kind=g[0][1]; n=len(g); s=sum(r[9]=='서명' for r in g); d=sum(r[12]=='시행함' for r in g)
-    if s<n: return '판정 전 · %s 수집 중 %d/%d'%(kind,s,n)
-    if kind=='서명' and d<n: return '판정 전 · 서명 %d/%d · 시행 보고 %d/%d'%(s,n,d,n)
-    return '결재 대기 · %s %d/%d'%(kind,s,n)+(' · 시행 보고 %d/%d'%(d,n) if kind=='서명' else '')
+    return '확인 대기 · %s %d/%d'%(kind,s,n)+(' · 시행 보고 %d/%d'%(d,n) if kind=='서명' else '')+' · 작업은 진행 중(결재를 기다리지 않음)'
 def al_sync(rs):
     a=rd(AL); bom=al_bom(); ch=0
     for pid in sorted({r[0] for r in rs}):
         g=[r for r in rs if r[0]==pid]; an=g[0][14]; st=al_state(rs,pid)
         for x in a:
-            if x[0]==an and not any(k in x[7] for k in ('허가','승인','되돌림','파기','대체됨')) and x[7]!=st: x[7]=st; ch+=1
+            if x[0]==an and not any(k in x[7] for k in ('허가','승인','되돌림','파기','대체됨','확인함')) and x[7]!=st: x[7]=st; ch+=1
     if ch: wr(AL,a,bom)
 a=argparse.ArgumentParser(); a.add_argument('cmd',choices=['issue','sign','done','check','sync'])
 for k in ('doc','why','change','order','id','model','text','kind','basis'): a.add_argument('--'+k)
@@ -39,8 +38,8 @@ if A.cmd=='issue':
     n=max([int(r[0][3:]) for r in rs] or [0])+1; pid='PR-%03d'%n; t=now()
     al=rd(AL); an='A-%03d'%(max(int(x[0][2:]) for x in al if x[0].startswith('A-'))+1); doc=os.path.basename(p)
     for m in MODELS: rs.append([pid,A.kind,t,rel(p),h(p),clean(A.why),clean(A.change),clean(A.order),m,'서명 대기','','','시행 전' if A.kind=='서명' else '해당 없음','',an,clean(A.basis or '')])
-    what=('작업 모델 3개가 바뀐 정책·규칙을 읽고 각서(작업 순서·규칙·이행·방식·태도·답변의 다짐)에 다시 서명했음을 확인·승인' if A.kind=='각서' else '작업 모델 3개가 이 지시문에 서명하고 그대로 시행했음을 확인·승인')
-    al.append([an,t,'Fable 5.2','승인','[%s] %s — %s'%(A.kind,doc,clean(A.change)),what,'%s · 문서 해시 %s · cowork/ctl/pledge_resign.tsv%s'%(pid,h(p),(' · '+clean(A.basis)) if A.basis else ''),al_state(rs,pid),'',''])
+    what=('작업 모델 3개가 바뀐 정책·규칙을 읽고 각서(작업 순서·규칙·이행·방식·태도·답변의 다짐)에 다시 서명했는지 상황 확인(승인 용도 아님, 작업은 결재를 기다리지 않음)' if A.kind=='각서' else '작업 모델 3개가 이 지시문에 서명하고 시행하고 있는지 상황 확인(승인 용도 아님, 작업은 결재를 기다리지 않음)')
+    al.append([an,t,'Fable 5.2','확인','[%s] %s — %s'%(A.kind,doc,clean(A.change)),what,'%s · 문서 해시 %s · cowork/ctl/pledge_resign.tsv%s'%(pid,h(p),(' · '+clean(A.basis)) if A.basis else ''),al_state(rs,pid),'',''])
     wr(AL,al,al_bom()); save(rs)
     tr=rd(TR); tr.append([pid,t[5:].replace('-','/'),'[%s] %s'%(A.kind,doc),clean(A.order),'%s → 결재 %s'%(rel(p),an),'서명 수집 중']); wr(TR,tr)
     print('발행 %s(%s) · 결재 %s · %s'%(pid,A.kind,an,rel(p)))
