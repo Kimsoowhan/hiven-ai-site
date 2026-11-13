@@ -1,0 +1,6 @@
+번호	길	주소(클라우드 서비스)	보내는 것	돌려받는 것	상태
+SA-01	회원가입	POST /api/member/signup	signup_form.tsv의 필수·선택 항목, 체크한 서비스 모드(SM 번호), 동의한 판	확인 메일 발송 여부	주소 정함 · 서버 열기 전
+SA-02	이메일 확인	GET /api/member/verify	확인 메일의 한 번 쓰는 표	가입 완료	주소 정함 · 서버 열기 전
+SA-03	들어가기 · 나가기	POST /api/member/login · /logout	이메일 · 비밀번호	접속 표	주소 정함 · 서버 열기 전
+SA-04	마이홈	GET · PUT /api/member/me	—	내 서비스 모드 · 기기 · 동의 내역	주소 정함 · 서버 열기 전
+SA-05	탈퇴	DELETE /api/member/me	비밀번호 확인	파기 예정일	주소 정함 · 서버 열기 전

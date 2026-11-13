@@ -62,7 +62,7 @@ V['SC-19']=function(){load('hv10-19',F19,function(D){var p=D[0],m=D[1],gi=col(p,
  return head('SC-19','이해관계자 및 협력사','계약보다 앞서 선행돼야 하는 것(특허 · 도메인 · 메일 · 인증, 협의 · SLA · MOU)을 협력사와 이해관계자 갈래로 나눠 봅니다.')+flow('SC-19')+'<div id="hv10-19" class="hv-nosw">읽는 중…</div>'};
 
 /* ───── SC-20 이용약관 및 정책 (탭 넷: 화면 안 단추로 전환, 원천은 한 번만 읽음. 대표님 18:45~18:57 지시 · sc_structure.tsv · DR-19) ───── */
-var F20=['policy_list.tsv','member_ledger.tsv','beta_ledger.tsv','pip_ledger.tsv','charter_ledger.tsv','charter_purpose.tsv'],T20={tab:'ch',D:null,cg:'',cp:0};/* 대표님 19:31(이력 1317): 탭 다섯, 정관이 맨 앞 */
+var F20=['policy_list.tsv','member_ledger.tsv','beta_ledger.tsv','pip_ledger.tsv','charter_ledger.tsv','charter_purpose.tsv','policy_decision_check.tsv','signup_form.tsv','service_mode.tsv','member_menu.tsv','app_mode_flow.tsv','member_api.tsv'],T20={tab:'ch',D:null,cg:'',cp:0,am:'',sm:{},mb:false,msg:''};/* 대표님 19:31(이력 1317): 탭 다섯, 정관이 맨 앞 */
 var TABS20=[['ch','정관'],['pl','이용약관 및 정책'],['mem','회원관리'],['beta','무료 베타 버전 관리'],['pi','개인정보 처리']];
 function ids(s,p){return (String(s||'').match(new RegExp(p+'-\\d+','g'))||[])}
 /* 맞물림: 한 줄(회원 · 설치) → 동의한 약관 판(PL) · 개인정보 묶음(PI). 없는 번호 · 빈 번호는 어긋남 */
@@ -70,10 +70,14 @@ function link(d,name,plN,piN){var c1=col(d,'동의한 약관'),c2=col(d,'동의�
  d.r.forEach(function(r){var pl=ids(r[c1],'PL').concat(c2>=0?ids(r[c2],'PL'):[]),pi=ids(r[c3],'PI');pl.forEach(function(x){if(!plN[x])o.push(name+' '+r[0]+' → '+x+' 없음')});pi.forEach(function(x){if(!piN[x])o.push(name+' '+r[0]+' → '+x+' 없음')});if(!pl.length||!pi.length)o.push(name+' '+r[0]+' → PL·PI 번호 없음')});return o}
 function draw20(){var D=T20.D;if(!D)return '';var pl=D[0],me=D[1],be=D[2],pi=D[3],ch=D[4],cp=D[5],plN={},piN={};pl.r.forEach(function(r){plN[r[0]]=1});pi.r.forEach(function(r){piN[r[0]]=1});
  var miss=link(me,'회원',plN,piN).concat(link(be,'설치',plN,piN));
+ /* 게시된 정책 문장 ↔ 결정 대조(대표님 11-13 20:53 · 21:07, 이력 1345 · 1350): 어긋난 줄이 있으면 얼럿. 원천 policy_decision_check.tsv, 검사 K24 */
+ var pd=D[6]||{h:[],r:[]},pdc=col(pd,'대조'),pdBad=pd.r.filter(function(r){return ['어긋남','빠짐','맞대지 않음'].indexOf(String(r[pdc]||''))>=0});
  var ret=col(pi,'보유 기간'),des=col(pi,'파기 방법'),cl=col(pi,'방침·약관의 근거'),dr19=pi.r.filter(function(r){return [ret,des,cl].some(function(i){return i<0||!r[i]||String(r[i]).indexOf(NA)>=0})});
  var si=col(pl,'시행 여부'),plNa=pl.r.filter(function(r){return String(r[si]||'').indexOf(NA)>=0}),al=[];
  if(plNa.length)al.push('시행 여부 「'+NA+'」 약관·정책 '+plNa.length+'건: '+plNa.map(function(r){return E(r[0])}).join(' · '));
  if(dr19.length)al.push('DR-19 어긋남(보유 기간 · 파기 방법 · 근거 조항 가운데 「'+NA+'」) 개인정보 묶음 '+dr19.length+'줄: '+dr19.map(function(r){return E(r[0])}).join(' · '));
+ if(pdBad.length)al.push('게시된 정책 문장이 결정과 어긋남 '+pdBad.length+'줄: '+pdBad.map(function(r){return E(r[0]+' '+r[1])}).join(' · '));
+ if(!pd.r.length)al.push('정책 문장 ↔ 결정 대조표가 게시되지 않음(policy_decision_check.tsv)');
  if(miss.length)al.push('맞물림 어긋남 '+miss.length+'건: '+E(miss.join(' · ')));
  var h='<div class="grid">'+card('정관',ch.r.length+'건',ch.none?'정관 대장 만들기 전(0건)':'정관 대장')+card('약관 · 정책',pl.r.length+'건','PL 번호')+card('회원',me.r.length+'명',me.r.length?'회원 관리 대장':'회원 0명(베타 배포 전)')+card('베타 설치',be.r.length+'건',be.r.length?'베타 설치 대장':'베타 설치 기록 0건')+card('개인정보 묶음',pi.r.length+'묶음','PI 번호')+card('DR-19 어긋남',dr19.length+'줄',dr19.length?tag('채울 것','bad'):tag('없음','ok'))+'</div>';
  h+=alertBox(al);
@@ -84,12 +88,38 @@ function draw20(){var D=T20.D;if(!D)return '';var pl=D[0],me=D[1],be=D[2],pi=D[3
  var lines=me.r.length+be.r.length;
  h+='<p class="note"><b>맞물림</b> 회원 한 줄 · 설치 한 줄 → 동의한 약관 판(PL 번호) · 개인정보 묶음(PI 번호). 지금 회원 '+me.r.length+'명 · 베타 설치 기록 '+be.r.length+'건'+(lines?' · 어긋남 '+miss.length+'건':' — 맞물림을 볼 줄이 아직 없습니다(베타 배포 전)')+'.</p>';
  if(T20.tab==='ch')h+=charter(ch,cp);
- else if(T20.tab==='pl')h+='<h3>이용약관 및 정책</h3>'+tbl(pl.h.map(E),rows(pl))+src(['policy_list.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_10_관리');
- else if(T20.tab==='mem')h+='<h3>회원관리</h3>'+tbl(me.h.map(E),rows(me))+(me.r.length?'':'<p class="note">회원 0명(베타 배포 전). 가입이 생기면 회원 한 줄마다 동의한 약관 판(PL)과 개인정보 묶음(PI)을 적습니다.</p>')+src(['member_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리');
+ else if(T20.tab==='pl')h+='<h3>이용약관 및 정책</h3>'+tbl(pl.h.map(E),rows(pl))+src(['policy_list.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_10_관리')+'<h3>게시된 정책 문장 ↔ 결정 대조</h3><p class="note hv-nosw">결정이 바뀌면 이 표의 줄이 「어긋남」으로 바뀌고 위에 얼럿이 뜹니다. 지금 '+pd.r.length+'줄 · 어긋남 '+pdBad.length+'줄(검사 K24, 규칙 DR-19).</p>'+tbl(pd.h.map(E),rows(pd))+src(['policy_decision_check.tsv'],'Fable 작성 대조표(결정 기록과 맞댐)','44_HIVEN_이용약관_정책(PCY)\\44_10_관리');
+ else if(T20.tab==='mem'){var Z={h:[],r:[]},sf=D[7]||Z,sm=D[8]||Z,mm=D[9]||Z,af=D[10]||Z,ap=D[11]||Z;
+  /* 앱 안 모드 · 회원가입 · 마이홈 흐름(대표님 11-13 21:08 · 21:11 · 21:12, 이력 1351~1353). 원천 service_mode · signup_form · member_menu · app_mode_flow · member_api.
+     이 화면은 앱에 들어갈 흐름을 그대로 눌러 보는 보기이며, 적은 값은 어디에도 보내거나 저장하지 않는다. */
+  var sfa=function(k){return sf.r.filter(function(r){return String(r[2]||'').indexOf(k)===0})},nd=function(r){return String(r[3]||'')==='필요'};
+  var need=sm.r.some(function(r){return nd(r)&&T20.sm[r[0]]}),B='padding:8px 16px;border-radius:8px;font-weight:700;white-space:nowrap;cursor:pointer;margin:0 8px 8px 0;',box='border:1px solid #c5cde0;border-radius:12px;padding:16px;margin:0 0 14px;max-width:760px';
+  h+='<h3>앱 안 흐름 보기 · 모드 → 회원가입 → 마이홈</h3><p class="note hv-nosw">Hi Coffer AI Agent 앱에 들어갈 흐름입니다. 처음 들어갈 때 모드를 고르고, 기본 모드에서도 서비스 모드를 체크하면 구독 서비스 모드로 넘어가 회원가입 창이 켜집니다. 이 보기에서는 값을 보내거나 저장하지 않습니다.</p>';
+  if(!T20.am)h+='<div class="hv-nosw" style="'+box+'"><b>① 처음 들어갈 때 · 모드 고르기</b><p class="note">기본 정리만 쓰려면 기본 모드, 분류 체계 적용 · 부가서비스 · 디지털금고를 쓰려면 구독 서비스 모드입니다. 베타 기간에는 무료입니다.</p><button type="button" onclick="hv10Am(\'basic\')" style="'+B+'border:1px solid #1a2a5e;background:#fff;color:#1a2a5e">기본 모드</button><button type="button" onclick="hv10Am(\'sub\')" style="'+B+'border:0;background:#1a2a5e;color:#fff">구독 서비스 모드</button></div>';
+  else{
+   h+='<div class="hv-nosw" style="'+box+'"><b>② 서비스 모드</b> <span class="note" style="margin-left:8px">지금 '+(need?'구독 서비스 모드':'기본 모드')+(T20.mb?' · 회원':' · 회원 아님')+'</span> <button type="button" onclick="hv10Am(\'\')" style="'+B+'float:right;padding:4px 10px;border:1px solid #c5cde0;background:#fff;color:#1a2a5e;margin:0">처음으로</button>'
+    +sm.r.map(function(r){var fix=!nd(r),on=fix||!!T20.sm[r[0]];return '<label style="display:block;margin:10px 0 0;cursor:'+(fix?'default':'pointer')+'"><input type="checkbox" '+(on?'checked ':'')+(fix?'disabled ':'')+'onchange="hv10Sm(\''+E(r[0])+'\')" style="margin-right:8px"><b>'+E(r[1])+'</b> <span class="note">'+E(r[2])+' · 베타 '+E(r[4])+' · 상용 '+E(r[5])+(fix?' · 회원가입 필요 없음':'')+'</span></label>'}).join('')+'</div>';
+   var dis=(!need||T20.mb)?'disabled ':'',net=(typeof navigator!=='undefined'&&navigator.onLine===false)?'인터넷 연결 안 됨 · 연결되면 다시 확인':'인터넷 연결됨 · 가입 서버 열기 전(지금은 어떤 값도 보내지 않습니다)';
+   var inp=function(r,k){var req=String(r[2]).indexOf('필수')===0,chk=/체크/.test(r[3]),pw=/비밀번호/.test(r[1]);return '<label style="display:block;margin:0 0 10px"><span style="display:block;font-weight:700;margin:0 0 4px">'+(chk?'<input type="checkbox" '+dis+'data-sf="'+E(r[0])+'" style="margin-right:6px">':'')+E(r[1])+(req?' <b style="color:#b3261e">*</b>':' <span class="note">(선택)</span>')+'</span>'+(chk?'':'<input type="'+(pw?'password':'text')+'" autocomplete="off" '+dis+'data-sf="'+E(r[0])+'" placeholder="'+E(r[3])+'" style="width:100%;max-width:420px;padding:8px 10px;border:1px solid #c5cde0;border-radius:8px;background:'+(dis?'#f5f6fa':'#fff')+'">')+'<span class="note" style="display:block;margin-top:2px">'+E(r[4])+'</span></label>'};
+   h+='<div class="hv-nosw" id="hv10-sf" style="'+box+';max-width:520px;opacity:'+(dis&&!T20.mb?'.55':'1')+'"><b>③ 회원가입 창</b> <span class="note" style="margin-left:8px">'+(T20.mb?'가입됨(보기)':need?E(net):'가입이 필요한 서비스 모드를 체크하면 켜집니다')+'</span><div style="margin-top:12px">'+sfa('필수').concat(sfa('선택')).map(inp).join('')+'</div><p class="note">받지 않는 것: '+sfa('받지 않음').map(function(r){return E(r[1])}).join(' / ')+'</p><button type="button" '+dis+'onclick="hv10Join()" style="'+B+'border:0;background:'+(dis?'#8a90a0':'#1a2a5e')+';color:#fff;cursor:'+(dis?'not-allowed':'pointer')+'">가입하기</button>'+(T20.msg?'<p class="note" style="color:#b3261e;font-weight:700">'+E(T20.msg)+'</p>':'')+'</div>';
+   if(T20.mb){var gs=[];mm.r.forEach(function(r){if(gs.indexOf(r[1])<0)gs.push(r[1])});
+    h+='<div class="hv-nosw" style="'+box+'"><b>④ 가입 뒤 메뉴</b> <button type="button" onclick="hv10Out()" style="'+B+'float:right;padding:4px 10px;border:1px solid #c5cde0;background:#fff;color:#1a2a5e;margin:0">회원 탈퇴(보기)</button>'+gs.map(function(g){return '<div style="margin-top:12px"><div style="font-weight:800;color:#1a2a5e">'+E(g)+'</div>'+mm.r.filter(function(r){return r[1]===g}).map(function(r){return '<div style="margin:6px 0 0 12px"><b>'+E(r[2])+'</b> <span class="note">'+E(r[3])+'</span></div>'}).join('')+'</div>'}).join('')+'</div>'}}
+  h+='<h3>앱 안 단계</h3>'+tbl(af.h.map(E),rows(af))+src(['app_mode_flow.tsv'],'Fable 작성 원천(앱 흐름 설정)','12_HIVEN_HiCoffer\\12_04_설계안')
+   +'<h3>서비스 모드</h3>'+tbl(sm.h.map(E),rows(sm))+src(['service_mode.tsv'],'Fable 작성 원천','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
+   +'<h3>회원가입 항목</h3>'+tbl(sf.h.map(E),rows(sf))+src(['signup_form.tsv'],'Fable 작성 원천(양식 설정)','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
+   +'<h3>가입 뒤 메뉴</h3>'+tbl(mm.h.map(E),rows(mm))+src(['member_menu.tsv'],'Fable 작성 원천','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
+   +'<h3>인터넷 연동 · 가입 주소</h3>'+tbl(ap.h.map(E),rows(ap))+src(['member_api.tsv'],'Fable 작성 원천(서버 열기 전)','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리');
+  h+='<h3>회원관리</h3>'+tbl(me.h.map(E),rows(me))+(me.r.length?'':'<p class="note">회원 0명(베타 배포 전). 가입이 생기면 회원 한 줄마다 동의한 약관 판(PL)과 개인정보 묶음(PI)을 적습니다.</p>')+src(['member_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리');}
  else if(T20.tab==='beta')h+='<h3>무료 베타 버전 관리</h3>'+tbl(be.h.map(E),rows(be))+(be.r.length?'':'<p class="note">베타 설치 기록 0건(0.1.27에는 바깥으로 보내는 기능이 없음). 설치 기록이 생기면 한 줄마다 기기 · 저장 매체와 동의한 약관 판(PL) · 개인정보 묶음(PI)을 적습니다. 카드 번호는 두지 않습니다.</p>')+src(['beta_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_22_무료_베타_버전_관리');
  else h+='<h3>개인정보 처리</h3>'+tbl(pi.h.map(E),rows(pi))+'<p class="note">DR-19: 개인정보가 든 문서 · 기록은 이 대장에 한 줄이 있고 보유 기간 · 파기 방법 · 방침의 근거 조항이 적혀 있어야 합니다. 문서 생애 절차의 보존(L6) · 파기(L7)는 이 대장의 보유 기간을 따릅니다.</p>'+src(['pip_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_20_개인정보_처리');
  return h}
 window.hv10Tab20=function(t){T20.tab=t;redraw()};
+window.hv10Am=function(m){T20.am=m;T20.sm={};T20.mb=false;T20.msg='';if(m==='sub'&&T20.D&&T20.D[8])T20.D[8].r.forEach(function(r){if(String(r[3]||'')==='필요')T20.sm[r[0]]=true});redraw()};
+window.hv10Sm=function(id){T20.sm[id]=!T20.sm[id];T20.msg='';redraw()};
+window.hv10Out=function(){T20.mb=false;T20.sm={};T20.msg='';redraw()};
+window.hv10Join=function(){var q=function(id){return document.querySelector('#hv10-sf [data-sf="'+id+'"]')},em=q('SF-01'),pw=q('SF-02'),c=['SF-03','SF-04','SF-05'].every(function(i){var x=q(i);return x&&x.checked}),m='';
+ if(!em||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value))m='이메일 주소를 꼴에 맞게 적어 주십시오.';else if(!pw||pw.value.length<10)m='비밀번호는 10자 이상이어야 합니다.';else if(!c)m='필수 확인 · 동의 세 칸에 체크해 주십시오.';
+ if(pw)pw.value='';if(m){T20.msg=m;redraw();return}T20.msg='';T20.mb=true;redraw()};
 /* 정관 탭(대표님 19:35, 이력 1318): 요약 버튼 넷(정관 판 · 목적 사업 · 등록·신고가 필요한 사업 · 묶음 수, 누르면 그 표) + 정관 대장 + 목적 사업 표.
    목적 사업 표만 항 번호순(1→40), 한 쪽 15줄 쪽 넘김, 묶음 버튼으로 거름. 원천 charter_ledger.tsv · charter_purpose.tsv(Fable 작성 대장) */
 var CP_PG=15;
