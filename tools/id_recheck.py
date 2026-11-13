@@ -18,6 +18,9 @@
 서버(ic.hiven.ai.kr)를 부르지 않는다. 통과 기록은 id.html 의 재확인 목록(/__id/rechecks)을 받은 JSON 을 import 로 옮기거나 pass 로 한 줄 적는다.
 
 사용
+  id_recheck.py check [--now "YYYY-MM-DD HH:MM"] [--text "지시 글"] [--kind 갈래]
+        한 명령 판정. 마지막 대표님 말씀 시각은 지시 대장(cowork/ctl/command_ledger.tsv)에서 이번 시각 앞의 마지막 줄을,
+        마지막 통과 시각은 id_pass_log.tsv 에서 읽는다. --now 를 빼면 지금(서울). 종료 코드 0 = 불필요 · 3 = 필요
   id_recheck.py need --now "YYYY-MM-DD HH:MM" [--said "앞 말씀 시각"] [--pass "마지막 통과 시각"] [--text "지시 글"] [--kind 갈래]
         지금 재확인이 필요한가. --pass 를 빼면 id_pass_log.tsv 의 마지막 통과를 쓴다. 종료 코드 0 = 불필요 · 3 = 필요
   id_recheck.py hold --no 이력번호 --now "지시 시각" [--said ..] [--pass ..] [--text ..] [--kind ..]
@@ -35,6 +38,8 @@ CFG = os.path.join(C, 'id_recheck_config.json')
 HOLD = os.path.join(C, 'id_recheck_hold.tsv')
 PASS = os.path.join(C, 'id_pass_log.tsv')
 TEST = os.path.join(C, 'id_recheck_test.tsv')
+LEDGER = os.path.join(C, 'command_ledger.tsv')
+KST = datetime.timezone(datetime.timedelta(hours=9))
 HOLD_H = ['보류 번호', '올린 때', '이력 번호', '지시 때', '까닭', '갈래', '상태', '닫은 때', '통과 기록']
 PASS_H = ['통과 시각', '창 번호', '까닭', '이력 번호', '옮긴 곳']
 WHY = {'idle': '무입력', 'risk': '둘째겹', 'first': '첫확인', '무입력': '무입력', '둘째겹': '둘째겹', '첫확인': '첫확인'}
@@ -95,6 +100,36 @@ def kinds_of(text, kind):
     return [k for k, rx in KINDS if re.search(rx, text or '', re.I)]
 
 
+def now_kst():
+    return datetime.datetime.now(KST).replace(tzinfo=None, second=0, microsecond=0)
+
+
+def ledger_times(now, rows=None):
+    """지시 대장의 「시각」 칸(11-12 10:06 · 11/13 17:11)을 이번 시각의 해로 읽는다. 돌려줌: [(시각, 번호)]"""
+    if rows is None:
+        rows = rd(LEDGER, ['번호', '시각', '지시', '반영 위치', '상태'])
+    out = []
+    for r in rows:
+        m = re.match(r'^\s*(\d{1,2})[-/](\d{1,2})\s+(\d{1,2}):(\d\d)', r[1] if len(r) > 1 else '')
+        if not m:
+            continue
+        mo, d, h, mi = map(int, m.groups())
+        try:
+            t = datetime.datetime(now.year, mo, d, h, mi)
+        except ValueError:
+            continue
+        if t > now + datetime.timedelta(days=180):  # 해 바뀜(12월 기록을 1월에 읽을 때)
+            t = t.replace(year=now.year - 1)
+        out.append((t, r[0]))
+    return out
+
+
+def last_said(now, rows=None):
+    """이번 말씀(now) 앞의 마지막 대표님 말씀. 같은 분에 적힌 줄은 이번 말씀으로 보고 뺀다"""
+    ts = [x for x in ledger_times(now, rows) if x[0] < now]
+    return max(ts) if ts else (None, '')
+
+
 def last_pass(passes):
     ts = []
     for p in passes:
@@ -123,11 +158,15 @@ def judge(c, now, said=None, pas=None, text='', kind=''):
 def need(a, c=None, passes=None):
     c = c or cfg()
     passes = rd(PASS, PASS_H) if passes is None else passes
-    now = T(a.now)
+    now = T(a.now) if a.now else now_kst()
     pas = T(a.pass_) if getattr(a, 'pass_', None) else last_pass(passes)
-    said = T(a.said) if a.said else None
+    sno = ''
+    if a.said:
+        said = T(a.said)
+    else:
+        said, sno = last_said(now, getattr(a, 'ledger', None))
     n, why, ks = judge(c, now, said, pas, a.text or '', a.kind or '')
-    base = '마지막 통과 %s' % (F(pas) if pas else '없음')
+    base = '이번 %s · 앞 말씀 %s · 마지막 통과 %s' % (F(now), (F(said) + (' (대장 ' + sno + ')' if sno else '')) if said else '없음', F(pas) if pas else '없음')
     if n:
         return 3, '필요 — ' + ' · '.join(why) + ' · ' + base + ' · ic.hiven.ai.kr/id.html 통과 전까지 그 지시는 보류'
     return 0, '불필요 — ' + ('둘째 겹 지시(%s)지만 %s분 안 통과 있음 · ' % ('·'.join(ks), c['둘째 겹 앞선 통과 인정 분']) if ks else '') + base
@@ -144,8 +183,10 @@ def hold(a, c=None, rows=None, passes=None, write=True):
     no = 'IDH-%03d' % (len(rows) + 1)
     passes = rd(PASS, PASS_H) if passes is None else passes
     pas = T(a.pass_) if getattr(a, 'pass_', None) else last_pass(passes)
-    _, why, ks = judge(c, T(a.now), T(a.said) if a.said else None, pas, a.text or '', a.kind or '')
-    rows.append([no, F(datetime.datetime.now()), a.no, F(T(a.now)), ' · '.join(why), '·'.join(ks) or '—', '보류', '', ''])
+    now = T(a.now) if a.now else now_kst()
+    said = T(a.said) if a.said else last_said(now, getattr(a, 'ledger', None))[0]
+    _, why, ks = judge(c, now, said, pas, a.text or '', a.kind or '')
+    rows.append([no, F(now_kst()), a.no, F(now), ' · '.join(why), '·'.join(ks) or '—', '보류', '', ''])
     if write:
         wr(HOLD, HOLD_H, rows)
     return 3, msg + ' · %s 올림' % no
@@ -153,7 +194,7 @@ def hold(a, c=None, rows=None, passes=None, write=True):
 
 def resolve(now=None, c=None, rows=None, passes=None, write=True):
     c = c or cfg()
-    now = T(now) if now else datetime.datetime.now()
+    now = T(now) if now else now_kst()
     rows = rd(HOLD, HOLD_H) if rows is None else rows
     passes = rd(PASS, PASS_H) if passes is None else passes
     n = 0
@@ -181,9 +222,10 @@ def add_pass(at, win, why, no='', kind='', src='id.html', rows=None, write=True)
         raise SystemExit('창 번호는 6자리입니다: %s' % win)
     w = WHY.get(why, '첫확인')
     at = F(T(at))
-    if any(r[0] == at and r[1] == str(win) for r in rows):
+    wk = w + (' · ' + kind if kind else '')
+    if any(r[0] == at and r[1] == str(win) and r[2] == wk and r[3] == no for r in rows):  # 같은 분·창·까닭·이력 번호면 겹침
         return 0
-    rows.append([at, str(win), w + (' · ' + kind if kind else ''), no, src])
+    rows.append([at, str(win), wk, no, src])
     rows.sort(key=lambda r: r[0])
     if write:
         wr(PASS, PASS_H, rows)
@@ -236,6 +278,24 @@ def selftest():
     st = [r[6] for r in rows]
     exp = ['무효(통과 없음)', '통과 · 이어서 수행']
     out.append(['시-14', '보류 2건 닫기: 09:40 지시(무입력 35분)는 60분 안 통과 없음 → 무효 · 10:32 배포는 10:50 통과 → 통과', '·'.join(exp), '·'.join(st), '통과' if st == exp and n == 2 else '실패', '닫은 줄 %d' % n])
+    # 한 명령 판정(check): 지시 대장에서 앞 말씀을 읽는다
+    LG = [['901', '11-13 09:20', '', '', ''], ['902', '11/13 09:58', '', '', ''], ['903', '11/13 10:40', '', '', ''], ['904', '틀린 꼴', '', '', '']]
+    for cid, name, a, exp in [
+        ('시-16', '대장 앞 말씀 09:58 · 이번 10:40(같은 분 줄은 이번 말씀) · 무입력 42분', A(no='', now='2026-11-13 10:40', said=None, pass_=None, text='표 맞춰', kind='', ledger=LG), 3),
+        ('시-17', '대장 앞 말씀 09:58 · 이번 10:20 · 무입력 22분', A(no='', now='2026-11-13 10:20', said=None, pass_=None, text='표 맞춰', kind='', ledger=LG), 0),
+        ('시-18', '대장 앞 말씀 09:58 · 이번 10:40 · 통과 10:39(기척)', A(no='', now='2026-11-13 10:40', said=None, pass_='2026-11-13 10:39', text='표 맞춰', kind='', ledger=LG), 0),
+    ]:
+        code, msg = need(a, c, P0)
+        out.append([cid, name, exp, code, '통과' if code == exp else '실패', msg])
+    yr = ledger_times(T('2027-01-02 09:00'), [['905', '12/31 23:50', '', '', '']])
+    out.append(['시-19', '해 바뀜: 1월 2일에 읽은 12/31 기록은 앞 해', '2026-12-31 23:50', F(yr[0][0]) if yr else '없음', '통과' if yr and F(yr[0][0]) == '2026-12-31 23:50' else '실패', ''])
+    # id.html 재확인 목록(/__id/rechecks) 옮기기: 까닭 낱말 바꿈, 서울 시각, 겹침 없음
+    rr2 = []
+    js = [{'at': '2026-11-13T08:20:54.140Z', 'win': '261113', 'why': 'risk', 'no': '1260', 'kind': '배포'}, {'at': '2026-11-13T08:20:54.121Z', 'win': '261113', 'why': 'idle', 'no': '', 'kind': ''}]
+    n1 = sum(add_pass(x['at'], x['win'], x['why'], x['no'], x['kind'], 'ic /__id/rechecks', rr2, write=False) for x in js)
+    n2 = sum(add_pass(x['at'], x['win'], x['why'], x['no'], x['kind'], 'ic /__id/rechecks', rr2, write=False) for x in js)
+    got = '%d·%d·%s·%s' % (n1, n2, rr2[0][0] if rr2 else '', '/'.join(r[2] for r in rr2))
+    out.append(['시-20', '재확인 목록 옮기기: 같은 분 두 줄(무입력·둘째 겹) → 서울 17:20, 두 번 옮겨도 겹치지 않음', '2·0·2026-11-13 17:20·무입력/둘째겹 · 배포', got, '통과' if got.startswith('2·0·2026-11-13 17:20·') and '무입력' in got and '둘째겹 · 배포' in got else '실패', ''])
     off = dict(c)
     off['켜짐'] = False
     rr = []
@@ -265,11 +325,11 @@ def main():
     ap.add_argument('--win', default='')
     ap.add_argument('--why', default='first')
     a = ap.parse_args()
-    if a.cmd in ('need', 'hold'):
-        if not a.now:
+    if a.cmd in ('check', 'need', 'hold'):
+        if a.cmd == 'hold' and not a.now:
             sys.exit('--now(이번 말씀 시각)를 주십시오')
-        code, msg = (need(a) if a.cmd == 'need' else hold(a))
-        print(msg)
+        code, msg = (hold(a) if a.cmd == 'hold' else need(a))
+        print('재확인 ' + msg)
         sys.exit(code)
     if a.cmd == 'pass':
         print('통과 줄 %d건 더함' % add_pass(a.at, a.win, a.why, a.no, a.kind))
