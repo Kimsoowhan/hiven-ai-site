@@ -47,7 +47,9 @@ var HVCD={},HVCDn=0,HVCDo='',HV_CDET={};/* 17:51 SC-02은 상자 1~10 순서 목
 function hvIsTest(){return /\/test\//.test(location.pathname)}
 function card(k,v,s,to,det){var id='cd'+(++HVCDn),key=(typeof cur!=='undefined'?cur:'')+'|'+k;HVCD[id]={k:k,v:v,s:s,to:to,det:det,key:key};
  var on=HVCDo===key;if(on)setTimeout(function(){hvCardPanel(id)},0);
- return '<button type="button" class="card cbtn'+(on?' on':'')+'" data-cd="'+id+'" aria-expanded="'+(on?'true':'false')+'" onclick="hvCardOpen(\''+id+'\')"><span class="k">'+k+'</span><span class="v">'+v+'</span><span class="s">'+(s||'')+'</span></button>';
+  var bn=(typeof BG!=='undefined'?BG:[]).map(function(b){return b[1]}),kh='<span class="k">'+k+'</span>',vh='<span class="v">'+v+'</span>';/* 제품 이름의 두 색(설계안 23절): 이름은 남색, 뒤 갈래 말은 본래 색 */
+ bn.forEach(function(n){if(k===n)kh='<span class="k brand">'+k+'</span>';else if(typeof k==='string'&&k.indexOf(n+' ')===0)kh='<span class="k"><span class="brand">'+n+'</span>'+k.slice(n.length)+'</span>';if(v===n)vh='<span class="v brand">'+v+'</span>'});
+ return '<button type="button" class="card cbtn'+(on?' on':'')+'" data-cd="'+id+'" aria-expanded="'+(on?'true':'false')+'" onclick="hvCardOpen(\''+id+'\')">'+kh+vh+'<span class="s">'+(s||'')+'</span></button>';
 }
 function hvCardOpen(id){var c=HVCD[id];if(!c)return;if(HVCDo===c.key){HVCDo='';hvCardClose();return}HVCDo=c.key;hvCardPanel(id)}
 function hvCardClose(){document.querySelectorAll('.cd-panel').forEach(function(x){x.remove()});document.querySelectorAll('.cbtn.on').forEach(function(x){x.classList.remove('on');x.setAttribute('aria-expanded','false')})}
