@@ -131,7 +131,7 @@ _p=subprocess.run([sys.executable,R+'/tools/pledge_resign.py','check'],capture_o
 for _l in _p.stdout.splitlines():
     if _l.startswith('실패:'): fail('각서 '+_l[3:].strip())
     elif _l.startswith('알림:'): warn(_l[3:].strip())
-    elif _l.startswith('각서 재서명 점검'): print(_l)
+    elif _l.startswith('각서'): print(_l)
 if _p.returncode not in (0,1): fail('pledge_resign 실행 오류 '+(_p.stderr or '')[-120:])
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)

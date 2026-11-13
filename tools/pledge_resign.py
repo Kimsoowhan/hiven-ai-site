@@ -9,7 +9,7 @@ MODELS=['Fable 5.2','Opus 5.5','Sonnet 5.5']
 HEAD=['번호','갈래','발행 시각','문서','문서 해시','왜 바뀌었나','변경 사항','지시 사항','모델','서명 상태','서명 시각','서명 문구(인지한 내용 · 옛 코드·옛 명령 점검 결과)','시행 상태','시행 시각','결재 번호','근거(이력·말 명령)']
 def now(): return subprocess.check_output(['date','+%Y-%m-%d %H:%M']).decode().strip()
 def h(p): return hashlib.sha256(open(p,'rb').read()).hexdigest()[:12]
-def tracked(): return sorted(glob.glob(C+'policy_docs/*'))+[C+'free_tier_policy.tsv']
+def tracked(): return sorted(glob.glob(C+'policy_docs/*'))+sorted(glob.glob(C+'work_docs/*'))+[C+'free_tier_policy.tsv']  # 정책 지시(각서) · 워크·월·연·긴급 지시(서명)
 def rel(p): return os.path.relpath(p,R)
 def clean(s): return ' '.join(str(s).split())
 def rd(f): return [l.rstrip('\n').split('\t') for l in open(f,encoding='utf-8-sig')] if os.path.exists(f) else []
