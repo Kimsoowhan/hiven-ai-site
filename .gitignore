@@ -1,1 +1,7 @@
 __pycache__/
+
+# 대표 일정 원천(공개 금지, 이력 1245)
+cowork/ctl/ceo_schedule.tsv
+cowork/ctl/master_milestones.tsv
+cowork/ctl/hiven_wbs.tsv
+sched.enc.json.tmp
