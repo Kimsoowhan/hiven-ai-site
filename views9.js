@@ -177,9 +177,9 @@ function chainBox(){return '<div class="card" style="margin:6px 0 12px"><div cla
 window.hvP3=function(){return p3()};
 /* 대표님 11-12 14:09 ⑤(이력 837) · W0010 T-5: SC-02 종합 현황에 모델별 3대 원칙 이행을 띄운다 */
 var f01=V['SC-02'];V['SC-02']=function(){var g=f01.apply(this,arguments);setTimeout(function(){if(!P.t)load();var e=document.getElementById('p3-01');if(e)e.innerHTML=p3()},0);var i=g.indexOf('</p>');var box=chainBox()+'<div id="al-01">'+alBox()+'</div><div id="p3-01">'+p3()+'</div><div id="fr-01">'+fresh()+'</div>';return i>0?g.slice(0,i+4)+box+g.slice(i+4):box+g};
-var f15=V['SC-16'];V['SC-16']=function(){var g=f15.apply(this,arguments);setTimeout(function(){if(!P.t)load()},0);var i=g.indexOf('</p>');var box='<div class="alx">'+alBox()+'</div><div id="al-15">'+alertBox()+'</div>'+chainBox();return i>0?g.slice(0,i+4)+box+g.slice(i+4):box+g};
+var f15=V['SC-16'];V['SC-16']=function(){var g=f15.apply(this,arguments);setTimeout(function(){if(!P.t)load()},0);var i=g.indexOf('</p>');var box='<div id="al-15">'+alertBox()+'</div>'+chainBox();return i>0?g.slice(0,i+4)+box+g.slice(i+4):box+g};
 var f=V['SC-17'];
-V['SC-17']=function(){var g=f.apply(this,arguments);setTimeout(function(){if(P.t)fill();else load()},0);return '<div class="alx">'+alBox()+'</div>'+g+'<div id="cq-16">'+cmdBox()+'</div><hr><h2>각서·각인·지표·이행 점검</h2><div id="al-16">'+alertBox()+'</div><div id="p3-root">'+p3()+'</div><p class="lead">모든 지시·작업·상태를 지표와 지수로 확인합니다. SC-16 모델 통제 화면과 별도로 관리합니다.</p><div id="plg-root"><p class="note">불러오는 중</p></div>'};
+V['SC-17']=function(){var g=f.apply(this,arguments);setTimeout(function(){if(P.t)fill();else load()},0);return g+'<div id="cq-16">'+cmdBox()+'</div><hr><h2>각서·각인·지표·이행 점검</h2><div id="al-16">'+alertBox()+'</div><div id="p3-root">'+p3()+'</div><p class="lead">모든 지시·작업·상태를 지표와 지수로 확인합니다. SC-16 모델 통제 화면과 별도로 관리합니다.</p><div id="plg-root"><p class="note">불러오는 중</p></div>'};
 
 /* 대표님 결재(대표님 11-12 15:33, 이력 887): 상단 남색 띠 「나오기」 왼쪽에 결재 대기·완료 건수 버튼, SC-02 위 SC-00 대표님 결재 화면, 상단 띠 고정 */
 if(typeof S!=='undefined'&&!S.some(function(x){return x[0]==='SC-00'}))S.unshift(['SC-00','대표님 결재']);
