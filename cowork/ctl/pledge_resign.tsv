@@ -92,3 +92,6 @@ PR-030	각서	2026-11-13 13:18	cowork/ctl/policy_docs/Fable_지시문_수행체�
 PR-031	서명	2026-11-13 13:18	cowork/ctl/work_docs/00_지금_수행할_지시-261113_1225.md	3d563b1de98a	대표님 13:17 지시	0절에 에이전트 점검 루틴 더함	1165	Fable 5.2	서명 대기			시행 전		A-048	
 PR-031	서명	2026-11-13 13:18	cowork/ctl/work_docs/00_지금_수행할_지시-261113_1225.md	3d563b1de98a	대표님 13:17 지시	0절에 에이전트 점검 루틴 더함	1165	Opus 5.5	서명 대기			시행 전		A-048	
 PR-031	서명	2026-11-13 13:18	cowork/ctl/work_docs/00_지금_수행할_지시-261113_1225.md	3d563b1de98a	대표님 13:17 지시	0절에 에이전트 점검 루틴 더함	1165	Sonnet 5.5	서명 대기			시행 전		A-048	
+PR-032	각서	2026-11-13 13:19	cowork/ctl/policy_docs/Fable_지시문_수행체계·사용량예비·정기계획-261113_1102.md	457826e8f6f2	대표님 13:18 지시	11절 큐 대조 규칙(큐대-1~8), tools/queue_verify.py, work_queue_verify.tsv	1166	Fable 5.2	서명 대기			해당 없음		A-049	
+PR-032	각서	2026-11-13 13:19	cowork/ctl/policy_docs/Fable_지시문_수행체계·사용량예비·정기계획-261113_1102.md	457826e8f6f2	대표님 13:18 지시	11절 큐 대조 규칙(큐대-1~8), tools/queue_verify.py, work_queue_verify.tsv	1166	Opus 5.5	서명 대기			해당 없음		A-049	
+PR-032	각서	2026-11-13 13:19	cowork/ctl/policy_docs/Fable_지시문_수행체계·사용량예비·정기계획-261113_1102.md	457826e8f6f2	대표님 13:18 지시	11절 큐 대조 규칙(큐대-1~8), tools/queue_verify.py, work_queue_verify.tsv	1166	Sonnet 5.5	서명 대기			해당 없음		A-049	
