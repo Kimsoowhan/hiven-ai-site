@@ -1,0 +1,14 @@
+플랫폼	갈래(베타·상용화)	단계	제품	판	상태	시험 문서 자리(HiBiz)	관문·사건 원천	근거
+PC (Windows 10·11)	베타	베타1	HiCoffer	0.1.27	시험 준비(24시간 무중단 재시험 전)	12_HIVEN_HiCoffer\12_08_시범테스트\12_08_12_재시험_0.1.27_베타1-261113	deploy_beta1_gates.tsv · deploy_beta1_events.tsv	재시험 계획 · 시험 묶음 1.4
+PC (Windows 10·11)	베타	베타2	HiCoffer	확인 안 됨	준비 전	-	-	-
+PC (Windows 10·11)	베타	베타3	HiCoffer	확인 안 됨	준비 전	-	-	-
+PC (Windows 10·11)	상용화	상용화	HiCoffer	확인 안 됨	준비 전	-	-	-
+Android	베타	베타1	HiCoffer	확인 안 됨	준비 전(설계안 있음)	-	-	12_04_설계안의 Android 설계안
+Android	베타	베타2	HiCoffer	확인 안 됨	준비 전	-	-	-
+Android	베타	베타3	HiCoffer	확인 안 됨	준비 전	-	-	-
+Android	상용화	상용화	HiCoffer	확인 안 됨	준비 전	-	-	-
+macOS	베타	베타1	HiCoffer	확인 안 됨	준비 전	-	-	-
+macOS	베타	베타2	HiCoffer	확인 안 됨	준비 전	-	-	-
+macOS	상용화	상용화	HiCoffer	확인 안 됨	준비 전	-	-	-
+iPhone	베타	베타	HiCoffer	확인 안 됨	준비 전(Android 상용화 때 개발 시작)	-	-	-
+iPhone	상용화	상용화	HiCoffer	확인 안 됨	준비 전	-	-	-

@@ -115,7 +115,7 @@ V['SC-06']=function(){
  return g+hvChk()};
 V['SC-17']=function(){return hvSc04()+'<input id="cin" type="hidden"><span id="cres" hidden></span>'};
 V['SC-15']=hvTestOnly('SC-15','문서 자동 생성');
-V['SC-08']=function(){return '<h2>SC-08 체계 배포</h2><div class="grid">'+card('원본 대시보드','실측 데이터 없음','연동 단계 D2',null,function(){return '<p class="note">분류 체계·규칙 문서 배포 현황(문서·버전·배포 시각·적용 폴더 수·불일치 수)은 D2(12월)에 원천 ctl/deploy.tsv를 만든 뒤 표출합니다(AICS 재설계안 2.0 6-2). 시험 화면은 <a href="test/#SC-08">시험 페이지</a>.</p>'})+'</div>'+hvChk()};
+V['SC-08']=function(){return '<h2>SC-08 체계 및 시스템/서비스</h2><div class="grid">'+card('원본 대시보드','실측 데이터 없음','연동 단계 D2',null,function(){return '<p class="note">분류 체계·규칙 문서 배포 현황(문서·버전·배포 시각·적용 폴더 수·불일치 수)은 D2(12월)에 원천 ctl/deploy.tsv를 만든 뒤 표출합니다(AICS 재설계안 2.0 6-2). 시험 화면은 <a href="test/#SC-08">시험 페이지</a>.</p>'})+'</div>'+hvChk()};
 V['SC-14']=hvTestOnly('SC-14','고객 지원');
 V['SC-11']=function(){
  var g='<h2>SC-11 수집·연동</h2><p class="lead">원천별 마지막 수신 시각을 원천 파일로 확인한 값만 봅니다.</p>';

@@ -1,0 +1,23 @@
+화면	이름	흐름 자리	HiBiz 원천 폴더(실측에 있는 것)	원천 대장(실측에 있는 것)	정합
+SC-00	대표님 결재	확인	03_HIVEN_대표_김수환(KS) · 91_Claude_소통(COM)	대표지시_	맞음
+SC-01	고객 지원 대응·응대	스스로 도는 것	40_HIVEN_고객지원(CS)	고객지원_접수대장	맞음
+SC-02	종합 현황	모이는 곳	04_HIVEN_컨트롤타워_AICS(HCT)	(대장 지정 전)	맞음
+SC-03	이상징후 및 보안체계 시스템	스스로 도는 것	31_HIVEN_이상징후_및_보안체계(SEC)	(대장 지정 전)	맞음
+SC-04	침입 예측·예방·대응·조치 시스템	스스로 도는 것	31_HIVEN_이상징후_및_보안체계(SEC)	(대장 지정 전)	맞음
+SC-05	사업군 통제	사업군	05_HIVEN_비즈정책(HIBP) · 06_HIVEN_통합사업(HV) · 11_HIVEN_HiASI · 12_HIVEN_HiCoffer · 13_HIVEN_HiICT · 14_HIVEN_HiDAM · 15_HIVEN_HiServe · 16_HIVEN_HiSilver · 17_HIVEN_HiTrade	(대장 지정 전)	맞음
+SC-06	구동 상태	사업군	04_HIVEN_컨트롤타워_AICS(HCT) · 08_HIVEN_운영관리(OPS)	(대장 지정 전)	맞음
+SC-07	대응·경보	사업군	31_HIVEN_이상징후_및_보안체계(SEC)	(대장 지정 전)	맞음
+SC-08	체계 및 시스템/서비스	사업군	00_HIVE_아이덴티티(HID) · 01_HIVE_Group&Holdings · 07_HIVEN_명명분류(STD) · 14_HIVEN_HiDAM		대장 빠짐: HIVEN_서비스_기반_목록
+SC-09	배포 모니터링	사업군	12_HIVEN_HiCoffer		대장 빠짐: HIVEN_배포_판_대장
+SC-10	통합사업 작업상황	사업군	06_HIVEN_통합사업(HV) · 20_HIVEN_마케팅(MKT) · 94_Claude_Fable · 94_Claude_작업 · 95_Claude outputs	(대장 지정 전)	맞음
+SC-11	수집·연동	사업군	09_HIVEN_형상관리(CFG) · 80_HIVEN_참고자료(SRC)	(대장 지정 전)	맞음
+SC-12	형상·변경	사업군	09_HIVEN_형상관리(CFG) · 32_HIVEN_개발_코드(DEV) · 33_HIVEN_HiClo_앱(APP) · 39_HIVEN_홈페이지(WEB)	(대장 지정 전)	맞음
+SC-13	검수·품질	사업군	09_HIVEN_형상관리(CFG)	(대장 지정 전)	맞음
+SC-14	고객 지원	사업군	40_HIVEN_고객지원(CS)	(대장 지정 전)	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	07_HIVEN_명명분류(STD)	HiBiz_문서_규칙표 · HiBiz_전체_펼침표	맞음
+SC-16	모델 통제 상황	들어오는 것	91_Claude_소통(COM) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	모델통제_통합이력	맞음
+SC-17	말 명령	들어오는 것	91_Claude_소통(COM)	대표지시_	맞음
+SC-18	Stakeholder	들어오는 것(바깥)	41_HIVEN_Stakeholder(STK)	Stakeholder_목록 · Stakeholder_받은_얼럿	맞음
+SC-19	이해관계자 및 협력사	들어오는 것(바깥)	02_HIVE_브랜드_지식재산(BIP) · 10_HIVEN_정부지원사업(GOV) · 42_HIVEN_이해관계자_협력사(PTN)	이해관계자_협력사_목록 · 협의_SLA_MOU_대장	맞음
+SC-20	이용약관 및 정책	바탕(고객 지원의 원천. 탭 넷: 이용약관 및 정책 · 회원관리 · 무료 베타 버전 관리 · 개인정보 처리)	06_HIVEN_통합사업(HV) · 44_HIVEN_이용약관_정책(PCY)	이용약관_정책_목록 · 회원_관리_대장 · 개인정보_처리_대장	대장 빠짐: 베타_설치_대장
+SC-21	계약	들어오는 것(바깥)	43_HIVEN_계약(CTR)	계약_대장	맞음

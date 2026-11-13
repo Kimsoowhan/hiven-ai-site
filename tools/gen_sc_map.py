@@ -33,21 +33,41 @@ def find(x):
     for q in (C+x,x,'cowork/'+x,'cowork/reports/'+x):
         if os.path.exists(q): return q
     return ''
+# 261113 Fable 지시: 화면마다의 원천은 화면 코드에서 확정한 표(sc_source_confirmed.tsv, tools/gen_sc_confirmed.py 산출)를 기준으로 쓴다.
+# 앞 방식(화면 정의 글자 안의 파일 이름 + 브라우저 실측 차집합)은 ① 미리 읽는 원천(P.* · hvMeta.*)을 못 잡고 ② 안내 글 속 파일 이름을 원천으로 세어
+# SC-04 · SC-07 · SC-11이 「안 이어짐」 · 「원천 없음」으로 잘못 나왔다. 실측(sc_fetch_measured.json)은 「근거」 칸에 실측 여부로만 붙인다.
+CF=C+'sc_source_confirmed.tsv'
+if not os.path.exists(CF): raise SystemExit('확정 원천표 없음: '+CF+' — 먼저 python3 tools/gen_sc_confirmed.py')
+conf=collections_d=__import__('collections').OrderedDict()
+for l in open(CF,encoding='utf-8').read().split('\n')[1:]:
+    if not l: continue
+    c=l.split('\t')
+    if len(c)<4: raise SystemExit('확정 원천표 칸 수 어긋남: '+l)
+    conf.setdefault(c[0],[]).append(c)
+measured_all={k:set(os.path.basename(x) for x in v.get('읽은것',[])) for k,v in M.get('화면',{}).items()}
 rows=[];bad=0
 for r in st:
-    sc=r[0];f,b=body.get(sc,('',''))
-    stat=set(re.findall(r"([A-Za-z0-9_]{3,}\.(?:tsv|json))(?!\()",b))
-    dyn=(ms_.get(sc,set())-common)|(common if sc in SHARED else set())
-    src=sorted(stat|dyn)
-    if not f: rows.append([sc,r[1],r[2],'화면 정의 없음','-','없음','','-','','-',r[5],r[6],r[7],'어긋남']);bad+=1;continue
-    if not src: rows.append([sc,r[1],r[2],f,'원천 파일을 읽지 않음(화면 코드 안의 값)','-','','-','','실측',r[5],r[6],r[7],'원천에 안 이어짐']);bad+=1;continue
-    for x in src:
-        p=find(x);n=''
-        if p and x.endswith('.tsv'): n=str(max(0,open(p,'rb').read().count(b'\n')-1))
-        tl=[t for t in tools.get(x,[]) if 'gen_sc_map' not in t and 'precheck' not in t]
+    sc=r[0];L=conf.get(sc,[])
+    if not L: rows.append([sc,r[1],r[2],'화면 정의 없음','-','없음','','-','','-',r[5],r[6],r[7],'어긋남']);bad+=1;continue
+    for c in L:
+        x,ev,kind=c[1],c[2],c[3]
+        f=' · '.join(sorted(set(re.findall(r'([\w\-]+\.js):\d+',ev)))) or '-'
+        mz='실측+코드' if os.path.basename(x) in measured_all.get(sc,set()) else '코드'
+        if kind.startswith('서버'):
+            rows.append([sc,r[1],r[2],f,x,'서버','','ic.hiven.ai.kr worker','','코드',r[5],r[6],r[7],'서버 원천(저장소 사본 없음)']);continue
+        if '브라우저 저장소' in kind:
+            rows.append([sc,r[1],r[2],f,x,'이 기기','','-','','코드',r[5],r[6],r[7],'이 기기 저장소(서버 값 아님)']);continue
+        if x.startswith('원천 없음'):
+            rows.append([sc,r[1],r[2],f,x,'-','','-','','코드',r[5],r[6],r[7],'원천에 안 이어짐']);bad+=1;continue
+        if '코드 안 값' in kind:
+            rows.append([sc,r[1],r[2],f,x,'코드 안','','-','','코드',r[5],r[6],r[7],'코드 안 값(옛 값 표시)']);continue
+        fn=os.path.basename(x.split('(')[0])
+        p=find(fn);n=''
+        if p and fn.endswith('.tsv'): n=str(max(0,open(p,'rb').read().count(b'\n')-1))
+        tl=[t for t in tools.get(fn,[]) if 'gen_sc_map' not in t and 'precheck' not in t and 'gen_sc_confirmed' not in t]
         ok='맞음' if p and tl else ('원천 없음' if not p else '손으로 쓰는 원천')
         if not p: bad+=1
-        rows.append([sc,r[1],r[2],f,x,'있음' if p else '없음',n,' · '.join(t.replace('tools/','') for t in tl[:3])+(' 밖 %d'%(len(tl)-3) if len(tl)>3 else '') or '-',gl(p) if p else '','실측' if x in dyn else '코드',r[5],r[6],r[7],ok])
+        rows.append([sc,r[1],r[2],f,fn if fn==x else x,'있음' if p else '없음',n,' · '.join(t.replace('tools/','') for t in tl[:3])+(' 밖 %d'%(len(tl)-3) if len(tl)>3 else '') or '-',gl(p) if p else '',mz,r[5],r[6],r[7],ok])
 with open(C+'aics_scmap.tsv','w',encoding='utf-8') as o:
     o.write('\t'.join(['화면','이름','흐름 자리','화면 코드','게시 원천(데이터 문서)','존재','행 수','만드는 도구(코드)','마지막 갱신','근거','HiBiz 원천 폴더','HiDAM 분류','문서 규칙','대조'])+'\n')
     for r in rows: o.write('\t'.join(r)+'\n')

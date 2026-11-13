@@ -9,3 +9,8 @@ cowork/ctl/notes/HIVEN_WBS_*
 cowork/ctl/watch_targets.tsv
 cowork/ctl/watch_log.tsv
 cowork/ctl/hibiz/
+# 개인 사안이 든 지시 장은 공개 저장소에 올리지 않는다(HiBiz와 비공개 저장소에만 둠)
+cowork/ctl/ceo_orders/대표지시_1319-261113_1938.txt
+cowork/ctl/ceo_orders/대표지시_1321-261113_1945.txt
+cowork/ctl/ceo_orders/대표지시_1322-261113_1947.txt
+cowork/ctl/ceo_orders/대표지시_1323-261113_1949.txt

@@ -2,6 +2,9 @@
 # 대표 지시 한 장씩 쌓기(261113 이력 1129). 모델통제 이력에서 「대표님」으로 시작하는 줄마다 텍스트 한 장을 만든다.
 #   gen   : 없는 장을 모두 만든다(있는 장은 원문이 새로 잡혔을 때만 다시 씀). 색인 ceo_orders_index.tsv 갱신
 #   check : 이력에 대표님 줄이 있는데 장이 없으면 「실패:」, PC 폴더에 올린 기록(ceo_orders_pc.tsv)이 없으면 「알림:」
+import re as _re
+# 개인 주소 가림(대표님 개인 정보는 공개 저장소·지시 장에 번지를 적지 않는다)
+def _mask(b): return _re.sub(r'[가-힣]+로 ?\d+길 ?\d+(-\d+)?','(도로명·번지 생략)',b)
 import sys,os,re,json,glob,collections
 R=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 H=R+'/cowork/ctl/model_control_history.tsv';D=R+'/cowork/ctl/ceo_orders/';IDX=R+'/cowork/ctl/ceo_orders_index.tsv';PC=R+'/cowork/ctl/ceo_orders_pc.tsv'
@@ -56,6 +59,7 @@ def gen():
         if orig: b+='[인식 원문] (이 창 기록 그대로, 음성 인식 글자 포함)\n%s\n\n'%orig
         b+='[이력에 적힌 말씀 요지]%s\n%s\n\n[원인]\n%s\n\n[조치]\n%s\n\n[상태] %s\n\n'%('' if orig else ' (원문은 이 창 기록에 남아 있지 않아 이력의 요지를 적음)',r[6],r[7],r[8],r[9])
         b+='맞대는 자리: SC-17 말 명령 · SC-13 모델통제 이력의 번호 %s (원천 cowork/ctl/model_control_history.tsv)\n'%r[0]
+        b=_mask(b)
         if b!=old: open(p,'w',encoding='utf-8').write(b);new.append(name)
         idx.append([r[0],r[1],r[3],name,'원문 있음' if orig else '이력 요지',r[5],r[4]])
     # 이력 줄과 시각이 맞지 않은 원문도 한 장씩
@@ -63,6 +67,7 @@ def gen():
         if k in used: continue
         name='대표지시_원문-%s_%s.txt'%(k[0][2:].replace('-',''),k[1].replace(':',''));p=D+name
         b='대표 지시 한 장 — 원문(이력 번호와 시각이 따로 맞지 않은 말씀)\n\n때: %s %s\n창: 페이블 261104\n\n[인식 원문] (이 창 기록 그대로, 음성 인식 글자 포함)\n%s\n\n맞대는 자리: 같은 시각대의 SC-17 말 명령 · 모델통제 이력\n'%(k[0],k[1],'\n\n'.join(v))
+        b=_mask(b)
         if not os.path.exists(p) or open(p,encoding='utf-8').read()!=b: open(p,'w',encoding='utf-8').write(b);new.append(name)
         idx.append(['원문',k[0],k[0][5:].replace('-','/')+' '+k[1],name,'원문 있음','원문','—'])
     # 예전 기록에서 원문으로 만든 장은 기록이 사라져도 색인에 남김

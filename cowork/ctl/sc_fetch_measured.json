@@ -1,9 +1,69 @@
 {
- "잰때": "2026-11-13T09:20:30.040Z",
+ "잰때": "2026-11-13T10:41:08.645Z",
+ "페이지": "index.html",
+ "방법": "본판을 열쇠 없이 열어 화면을 부르기 전(공통)과 부른 뒤 4초(화면) 요청을 갈라 적음. 바깥 호출은 막고 주소만 적음. 미리 읽은 변수를 쓰는 화면 원천은 sc_source_confirmed.tsv(코드에서 뽑음)",
+ "공통": {
+  "읽은것": [
+   "cowork/ctl/alerts.tsv",
+   "cowork/ctl/approval_line.tsv",
+   "cowork/ctl/bg_contact.tsv",
+   "cowork/ctl/bg_lifecycle.tsv",
+   "cowork/ctl/bg_source.tsv",
+   "cowork/ctl/case_cases.tsv",
+   "cowork/ctl/case_severity.tsv",
+   "cowork/ctl/case_taxonomy.tsv",
+   "cowork/ctl/command_ledger.tsv",
+   "cowork/ctl/cs_links.tsv",
+   "cowork/ctl/cs_tickets.tsv",
+   "cowork/ctl/integrity.json",
+   "cowork/ctl/model_control_history.tsv",
+   "cowork/ctl/pledge_changes.tsv",
+   "cowork/ctl/pledge_checks.tsv",
+   "cowork/ctl/pledge_config.tsv",
+   "cowork/ctl/pledge_models.tsv",
+   "cowork/ctl/pledge_resign.tsv",
+   "cowork/ctl/pledge_trace.tsv",
+   "cowork/ctl/schedule_master.tsv",
+   "cowork/ctl/source_freshness.tsv",
+   "cowork/ctl/speech_flow.tsv",
+   "cowork/ctl/speech_standard.tsv",
+   "cowork/ctl/trace_v.tsv",
+   "cowork/publish_meta.json"
+  ],
+  "주기": [
+   "cowork/ctl/approval_line.tsv",
+   "cowork/ctl/case_cases.tsv",
+   "cowork/ctl/case_severity.tsv",
+   "cowork/ctl/case_taxonomy.tsv",
+   "cowork/ctl/command_ledger.tsv",
+   "cowork/ctl/cs_links.tsv",
+   "cowork/ctl/cs_tickets.tsv",
+   "cowork/ctl/integrity.json",
+   "cowork/ctl/model_control_history.tsv",
+   "cowork/ctl/pledge_changes.tsv",
+   "cowork/ctl/pledge_checks.tsv",
+   "cowork/ctl/pledge_config.tsv",
+   "cowork/ctl/pledge_models.tsv",
+   "cowork/ctl/pledge_trace.tsv",
+   "cowork/ctl/source_freshness.tsv",
+   "cowork/ctl/speech_flow.tsv",
+   "cowork/ctl/speech_standard.tsv"
+  ],
+  "서버호출": [
+   "cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css",
+   "ic.hiven.ai.kr/__cmd/list",
+   "ic.hiven.ai.kr/__dev/get",
+   "ic.hiven.ai.kr/__sec",
+   "ic.hiven.ai.kr/__sec/list"
+  ]
+ },
  "화면": {
   "SC-00": {
    "정의": true,
    "읽은것": [
+    "cowork/ctl/id_recheck_hold.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -20,11 +80,13 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-01": {
    "정의": true,
-   "읽은것": [
+   "읽은것": [],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -41,13 +103,20 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-02": {
    "정의": true,
    "읽은것": [
     "cowork/ctl/action_lifecycle.json",
     "cowork/ctl/action_lifecycle.tsv",
+    "cowork/ctl/model_control_index.json",
+    "cowork/ctl/qa_checks.tsv",
+    "cowork/ctl/trace_sum.json",
+    "cowork/progress.json"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -56,23 +125,21 @@
     "cowork/ctl/cs_links.tsv",
     "cowork/ctl/cs_tickets.tsv",
     "cowork/ctl/model_control_history.tsv",
-    "cowork/ctl/model_control_index.json",
     "cowork/ctl/pledge_changes.tsv",
     "cowork/ctl/pledge_checks.tsv",
     "cowork/ctl/pledge_config.tsv",
     "cowork/ctl/pledge_models.tsv",
     "cowork/ctl/pledge_trace.tsv",
-    "cowork/ctl/qa_checks.tsv",
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
-    "cowork/ctl/speech_standard.tsv",
-    "cowork/ctl/trace_sum.json",
-    "cowork/progress.json"
-   ]
+    "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": []
   },
   "SC-03": {
    "정의": true,
-   "읽은것": [
+   "읽은것": [],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -89,11 +156,13 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-04": {
    "정의": true,
-   "읽은것": [
+   "읽은것": [],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -110,11 +179,17 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": [
+    "ic.hiven.ai.kr/__dev/list",
+    "ic.hiven.ai.kr/__sec/list",
+    "ic.hiven.ai.kr/__sec/me"
    ]
   },
   "SC-05": {
    "정의": true,
-   "읽은것": [
+   "읽은것": [],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -131,11 +206,13 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-06": {
    "정의": true,
-   "읽은것": [
+   "읽은것": [],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -152,11 +229,13 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-07": {
    "정의": true,
-   "읽은것": [
+   "읽은것": [],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -173,12 +252,15 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-08": {
    "정의": true,
    "읽은것": [
-    "cowork/ctl/aics_deploy.tsv",
+    "cowork/ctl/svc_base.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -195,11 +277,15 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-09": {
    "정의": true,
    "읽은것": [
+    "cowork/ctl/deploy_matrix.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -207,8 +293,6 @@
     "cowork/ctl/command_ledger.tsv",
     "cowork/ctl/cs_links.tsv",
     "cowork/ctl/cs_tickets.tsv",
-    "cowork/ctl/deploy_beta1_events.tsv",
-    "cowork/ctl/deploy_beta1_gates.tsv",
     "cowork/ctl/model_control_history.tsv",
     "cowork/ctl/pledge_changes.tsv",
     "cowork/ctl/pledge_checks.tsv",
@@ -218,35 +302,17 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-10": {
    "정의": true,
    "읽은것": [
-    "cowork/ctl/approval_line.tsv",
-    "cowork/ctl/case_cases.tsv",
-    "cowork/ctl/case_severity.tsv",
-    "cowork/ctl/case_taxonomy.tsv",
-    "cowork/ctl/command_ledger.tsv",
-    "cowork/ctl/cs_links.tsv",
-    "cowork/ctl/cs_tickets.tsv",
-    "cowork/ctl/model_control_history.tsv",
-    "cowork/ctl/pledge_changes.tsv",
-    "cowork/ctl/pledge_checks.tsv",
-    "cowork/ctl/pledge_config.tsv",
-    "cowork/ctl/pledge_models.tsv",
-    "cowork/ctl/pledge_trace.tsv",
-    "cowork/ctl/source_freshness.tsv",
-    "cowork/ctl/speech_flow.tsv",
-    "cowork/ctl/speech_standard.tsv",
     "cowork/log.tsv",
     "cowork/progress.json",
     "cowork/reports/index.json"
-   ]
-  },
-  "SC-11": {
-   "정의": true,
-   "읽은것": [
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -263,12 +329,38 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
+  },
+  "SC-11": {
+   "정의": true,
+   "읽은것": [],
+   "공통과겹침": [
+    "cowork/ctl/approval_line.tsv",
+    "cowork/ctl/case_cases.tsv",
+    "cowork/ctl/case_severity.tsv",
+    "cowork/ctl/case_taxonomy.tsv",
+    "cowork/ctl/command_ledger.tsv",
+    "cowork/ctl/cs_links.tsv",
+    "cowork/ctl/cs_tickets.tsv",
+    "cowork/ctl/model_control_history.tsv",
+    "cowork/ctl/pledge_changes.tsv",
+    "cowork/ctl/pledge_checks.tsv",
+    "cowork/ctl/pledge_config.tsv",
+    "cowork/ctl/pledge_models.tsv",
+    "cowork/ctl/pledge_trace.tsv",
+    "cowork/ctl/source_freshness.tsv",
+    "cowork/ctl/speech_flow.tsv",
+    "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": []
   },
   "SC-12": {
    "정의": true,
    "읽은것": [
-    "cowork/ctl/aics_changes.tsv",
+    "cowork/ctl/aics_changes.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -285,12 +377,15 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-13": {
    "정의": true,
    "읽은것": [
-    "cowork/ctl/aics_qa.tsv",
+    "cowork/ctl/aics_qa.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -307,12 +402,15 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-14": {
    "정의": true,
    "읽은것": [
-    "cowork/ctl/aics_cs_cases.tsv",
+    "cowork/ctl/aics_cs_cases.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -329,15 +427,25 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-15": {
    "정의": true,
    "읽은것": [
+    "cowork/ctl/aics_cover.tsv",
     "cowork/ctl/aics_doccheck.tsv",
     "cowork/ctl/aics_docfolder.tsv",
     "cowork/ctl/aics_docgen.tsv",
+    "cowork/ctl/aics_dockind.tsv",
     "cowork/ctl/aics_docsync.tsv",
+    "cowork/ctl/aics_scfolder.tsv",
+    "cowork/ctl/aics_scmap.tsv",
+    "cowork/ctl/aics_testgate.tsv",
+    "cowork/ctl/doc_life.tsv",
+    "cowork/ctl/doc_rules.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -345,8 +453,6 @@
     "cowork/ctl/command_ledger.tsv",
     "cowork/ctl/cs_links.tsv",
     "cowork/ctl/cs_tickets.tsv",
-    "cowork/ctl/doc_life.tsv",
-    "cowork/ctl/doc_rules.tsv",
     "cowork/ctl/model_control_history.tsv",
     "cowork/ctl/pledge_changes.tsv",
     "cowork/ctl/pledge_checks.tsv",
@@ -356,11 +462,22 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-16": {
    "정의": true,
    "읽은것": [
+    "cowork/ctl/model_control_index.json",
+    "cowork/ctl/model_control_status.tsv",
+    "cowork/ctl/phrase_scan.json",
+    "cowork/ctl/praise_credit_ledger.tsv",
+    "cowork/ctl/praise_watch_review.tsv",
+    "cowork/ctl/praise_watch_status.json",
+    "cowork/ctl/trace_h.tsv",
+    "cowork/ctl/trace_sum.json"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -369,28 +486,24 @@
     "cowork/ctl/cs_links.tsv",
     "cowork/ctl/cs_tickets.tsv",
     "cowork/ctl/model_control_history.tsv",
-    "cowork/ctl/model_control_index.json",
-    "cowork/ctl/model_control_status.tsv",
-    "cowork/ctl/phrase_scan.json",
     "cowork/ctl/pledge_changes.tsv",
     "cowork/ctl/pledge_checks.tsv",
     "cowork/ctl/pledge_config.tsv",
     "cowork/ctl/pledge_models.tsv",
     "cowork/ctl/pledge_trace.tsv",
-    "cowork/ctl/praise_credit_ledger.tsv",
-    "cowork/ctl/praise_watch_review.tsv",
-    "cowork/ctl/praise_watch_status.json",
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv",
-    "cowork/ctl/trace_h.tsv",
-    "cowork/ctl/trace_sum.json",
     "cowork/ctl/trace_v.tsv"
-   ]
+   ],
+   "서버호출": []
   },
   "SC-17": {
    "정의": true,
    "읽은것": [
+    "cowork/ctl/id_recheck_hold.tsv"
+   ],
+   "공통과겹침": [
     "cowork/ctl/approval_line.tsv",
     "cowork/ctl/case_cases.tsv",
     "cowork/ctl/case_severity.tsv",
@@ -407,7 +520,116 @@
     "cowork/ctl/source_freshness.tsv",
     "cowork/ctl/speech_flow.tsv",
     "cowork/ctl/speech_standard.tsv"
-   ]
+   ],
+   "서버호출": []
+  },
+  "SC-18": {
+   "정의": true,
+   "읽은것": [
+    "cowork/ctl/ext_stakeholder.tsv",
+    "cowork/ctl/ext_stakeholder_alerts.tsv"
+   ],
+   "공통과겹침": [
+    "cowork/ctl/approval_line.tsv",
+    "cowork/ctl/case_cases.tsv",
+    "cowork/ctl/case_severity.tsv",
+    "cowork/ctl/case_taxonomy.tsv",
+    "cowork/ctl/command_ledger.tsv",
+    "cowork/ctl/cs_links.tsv",
+    "cowork/ctl/cs_tickets.tsv",
+    "cowork/ctl/model_control_history.tsv",
+    "cowork/ctl/pledge_changes.tsv",
+    "cowork/ctl/pledge_checks.tsv",
+    "cowork/ctl/pledge_config.tsv",
+    "cowork/ctl/pledge_models.tsv",
+    "cowork/ctl/pledge_trace.tsv",
+    "cowork/ctl/source_freshness.tsv",
+    "cowork/ctl/speech_flow.tsv",
+    "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": []
+  },
+  "SC-19": {
+   "정의": true,
+   "읽은것": [
+    "cowork/ctl/ext_partner.tsv",
+    "cowork/ctl/ext_sla_mou.tsv"
+   ],
+   "공통과겹침": [
+    "cowork/ctl/approval_line.tsv",
+    "cowork/ctl/case_cases.tsv",
+    "cowork/ctl/case_severity.tsv",
+    "cowork/ctl/case_taxonomy.tsv",
+    "cowork/ctl/command_ledger.tsv",
+    "cowork/ctl/cs_links.tsv",
+    "cowork/ctl/cs_tickets.tsv",
+    "cowork/ctl/model_control_history.tsv",
+    "cowork/ctl/pledge_changes.tsv",
+    "cowork/ctl/pledge_checks.tsv",
+    "cowork/ctl/pledge_config.tsv",
+    "cowork/ctl/pledge_models.tsv",
+    "cowork/ctl/pledge_trace.tsv",
+    "cowork/ctl/source_freshness.tsv",
+    "cowork/ctl/speech_flow.tsv",
+    "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": []
+  },
+  "SC-20": {
+   "정의": true,
+   "읽은것": [
+    "cowork/ctl/beta_ledger.tsv",
+    "cowork/ctl/charter_ledger.tsv",
+    "cowork/ctl/charter_purpose.tsv",
+    "cowork/ctl/member_ledger.tsv",
+    "cowork/ctl/pip_ledger.tsv",
+    "cowork/ctl/policy_list.tsv"
+   ],
+   "공통과겹침": [
+    "cowork/ctl/approval_line.tsv",
+    "cowork/ctl/case_cases.tsv",
+    "cowork/ctl/case_severity.tsv",
+    "cowork/ctl/case_taxonomy.tsv",
+    "cowork/ctl/command_ledger.tsv",
+    "cowork/ctl/cs_links.tsv",
+    "cowork/ctl/cs_tickets.tsv",
+    "cowork/ctl/model_control_history.tsv",
+    "cowork/ctl/pledge_changes.tsv",
+    "cowork/ctl/pledge_checks.tsv",
+    "cowork/ctl/pledge_config.tsv",
+    "cowork/ctl/pledge_models.tsv",
+    "cowork/ctl/pledge_trace.tsv",
+    "cowork/ctl/source_freshness.tsv",
+    "cowork/ctl/speech_flow.tsv",
+    "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": []
+  },
+  "SC-21": {
+   "정의": true,
+   "읽은것": [
+    "cowork/ctl/ctr_category.tsv",
+    "cowork/ctl/ext_contract.tsv"
+   ],
+   "공통과겹침": [
+    "cowork/ctl/approval_line.tsv",
+    "cowork/ctl/case_cases.tsv",
+    "cowork/ctl/case_severity.tsv",
+    "cowork/ctl/case_taxonomy.tsv",
+    "cowork/ctl/command_ledger.tsv",
+    "cowork/ctl/cs_links.tsv",
+    "cowork/ctl/cs_tickets.tsv",
+    "cowork/ctl/model_control_history.tsv",
+    "cowork/ctl/pledge_changes.tsv",
+    "cowork/ctl/pledge_checks.tsv",
+    "cowork/ctl/pledge_config.tsv",
+    "cowork/ctl/pledge_models.tsv",
+    "cowork/ctl/pledge_trace.tsv",
+    "cowork/ctl/source_freshness.tsv",
+    "cowork/ctl/speech_flow.tsv",
+    "cowork/ctl/speech_standard.tsv"
+   ],
+   "서버호출": []
   }
  },
  "오류": {}
