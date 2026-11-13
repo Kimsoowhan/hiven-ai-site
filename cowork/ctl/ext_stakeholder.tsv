@@ -1,0 +1,4 @@
+번호	이름	우리가 기대는 것	우리 쪽 자리	영향 받는 화면	연락·공지 길	요금·한도	근거
+SK-001	Cloudflare	hiven.ai.kr · ic.hiven.ai.kr의 배포·접속 보호·경보 수신	저장소 hs · hiven-ic	SC-04 · SC-06 · SC-09 · 전체 접속	확인 안 됨	확인 안 됨	ic 접속 보호와 worker 기록(통합관제 저장소)
+SK-002	GitHub	저장소 3개(hs 공개 · hiven-ic 비공개 · hiven-site)와 배포의 원천	저장소 전체	SC-12 · SC-10 · 전체 게시	확인 안 됨	확인 안 됨	저장소 원격 주소
+SK-003	Anthropic	작업 모델(Fable · Opus · Sonnet) 구동	창 261104 · 에이전트	SC-16 · SC-17 · 작업 전체	확인 안 됨	확인 안 됨	대표님 2026-11-13 17:38 말씀

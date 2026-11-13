@@ -3,10 +3,10 @@ SC-00	대표님 결재	확인	views9.js	approval_line.tsv	있음	80	gen_alerts.p
 SC-00	대표님 결재	확인	views9.js	case_cases.tsv	있음	53	-	2026-11-12 14:52	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
 SC-00	대표님 결재	확인	views9.js	case_severity.tsv	있음	4	-	2026-11-12 14:52	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
 SC-00	대표님 결재	확인	views9.js	case_taxonomy.tsv	있음	9	-	2026-11-12 14:52	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
-SC-00	대표님 결재	확인	views9.js	command_ledger.tsv	있음	529	gen_trace_sum.py · gen_trace_v_ledger.py · hibiz_doc_check.py 밖 2	2026-11-13 18:34	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	맞음
+SC-00	대표님 결재	확인	views9.js	command_ledger.tsv	있음	532	gen_trace_sum.py · gen_trace_v_ledger.py · hibiz_doc_check.py 밖 2	2026-11-13 18:52	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	맞음
 SC-00	대표님 결재	확인	views9.js	cs_links.tsv	있음	17	-	2026-11-13 02:06	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
 SC-00	대표님 결재	확인	views9.js	cs_tickets.tsv	있음	8	ev_bridge.py · gen_alerts.py · gen_cs.py 밖 1	2026-11-12 19:43	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	맞음
-SC-00	대표님 결재	확인	views9.js	model_control_history.tsv	있음	1137	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:34	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	맞음
+SC-00	대표님 결재	확인	views9.js	model_control_history.tsv	있음	1140	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:52	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	맞음
 SC-00	대표님 결재	확인	views9.js	pledge_changes.tsv	있음	13	-	2026-11-13 11:06	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
 SC-00	대표님 결재	확인	views9.js	pledge_checks.tsv	있음	16	-	2026-11-12 14:05	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
 SC-00	대표님 결재	확인	views9.js	pledge_config.tsv	있음	8	-	2026-11-12 14:05	실측	91_Claude_소통(COM)\91_02_지시문 · 03_HIVEN_대표_김수환(KS)	HB-COM 지시·결재	DR-15	손으로 쓰는 원천
@@ -19,10 +19,10 @@ SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	approval_line.
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	case_cases.tsv	있음	53	-	2026-11-12 14:52	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	case_severity.tsv	있음	4	-	2026-11-12 14:52	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	case_taxonomy.tsv	있음	9	-	2026-11-12 14:52	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
-SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	command_ledger.tsv	있음	529	gen_trace_sum.py · gen_trace_v_ledger.py · hibiz_doc_check.py 밖 2	2026-11-13 18:34	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	맞음
+SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	command_ledger.tsv	있음	532	gen_trace_sum.py · gen_trace_v_ledger.py · hibiz_doc_check.py 밖 2	2026-11-13 18:52	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	맞음
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	cs_links.tsv	있음	17	-	2026-11-13 02:06	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	cs_tickets.tsv	있음	8	ev_bridge.py · gen_alerts.py · gen_cs.py 밖 1	2026-11-12 19:43	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	맞음
-SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	model_control_history.tsv	있음	1137	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:34	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	맞음
+SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	model_control_history.tsv	있음	1140	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:52	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	맞음
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	pledge_changes.tsv	있음	13	-	2026-11-13 11:06	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	pledge_checks.tsv	있음	16	-	2026-11-12 14:05	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	pledge_config.tsv	있음	8	-	2026-11-12 14:05	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
@@ -31,41 +31,45 @@ SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	pledge_trace.t
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	source_freshness.tsv	있음	44	-	2026-11-12 14:59	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	speech_flow.tsv	있음	6	-	2026-11-12 16:42	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
 SC-01	고객 지원 대응·응대	스스로 도는 것	views9.js	speech_standard.tsv	있음	14	-	2026-11-12 14:32	실측	40_HIVEN_고객지원(CS)	HB-CS 접수·사례	DR-07 · DR-08	손으로 쓰는 원천
-SC-02	종합 현황	모이는 곳	sec2.js	action_lifecycle.json	있음		gen_aics_src.py · gen_lifecycle.py · index_build.py	2026-11-13 18:34	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
-SC-02	종합 현황	모이는 곳	sec2.js	action_lifecycle.tsv	있음	1130	gen_aics_src.py · gen_lifecycle.py · gen_meta.py 밖 2	2026-11-13 18:34	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
-SC-02	종합 현황	모이는 곳	sec2.js	integrity.json	있음		gen_integrity.py	2026-11-13 18:34	코드	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
-SC-02	종합 현황	모이는 곳	sec2.js	model_control_index.json	있음		index_build.py · renum_sc.py	2026-11-13 18:34	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
+SC-02	종합 현황	모이는 곳	sec2.js	action_lifecycle.json	있음		gen_aics_src.py · gen_lifecycle.py · index_build.py	2026-11-13 18:52	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
+SC-02	종합 현황	모이는 곳	sec2.js	action_lifecycle.tsv	있음	1137	gen_aics_src.py · gen_lifecycle.py · gen_meta.py 밖 2	2026-11-13 18:52	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
+SC-02	종합 현황	모이는 곳	sec2.js	integrity.json	있음		gen_integrity.py	2026-11-13 18:52	코드	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
+SC-02	종합 현황	모이는 곳	sec2.js	model_control_index.json	있음		index_build.py · renum_sc.py	2026-11-13 18:52	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
 SC-02	종합 현황	모이는 곳	sec2.js	progress.json	있음		gen_aics_src.py · gen_meta.py · gen_six.py 밖 1	2026-11-13 12:21	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
 SC-02	종합 현황	모이는 곳	sec2.js	qa_checks.tsv	있음	16	gen_aics_src.py · gen_meta.py · renum_sc.py	2026-11-12 16:42	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
 SC-02	종합 현황	모이는 곳	sec2.js	trace_sum.json	있음		gen_aics_src.py · gen_meta.py · gen_trace_sum.py 밖 2	2026-11-13 12:21	실측	04_HIVEN_컨트롤타워_AICS(HCT)	HB-HCT 현황	DR-11	맞음
-SC-03	이상징후 및 보안체계 시스템	스스로 도는 것	views7.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 경보·매뉴얼	DR-07 · DR-13	원천에 안 이어짐
-SC-04	침입 예측·예방·대응·조치 시스템	스스로 도는 것	sec.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 침입 기록	DR-14	원천에 안 이어짐
+SC-03	이상징후 및 보안체계 시스템	스스로 도는 것	views10.js	sec_level.tsv	없음		-		코드	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 경보·매뉴얼	DR-07 · DR-13	원천 없음
+SC-03	이상징후 및 보안체계 시스템	스스로 도는 것	views10.js	sec_log.tsv	없음		-		코드	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 경보·매뉴얼	DR-07 · DR-13	원천 없음
+SC-04	침입 예측·예방·대응·조치 시스템	스스로 도는 것	views10.js	sec_log.tsv	없음		-		코드	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 침입 기록	DR-14	원천 없음
+SC-04	침입 예측·예방·대응·조치 시스템	스스로 도는 것	views10.js	trusted_devices.tsv	없음		-		코드	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 침입 기록	DR-14	원천 없음
 SC-05	사업군 통제	사업군	views0.js	bg_lifecycle.tsv	있음	0	gen_meta.py	2026-11-05 02:46	코드	06_HIVEN_통합사업(HV) · 11~17 사업군 · 05_HIVEN_비즈정책(HIBP)	HB-BIZ 사업군 산출물	DR-10	맞음
-SC-06	구동 상태	사업군	views1.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	04_HIVEN_컨트롤타워_AICS(HCT)\04_21 · 08_HIVEN_운영관리(OPS)	HB-HCT 구동 신호	DR-14	원천에 안 이어짐
-SC-07	대응·경보	사업군	views2.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 경보	DR-07	원천에 안 이어짐
+SC-06	구동 상태	사업군	views10.js	run_signal.tsv	없음		-		코드	04_HIVEN_컨트롤타워_AICS(HCT)\04_21 · 08_HIVEN_운영관리(OPS)	HB-HCT 구동 신호	DR-14	원천 없음
+SC-07	대응·경보	사업군	views10.js	alerts.tsv	있음	106	gen_alerts.py	2026-11-13 12:21	코드	31_HIVEN_이상징후_및_보안체계(SEC)	HB-SEC 경보	DR-07	맞음
 SC-08	체계 배포	사업군	views5.js	aics_deploy.tsv	있음	10	gen_aics_src.py	2026-11-05 09:28	실측	07_HIVEN_명명분류(STD) · 14_HIVEN_HiDAM\14_01 · 00_HIVE_아이덴티티(HID) · 01_HIVE_Group&Holdings	HiDAM 표준·분류 체계	DR-08 · DR-09	맞음
 SC-09	베타 배포 모니터링	사업군	views6.js	deploy_beta1_events.tsv	있음	1	-	2026-11-05 15:56	실측	12_HIVEN_HiCoffer\12_06 · 12_10	HB-BIZ 06·10	DR-10 · DR-14	손으로 쓰는 원천
 SC-09	베타 배포 모니터링	사업군	views6.js	deploy_beta1_gates.tsv	있음	11	-	2026-11-05 15:56	실측	12_HIVEN_HiCoffer\12_06 · 12_10	HB-BIZ 06·10	DR-10 · DR-14	손으로 쓰는 원천
 SC-10	통합사업 작업상황	사업군	views2.js	index.json	있음		gen_aics_src.py · gen_meta.py	2026-11-12 17:03	실측	06_HIVEN_통합사업(HV) · 94_Claude_Fable · 94_Claude_작업 · 95_Claude outputs · 20_HIVEN_마케팅(MKT)	HB-HV 계획·보고	DR-07	맞음
 SC-10	통합사업 작업상황	사업군	views2.js	log.tsv	있음	38	gen_aics_src.py · gen_meta.py · renum_sc.py	2026-11-11 02:13	실측	06_HIVEN_통합사업(HV) · 94_Claude_Fable · 94_Claude_작업 · 95_Claude outputs · 20_HIVEN_마케팅(MKT)	HB-HV 계획·보고	DR-07	맞음
 SC-10	통합사업 작업상황	사업군	views2.js	progress.json	있음		gen_aics_src.py · gen_meta.py · gen_six.py 밖 1	2026-11-13 12:21	실측	06_HIVEN_통합사업(HV) · 94_Claude_Fable · 94_Claude_작업 · 95_Claude outputs · 20_HIVEN_마케팅(MKT)	HB-HV 계획·보고	DR-07	맞음
-SC-11	수집·연동	사업군	views2.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	09_HIVEN_형상관리(CFG)\09_24 · 80_HIVEN_참고자료(SRC)	HB-CFG 자동화 통제	DR-11	원천에 안 이어짐
+SC-11	수집·연동	사업군	views10.js	model_control_history.tsv	있음	1140	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:52	코드	09_HIVEN_형상관리(CFG)\09_24 · 80_HIVEN_참고자료(SRC)	HB-CFG 자동화 통제	DR-11	맞음
+SC-11	수집·연동	사업군	views10.js	progress.json	있음		gen_aics_src.py · gen_meta.py · gen_six.py 밖 1	2026-11-13 12:21	코드	09_HIVEN_형상관리(CFG)\09_24 · 80_HIVEN_참고자료(SRC)	HB-CFG 자동화 통제	DR-11	맞음
+SC-11	수집·연동	사업군	views10.js	source_freshness.tsv	있음	44	-	2026-11-12 14:59	코드	09_HIVEN_형상관리(CFG)\09_24 · 80_HIVEN_참고자료(SRC)	HB-CFG 자동화 통제	DR-11	손으로 쓰는 원천
 SC-12	형상·변경	사업군	views5.js	aics_changes.tsv	있음	254	gen_aics_src.py · renum_sc.py	2026-11-13 09:53	실측	09_HIVEN_형상관리(CFG) · 32_HIVEN_개발_코드(DEV) · 33_HIVEN_HiClo_앱(APP) · 39_HIVEN_홈페이지(WEB)	HB-CFG 형상·변경	DR-08	맞음
 SC-12	형상·변경	사업군	views5.js	aics_changes_timefix.tsv	있음	79	gen_aics_src.py	2026-11-12 17:03	코드	09_HIVEN_형상관리(CFG) · 32_HIVEN_개발_코드(DEV) · 33_HIVEN_HiClo_앱(APP) · 39_HIVEN_홈페이지(WEB)	HB-CFG 형상·변경	DR-08	맞음
 SC-13	검수·품질	사업군	views5.js	aics_qa.tsv	있음	291	gen_aics_src.py · renum_sc.py	2026-11-13 18:34	실측	09_HIVEN_형상관리(CFG)\09_23 · NN_07_품질검수	HB-BIZ 07 · GS 자가 점검	DR-10 · DR-12	맞음
 SC-14	고객 지원	사업군	views5.js	aics_cs_cases.tsv	있음	0	gen_aics_src.py	2026-11-11 02:13	실측	40_HIVEN_고객지원(CS)	HB-CS 사례 원장	DR-07	맞음
 SC-14	고객 지원	사업군	views5.js	deploy_beta1_gates.tsv	있음	11	-	2026-11-05 15:56	코드	40_HIVEN_고객지원(CS)	HB-CS 사례 원장	DR-07	손으로 쓰는 원천
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_cover.tsv	있음	34	hibiz_doc_check.py		코드	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_doccheck.tsv	있음	20	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:34	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_docfolder.tsv	있음	34	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:34	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_docgen.tsv	있음	15	gen_aics_src.py · renum_sc.py	2026-11-13 18:34	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_cover.tsv	있음	34	hibiz_doc_check.py	2026-11-13 18:52	코드	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_doccheck.tsv	있음	20	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:52	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_docfolder.tsv	있음	34	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:52	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_docgen.tsv	있음	15	gen_aics_src.py · renum_sc.py	2026-11-13 18:52	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
 SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_docsync.tsv	있음	2	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:34	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_scmap.tsv	있음	95	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:34	코드	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_testgate.tsv	있음	1	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:34	코드	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	doc_life.tsv	있음	7	-	2026-11-13 18:17	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	손으로 쓰는 원천
-SC-15	문서 자동 생성	문서가 되는 곳	views5.js	doc_rules.tsv	있음	19	hibiz_doc_check.py	2026-11-13 18:34	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
-SC-16	모델 통제 상황	들어오는 것	views3.js	model_control_history.tsv	있음	1137	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:34	코드	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
-SC-16	모델 통제 상황	들어오는 것	views3.js	model_control_index.json	있음		index_build.py · renum_sc.py	2026-11-13 18:34	실측	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_scmap.tsv	있음	95	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:52	코드	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	aics_testgate.tsv	있음	1	gen_aics_src.py · hibiz_doc_check.py	2026-11-13 18:52	코드	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	doc_life.tsv	있음	7	-	2026-11-13 18:52	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	손으로 쓰는 원천
+SC-15	문서 자동 생성	문서가 되는 곳	views5.js	doc_rules.tsv	있음	19	hibiz_doc_check.py	2026-11-13 18:52	실측	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15	맞음
+SC-16	모델 통제 상황	들어오는 것	views3.js	model_control_history.tsv	있음	1140	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:52	코드	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
+SC-16	모델 통제 상황	들어오는 것	views3.js	model_control_index.json	있음		index_build.py · renum_sc.py	2026-11-13 18:52	실측	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
 SC-16	모델 통제 상황	들어오는 것	views3.js	model_control_status.tsv	있음	4	gen_meta.py · index_build.py	2026-11-12 16:42	실측	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
 SC-16	모델 통제 상황	들어오는 것	views3.js	phrase_scan.json	있음		index_build.py · rule_checks.py	2026-11-06 20:19	실측	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
 SC-16	모델 통제 상황	들어오는 것	views3.js	praise_credit_ledger.tsv	있음	10	index_build.py · praise_watch.py	2026-11-11 03:30	실측	91_Claude_소통(COM)\91_21_모델통제(CTL) · 92_Claude_모델통제(MCS) · 93_Claude_기억장치(EMG)	HB-COM 모델통제	DR-15	맞음
@@ -78,10 +82,10 @@ SC-17	말 명령	들어오는 것	views1.js	approval_line.tsv	있음	80	gen_aler
 SC-17	말 명령	들어오는 것	views1.js	case_cases.tsv	있음	53	-	2026-11-12 14:52	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	case_severity.tsv	있음	4	-	2026-11-12 14:52	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	case_taxonomy.tsv	있음	9	-	2026-11-12 14:52	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
-SC-17	말 명령	들어오는 것	views1.js	command_ledger.tsv	있음	529	gen_trace_sum.py · gen_trace_v_ledger.py · hibiz_doc_check.py 밖 2	2026-11-13 18:34	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	맞음
+SC-17	말 명령	들어오는 것	views1.js	command_ledger.tsv	있음	532	gen_trace_sum.py · gen_trace_v_ledger.py · hibiz_doc_check.py 밖 2	2026-11-13 18:52	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	맞음
 SC-17	말 명령	들어오는 것	views1.js	cs_links.tsv	있음	17	-	2026-11-13 02:06	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	cs_tickets.tsv	있음	8	ev_bridge.py · gen_alerts.py · gen_cs.py 밖 1	2026-11-12 19:43	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	맞음
-SC-17	말 명령	들어오는 것	views1.js	model_control_history.tsv	있음	1137	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:34	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	맞음
+SC-17	말 명령	들어오는 것	views1.js	model_control_history.tsv	있음	1140	ceo_order_file.py · gen_aics_src.py · gen_alerts.py 밖 8	2026-11-13 18:52	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	맞음
 SC-17	말 명령	들어오는 것	views1.js	pledge_changes.tsv	있음	13	-	2026-11-13 11:06	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	pledge_checks.tsv	있음	16	-	2026-11-12 14:05	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	pledge_config.tsv	있음	8	-	2026-11-12 14:05	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
@@ -90,7 +94,7 @@ SC-17	말 명령	들어오는 것	views1.js	pledge_trace.tsv	있음	78	pledge_re
 SC-17	말 명령	들어오는 것	views1.js	source_freshness.tsv	있음	44	-	2026-11-12 14:59	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	speech_flow.tsv	있음	6	-	2026-11-12 16:42	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
 SC-17	말 명령	들어오는 것	views1.js	speech_standard.tsv	있음	14	-	2026-11-12 14:32	실측	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15	손으로 쓰는 원천
-SC-18	Stakeholder	들어오는 것(바깥)	화면 정의 없음	-	없음		-		-	41_HIVEN_Stakeholder(STK)	HB-STK 목록·받은 얼럿	DR-17 · DR-18	어긋남
-SC-19	이해관계자 및 협력사	들어오는 것(바깥)	화면 정의 없음	-	없음		-		-	42_HIVEN_이해관계자_협력사(PTN) · 02_HIVE_브랜드_지식재산(BIP) · 10_HIVEN_정부지원사업(GOV)	HB-PTN 목록·협의 대장	DR-17 · DR-18	어긋남
-SC-20	이용약관 및 정책	바탕(고객 지원의 원천. 탭 셋: 이용약관 및 정책 · 회원관리 · 개인정보 처리)	화면 정의 없음	-	없음		-		-	44_HIVEN_이용약관_정책(PCY) · 06_HIVEN_통합사업(HV)	HB-PCY 약관·정책 · 개인정보 처리 대장 · 데이터 코드 기준	DR-17 · DR-19	어긋남
-SC-21	계약	들어오는 것(바깥)	화면 정의 없음	-	없음		-		-	43_HIVEN_계약(CTR)	HB-CTR 계약 대장	DR-17 · DR-18	어긋남
+SC-18	Stakeholder	들어오는 것(바깥)	views10.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	41_HIVEN_Stakeholder(STK)	HB-STK 목록·받은 얼럿	DR-17 · DR-18	원천에 안 이어짐
+SC-19	이해관계자 및 협력사	들어오는 것(바깥)	views10.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	42_HIVEN_이해관계자_협력사(PTN) · 02_HIVE_브랜드_지식재산(BIP) · 10_HIVEN_정부지원사업(GOV)	HB-PTN 목록·협의 대장	DR-17 · DR-18	원천에 안 이어짐
+SC-20	이용약관 및 정책	바탕(고객 지원의 원천. 탭 넷: 이용약관 및 정책 · 회원관리 · 무료 베타 버전 관리 · 개인정보 처리)	views10.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	44_HIVEN_이용약관_정책(PCY) · 06_HIVEN_통합사업(HV)	HB-PCY 약관·정책 · 개인정보 처리 대장 · 데이터 코드 기준	DR-17 · DR-19	원천에 안 이어짐
+SC-21	계약	들어오는 것(바깥)	views10.js	원천 파일을 읽지 않음(화면 코드 안의 값)	-		-		실측	43_HIVEN_계약(CTR)	HB-CTR 계약 대장	DR-17 · DR-18	원천에 안 이어짐

@@ -120,7 +120,7 @@ if os.path.exists(C+'aics_scmap.tsv'):
         c=l.split('\t')
         if len(c)>13 and c[13] in('원천에 안 이어짐','원천 없음','어긋남'): add('K17',c[0]+' '+c[1],c[13]+': '+c[4],'원천 파일과 만드는 도구에 이음')
 # K18 바깥 관계 폴더(DR-18): SC-18·19·20의 원천 폴더와 색인·폴더안내·목록(대장)
-for top,kw,nm in [('41_HIVEN_Stakeholder(STK)','Stakeholder_목록','Stakeholder 목록'),('41_HIVEN_Stakeholder(STK)','받은_얼럿','받은 얼럿 기록'),('42_HIVEN_이해관계자_협력사(PTN)','협력사_목록','이해관계자·협력사 목록'),('42_HIVEN_이해관계자_협력사(PTN)','SLA_MOU','협의·SLA·MOU 대장'),('43_HIVEN_계약(CTR)','계약_대장','계약 대장'),('44_HIVEN_이용약관_정책(PCY)','이용약관_정책_목록','이용약관·정책 목록'),('44_HIVEN_이용약관_정책(PCY)','개인정보_처리_대장','개인정보 처리 대장'),('44_HIVEN_이용약관_정책(PCY)','회원_관리_대장','회원 관리 대장')]:
+for top,kw,nm in [('41_HIVEN_Stakeholder(STK)','Stakeholder_목록','Stakeholder 목록'),('41_HIVEN_Stakeholder(STK)','받은_얼럿','받은 얼럿 기록'),('42_HIVEN_이해관계자_협력사(PTN)','협력사_목록','이해관계자·협력사 목록'),('42_HIVEN_이해관계자_협력사(PTN)','SLA_MOU','협의·SLA·MOU 대장'),('43_HIVEN_계약(CTR)','계약_대장','계약 대장'),('44_HIVEN_이용약관_정책(PCY)','이용약관_정책_목록','이용약관·정책 목록'),('44_HIVEN_이용약관_정책(PCY)','개인정보_처리_대장','개인정보 처리 대장'),('44_HIVEN_이용약관_정책(PCY)','회원_관리_대장','회원 관리 대장'),('44_HIVEN_이용약관_정책(PCY)','베타_설치_대장','베타 설치 대장')]:
     if top not in tops: add('K18',top,'폴더 없음(실측에 없음)','폴더를 만들고 색인·폴더안내·'+nm+'을 넣음')
     elif not any(kw in p for p,_,_ in files if p.startswith(top+'/')): add('K18',top,nm+' 없음','만들어 넣음')
 # K19 덮임(대표님 11-13 18:35·18:36): HiBiz 1층 폴더가 어느 화면에도 원천으로 이어지지 않음(범위 = 하이븐 통합사업 전체)
