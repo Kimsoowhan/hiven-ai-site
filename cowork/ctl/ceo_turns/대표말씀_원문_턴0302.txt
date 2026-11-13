@@ -1,0 +1,7 @@
+대표 말씀 원문 한 장 — 창 「페이블 261104」 기록의 턴 302
+
+[원문] (기록 그대로, 음성 인식 글자 포함)
+<system-reminder>The user's timezone is Asia/Seoul (UTC+09:00). Message sent at Wed 2026-11-04 12:21 local time.</system-reminder>
+91_Fable\지시문\지시문_W13_푸시_261104.txt 대로 지금 바로 푸시해. 끝나면 승인요청_공통.md 양식으로 이 창에 보고.
+
+맞대는 자리: 같은 말씀의 이력 번호 장(대표지시_번호-날짜_시각.txt) · SC-17 말 명령

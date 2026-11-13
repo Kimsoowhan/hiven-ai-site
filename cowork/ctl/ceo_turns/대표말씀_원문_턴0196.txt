@@ -1,0 +1,7 @@
+대표 말씀 원문 한 장 — 창 「페이블 261104」 기록의 턴 196
+
+[원문] (기록 그대로, 음성 인식 글자 포함)
+<system-reminder>The user's timezone is Asia/Seoul (UTC+09:00). Message sent at Wed 2026-11-04 10:34 local time.</system-reminder>
+이거 어떻게 하면 된다! 라고 지시용도로 설계안까지만 잡아주고 >>> Opus에게 작업시켜놔, 당장 그래도 Opus한테 얘기해 놔야 작업이 돌아가지 않을까 싶은데? 니가 판단해 Opus or Sonnet
+
+맞대는 자리: 같은 말씀의 이력 번호 장(대표지시_번호-날짜_시각.txt) · SC-17 말 명령

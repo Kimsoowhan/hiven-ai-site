@@ -1,0 +1,8 @@
+대표 말씀 원문 한 장 — 창 「페이블 261104」 기록의 턴 444
+
+[원문] (기록 그대로, 음성 인식 글자 포함)
+<system-reminder>The user's timezone is Asia/Seoul (UTC+09:00). Message sent at Wed 2026-11-04 15:13 local time.</system-reminder>
+내가 WEB상(한글에서) 지시한 것들은 항상 다른 4개언어에 즉시 반영해서 항상 5개언어가 모두 반영되도록 해!
+그렇게 해서 다른 언어page에서도 항상 sync하고 정합성을 검수해!
+
+맞대는 자리: 같은 말씀의 이력 번호 장(대표지시_번호-날짜_시각.txt) · SC-17 말 명령

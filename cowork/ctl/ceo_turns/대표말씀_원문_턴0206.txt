@@ -1,0 +1,7 @@
+대표 말씀 원문 한 장 — 창 「페이블 261104」 기록의 턴 206
+
+[원문] (기록 그대로, 음성 인식 글자 포함)
+<system-reminder>The user's timezone is Asia/Seoul (UTC+09:00). Message sent at Wed 2026-11-04 10:40 local time.</system-reminder>
+T / 각 작업주체인 모델들이 관리 > TT / 페이블이 각 모델별 작업사항 전체를 관리 > W / 페이블이 모든 일들의 진척도를 통합관리(전수+진척도확인) = WW(Work on Week)
+
+맞대는 자리: 같은 말씀의 이력 번호 장(대표지시_번호-날짜_시각.txt) · SC-17 말 명령
