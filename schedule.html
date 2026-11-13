@@ -89,6 +89,16 @@ tr.hl td{background:#fff6d6;transition:background .3s}
 #pop dl{display:grid;grid-template-columns:76px 1fr;gap:3px 8px;margin:6px 0 0;font-size:13.5px}
 #pop dt{color:var(--sub)}#pop dd{margin:0;min-width:0;word-break:break-all}
 .ft{font-size:12px;color:var(--sub);margin-top:6px}
+/* 잠그는 값 안내(이력 1249) */
+.lv{margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#f7f9fc;text-align:left;min-width:0}
+.lv-t{display:block;font-size:14.5px;color:var(--navy);margin-bottom:6px}
+.lv-k{font-size:12.5px;color:var(--sub);margin-bottom:4px}
+.lv-r{display:flex;gap:6px;align-items:stretch;min-width:0}
+.lv-v{flex:1;min-width:0;font:13px/1.4 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#fff;border:1px solid var(--line);border-radius:8px;padding:6px 8px;word-break:break-all;user-select:all;color:var(--tx)}
+.lv-c{flex:none;border:1px solid var(--navy);background:var(--navy);color:#fff;border-radius:8px;padding:0 14px;font-size:13.5px;font-weight:600}
+.lv-n{font-size:13px;color:var(--tx);margin-top:8px;line-height:1.5;word-break:keep-all}
+.lv-m{font-size:12.5px;color:var(--ok);margin-top:4px;min-height:1em}
+
 </style>
 </head>
 <body>
@@ -103,6 +113,7 @@ tr.hl td{background:#fff6d6;transition:background .3s}
    <button class="go" type="submit">들어가기</button>
   </form>
   <div id="err" role="alert"></div>
+  <div id="lockv"></div>
   <div class="note">일정 자료는 열쇠로만 풀리는 암호 묶음으로 실려 있습니다.</div>
  </div>
 </section>
@@ -124,7 +135,7 @@ tr.hl td{background:#fff6d6;transition:background .3s}
 
 <div id="pop" class="hide" role="dialog" aria-modal="true" aria-labelledby="pop-t"><div class="pw"><div class="ph"><b id="pop-t"></b><button type="button" id="pop-x">닫기</button></div><div id="pop-b"></div></div></div>
 
-<script src="sched-core.js?v=20261113s1"></script>
-<script src="schedule.js?v=20261113s1"></script>
+<script src="sched-core.js?v=20261113s2"></script>
+<script src="schedule.js?v=20261113s2"></script>
 </body>
 </html>

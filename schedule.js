@@ -1,7 +1,9 @@
-/* 대표 일정 화면(hiven.ai.kr/schedule.html) — 이력 1240~1242, Opus 5.5.
-   열쇠: 통합관제와 같은 열쇠. 열쇠가 맞는지는 암호 묶음(sched.enc.json)이 풀리는지로 본다(AES-GCM 인증 실패 = 틀린 열쇠).
+/* 대표 일정 화면(hiven.ai.kr/schedule.html) — 이력 1240~1242·1249, Opus 5.5.
+   열쇠: 통합관제(IC)와 같은 열쇠(11-13 17:08 대표님 확정, 일정 전용 열쇠 없음). 통합관제에서 열쇠를 넣은 같은 창이면 그 세션 값(hv_sk2)으로 열고 다시 묻지 않는다.
+   열쇠가 맞는지는 암호 묶음(sched.enc.json, ECIES)이 풀리는지로 본다(AES-GCM 인증 실패 = 틀린 열쇠). 묶음이 없거나 다른 잠그는 값으로
+   만든 묶음이면 통합관제 열쇠 확인 값(KEYH)과 맞을 때만 그 열쇠의 「잠그는 값」을 보인다(이력 1249). 맞지 않으면 틀린 열쇠로 센다.
    틀린 열쇠는 통합관제(sec.js)와 같은 저장 칸(localStorage hvsec)에 세고 같은 단계로 입력을 멈춘다. 서버로는 보내지 않는다(이력 1243 호출 한도).
-   요청: 페이지를 열 때 묶음 1건만 읽고, 탭·달·팝업은 읽은 자료로만 그린다. 주기 갱신 없음.
+   요청: 페이지를 열 때 묶음 1건만 읽고(없어도 다시 읽지 않음), 탭·달·팝업은 추가 요청 없이 그린다. 주기 갱신 없음.
    이 파일과 schedule.html 에는 일정 글자가 없다. 일정은 열쇠로 묶음을 푼 뒤에만 화면에 그려진다. */
 (function(){
 var H=HVSCH,E=H.esc,$=function(i){return document.getElementById(i)};
@@ -18,23 +20,32 @@ function log(g,why,n,kind,st){var s=ld(),e={t:new Date().toISOString(),g:G[g],r:
 function left(){var r=Math.ceil((ld().u-Date.now())/1000);return r>0?r:0}
 function fail(){var s=ld();if(Date.now()-s.t>86400000)s.n=0;s.n+=1;s.t=Date.now();s.u=Date.now()+lk(s.n)*1000;sv(s);var g=gr(s.n);log(g,'대표 일정 열쇠 불일치',s.n,'열쇠 입력','거부');return g}
 /* 입력 정지 초 세기: 정지 중일 때만 1초 뒤 다시 보는 이 화면 안 시계(네트워크 요청 없음, 이력 1243) */
-var gT=null;function guard(){clearTimeout(gT);var i=$('k'),e=$('err'),r=left();if(!i)return;if(r>0){i.disabled=true;e.textContent='보호 단계 · 입력 정지 '+r+'초 남음';gT=setTimeout(guard,1000)}else if(i.disabled){i.disabled=false;e.textContent='열쇠를 다시 입력하세요.'}}
+var gT=null;function guard(){clearTimeout(gT);var i=$('k'),e=$('err'),r=left();if(!i)return;if(r>0){i.disabled=true;e.textContent='보호 단계 · 입력 정지 '+r+'초 남음';gT=setTimeout(guard,1000)}else if(i.disabled){i.disabled=false;e.textContent='열쇠를 다시 입력하십시오.'}}
 
-function show(on){$('intro').classList.toggle('hide',on);$('sch').classList.toggle('hide',!on);if(!on){$('k').value='';$('view').innerHTML='';$('tabs').innerHTML='';D=null}}
+function show(on){$('intro').classList.toggle('hide',on);$('sch').classList.toggle('hide',!on);$('lockv').innerHTML='';if(!on){$('k').value='';$('view').innerHTML='';$('tabs').innerHTML='';D=null}}
 function enter(d){D=d;show(true);$('gen').textContent=d['만든때']||'-';$('today').textContent=T;readHash();draw()}
-function noBox(){$('err').textContent='일정 자료 묶음(sched.enc.json)이 아직 실리지 않았습니다. 묶음을 만든 뒤 다시 여세요.'}
+
+/* ── 잠그는 값 안내(묶음 없음 = none · 다른 잠그는 값으로 만든 묶음 = other) ── */
+function lockv(h,why){var pv=H.pubOf(h);$('err').textContent='';
+ $('lockv').innerHTML='<div class="lv"><b class="lv-t">'+(why==='other'?'실린 일정 자료가 이 열쇠의 잠그는 값으로 만들어지지 않았습니다.':'일정 자료가 아직 실리지 않았습니다.')+'</b><div class="lv-k">이 열쇠의 잠그는 값</div><div class="lv-r"><code class="lv-v">'+E(pv||'계산하지 못했습니다')+'</code><button type="button" class="lv-c" data-copy>복사</button></div><div class="lv-n">이 값을 Fable에게 한 번 붙여 주십시오. 공개해도 되는 값이며 이 값으로 열쇠를 알 수는 없습니다.</div><div class="lv-m" aria-live="polite"></div></div>'}
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('[data-copy]');if(!b)return;var w=b.closest('.lv'),c=w.querySelector('.lv-v'),m=w.querySelector('.lv-m');
+ function sel(){var r=document.createRange();r.selectNodeContents(c);var s=window.getSelection();s.removeAllRanges();s.addRange(r);m.textContent='값을 골라 두었습니다. 길게 누르거나 Ctrl+C로 복사하십시오.'}
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(c.textContent).then(function(){m.textContent='복사했습니다.'},sel);else sel()});
 
 $('f').addEventListener('submit',function(e){e.preventDefault();if(left()){guard();return}
- var v=$('k').value;$('err').textContent='여는 중…';
+ var v=$('k').value;$('lockv').innerHTML='';$('err').textContent='여는 중…';
  H.derive(v).then(function(h){return H.open(h).then(function(d){return {h:h,d:d}})}).then(function(x){
-  if(x.d===null){noBox();return}
-  if(!x.d){var g=fail();guard();$('err').textContent='열쇠가 맞지 않습니다 · 경보 '+G[g]+(left()?' · '+left()+'초 입력 정지':'');$('k').select();return}
+  if(!x.d)return H.check(v).then(function(ok){
+   if(!ok||!x.h){var g=fail();guard();$('err').textContent='열쇠가 맞지 않습니다 · 경보 '+G[g]+(left()?' · '+left()+'초 입력 정지':'');$('k').select();return}
+   var s=ld();log(0,'대표 일정 열쇠 맞음 · 묶음 '+(x.d===null?'없음':'불일치')+' · 잠그는 값 보임',0,'열쇠 입력','통과');if(s.n){s.n=0;s.u=0;sv(s)}
+   H.setK(x.h);lockv(x.h,x.d===null?'none':'other')});
   var s=ld();log(0,s.n?'대표 일정 열쇠 통과(오류 '+s.n+'회 뒤)':'대표 일정 열쇠 통과',0,'열쇠 입력','통과');if(s.n){s.n=0;s.u=0;sv(s)}
   try{sessionStorage.setItem('hvsec_ok',String(Date.now()))}catch(e){}
   H.setK(x.h);$('err').textContent='';enter(x.d)})});
 $('so').addEventListener('click',function(){H.setK('');show(false)});
-/* 통합관제에서 열쇠로 들어온 같은 창이면 다시 묻지 않는다 */
-(function(){var h=H.getK();if(!h){guard();return}H.open(h).then(function(d){if(d)enter(d);else{H.setK('');if(d===null)noBox();guard()}})})();
+/* 통합관제에서 열쇠를 넣은 같은 창이면 그 세션 값으로 열고 다시 묻지 않는다. 세션 값은 열쇠가 맞을 때만 저장되므로
+   풀리지 않으면 묶음이 없거나 다른 잠그는 값으로 만든 것이다 → 잠그는 값을 보인다 */
+(function(){var h=H.getK();if(!h){guard();return}H.open(h).then(function(d){if(d)enter(d);else{lockv(h,d===null?'none':'other');guard()}})})();
 
 /* ── 팝업(페이지 안, 닫기 단추·바깥 누름·Esc) ── */
 var lastFocus=null;
@@ -51,7 +62,7 @@ window.addEventListener('hashchange',function(){readHash();if(D)draw()});
 function go(t){if(location.hash!=='#'+t)history.replaceState(null,'','#'+t);TAB=t;draw();window.scrollTo({top:0})}
 function draw(){if(!D)return;$('tabs').innerHTML=TABS.map(function(t){return '<button type="button" data-t="'+t[0]+'" class="'+(t[0]===TAB?'on':'')+'">'+t[1]+'</button>'}).join('');
  [].forEach.call($('tabs').querySelectorAll('button'),function(b){b.onclick=function(){go(b.getAttribute('data-t'))}});
- $('view').innerHTML=(V[TAB]||V.personal)()+'<div class="ft" style="margin-top:14px">자료 만든 때 '+E(D['만든때']||'-')+' (서울) · 원천 표가 바뀔 때 묶음을 다시 만들어 올림 · 이 화면은 열 때 한 번만 읽고 스스로 새로 읽지 않음</div>';if(AFTER[TAB])AFTER[TAB]()}
+ $('view').innerHTML=(V[TAB]||V.personal)()+'<div class="ft" style="margin-top:14px">자료 만든 때 '+E(D['만든때']||'-')+' (서울). 원천 표가 바뀌면 묶음을 다시 만들어 올립니다. 이 화면은 열 때 한 번만 읽고 스스로 다시 읽지 않습니다.</div>';if(AFTER[TAB])AFTER[TAB]()}
 var V={},AFTER={};
 /* ── ① 개인 일정: 얼럿 띠 · 월 달력 · 목록 ── */
 var WD=['일','월','화','수','목','금','토'];
@@ -108,7 +119,7 @@ V.milestone=function(){var order=[],by={};function add(g,it){if(!by[g]){by[g]=[]
   if(w.b==null){add(r[1],{a:w.a,b:w.a,pt:1,cls:'op',lab:r[0]+' ~미정',tip:r[0]+' · '+r[2]+' · '+r[3]+' ~ '+r[4]});return}
   add(r[1],{a:w.a,b:w.b,cls:stCls(r[6]),lab:r[0],tip:r[0]+' · '+r[2]+' · '+r[3]+' ~ '+r[4]+' · '+r[6]})});
  var none=[];var rows=[personalRow()].concat(order.map(function(g){var it=by[g].filter(function(x){if(x.none){none.push(g+' · '+x.lab);return false}return true});return row(E(g),it)}));
- return '<div class="box"><div class="k">하이븐 전체 일정 · 2026-11 ~ 2027-07 · 갈래별 한 줄 · 빨간 세로선 = 오늘</div>'+chart(rows,'<span><i style="background:#c5d3f0;border-radius:3px"></i>먼스(MM) 마일스톤</span><span><i style="background:#3f51b5;border-radius:3px"></i>WBS 일(예정·계획)</span><span><i style="background:#2d9cdb;border-radius:3px"></i>WBS 진행 중</span><span><i style="background:#1f9d55;border-radius:3px"></i>WBS 끝남</span><span><i style="background:#fff;border:2px solid #3f51b5"></i>시작만 정해짐(끝 미정)</span><span>막대에 손을 대면 내용</span>')+(none.length?'<div class="nod"><b>때가 정해지지 않아 그림에 없는 일</b><br>'+none.map(E).join('<br>')+'</div>':'')+'</div>'};
+ return '<div class="box"><div class="k">하이븐 전체 일정 · 2026-11 ~ 2027-07 · 갈래별 한 줄 · 빨간 세로선 = 오늘</div>'+chart(rows,'<span><i style="background:#c5d3f0;border-radius:3px"></i>먼스(MM) 마일스톤</span><span><i style="background:#3f51b5;border-radius:3px"></i>WBS 일(예정·계획)</span><span><i style="background:#2d9cdb;border-radius:3px"></i>WBS 진행 중</span><span><i style="background:#1f9d55;border-radius:3px"></i>WBS 끝남</span><span><i style="background:#fff;border:2px solid #3f51b5"></i>시작만 정해짐(끝 미정)</span><span>막대에 마우스를 올리면 내용이 보입니다</span>')+(none.length?'<div class="nod"><b>때가 정해지지 않아 그림에 없는 일</b><br>'+none.map(E).join('<br>')+'</div>':'')+'</div>'};
 AFTER.milestone=bindDots;
 
 /* ── ③ WBS: 갈래별 묶음 표 + 가로 막대(시작~끝) + 선행 ── */
