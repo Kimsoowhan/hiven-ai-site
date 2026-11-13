@@ -20,7 +20,7 @@ def gitlast(path):
 gen=[('ctl/action_lifecycle.tsv','tools/gen_lifecycle.py','SC-02·SC-16'),('ctl/action_lifecycle.json','tools/gen_lifecycle.py','SC-02'),
      ('ctl/trace_sum.json','tools/gen_trace_sum.py','SC-02'),('ctl/trace_v.tsv','tools/gen_trace_supp.py','SC-16'),('ctl/trace_h.tsv','tools/gen_trace_supp.py','SC-16'),
      ('ctl/bg_contact.tsv','tools/gen_contact.py','SC-05'),('progress.json','tools/gen_meta.py','SC-10'),('reports/index.json','tools/gen_meta.py','SC-10'),('publish_meta.json','tools/gen_meta.py','SC-10'),
-     ('ctl/aics_doccheck.tsv','tools/hibiz_doc_check.py','SC-15'),('ctl/aics_docfolder.tsv','tools/hibiz_doc_check.py','SC-15')]
+     ('ctl/aics_doccheck.tsv','tools/hibiz_doc_check.py','SC-15'),('ctl/aics_docfolder.tsv','tools/hibiz_doc_check.py','SC-15'),('ctl/aics_docsync.tsv','tools/hibiz_doc_check.py','SC-15'),('ctl/aics_scmap.tsv','tools/gen_sc_map.py','SC-15'),('ctl/sc_fetch_measured.json','tools/sc_fetch_measure.js','SC-15')]
 d=[]
 if 'docgen' in SEL:
  for f,tool,sc in gen:

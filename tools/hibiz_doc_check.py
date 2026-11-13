@@ -97,9 +97,22 @@ for r in hist:
         if r[0] not in oi: add('K15','이력 '+r[0],'대표 지시 장(91_02_01)이 없음','tools/ceo_order_file.py gen 뒤 PC에 올림')
 for k,v in osy.items():
     if v<last: add('K15',k,'이력 %d~%d이 아직 반영되지 않음'%(v+1,last),'반영하고 표식을 올림')
-KN={'K01':'색인 폴더 없음','K02':'폴더안내 없음','K03':'색인 문서 없음','K04':'맨 위에 나온 파일','K05':'이름 틀 어긋남','K06':'빈 폴더(표식만)','K07':'옛 판이 맨 위에 남음','K08':'옛 폴더안내 남음','K09':'2층 폴더 이름 어긋남','K10':'이전판 폴더 번호 어긋남','K11':'단계 폴더 어긋남(열쇳말)','K12':'겹친 사본','K13':'GS 인증 자료 빠짐','K14':'설명서 빠짐','K15':'말 명령 문서 빠짐'}
-KR={'K01':'DR-01','K02':'DR-02','K03':'DR-03','K04':'DR-04','K05':'DR-07','K06':'DR-06','K07':'DR-08','K08':'DR-02','K09':'DR-05','K10':'DR-09','K11':'DR-10','K12':'DR-11','K13':'DR-12','K14':'DR-13','K15':'DR-15'}
-SEV={'K15':'얼럿','K04':'얼럿','K07':'얼럿','K08':'얼럿','K13':'얼럿','K14':'얼럿','K01':'얼럿','K02':'주의','K03':'주의','K05':'주의','K12':'주의','K11':'확인','K06':'확인','K09':'확인','K10':'확인'}
+# K16 시험 문서(DR-16): 사업군 시험 폴더마다 계획·실행·결과가 있는지, 지금 시험할 판(HiCoffer 0.1.27)의 세 가지가 원천 자리에 있는지
+TV='0.1.27';T8='12_HIVEN_HiCoffer/12_08_시범테스트'
+t8=[p for p,_,_ in files if p.startswith(T8+'/')]
+for kw,nm in [('시험_계획','시험 계획'),('시험_묶음','시험 묶음(실행)'),('시험_결과','시험 결과')]:
+    if not any(TV in p and (kw in p or kw.replace('시험_','재시험_') in p) for p in t8): add('K16',T8,'%s판 %s 문서가 원천 자리에 없음'%(TV,nm),'만들어 넣음(판·배포 단계 표시, 자산원장에 올림)')
+if not any(re.search(r'베타[123]|상용',p) for p in t8): add('K16',T8,'배포 단계(베타1·2·3·상용) 표시가 있는 시험 폴더·문서가 없음','시험 폴더 이름에 판과 배포 단계를 적음')
+led14=' '.join(f for f,_,_ in byd.get('14_HIVEN_HiDAM/14_10_관리/14_10_11_자산원장',[]))
+if '증적' not in led14: add('K16','14_HIVEN_HiDAM/14_10_관리/14_10_11_자산원장','증적 자산원장이 없음','증적 자산원장을 만듦')
+# K17 화면 원천(DR-17): 연결표(aics_scmap.tsv)에서 원천에 안 이어진 화면·없는 원천
+if os.path.exists(C+'aics_scmap.tsv'):
+    for l in open(C+'aics_scmap.tsv',encoding='utf-8').read().split('\n')[1:]:
+        c=l.split('\t')
+        if len(c)>13 and c[13] in('원천에 안 이어짐','원천 없음','어긋남'): add('K17',c[0]+' '+c[1],c[13]+': '+c[4],'원천 파일과 만드는 도구에 이음')
+KN={'K01':'색인 폴더 없음','K02':'폴더안내 없음','K03':'색인 문서 없음','K04':'맨 위에 나온 파일','K05':'이름 틀 어긋남','K06':'빈 폴더(표식만)','K07':'옛 판이 맨 위에 남음','K08':'옛 폴더안내 남음','K09':'2층 폴더 이름 어긋남','K10':'이전판 폴더 번호 어긋남','K11':'단계 폴더 어긋남(열쇳말)','K12':'겹친 사본','K13':'GS 인증 자료 빠짐','K14':'설명서 빠짐','K15':'말 명령 문서 빠짐','K16':'시험 문서 빠짐','K17':'화면이 원천에 안 이어짐'}
+KR={'K01':'DR-01','K02':'DR-02','K03':'DR-03','K04':'DR-04','K05':'DR-07','K06':'DR-06','K07':'DR-08','K08':'DR-02','K09':'DR-05','K10':'DR-09','K11':'DR-10','K12':'DR-11','K13':'DR-12','K14':'DR-13','K15':'DR-15','K16':'DR-16','K17':'DR-17'}
+SEV={'K16':'얼럿','K17':'얼럿','K15':'얼럿','K04':'얼럿','K07':'얼럿','K08':'얼럿','K13':'얼럿','K14':'얼럿','K01':'얼럿','K02':'주의','K03':'주의','K05':'주의','K12':'주의','K11':'확인','K06':'확인','K09':'확인','K10':'확인'}
 def W(path,head,body):
     with open(path,'w',encoding='utf-8') as f:
         f.write('\t'.join(head)+'\n')
@@ -125,7 +138,7 @@ W(H+'HiBiz_전체_펼침표-%s_0.1_작업.tsv'%YMD,['1층 폴더','2층 폴더',
 # ② SC-15 게시 원천(건수만, 파일 이름은 싣지 않음)
 chk=[]
 for k in sorted(KN):
-    L=find.get(k,[]);c=collections.Counter((p.split('/')[0][:2] if k!='K15' else '91') for p,_,_ in L)
+    L=find.get(k,[]);c=collections.Counter((p.split('/')[0][:2] if k not in('K15','K17') else ('91' if k=='K15' else 'SC')) for p,_,_ in L)
     chk.append([k,KN[k],KR[k],SEV[k],len(L),' '.join('%s:%d'%(a,b) for a,b in sorted(c.items())) or '-',L[0][2] if L else '-',when])
 W(C+'aics_doccheck.tsv',['검사','무엇을 보는가','규칙','등급','어긋난 건수','폴더별(번호:건수)','처리','실측 시각'],chk)
 fc=collections.Counter(p.split('/')[0] for p,_,_ in files);dc=collections.Counter(d.split('/')[0] for d in dirs)
@@ -133,6 +146,7 @@ bad=collections.Counter();al=collections.Counter()
 for k,L in find.items():
     for p,_,_ in L:
         if k=='K15': p='91_Claude_소통(COM)'
+        if k=='K17': continue
         bad[p.split('/')[0]]+=1
         if SEV[k]=='얼럿': al[p.split('/')[0]]+=1
 W(C+'aics_docfolder.tsv',['1층 폴더','폴더 수','파일 수','어긋난 건수','얼럿 건수','색인 자동 생성','실측 시각'],[[t,dc[t],fc[t],bad[t],al[t],'%s_00_색인_자동-%s'%(t[:2],YMD),when] for t in tops])
