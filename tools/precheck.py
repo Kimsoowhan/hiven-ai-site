@@ -140,5 +140,13 @@ for _l in _o.stdout.splitlines():
     elif _l.startswith('알림:'): warn(_l[3:].strip())
     elif _l.startswith('대표 지시 장'): print(_l)
 if _o.returncode not in (0,1): fail('ceo_order_file 실행 오류 '+(_o.stderr or '')[-120:])
+# ── ⑭ 에이전트 사용 대장(261113 이력 1146~1149): 11-13 12:00 뒤에 Haiku 구동 줄이 있거나, 구동 전 예상이 비어 있으면 실패
+try:
+    for _l in open(R+'/cowork/ctl/agent_usage.tsv',encoding='utf-8').read().split('\n')[1:]:
+        _a=_l.split('\t')
+        if len(_a)<6 or _a[0]<='2026-11-13 12:00': continue
+        if 'haiku' in _a[2].lower(): fail('에이전트 사용 대장: Haiku 구동 줄(%s) — Haiku는 배제'%_a[0])
+        if not _a[5].strip() or _a[5].strip()=='재지 않음': fail('에이전트 사용 대장: 구동 전 예상이 없는 줄(%s)'%_a[0])
+except FileNotFoundError: fail('agent_usage.tsv 없음')
 print(('검사 통과' if not bad else '검사 실패 %d건 — 커밋·푸시 금지'%len(bad))+(' · 알림 %d건'%len(note) if note else ''))
 sys.exit(1 if bad else 0)
