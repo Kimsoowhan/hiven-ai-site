@@ -17,6 +17,15 @@ CODE=('py','js','json','html','css','ps1','cmd','bat','cs','xaml','csproj','sln'
 STAGE={'00':'색인','01':'기준원칙','02':'사례·벤치마킹','03':'설정안','04':'설계안','05':'수행안','06':'수행결과','07':'품질검수','08':'시범테스트','09':'감리','10':'관리','11':'매뉴얼','12':'자료'}
 KW=[('01',r'정책|원칙|규정|지침|표준_|_체계'),('02',r'사례|벤치마킹'),('03',r'설정안|요구사항|정의서'),('04',r'설계안|설계서|시안|보기판|구조도'),('07',r'검수|전수검사|대조표|점검표|검사표'),('08',r'시험_계획|시험_묶음|시험_결과|테스트_결과'),('11',r'매뉴얼|설명서')]
 BIZ=('11','12','13','14','15','16','17')
+DOCX=('md','txt','tsv','pdf','docx','xlsx','pptx','hwp','csv','html')
+ORIG=re.compile(r'(원본|캡처|이용기록|inDownload|PersonInfo|Brand_Assets|Identity_STD|_12_자료|/12_자료|참고자료|career\.html|Work진행현황|외부의견|아이덴티티·이미지)')
+def kind(p):
+    d,fn=p.rsplit('/',1) if '/' in p else ('',p);e=fn.rsplit('.',1)[-1].lower() if '.' in fn else ''
+    if re.search(r'\.A-\d+$',fn) or EXC_DIR.search(d): return '기록·증적'
+    if e in CODE: return '코드·실행'
+    if e not in DOCX: return '자산 원본'
+    if ORIG.search(d): return '바깥·대표 원본'
+    return '관리 문서'
 find=collections.defaultdict(list)   # 검사 번호 → [(경로, 내용, 처리)]
 def add(k,p,why,act): find[k].append((p,why,act))
 topdirs=collections.defaultdict(set)
@@ -39,7 +48,7 @@ for p,sz,m in files:
     ext=fn.rsplit('.',1)[-1].lower() if '.' in fn else ''
     exc=bool(EXC_DIR.search(d)) or ext in CODE or fn.startswith(('_폴더생성','폴더안내'))
     mm=NAME.match(fn)
-    if not mm and not exc: add('K05',p,'이름이 「제목-yymmdd_판」 틀이 아님','이름을 틀에 맞춤(원래 이름은 대조표에 남김)')
+    if not mm and not exc and kind(p)=='관리 문서': add('K05',p,'이름이 「제목-yymmdd_판」 틀이 아님','이름을 틀에 맞춤(원래 이름은 대조표에 남김)')
     if fn.startswith('_폴더생성') and len(byd[d])==1 and not any(x.startswith(d+'/') for x in dirs): add('K06',d,'표식 파일만 있는 빈 폴더','넣을 산출물이 없으면 폴더를 없앰')
     if nn in BIZ and len(s)==3 and mm and not exc:
         st=s[1][3:5]
@@ -100,7 +109,7 @@ for k,v in osy.items():
 # K16 시험 문서(DR-16): 사업군 시험 폴더마다 계획·실행·결과가 있는지, 지금 시험할 판(HiCoffer 0.1.27)의 세 가지가 원천 자리에 있는지
 TV='0.1.27';T8='12_HIVEN_HiCoffer/12_08_시범테스트'
 t8=[p for p,_,_ in files if p.startswith(T8+'/')]
-for kw,nm in [('시험_계획','시험 계획'),('시험_묶음','시험 묶음(실행)'),('시험_결과','시험 결과')]:
+for kw,nm in [('시험_계획','시험 계획'),('시험_묶음','시험 묶음(실행)')]:   # 시험 결과는 시험이 끝난 뒤에 생기므로 시작 전 판정에서는 보지 않음(끝난 뒤 L4에서 봄)
     if not any(TV in p and (kw in p or kw.replace('시험_','재시험_') in p) for p in t8): add('K16',T8,'%s판 %s 문서가 원천 자리에 없음'%(TV,nm),'만들어 넣음(판·배포 단계 표시, 자산원장에 올림)')
 if not any(re.search(r'베타[123]|상용',p) for p in t8): add('K16',T8,'배포 단계(베타1·2·3·상용) 표시가 있는 시험 폴더·문서가 없음','시험 폴더 이름에 판과 배포 단계를 적음')
 led14=' '.join(f for f,_,_ in byd.get('14_HIVEN_HiDAM/14_10_관리/14_10_11_자산원장',[]))
@@ -111,12 +120,29 @@ if os.path.exists(C+'aics_scmap.tsv'):
         c=l.split('\t')
         if len(c)>13 and c[13] in('원천에 안 이어짐','원천 없음','어긋남'): add('K17',c[0]+' '+c[1],c[13]+': '+c[4],'원천 파일과 만드는 도구에 이음')
 # K18 바깥 관계 폴더(DR-18): SC-18·19·20의 원천 폴더와 색인·폴더안내·목록(대장)
-for top,kw,nm in [('41_HIVEN_Stakeholder(STK)','Stakeholder_목록','Stakeholder 목록'),('41_HIVEN_Stakeholder(STK)','받은_얼럿','받은 얼럿 기록'),('42_HIVEN_이해관계자_협력사(PTN)','협력사_목록','이해관계자·협력사 목록'),('42_HIVEN_이해관계자_협력사(PTN)','SLA_MOU','협의·SLA·MOU 대장'),('43_HIVEN_계약(CTR)','계약_대장','계약 대장')]:
+for top,kw,nm in [('41_HIVEN_Stakeholder(STK)','Stakeholder_목록','Stakeholder 목록'),('41_HIVEN_Stakeholder(STK)','받은_얼럿','받은 얼럿 기록'),('42_HIVEN_이해관계자_협력사(PTN)','협력사_목록','이해관계자·협력사 목록'),('42_HIVEN_이해관계자_협력사(PTN)','SLA_MOU','협의·SLA·MOU 대장'),('43_HIVEN_계약(CTR)','계약_대장','계약 대장'),('44_HIVEN_이용약관_정책(PCY)','이용약관_정책_목록','이용약관·정책 목록'),('44_HIVEN_이용약관_정책(PCY)','개인정보_처리_대장','개인정보 처리 대장'),('44_HIVEN_이용약관_정책(PCY)','회원_관리_대장','회원 관리 대장')]:
     if top not in tops: add('K18',top,'폴더 없음(실측에 없음)','폴더를 만들고 색인·폴더안내·'+nm+'을 넣음')
     elif not any(kw in p for p,_,_ in files if p.startswith(top+'/')): add('K18',top,nm+' 없음','만들어 넣음')
-KN={'K01':'색인 폴더 없음','K02':'폴더안내 없음','K03':'색인 문서 없음','K04':'맨 위에 나온 파일','K05':'이름 틀 어긋남','K06':'빈 폴더(표식만)','K07':'옛 판이 맨 위에 남음','K08':'옛 폴더안내 남음','K09':'2층 폴더 이름 어긋남','K10':'이전판 폴더 번호 어긋남','K11':'단계 폴더 어긋남(열쇳말)','K12':'겹친 사본','K13':'GS 인증 자료 빠짐','K14':'설명서 빠짐','K15':'말 명령 문서 빠짐','K16':'시험 문서 빠짐','K17':'화면이 원천에 안 이어짐','K18':'바깥 관계 폴더 빠짐'}
-KR={'K01':'DR-01','K02':'DR-02','K03':'DR-03','K04':'DR-04','K05':'DR-07','K06':'DR-06','K07':'DR-08','K08':'DR-02','K09':'DR-05','K10':'DR-09','K11':'DR-10','K12':'DR-11','K13':'DR-12','K14':'DR-13','K15':'DR-15','K16':'DR-16','K17':'DR-17','K18':'DR-18'}
-SEV={'K18':'얼럿','K16':'얼럿','K17':'얼럿','K15':'얼럿','K04':'얼럿','K07':'얼럿','K08':'얼럿','K13':'얼럿','K14':'얼럿','K01':'얼럿','K02':'주의','K03':'주의','K05':'주의','K12':'주의','K11':'확인','K06':'확인','K09':'확인','K10':'확인'}
+# K19 덮임(대표님 11-13 18:35·18:36): HiBiz 1층 폴더가 어느 화면에도 원천으로 이어지지 않음(범위 = 하이븐 통합사업 전체)
+if os.path.exists(C+'aics_cover.tsv'):
+    for l in open(C+'aics_cover.tsv',encoding='utf-8').read().split('\n')[1:]:
+        c=l.split('\t')
+        if len(c)>4 and c[4]!='이어짐': add('K19',c[0],'어느 화면(SC-00~SC-20)에도 원천으로 이어지지 않음','이을 화면을 정해 구조표에 넣음')
+# K20 개인정보 처리(DR-19): 처리 대장에서 보유 기간·파기 방법·근거 조항이 정해지지 않은 줄
+PIL=C+'pip_ledger.tsv'
+if os.path.exists(PIL):
+    for l in open(PIL,encoding='utf-8').read().split('\n')[1:]:
+        c=l.split('\t')
+        if len(c)>8 and any(x.startswith('확인 안 됨') or not x for x in (c[6],c[7],c[8])): add('K20',c[0]+' '+c[1],'보유 기간·파기 방법·근거 조항이 정해지지 않음','처리방침·처리 체계와 대조해 채움')
+else: add('K20','개인정보 처리 대장','대장 없음','만듦')
+if os.path.exists(C+'policy_list.tsv'):
+    for l in open(C+'policy_list.tsv',encoding='utf-8').read().split('\n')[1:]:
+        c=l.split('\t')
+        if len(c)>6 and (c[6].startswith('확인 안 됨') or c[3].startswith('확인 안 됨')): add('K20',c[0]+' '+c[2],'판 또는 시행 여부가 정해지지 않음','문서를 읽어 판·시행 여부를 채움')
+KN={'K01':'색인 폴더 없음','K02':'폴더안내 없음','K03':'색인 문서 없음','K04':'맨 위에 나온 파일','K05':'이름 틀 어긋남','K06':'빈 폴더(표식만)','K07':'옛 판이 맨 위에 남음','K08':'옛 폴더안내 남음','K09':'2층 폴더 이름 어긋남','K10':'이전판 폴더 번호 어긋남','K11':'단계 폴더 어긋남(열쇳말)','K12':'겹친 사본','K13':'GS 인증 자료 빠짐','K14':'설명서 빠짐','K15':'말 명령 문서 빠짐','K16':'시험 문서 빠짐','K17':'화면이 원천에 안 이어짐','K18':'바깥 관계 폴더 빠짐','K19':'화면에 안 이어진 폴더','K20':'약관·정책·개인정보 기준 빠짐'}
+KR={'K01':'DR-01','K02':'DR-02','K03':'DR-03','K04':'DR-04','K05':'DR-07','K06':'DR-06','K07':'DR-08','K08':'DR-02','K09':'DR-05','K10':'DR-09','K11':'DR-10','K12':'DR-11','K13':'DR-12','K14':'DR-13','K15':'DR-15','K16':'DR-16','K17':'DR-17','K18':'DR-18','K19':'DR-17','K20':'DR-19'}
+GRD={'K06':'의심','K10':'의심','K11':'의심','K12':'의심'}   # 그 밖은 확정(기계로 참·거짓이 갈림)
+SEV={'K20':'얼럿','K19':'얼럿','K18':'얼럿','K16':'얼럿','K17':'얼럿','K15':'얼럿','K04':'얼럿','K07':'얼럿','K08':'얼럿','K13':'얼럿','K14':'얼럿','K01':'얼럿','K02':'주의','K03':'주의','K05':'주의','K12':'주의','K11':'확인','K06':'확인','K09':'확인','K10':'확인'}
 def W(path,head,body):
     with open(path,'w',encoding='utf-8') as f:
         f.write('\t'.join(head)+'\n')
@@ -137,13 +163,13 @@ for p,sz,m in files:
     st=STAGE.get(s[1][3:5],'내용 폴더') if len(s)>2 and re.match(r'^\d\d_\d\d_',s[1]) else ('맨 위' if len(s)==2 else '틀 밖')
     fl=flag.get(p,[])
     to,why=mv.get(p,('',''))
-    pan.append([s[0],s[1] if len(s)>2 else '',st,p,fn,mm.group('d') if mm else '',mm.group('v') or '' if mm else '','작업본' if mm and mm.group('w') else ('최종본' if mm else ''),sz,' · '.join(k+' '+w for k,w,a in fl) or '맞음',' · '.join(dict.fromkeys(a for k,w,a in fl)) or ('옮김(대응표)' if to else '그대로'),to,why])
-W(H+'HiBiz_전체_펼침표-%s_0.1_작업.tsv'%YMD,['1층 폴더','2층 폴더','단계','지금 자리(경로)','파일','날짜','판','본 구분','크기','규칙 검사(SC-15)','처리','옮길 자리(대응표)','옮기는 까닭'],pan)
+    pan.append([s[0],s[1] if len(s)>2 else '',st,kind(p),p,fn,mm.group('d') if mm else '',mm.group('v') or '' if mm else '','작업본' if mm and mm.group('w') else ('최종본' if mm else ''),sz,' · '.join(k+' '+w for k,w,a in fl) or '맞음',' · '.join(dict.fromkeys(a for k,w,a in fl)) or ('옮김(대응표)' if to else '그대로'),to,why])
+W(H+'HiBiz_전체_펼침표-%s_0.1_작업.tsv'%YMD,['1층 폴더','2층 폴더','단계','대상 구분','지금 자리(경로)','파일','날짜','판','본 구분','크기','규칙 검사(SC-15)','처리','옮길 자리(대응표)','옮기는 까닭'],pan)
 # ② SC-15 게시 원천(건수만, 파일 이름은 싣지 않음)
 chk=[]
 for k in sorted(KN):
-    L=find.get(k,[]);c=collections.Counter((p.split('/')[0][:2] if k not in('K15','K17') else ('91' if k=='K15' else 'SC')) for p,_,_ in L)
-    chk.append([k,KN[k],KR[k],SEV[k],len(L),' '.join('%s:%d'%(a,b) for a,b in sorted(c.items())) or '-',L[0][2] if L else '-',when])
+    L=find.get(k,[]);c=collections.Counter((p.split('/')[0][:2] if k not in('K15','K17','K20') else ('91' if k=='K15' else ('SC' if k=='K17' else '44'))) for p,_,_ in L)
+    chk.append([k,KN[k],KR[k],('얼럿' if GRD.get(k,'확정')=='확정' and SEV[k]=='얼럿' else ('확정' if GRD.get(k,'확정')=='확정' else '의심(판정 필요)')),len(L),' '.join('%s:%d'%(a,b) for a,b in sorted(c.items())) or '-',L[0][2] if L else '-',when])
 W(C+'aics_doccheck.tsv',['검사','무엇을 보는가','규칙','등급','어긋난 건수','폴더별(번호:건수)','처리','실측 시각'],chk)
 fc=collections.Counter(p.split('/')[0] for p,_,_ in files);dc=collections.Counter(d.split('/')[0] for d in dirs)
 bad=collections.Counter();al=collections.Counter()
@@ -151,6 +177,7 @@ for k,L in find.items():
     for p,_,_ in L:
         if k=='K15': p='91_Claude_소통(COM)'
         if k=='K17': continue
+        if k=='K20': p='44_HIVEN_이용약관_정책(PCY)'
         bad[p.split('/')[0]]+=1
         if SEV[k]=='얼럿': al[p.split('/')[0]]+=1
 W(C+'aics_docfolder.tsv',['1층 폴더','폴더 수','파일 수','어긋난 건수','얼럿 건수','색인 자동 생성','실측 시각'],[[t,dc[t],fc[t],bad[t],al[t],'%s_00_색인_자동-%s'%(t[:2],YMD),when] for t in tops])
@@ -201,13 +228,17 @@ if not old or old[-1][2]!=fp:
     old.append([when,'Dell XPS 15',fp,len(files),len(dirs)]+d+[sum(len(v) for v in find.values())])
     W(log,['실측 시각','기기','목록 지문(SHA256)','파일 수','폴더 수','새로 생김','없어짐','바뀜','새로 생긴 것 중 규칙 밖','어긋난 건수'],old)
     shutil.copy(H+'hibiz_tree.tsv',prevp)
-print('파일',len(files),'폴더',len(dirs),'어긋남',sum(len(v) for v in find.values()))
+import collections as _c
+kc=_c.Counter(kind(p) for p,_,_ in files)
+W(C+'aics_dockind.tsv',['대상 구분','파일 수','거는 규칙','실측 시각'],[[k,kc[k],{'관리 문서':'이름 틀(DR-07) · 판·이전판(DR-08) · 자리(DR-10) · 생애 절차 L1~L7','기록·증적':'이름·내용 불변(DR-14) · 해시 목록 · 보유 기간(DR-19)','자산 원본':'이름 불변 · 자산 대장(HiDAM) · 겹침만 봄','코드·실행':'형상 관리(커밋) · 이름 틀 밖','바깥·대표 원본':'이름 불변 · 받은 그대로 보존'}[k],when] for k in ('관리 문서','기록·증적','자산 원본','코드·실행','바깥·대표 원본')])
+fx=sum(len(v) for k,v in find.items() if GRD.get(k,'확정')=='확정');sx=sum(len(v) for k,v in find.items() if GRD.get(k)=='의심')
+print('파일',len(files),'폴더',len(dirs),'확정',fx,'의심',sx,dict(kc))
 # ⑥ 시험 시작 판정(대표님 11-13 18:33): 얼럿 등급 검사가 모두 0이고 화면 연결표가 모두 맞아야 「시작 가능」
-al_n={k:len(find.get(k,[])) for k in KN if SEV[k]=='얼럿'}
+al_n={k:len(find.get(k,[])) for k in KN if GRD.get(k,'확정')=='확정'}
 why=[KN[k]+' %d건'%n for k,n in sorted(al_n.items()) if n]
 sm_bad=0
 if os.path.exists(C+'aics_scmap.tsv'):
     sm_bad=sum(1 for l in open(C+'aics_scmap.tsv',encoding='utf-8').read().split('\n')[1:] if l and l.split('\t')[13]!='맞음')
 if sm_bad: why.append('화면 연결표에서 맞지 않는 줄 %d건'%sm_bad)
-W(C+'aics_testgate.tsv',['판정','실측 시각','얼럿 건수','까닭','판정 기준'],[['시작 가능' if not why else '시작 불가',when,sum(al_n.values()),' · '.join(why) or '없음','얼럿 등급 검사(K01·K04·K07·K08·K13~K18) 0건 + 화면 × 문서 × 폴더 × 분류 연결표 전부 맞음 + 실측 싱크에서 규칙 밖 새 파일 0']])
+W(C+'aics_testgate.tsv',['판정','실측 시각','얼럿 건수','까닭','판정 기준'],[['시작 가능' if not why else '시작 불가',when,sum(al_n.values()),' · '.join(why) or '없음','확정 검사(기계로 참·거짓이 갈리는 것) 0건 + 화면 연결표 전부 맞음 + 실측 싱크에서 규칙 밖 새 파일 0. 의심(판정 필요)은 Fable 판정 뒤 확정으로 올리거나 지움']])
 sys.stdout.write(''.join('%s %s %s %d\n'%(k,KN[k],SEV[k],len(find.get(k,[]))) for k in sorted(KN)))

@@ -1,0 +1,35 @@
+HiBiz 1층 폴더	파일 수	이 폴더를 원천으로 쓰는 화면	문서 실측	덮임
+00_HIVE_아이덴티티(HID)	1644	SC-08	SC-15	이어짐
+01_HIVE_Group&Holdings	2	SC-08	SC-15	이어짐
+02_HIVE_브랜드_지식재산(BIP)	449	SC-19	SC-15	이어짐
+03_HIVEN_대표_김수환(KS)	989	SC-00	SC-15	이어짐
+04_HIVEN_컨트롤타워_AICS(HCT)	81	SC-02 · SC-06	SC-15	이어짐
+05_HIVEN_비즈정책(HIBP)	18	SC-05	SC-15	이어짐
+06_HIVEN_통합사업(HV)	400	SC-05 · SC-10 · SC-20	SC-15	이어짐
+07_HIVEN_명명분류(STD)	38	SC-08	SC-15	이어짐
+08_HIVEN_운영관리(OPS)	261	SC-06	SC-15	이어짐
+09_HIVEN_형상관리(CFG)	2188	SC-11 · SC-12 · SC-13	SC-15	이어짐
+10_HIVEN_정부지원사업(GOV)	21	SC-19	SC-15	이어짐
+11_HIVEN_HiASI	422	SC-05 · SC-13	SC-15	이어짐
+12_HIVEN_HiCoffer	579	SC-05 · SC-09 · SC-13	SC-15	이어짐
+13_HIVEN_HiICT	11	SC-05 · SC-13	SC-15	이어짐
+14_HIVEN_HiDAM	183	SC-05 · SC-08 · SC-13	SC-15	이어짐
+15_HIVEN_HiServe	16	SC-05 · SC-13	SC-15	이어짐
+16_HIVEN_HiSilver	175	SC-05 · SC-13	SC-15	이어짐
+17_HIVEN_HiTrade	17	SC-05 · SC-13	SC-15	이어짐
+20_HIVEN_마케팅(MKT)	3	SC-10	SC-15	이어짐
+31_HIVEN_이상징후_및_보안체계(SEC)	96	SC-03 · SC-04 · SC-07	SC-15	이어짐
+32_HIVEN_개발_코드(DEV)	1377	SC-12	SC-15	이어짐
+33_HIVEN_HiClo_앱(APP)	2	SC-12	SC-15	이어짐
+39_HIVEN_홈페이지(WEB)	404	SC-12	SC-15	이어짐
+40_HIVEN_고객지원(CS)	31	SC-01 · SC-14	SC-15	이어짐
+41_HIVEN_Stakeholder(STK)	4	SC-18	SC-15	이어짐
+42_HIVEN_이해관계자_협력사(PTN)	3	SC-19	SC-15	이어짐
+43_HIVEN_계약(CTR)	2	SC-21	SC-15	이어짐
+80_HIVEN_참고자료(SRC)	21	SC-11	SC-15	이어짐
+91_Claude_소통(COM)	2206	SC-00 · SC-16 · SC-17	SC-15	이어짐
+92_Claude_모델통제(MCS)	58	SC-16	SC-15	이어짐
+93_Claude_기억장치(EMG)	1603	SC-16	SC-15	이어짐
+94_Claude_Fable	1390	SC-10	SC-15	이어짐
+94_Claude_작업	13	SC-10	SC-15	이어짐
+95_Claude outputs	7	SC-10	SC-15	이어짐

@@ -53,4 +53,27 @@ with open(C+'aics_scmap.tsv','w',encoding='utf-8') as o:
     for r in rows: o.write('\t'.join(r)+'\n')
 import collections
 c=collections.Counter(r[-1] for r in rows)
+# 폴더 × 화면 덮임표: HiBiz 1층 폴더마다 어느 화면의 원천인지(구조표의 「HiBiz 원천 폴더」 칸에서 폴더 번호를 읽음). 실측이 있을 때만.
+TR=C+'hibiz/hibiz_tree.tsv'
+if os.path.exists(TR):
+    tops=sorted({l.split('\t')[0].split('/')[0] for l in open(TR,encoding='utf-8').read().split('\n')[1:] if l})
+    fc=collections.Counter(l.split('\t')[0].split('/')[0] for l in open(TR,encoding='utf-8').read().split('\n')[1:] if l and l.split('\t')[1]=='file')
+    use=collections.defaultdict(list)
+    for r in st:
+        nums=set(re.findall(r'(?<![0-9_])(\d\d)_(?:HIVE|Claude)',r[5]))
+        if re.search(r'11~17',r[5]): nums|={'11','12','13','14','15','16','17'}
+        if 'NN_' in r[5] and '폴더마다' not in r[5]: nums|={'11','12','13','14','15','16','17'}
+        if '폴더마다' in r[5]: nums|={t[:2] for t in tops}
+        for t in tops:
+            if t[:2] in nums and (t[:2]!='94' or t in r[5] or '폴더마다' in r[5]): use[t].append(r[0])
+    cov=[]
+    for t in tops:
+        own=[x for x in use[t] if x!='SC-15']
+        cov.append([t,fc[t],' · '.join(own) or '-','SC-15' if 'SC-15' in use[t] else '-','이어짐' if own else '화면에 안 이어짐(SC-15 실측만)'])
+    miss=[r[0]+' '+r[1] for r in st if re.search(r'\d\d_(?:HIVE|Claude)',r[5]) and not any(t.split('_')[0]+'_' in r[5] and t in r[5] or t[:2]+'_' in r[5] for t in tops)]
+    with open(C+'aics_cover.tsv','w',encoding='utf-8') as o:
+        o.write('HiBiz 1층 폴더\t파일 수\t이 폴더를 원천으로 쓰는 화면\t문서 실측\t덮임\n')
+        for r in cov: o.write('\t'.join(str(x) for x in r)+'\n')
+    print('덮임',collections.Counter(r[4] for r in cov)); print('안 이어진 폴더:',[r[0] for r in cov if r[4]!='이어짐'])
+
 print('화면',len(st),'줄',len(rows),dict(c))
