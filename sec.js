@@ -19,8 +19,9 @@ var hvSec=(function(){
  setInterval(guard,1000);
  var k0=window.keyOk;
  window.keyOk=function(v){var r=lock();if(r){var g=gr(ld().n);rj++;log(g,'입력 정지 중 재시도 거부 '+rj+'회',ld().n);bar(g,'보호 단계 · 입력 정지 중 재시도 거부 · '+r+'초 뒤 다시 시도');if(rj%3===0)fail('입력 정지 중 재시도 반복(중복 실패)');setTimeout(function(){var e=document.getElementById('err');if(e)e.textContent='보호 단계 · 입력 정지 중입니다. '+lock()+'초 뒤 다시 시도하세요.'},0);return false}
-  var ok=k0(v);if(ok){try{sessionStorage.setItem('hvsec_ok',String(Date.now()))}catch(e){}rj=0;lastBad='';var s=ld();log(0,s.n?'열쇠 통과 · 입장(오류 '+s.n+'회 뒤 보호 단계 해제)':'열쇠 통과 · 입장',0,'열쇠 입력','통과');if(s.n){s.n=0;s.u=0;sv(s)}var b=document.getElementById('hvsecbar');if(b)b.remove()}
-  else{var h=hs(v),dup=(lastBad===h);lastBad=h;var g2=fail(dup?'열쇠 불일치 · 같은 열쇠 반복(중복 실패)':'열쇠 불일치',dup?1:0);setTimeout(function(){var e=document.getElementById('err');if(e)e.textContent='열쇠가 맞지 않습니다. 보호 단계로 전환되었습니다 · 경보 '+G[g2]+(lock()?' · '+lock()+'초 입력 정지':'')},0)}return ok};
+  /* 판정 바로잡음(11-13 Opus 5.5): keyOk는 Promise를 돌려주므로 결과를 받아서 가른다. 전에는 Promise 자체가 참으로 읽혀 틀린 열쇠도 통과로 기록되고 오류 횟수가 0으로 되돌려졌다 */
+  return Promise.resolve(k0(v)).then(function(ok){if(ok){try{sessionStorage.setItem('hvsec_ok',String(Date.now()))}catch(e){}rj=0;lastBad='';var s=ld();log(0,s.n?'열쇠 통과 · 입장(오류 '+s.n+'회 뒤 보호 단계 해제)':'열쇠 통과 · 입장',0,'열쇠 입력','통과');if(s.n){s.n=0;s.u=0;sv(s)}var b=document.getElementById('hvsecbar');if(b)b.remove()}
+  else{var h=hs(v),dup=(lastBad===h);lastBad=h;var g2=fail(dup?'열쇠 불일치 · 같은 열쇠 반복(중복 실패)':'열쇠 불일치',dup?1:0);setTimeout(function(){var e=document.getElementById('err');if(e)e.textContent='열쇠가 맞지 않습니다. 보호 단계로 전환되었습니다 · 경보 '+G[g2]+(lock()?' · '+lock()+'초 입력 정지':'')},0)}return ok})};
  try{var s9=ld();if(s9.n&&Date.now()-s9.t<86400000)window.addEventListener('DOMContentLoaded',function(){bar(gr(s9.n),'보호 단계 유지 중 · 열쇠 불일치 '+s9.n+'회 기록');guard()})}catch(e){}
  /* 우회 감지: 열쇠 확인 없이 입장 표식만 있는 경우 */
  try{if(sessionStorage.getItem('hv_in')==='1'&&!sessionStorage.getItem('hvsec_ok')){sessionStorage.removeItem('hv_in');var s0=ld();s0.n=Math.max(s0.n,6);s0.t=Date.now();sv(s0);log(4,'우회 의심: 열쇠 확인 없는 입장 표식',s0.n);window.addEventListener('DOMContentLoaded',function(){bar(4,'우회 입장 시도 감지 · 입장 표식 폐기')})}}catch(e){}
