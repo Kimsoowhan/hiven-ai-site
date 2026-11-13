@@ -1,0 +1,33 @@
+캡처 번호	차례	창 이름(제목줄·머리글)	찍을 때(상태·조건)	보이는 것·눌러서 넘어갈 단추	찍기	근거 자리
+IS-01	1	Hi Coffer 0.1.27 설치 — 환영 창(「Hi Coffer 설치」)	설치 파일을 처음 두 번 눌렀을 때. 처음 설치 PC(데이터·설정 없음)	본문 「처음 설치합니다. 데이터(목록표·원장·금고) 위치는 처음 실행할 때 정합니다.」 · [다음]	캡처	installer/HiCoffer.nsi MUI_PAGE_WELCOME, HcMode
+IS-02	1-a	환영 창(남은 파일 복구)	설치 폴더에 HiCoffer.exe만 남은 PC	본문 「남아 있는 프로그램 파일을 새로 덮어써 복구합니다…」	캡처	HiCoffer.nsi HcMode 첫째
+IS-03	1-b	환영 창(제거한 뒤 다시 설치)	제거했으나 %LOCALAPPDATA%\HiCoffer\settings.ini가 남은 PC	본문 「제거한 뒤 다시 설치합니다. 이전에 쓰던 데이터 폴더·설정·금고를 그대로 이어 씁니다.」	캡처	HiCoffer.nsi HcMode 둘째
+IS-04	1-c	환영 창(같은 판 다시 설치)	0.1.27이 이미 설치된 PC에서 같은 설치 파일 실행	본문 「같은 판(0.1.27)을 다시 설치해 프로그램 파일을 복구합니다…」	캡처	HiCoffer.nsi HcMode 넷째
+IS-05	1-d	환영 창(새 판으로 올림)	0.1.26 이하가 설치된 PC에서 0.1.27 설치 파일 실행	본문 「설치된 0.1.26을(를) 0.1.27로 올립니다…」	캡처	HiCoffer.nsi HcMode 다섯째
+IS-06	1-e	이전 판으로 되돌림 확인 창	0.1.27보다 새로운 판이 설치된 PC에서 실행(시험용 다른 판이 있어야 함)	「이미 더 새로운 판이 설치되어 있습니다. 이전 판으로 되돌리시겠습니까?」 [예] [아니요]. 예 뒤 환영 창 본문 「…에서 이전 판 0.1.27로 되돌립니다…」도 한 장	캡처 2장	HiCoffer.nsi .onInit 되돌림 MessageBox
+IS-07	0-a	Hi Coffer가 실행 중입니다 확인 창	설치 파일을 두 번 눌렀을 때 Hi Coffer가 켜져 있는 경우. 환영 창보다 먼저 뜸	[예] 설치 파일이 닫고 계속 · [아니요] 직접 닫은 뒤 · [취소]	캡처	HiCoffer.nsi CheckRunning 매크로
+IS-08	0-b	Hi Coffer가 닫히지 않았습니다 강제 종료 확인 창	IS-07에서 [예]를 눌렀는데 10초 안에 닫히지 않을 때(작업 중 상태로 만듦)	[예] 강제로 닫습니다 · [아니요]	캡처	HiCoffer.nsi CheckRunning 매크로 hc_close 뒤
+IS-09	0-c	관리자 권한으로 실행되었습니다 경고 창	설치 파일을 「관리자 권한으로 실행」해서 열었을 때(권하지 않는 경로, 증빙용)	[예] [아니요]. 마침 창의 「Hi Coffer 실행」이 흐려지는 것도 한 장	캡처 2장	HiCoffer.nsi .onInit elev_go, FinishShow
+IS-10	0-d	.NET Framework 4.8 필요 알림 창	.NET Framework가 4.8 미만인 PC에서만 나옴(없으면 확인 안 됨으로 두고 대체 증빙: 소스 글)	「이 PC에는 .NET Framework 4.8 이상이 필요합니다…」 [확인] 뒤 설치 중단	캡처 또는 확인 안 됨	HiCoffer.nsi 148~153줄
+IS-11	2	설치 전 고지와 이용 조건(사용권 창) — 확인란 표시 전	환영 창에서 [다음]	「설치 전 고지와 이용 조건을 읽어 주십시오.」 본문 10항, 「위 내용을 읽고 확인했습니다」 비어 있음, [다음]이 흐려 눌리지 않음	캡처	HiCoffer.nsi MUI_PAGE_LICENSE, notice.txt
+IS-12	2-a	사용권 창 — 확인란 표시 후	IS-11에서 확인란을 눌러 표시	[다음]이 눌림 상태	캡처	HiCoffer.nsi MUI_LICENSEPAGE_CHECKBOX
+IS-13	3	설치 폴더 선택 창	사용권 창에서 [다음]	「프로그램을 설치할 폴더입니다. 데이터(목록표·원장·금고)는 처음 실행할 때 따로 정합니다.」 처음 값 %LOCALAPPDATA%\Programs\HiCoffer, [찾아보기] [설치]	캡처	HiCoffer.nsi MUI_PAGE_DIRECTORY, InstallDir
+IS-14	3-a	설치 폴더 선택 창 — 찾아보기 대화 상자	[찾아보기]를 눌렀을 때	Windows 폴더 고르기 창	캡처	Windows 기본 창(설치 프로그램이 띄움)
+IS-15	4	설치 진행 창 — 복사 중	[설치]를 눌렀을 때(진행 띠와 세부 내용이 보임. ShowInstDetails show)	「파일 복사」 줄들, 진행 띠	캡처	"HiCoffer.nsi MUI_PAGE_INSTFILES, Section ""Hi Coffer"""
+IS-16	4-a	설치 진행 창 — 완료	복사가 끝났을 때	세부 내용 맨 아래 줄, [다음]이 눌림	캡처	HiCoffer.nsi
+IS-17	5	설치를 마쳤습니다 창	진행 창에서 [다음]	「바탕화면과 시작 메뉴에 'Hi Coffer' 바로가기를 만들었습니다.」 「Hi Coffer 실행」 확인란, [마침]	캡처	HiCoffer.nsi MUI_PAGE_FINISH
+IS-18	5-a	설치를 그만두시겠습니까? 확인 창	설치 도중(환영·사용권·폴더 창) [취소]를 눌렀을 때	「설치를 그만두시겠습니까?」	캡처	HiCoffer.nsi MUI_ABORTWARNING_TEXT
+IS-19	6	바탕화면 「Hi Coffer」 바로가기	설치가 끝난 뒤 바탕화면	아이콘과 이름	캡처	HiCoffer.nsi CreateShortcut $DESKTOP
+IS-20	6-a	시작 메뉴 「Hi Coffer」 바로가기	설치가 끝난 뒤 시작 메뉴	아이콘과 이름	캡처	HiCoffer.nsi CreateShortcut $SMPROGRAMS
+IS-21	7	Windows 설정 > 앱 > 설치된 앱의 「Hi Coffer」 줄	설치가 끝난 뒤	이름·판 0.1.27·게시자 HIVEN	캡처	HiCoffer.nsi UNINSTKEY DisplayName·DisplayVersion·Publisher
+IS-22	8	Hi Coffer 시작하기 창 — 처음 모습	마침 창에서 「Hi Coffer 실행」 후 첫 실행(데이터 없음)	사전 고지, 데이터 폴더 칸, 금고 코드 칸(MZ01), [시작하기]가 흐림, [나가기]	캡처	src/UI/Dialogs.cs FirstRunForm 561줄
+IS-23	8-a	Hi Coffer 시작하기 창 — 확인란 표시 후	IS-22에서 「위 내용을 읽고 확인했습니다」 표시	[시작하기]가 눌림	캡처	src/UI/Dialogs.cs 579~581줄
+IS-24	8-b	금고 코드 알림	금고 코드를 3자나 5자로 바꾸고 [시작하기]	「영문·숫자 4자로 정해 주십시오.」	캡처	src/UI/Dialogs.cs 583줄
+IS-25	8-c	클라우드 동기화 폴더 확인 창	데이터 폴더를 OneDrive 안으로 골랐을 때	[그래도 사용] [그만두기]	캡처	src/UI/Dialogs.cs 584줄
+IS-26	9	Hi Coffer 주 화면 — 홈	[시작하기] 뒤 처음 보이는 화면	맨 위 줄 「Hi Coffer AI Agent 0.1.27 베타1」, 왼쪽 메뉴 11개	캡처	src/UI/MainForm.cs
+IS-27	9-a	처음 관리하는 저장 매체 확인 창	USB를 꽂고 [모든 매체 목록표 만들기·대사]를 처음 눌렀을 때	[진행] [그만두기]	캡처	src/UI/MainForm.cs 903줄
+IS-28	10	데이터 폴더를 찾을 수 없음 창	데이터 폴더를 USB에 두고 USB를 뺀 채로 실행했을 때	[데이터 폴더 다시 지정] [나가기]	캡처	src/UI/Dialogs.cs 125줄
+IS-29	11	제거 — 설정 > 앱에서 「Hi Coffer」 제거를 눌렀을 때	Windows 설정의 앱	제거 확인(Windows가 띄우는 창)	캡처	HiCoffer.nsi UninstallString
+IS-30	11-a	Hi Coffer 제거 확인 창	제거 프로그램 첫 창(Caption 「Hi Coffer 제거」)	[제거]	캡처	HiCoffer.nsi MUI_UNPAGE_CONFIRM, UninstallCaption
+IS-31	11-b	제거 진행 창 — 완료	[제거] 뒤	마지막 줄 「프로그램만 제거했습니다. 데이터 폴더(목록표·원장·금고)와 각 매체의 00_관리는 지우지 않았습니다.」	캡처	"HiCoffer.nsi Section ""Uninstall"" DetailPrint"
+IS-32	11-c	제거 뒤 데이터 폴더·금고가 남은 모습(탐색기)	제거가 끝난 뒤 사용자 폴더\HiCoffer와 매체의 00_관리	폴더 목록	캡처	HiCoffer.nsi 제거 구역, README 「제거」

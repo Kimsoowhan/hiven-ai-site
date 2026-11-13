@@ -12,7 +12,7 @@ for line in (l for J in JS for l in open(J,encoding='utf-8')):
     m=o.get('message',{}); c=m.get('content')
     if not isinstance(c,list): continue
     for b in c:
-        if b.get('type')=='tool_use' and b.get('name','').endswith('device_list_dir') and b['input'].get('recursive'):
+        if b.get('type')=='tool_use' and b.get('name','').endswith('device_list_dir'):
             use[b['id']]=b['input']['path']
         if b.get('type')=='tool_result' and b.get('tool_use_id') in use:
             t=b.get('content'); 

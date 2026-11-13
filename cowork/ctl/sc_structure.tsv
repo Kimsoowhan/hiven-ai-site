@@ -17,4 +17,6 @@ SC-14	고객 지원	사업군	사례 원장 · 응답 기한	SC-02	40_HIVEN_고�
 SC-15	문서 자동 생성	문서가 되는 곳	위 모든 화면의 원천 · HiBiz 실측	HiBiz 폴더(색인·펼침표) · SC-00	07_HIVEN_명명분류(STD) · 폴더마다 NN_00_색인	HiDAM 자산원장 · HB-BIZ · GS 조건표	DR-01~15
 SC-16	모델 통제 상황	들어오는 것	모델통제 이력 · 생명주기	SC-02 · SC-15	91_Claude_소통(COM)\91_21_모델통제(CTL)	HB-COM 모델통제	DR-15
 SC-17	말 명령	들어오는 것	대표님 말 명령 · 지시 대장	SC-16 · SC-02 · SC-15	91_Claude_소통(COM)\91_02_지시문\91_02_01_대표지시	HB-COM 대표 지시	DR-15
-SC-18	Stakeholder	들어오는 것(바깥)	협력사·이해관계자가 먼저 띄운 얼럿(장애 공지·정책 변경·한도·요금·만료)	SC-02 · SC-00 · SC-15	정의 중(Opus 5.5 화면 흐름 정의서에서 정함)	정의 중	DR-17
+SC-18	Stakeholder	들어오는 것(바깥)	시스템과 맞닿은 곳(Cloudflare · GitHub · Anthropic)이 먼저 띄운 얼럿	SC-02 · SC-00 · SC-15	41_HIVEN_Stakeholder(STK)	HB-STK 목록·받은 얼럿	DR-17 · DR-18
+SC-19	이해관계자 및 협력사	들어오는 것(바깥)	계약보다 앞선 준비·협의(특허 · 도메인·메일 · 인증), SLA · MOU	SC-02 · SC-00 · SC-15 · SC-20	42_HIVEN_이해관계자_협력사(PTN)	HB-PTN 목록·협의 대장	DR-17 · DR-18
+SC-20	계약	들어오는 것(바깥)	계약 업체 · 계약서 · 기간·갱신·조건	SC-02 · SC-00 · SC-15	43_HIVEN_계약(CTR)	HB-CTR 계약 대장	DR-17 · DR-18
