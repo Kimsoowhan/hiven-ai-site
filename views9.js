@@ -55,8 +55,8 @@ function idx(){var F=faults(),all=P.H||[];if(!all.length)return hvNo('원천 mod
  s+='<h3>모델×구분 누적</h3>'+g1(F)+'<h3>날짜별 추이</h3>'+g2(F)+'<h3>Sonnet 5.5 잘못 종류</h3>'+g3(F)+'<h3>기준일 '+today+' 시(時)별 시행착오</h3>'+g4(F,today);return s}
 function pct(m){var c=(P.C||[]).filter(function(r){return r[2]===m});if(!c.length)return null;var s=0;c.forEach(function(r){s+=r[3]==='이행'?1:r[3]==='이행 중'?.5:0});return Math.round(s/c.length*100)}
 function chk(){var C=P.C;if(!C)return hvNo('원천 pledge_checks.tsv 없음');var ms=['Sonnet 5.5','Opus 5.5','Fable 5.2'],s='<h3>이행 정도 (이행=1, 이행 중=0.5, 그 밖=0)</h3>'+tbl(['모델','점검 항목','이행','이행 중','미이행','확인 안 됨','이행 지수',''],ms.map(function(m){var c=C.filter(function(r){return r[2]===m}),k=function(x){return c.filter(function(r){return r[3]===x}).length},p=pct(m)||0;return [m,c.length,k('이행'),k('이행 중'),k('미이행'),k('확인 안 됨'),p+'%',bar(p,p>=70?'#2e7d32':p>=40?'#ef6c00':'#c62828')]}));
- ['시작 세 단계','자율 작업','자율 검수','자율 진행'].forEach(function(a){s+='<h3>'+a+'</h3>'+tbl(['항목','모델','상태','근거','갱신'],C.filter(function(r){return r[0]===a}).map(function(r){return [E(r[1]),E(r[2]),stat(r[3]),E(r[4]),E(r[5])]}))});
- return s+'<p class="note">자율 작업·자율 검수·자율 진행이 대표님의 3대 작업 원칙입니다. 점검표는 각 모델이 근거와 함께 갱신합니다. 근거가 없는 칸은 「확인 안 됨」입니다.</p>'}
+ ['시작 세 단계','효율 작업','효율 검수','효율 진행'].forEach(function(a){s+='<h3>'+a+'</h3>'+tbl(['항목','모델','상태','근거','갱신'],C.filter(function(r){return r[0]===a}).map(function(r){return [E(r[1]),E(r[2]),stat(r[3]),E(r[4]),E(r[5])]}))});
+ return s+'<p class="note">효율 작업·효율 검수·효율 진행이 대표님의 3대 작업 원칙입니다. 점검표는 각 모델이 근거와 함께 갱신합니다. 근거가 없는 칸은 「확인 안 됨」입니다.</p>'}
 
 /* 각서 대표님 승인 버튼(이력 858·859): 종합 현황판 기기 알림과 같은 방식 — 누름 → 신분 확인 비밀번호 → 승인 기록(ic.hiven.ai.kr) → LED 초록 */
 var IC='https://ic.hiven.ai.kr',AP={};
@@ -113,7 +113,7 @@ function sp(){var F=faults();if(!F.length)return hvNo('원천 없음');var ms=['
  s+='<h3>이행 지표·지수</h3>'+tbl(['모델','말·소통 위반','전체 시행착오 중 비중','전일('+prev.slice(5)+')','기준일('+today.slice(5)+')','개선 상황','마지막 위반 이력','이행 지수'],ms.map(function(m){var all=F.filter(function(r){return models(r[4]).indexOf(m)>=0}).length,sh=all?Math.round(tot[m]/all*100):0,l=last[m];return [m,tot[m],sh+'%',pv[m],td[m],td[m]<pv[m]?tag('감소','ok'):td[m]===pv[m]?tag('같음','warn'):tag('증가','bad'),l?E('#'+l[0]+' '+l[3]):'—',(100-sh)+'']}));
  return s+'<p class="note">이행 지수 = 100 − 말·소통 위반 비중(%). 키워드 분류는 산정안이며 대표님 확정 전입니다. 기준일은 하루가 끝나지 않으면 잠정입니다.</p>'}
 
-/* 대표님 11-12 12:53(이력 800) · 14:25(이력 848): 상황 · 각서 · 자율 진행 상태를 그래프 · 다이어그램으로. 원천 model_control_history.tsv · pledge_models.tsv, 1초 갱신 */
+/* 대표님 11-12 12:53(이력 800) · 14:25(이력 848): 상황 · 각서 · 효율 진행 상태를 그래프 · 다이어그램으로. 원천 model_control_history.tsv · pledge_models.tsv, 1초 갱신 */
 function graph(){if(!P.H)return hvNo('model_control_history.tsv 없음');var H=P.H.filter(function(x){return /^\d+$/.test(x[0])});var D=H.map(function(x){return x[1]}).filter(function(x){return x}).sort();var today=D[D.length-1];var T=H.filter(function(x){return x[1]===today});
  var K=['지시','지시거부','위반','질타','지적','지적(자가 발견)','개선요청'],M=['Sonnet','Opus','Fable','전 모델'];
  var cnt={};M.forEach(function(m){cnt[m]={}});T.forEach(function(x){var m=M.indexOf(x[4])>=0?x[4]:(/Sonnet/.test(x[4])?'Sonnet':/Opus/.test(x[4])?'Opus':/Fable/.test(x[4])?'Fable':'전 모델');cnt[m][x[5]]=(cnt[m][x[5]]||0)+1});
@@ -124,11 +124,11 @@ function graph(){if(!P.H)return hvNo('model_control_history.tsv 없음');var H=P
  var hr={};T.forEach(function(x){var h=String(x[2]);hr[h]=(hr[h]||0)+1});var hs=Object.keys(hr).sort(function(a,b){return a-b}),hm=1;hs.forEach(function(h){if(hr[h]>hm)hm=hr[h]});
  var l='<svg viewBox="0 0 '+W+' 170" style="width:100%;max-width:760px" role="img" aria-label="시간대별 건수">';hs.forEach(function(h,i){var bw=(W-40)/Math.max(hs.length,1),x=30+i*bw,hh=hr[h]/hm*120;l+='<rect x="'+(x+4)+'" y="'+(140-hh)+'" width="'+(bw-8)+'" height="'+hh+'" fill="#1565c0"><title>'+h+'시 '+hr[h]+'건</title></rect><text x="'+(x+bw/2)+'" y="158" font-size="12" text-anchor="middle">'+h+'시</text><text x="'+(x+bw/2)+'" y="'+(136-hh)+'" font-size="12" text-anchor="middle">'+hr[h]+'</text>'});l+='</svg>';
  var pm=(P.M||[]).filter(function(r){return r[0]!=='모델'}),d='<div style="display:flex;flex-wrap:wrap;gap:10px">'+pm.map(function(r){var st=r[4]||'',off=/해당 없음/.test(st),c=(function(q){return q.ap==='green'?'#2e7d32':q.sg==='yellow'?'#ef6c00':q.off?'#9e9e9e':'#c62828'})(pst(r));if(off)st='비활성(해당 없음)';return '<div style="flex:1 1 180px;border:2px solid '+c+';border-radius:10px;padding:10px'+(off?';opacity:.45;filter:grayscale(1)':'')+'"><b>'+E(r[0])+'</b><br><span style="color:'+c+';font-weight:700">'+E(st)+'</span><br><span class="note">'+E(r[5]||'')+'</span></div>'}).join('')+'</div>';
- var flow='<p class="note">자율 진행 → 자율 작업 → 자율 검수 → Fable 판정 → 대표님 승인 → 마감</p>';
+ var flow='<p class="note">효율 진행 → 효율 작업 → 효율 검수 → Fable 판정 → 대표님 승인 → 마감</p>';
  return '<h3>오늘('+E(today)+') 모델별 구분 건수 · '+T.length+'건</h3>'+g+'<h3>시간대별 대표님 말씀·기록 건수</h3>'+l+'<h3>각인·각서 서명 상태(서명 → 대표님 승인)</h3>'+d+flow}
 
-/* 대표님 11-12 14:31(이력 850): 제목 옆 모델별 3대 원칙(자율 진행·작업·검수) 이행 — 오늘 이력에서 자동 산정, 1초 갱신 */
-var P3=[['자율 진행',/턴|끊|멈춰|멈춤|기다|대기|되묻|되물|묻지/],['자율 작업',/남기|남은 일|미루|안 했|하지 않|안 올|올리지|실행하지|거부|빠뜨|안 하/],['자율 검수',/검수|확인하지|확인 안|대조|무결성|오자|틀린|거짓/]];
+/* 대표님 11-12 14:31(이력 850): 제목 옆 모델별 3대 원칙(효율 진행·작업·검수) 이행 — 오늘 이력에서 자동 산정, 1초 갱신 */
+var P3=[['효율 진행',/턴|끊|멈춰|멈춤|기다|대기|되묻|되물|묻지/],['효율 작업',/남기|남은 일|미루|안 했|하지 않|안 올|올리지|실행하지|거부|빠뜨|안 하/],['효율 검수',/검수|확인하지|확인 안|대조|무결성|오자|틀린|거짓/]];
 function p3(){if(!P.H)return '';var H=P.H.filter(function(x){return /^\d+$/.test(x[0])}),D=H.map(function(x){return x[1]}).sort(),today=D[D.length-1];
  var F=H.filter(function(x){return x[1]===today&&x[5]!=='지시'});
  var rows=['Sonnet','Opus','Fable'].map(function(m){var mine=F.filter(function(x){return String(x[4]).indexOf(m)>=0});var c=P3.map(function(k){var hit=mine.filter(function(x){return k[1].test(x[6]+' '+x[7])}),done=hit.filter(function(x){return /조치 완료|처리됨/.test(x[9])}),ing=hit.filter(function(x){return /조치 중/.test(x[9])}),vio=hit.length-done.length-ing.length;var rf=hit.filter(function(x){return x[5]==='지시거부'}).length,lv=refLv2(rf,refOpen(hit));var col=lv||(vio?'red':ing.length?'orange':hit.length?'yellow':'green');return led(col,k[0])+k[0]+' '+(rf?'<b style="color:#7b1fa2">지시 거부 '+rf+'</b> ':'')+(hit.length?(vio?'<b style="color:#d32f2f">어김 '+vio+'</b> ':'')+(ing.length?'<b style="color:#ef6c00">조치 중 '+ing.length+'</b> ':'')+(done.length?'조치 끝 '+done.length:''):'이행')});var n=mine.length;var rt=mine.filter(function(x){return x[5]==='지시거부'}).length,rl=refLv2(rt,refOpen(mine));return '<div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;padding:4px 0"><b style="min-width:70px">'+(rl?led(rl,'지시 거부 '+rt+'회'):'')+m+'</b>'+c.join('<span style="color:#bbb">|</span>')+'<span class="note">지수 '+Math.max(0,100-n*3)+'</span></div>'});
