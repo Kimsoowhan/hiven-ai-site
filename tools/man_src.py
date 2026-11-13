@@ -250,7 +250,7 @@ def md(m, d):
     s += ['| %s | %s | %s | %s | %s |' % tuple(x) for x in d['expand']]
     s += ['', '## 벤치마킹 근거', '', '| 출처 | 핵심 | 반영 | 확인 상태 |', '|---|---|---|---|']
     s += ['| %s | %s | %s | %s |' % tuple(x) for x in d['bench']]
-    return '\n'.join(s) + (('\n\n' + a['tail']) if a.get('tail') else '\n')
+    return '\n'.join(s) + (('\n' + a['tail']) if a.get('tail') else '\n')
 
 if __name__ == '__main__':
     d = build()

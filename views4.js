@@ -49,6 +49,6 @@ function hvTG01(E,cls){return hvTGin('sc01',{title:'장애·조치 변동 추이
 /* SC-10 진척 변동 추이(A-02): 원천 cowork/log.tsv(상태 기록 시각) — 승인·반영 / Fable 통과 / 완료·검수 대기 / 그 밖 기록 */
 var hvTGC12={'승인·반영':'#43a047','Fable 통과':'#1e88e5','완료·검수 대기':'#f9a825','그 밖 기록':'#8a90a0'};
 function hvTG12y(st){st=String(st||'');return /승인/.test(st)?'승인·반영':/통과|G2/.test(st)?'Fable 통과':/완료|검수 대기/.test(st)?'완료·검수 대기':'그 밖 기록'}
-function hvTG12(logTxt){var rows=hvTsv(logTxt||''),ev=rows.map(function(c){var m=String(c[0]||'').match(/(?:(\d{4})-)?(\d{1,2})[\/-](\d{1,2})\s+(\d{1,2}):(\d{2})/);if(!m)return null;var hm=pad(+m[4])+':'+m[5];
+var hvTGx12=0;function hvTG12(logTxt){hvTGx12=0;var rows=hvTsv(logTxt||''),ev=rows.map(function(c){var m=String(c[0]||'').match(/(?:(\d{4})-)?(\d{1,2})[\/-](\d{1,2})\s+(\d{1,2}):(\d[\dx])/);if(!m)return null;/* 판정 147 ②(11-13): 「07:5x」처럼 끝이 x인 시각은 그 10분대 첫 분으로 읽고 따로 셈 */if(/x$/.test(m[5]))hvTGx12++;var hm=pad(+m[4])+':'+m[5].replace('x','0');
   return {t:Date.parse((m[1]||'2026')+'-'+pad(+m[2])+'-'+pad(+m[3])+'T'+hm+':00+09:00'),hm:hm,y:hvTG12y(c.length>4?c[3]:c.slice(2).join(' ')),m:c[1]}}).filter(function(e){return e&&!isNaN(e.t)});
- return hvTGin('sc12',{title:'진척 변동 추이',types:['승인·반영','Fable 통과','완료·검수 대기','그 밖 기록'],colors:hvTGC12,tu:'시간',ev:ev,src:'원천 cowork/log.tsv '+ev.length+'건(상태 기록 시각)'})}
+ return hvTGin('sc12',{title:'진척 변동 추이',types:['승인·반영','Fable 통과','완료·검수 대기','그 밖 기록'],colors:hvTGC12,tu:'시간',ev:ev,src:'원천 cowork/log.tsv '+ev.length+'건(상태 기록 시각'+(hvTGx12?' · 끝이 x인 시각 '+hvTGx12+'건은 그 10분대 첫 분으로 읽음':'')+(rows.length>ev.length?' · 시각을 읽지 못한 줄 '+(rows.length-ev.length)+'건 뺌':'')+')'})}
