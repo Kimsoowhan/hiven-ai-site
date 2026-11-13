@@ -13,6 +13,8 @@ def names():
         n='대표지시_%s-%s_%s'%(r[0].zfill(4),r[1][2:].replace('-',''),hm);seen[n]+=1
         out.append((r,n+('' if seen[n]==1 else '_%d'%seen[n])+'.txt'))
     return out
+# 원문을 싣지 않는 말씀의 때(열쇠 값이 들어 있음, 이력 1250)
+SKIP_ORIG={'2026-11-13 17:03','2026-11-13 17:04'}
 def raws():
     raw=collections.OrderedDict()
     for f in glob.glob('/root/.claude/projects/-home-claude/*.jsonl'):
@@ -31,6 +33,7 @@ def raws():
             else: continue
             m=re.search(r'Message sent at \w+ (\d{4})-(\d\d)-(\d\d) (\d\d):(\d\d) local',full)
             b=re.sub(r'<system-reminder>.*?</system-reminder>','',full,flags=re.S).strip()
+            if m and '%s-%s-%s %s:%s'%m.groups() in SKIP_ORIG: b='[열쇠 값이 들어 있어 원문을 싣지 않음]'
             if not m or not b or re.match(r'(Stop hook feedback|\[SYSTEM NOTIFICATION|This session is being continued|Another Claude session|<local-command|<command-name>)',b): continue
             b=re.sub(r'@"/mnt/user-data/attachments/[^"]+"\s*','(앞 답변의 한 대목을 가리키심) ',b)
             k=(m.group(1)+'-'+m.group(2)+'-'+m.group(3),m.group(4)+':'+m.group(5));raw.setdefault(k,[])

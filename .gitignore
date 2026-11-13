@@ -5,3 +5,4 @@ cowork/ctl/ceo_schedule.tsv
 cowork/ctl/master_milestones.tsv
 cowork/ctl/hiven_wbs.tsv
 sched.enc.json.tmp
+cowork/ctl/notes/HIVEN_WBS_*

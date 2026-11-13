@@ -1,0 +1,21 @@
+영역 번호	고치기 전(설계 spec)	고친 뒤(앱 Standard.cs 기준)	판정	앱 쪽 근거	고친 자리
+00	시스템·설정	관리	바뀜	agent/src/Core/Standard.cs AreaList(00)	spec.json·spec127.py의 영역 격자 칸
+01	신원·증빙	신분·학위·자격	바뀜	agent/src/Core/Standard.cs AreaList(01)	spec.json·spec127.py의 영역 격자 칸
+02	금융·재무	경력·구직	바뀜	agent/src/Core/Standard.cs AreaList(02)	spec.json·spec127.py의 영역 격자 칸
+03	업무·사업	근무·프로젝트	바뀜	agent/src/Core/Standard.cs AreaList(03)	spec.json·spec127.py의 영역 격자 칸
+04	사업 운영	사업·창업	바뀜	agent/src/Core/Standard.cs AreaList(04)	spec.json·spec127.py의 영역 격자 칸
+05	학습·연구	학습·연구	같음	agent/src/Core/Standard.cs AreaList(05)	고칠 것 없음
+06	개인·가족	개인·가족	같음	agent/src/Core/Standard.cs AreaList(06)	고칠 것 없음
+07	세무·법무	행정·세무·법무	바뀜	agent/src/Core/Standard.cs AreaList(07)	spec.json·spec127.py의 영역 격자 칸
+08	의료·건강	자료실	바뀜	agent/src/Core/Standard.cs AreaList(08)	spec.json·spec127.py의 영역 격자 칸
+09	여가·취미	설치·소프트웨어	바뀜	agent/src/Core/Standard.cs AreaList(09)	spec.json·spec127.py의 영역 격자 칸
+10	참고·자료	관계·네트워크	바뀜	agent/src/Core/Standard.cs AreaList(10)	spec.json·spec127.py의 영역 격자 칸
+97	받은 파일	원천보관	바뀜	agent/src/Core/Standard.cs AreaList(97)	spec.json·spec127.py의 영역 격자 칸
+98	임시	임시	같음	agent/src/Core/Standard.cs AreaList(98)	고칠 것 없음
+99	보관	기타	바뀜	agent/src/Core/Standard.cs AreaList(99)	spec.json·spec127.py의 영역 격자 칸
+
+덧붙임	자리	고치기 전	고친 뒤		
+표본 글	HC-03 폴더 목록 03 아래 표본 폴더	03.01 기획·03.02 계약·03.03 회계	그대로 둠(앱의 03.xx는 조직 폴더라 표본 이름이며 영역 이름이 아님)		
+표본 글	HC-06 규칙 표 「메신저 받은 파일 → 97.04」·「카카오톡 받은 파일」	그대로	그대로 둠(Rules.cs 규칙 이름·실제 감시 폴더 이름과 같음)		
+시안 gen.py	areas 목록(217줄)	앱 이름과 이미 같음	고칠 것 없음		
+보기판 mkboard.py	영역 이름·번호	글자로 든 것 없음(spec.json에서 읽음)	고칠 것 없음		
