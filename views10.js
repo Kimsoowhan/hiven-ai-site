@@ -62,7 +62,7 @@ V['SC-19']=function(){load('hv10-19',F19,function(D){var p=D[0],m=D[1],gi=col(p,
  return head('SC-19','이해관계자 및 협력사','계약보다 앞서 선행돼야 하는 것(특허 · 도메인 · 메일 · 인증, 협의 · SLA · MOU)을 협력사와 이해관계자 갈래로 나눠 봅니다.')+flow('SC-19')+'<div id="hv10-19" class="hv-nosw">읽는 중…</div>'};
 
 /* ───── SC-20 이용약관 및 정책 (탭 넷: 화면 안 단추로 전환, 원천은 한 번만 읽음. 대표님 18:45~18:57 지시 · sc_structure.tsv · DR-19) ───── */
-var F20=['policy_list.tsv','member_ledger.tsv','beta_ledger.tsv','pip_ledger.tsv','charter_ledger.tsv','charter_purpose.tsv','policy_decision_check.tsv','signup_form.tsv','service_mode.tsv','member_menu.tsv','app_mode_flow.tsv','member_api.tsv'],T20={tab:'ch',D:null,cg:'',cp:0,am:'',sm:{},mb:false,msg:''};/* 대표님 19:31(이력 1317): 탭 다섯, 정관이 맨 앞 */
+var F20=['policy_list.tsv','member_ledger.tsv','beta_ledger.tsv','pip_ledger.tsv','charter_ledger.tsv','charter_purpose.tsv','policy_decision_check.tsv','signup_form.tsv','service_mode.tsv','member_menu.tsv','app_mode_flow.tsv','member_api.tsv','support_form.tsv','security_key.tsv','security_key_test.tsv'],T20={tab:'ch',D:null,cg:'',cp:0,am:'',sm:{},mb:false,msg:''};/* 대표님 19:31(이력 1317): 탭 다섯, 정관이 맨 앞 */
 var TABS20=[['ch','정관'],['pl','이용약관 및 정책'],['mem','회원관리'],['beta','무료 베타 버전 관리'],['pi','개인정보 처리']];
 function ids(s,p){return (String(s||'').match(new RegExp(p+'-\\d+','g'))||[])}
 /* 맞물림: 한 줄(회원 · 설치) → 동의한 약관 판(PL) · 개인정보 묶음(PI). 없는 번호 · 빈 번호는 어긋남 */
@@ -89,7 +89,7 @@ function draw20(){var D=T20.D;if(!D)return '';var pl=D[0],me=D[1],be=D[2],pi=D[3
  h+='<p class="note"><b>맞물림</b> 회원 한 줄 · 설치 한 줄 → 동의한 약관 판(PL 번호) · 개인정보 묶음(PI 번호). 지금 회원 '+me.r.length+'명 · 베타 설치 기록 '+be.r.length+'건'+(lines?' · 어긋남 '+miss.length+'건':' — 맞물림을 볼 줄이 아직 없습니다(베타 배포 전)')+'.</p>';
  if(T20.tab==='ch')h+=charter(ch,cp);
  else if(T20.tab==='pl')h+='<h3>이용약관 및 정책</h3>'+tbl(pl.h.map(E),rows(pl))+src(['policy_list.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_10_관리')+'<h3>게시된 정책 문장 ↔ 결정 대조</h3><p class="note hv-nosw">결정이 바뀌면 이 표의 줄이 「어긋남」으로 바뀌고 위에 얼럿이 뜹니다. 지금 '+pd.r.length+'줄 · 어긋남 '+pdBad.length+'줄(검사 K24, 규칙 DR-19).</p>'+tbl(pd.h.map(E),rows(pd))+src(['policy_decision_check.tsv'],'Fable 작성 대조표(결정 기록과 맞댐)','44_HIVEN_이용약관_정책(PCY)\\44_10_관리');
- else if(T20.tab==='mem'){var Z={h:[],r:[]},sf=D[7]||Z,sm=D[8]||Z,mm=D[9]||Z,af=D[10]||Z,ap=D[11]||Z;
+ else if(T20.tab==='mem'){var Z={h:[],r:[]},sf=D[7]||Z,sm=D[8]||Z,mm=D[9]||Z,af=D[10]||Z,ap=D[11]||Z,hf=D[12]||Z,sk=D[13]||Z,skt=D[14]||Z;
   /* 앱 안 모드 · 회원가입 · 마이홈 흐름(대표님 11-13 21:08 · 21:11 · 21:12, 이력 1351~1353). 원천 service_mode · signup_form · member_menu · app_mode_flow · member_api.
      이 화면은 앱에 들어갈 흐름을 그대로 눌러 보는 보기이며, 적은 값은 어디에도 보내거나 저장하지 않는다. */
   var sfa=function(k){return sf.r.filter(function(r){return String(r[2]||'').indexOf(k)===0})},nd=function(r){return String(r[3]||'')==='필요'};
@@ -108,7 +108,10 @@ function draw20(){var D=T20.D;if(!D)return '';var pl=D[0],me=D[1],be=D[2],pi=D[3
    +'<h3>서비스 모드</h3>'+tbl(sm.h.map(E),rows(sm))+src(['service_mode.tsv'],'Fable 작성 원천','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
    +'<h3>회원가입 항목</h3>'+tbl(sf.h.map(E),rows(sf))+src(['signup_form.tsv'],'Fable 작성 원천(양식 설정)','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
    +'<h3>가입 뒤 메뉴</h3>'+tbl(mm.h.map(E),rows(mm))+src(['member_menu.tsv'],'Fable 작성 원천','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
-   +'<h3>인터넷 연동 · 가입 주소</h3>'+tbl(ap.h.map(E),rows(ap))+src(['member_api.tsv'],'Fable 작성 원천(서버 열기 전)','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리');
+   +'<h3>인터넷 연동 · 가입 주소</h3>'+tbl(ap.h.map(E),rows(ap))+src(['member_api.tsv'],'Fable 작성 원천(서버 열기 전)','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
+   +'<h3>도움 요청 · 의견 보내기 양식(앱 안 · 콘텐츠/시스템(폼))</h3><p class="note">처리방침의 「미리보기로 내용을 확인한 뒤 보내기를 누른 경우에만 수집」을 앱에 그대로 넣는 양식입니다(대표님 11-13 21:51, 이력 1367). 웹 양식 개설 전까지 받는 곳은 이메일 assist@hiven.ai.kr입니다.</p>'+tbl(hf.h.map(E),rows(hf))+src(['support_form.tsv'],'Fable 작성 원천(0.1.28에 구현)','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리')
+   +'<h3>보안 키(기본 모드 · 베타 2)</h3><p class="note">앱을 열 때 넣어야 들어가는 키입니다. 베타 2에서는 보안 키만, 베타 3에서는 사용자 대시보드를 웹 서비스로 제공합니다(대표님 11-13 22:43~22:46, 이력 1380~1382).</p>'+tbl(sk.h.map(E),rows(sk))+src(['security_key.tsv'],'Fable 작성 원천(0.1.28에 구현)','12_HIVEN_HiCoffer\\12_04_설계안')
+   +'<h3>보안 키 시험 케이스(Windows 11 · Windows 10)</h3>'+tbl(skt.h.map(E),rows(skt))+src(['security_key_test.tsv'],'Fable 작성 원천(시험 전)','12_HIVEN_HiCoffer\\12_04_설계안');
   h+='<h3>회원관리</h3>'+tbl(me.h.map(E),rows(me))+(me.r.length?'':'<p class="note">회원 0명(베타 배포 전). 가입이 생기면 회원 한 줄마다 동의한 약관 판(PL)과 개인정보 묶음(PI)을 적습니다.</p>')+src(['member_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_21_회원관리');}
  else if(T20.tab==='beta')h+='<h3>무료 베타 버전 관리</h3>'+tbl(be.h.map(E),rows(be))+(be.r.length?'':'<p class="note">베타 설치 기록 0건(0.1.27에는 바깥으로 보내는 기능이 없음). 설치 기록이 생기면 한 줄마다 기기 · 저장 매체와 동의한 약관 판(PL) · 개인정보 묶음(PI)을 적습니다. 카드 번호는 두지 않습니다.</p>')+src(['beta_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_22_무료_베타_버전_관리');
  else h+='<h3>개인정보 처리</h3>'+tbl(pi.h.map(E),rows(pi))+'<p class="note">DR-19: 개인정보가 든 문서 · 기록은 이 대장에 한 줄이 있고 보유 기간 · 파기 방법 · 방침의 근거 조항이 적혀 있어야 합니다. 문서 생애 절차의 보존(L6) · 파기(L7)는 이 대장의 보유 기간을 따릅니다.</p>'+src(['pip_ledger.tsv'],'tools/gen_ext.py','44_HIVEN_이용약관_정책(PCY)\\44_20_개인정보_처리');

@@ -1,0 +1,9 @@
+구분	이름	뜻	회신 주소	원천
+통로	Contact(co.kr)	contact@hiven.co.kr로 들어온 메일(투자 · 협력 · 후원 문의)	contact@hiven.co.kr	cowork/ctl/cs_tickets.tsv(Gmail 수신분)
+통로	Assist(ai.kr)	assist@hiven.ai.kr로 들어온 메일(고객 지원)	assist@hiven.ai.kr	cowork/ctl/cs_tickets.tsv(Gmail 수신분)
+통로	콘텐츠/시스템(폼)	Hi Coffer AI Agent 앱 「도움 요청 · 의견 보내기」 양식으로 들어온 건(오류 · 클레임 · 개선 의견)	assist@hiven.ai.kr(회신용 이메일을 적은 건에만)	접수 서버 hiven.co.kr/api/support → ic.hiven.ai.kr 접수 저장(실시간)
+단계 1	접수	들어온 상태	—	—
+단계 2	대응	사실 확인 · 위험 차단	—	—
+단계 3	조치	처리 결과	—	—
+단계 4	응대	조치한 뒤 「이렇게 처리되었습니다, 확인 바랍니다」 회신 메일을 보냄(대표님 결재 SC-00 뒤)	통로의 회신 주소	—
+단계 5	완료	회신이 가고 상대가 확인했으며 후속 조치까지 끝남(화면 표시는 「결과」가 아니라 「완료」)	—	—

@@ -5,6 +5,10 @@
 import re as _re
 # 개인 주소 가림(대표님 개인 정보는 공개 저장소·지시 장에 번지를 적지 않는다)
 def _mask(b): return _re.sub(r'[가-힣]+로 ?\d+길 ?\d+(-\d+)?','(도로명·번지 생략)',b)
+# 261113 이력 1382: 말로 지시하시는 도중 섞인 전화 통화 말(다른 사람 이름 포함)은 지시가 아니므로 적지 않는다
+_CALL=_re.compile(r'네,? ?여보세요\?? ?[^.?!]{0,30}[.?!] ?(잠시만요[.?!]? ?)?(금방 끝나요[.?!]? ?)?')
+_m0=_mask
+def _mask(b): return _CALL.sub('(통화 중 말 생략) ',_m0(b))
 import sys,os,re,json,glob,collections
 R=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 H=R+'/cowork/ctl/model_control_history.tsv';D=R+'/cowork/ctl/ceo_orders/';IDX=R+'/cowork/ctl/ceo_orders_index.tsv';PC=R+'/cowork/ctl/ceo_orders_pc.tsv'

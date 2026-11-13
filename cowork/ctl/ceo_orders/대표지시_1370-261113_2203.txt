@@ -1,0 +1,22 @@
+대표 지시 한 장 — 이력 1370
+
+때: 2026-11-13 (11/13 22:03)
+받은 모델: Fable
+이력 구분: 지시
+창: 페이블 261104
+
+[인식 원문] (이 창 기록 그대로, 음성 인식 글자 포함)
+(앞 답변의 한 대목을 가리키심) 이 부분이 contact-co.kr로 온 것은 contact로 답변해주고, 나머지 두 개 assist-ai.kr과 content/system 가로 열고 폼 그 명칭 통일에 그걸로 들어온 것 두 개는 전부 다 응대를 리플라이를 assist-ai.kr로 응대를 하란 얘기야. 알겠어?
+
+[이력에 적힌 말씀 요지]
+대표님 지시(22:03): Contact(co.kr)로 온 것은 contact로 답변하고, Assist(ai.kr)와 콘텐츠/시스템(폼)으로 들어온 것은 모두 assist@hiven.ai.kr로 응대(회신)한다. 셋째 탭 이름은 「콘텐츠/시스템(폼)」으로 통일
+
+[원인]
+
+
+[조치]
+탭마다 회신 주소를 적음(Contact → contact@hiven.co.kr, Assist · 콘텐츠/시스템(폼) → assist@hiven.ai.kr). 원천 cs_stage.tsv의 회신 주소 칸에 고정
+
+[상태] 처리 중
+
+맞대는 자리: SC-17 말 명령 · SC-13 모델통제 이력의 번호 1370 (원천 cowork/ctl/model_control_history.tsv)
