@@ -81,6 +81,6 @@ def check():
         tot+=1
         if not os.path.exists(D+name): print('실패: 이력 %s 대표 지시 장 없음(python3 tools/ceo_order_file.py gen)'%r[0]);bad+=1;continue
         if up.get(name)!=hashlib.md5(open(D+name,'rb').read()).hexdigest(): wait+=1
-    if wait: print('알림: 대표 지시 장 %d장이 91_02_01_대표지시 폴더에 올린 기록과 다름(올린 뒤 ceo_orders_pc.tsv 기록)'%wait)
+    if wait: print('실패: 대표 지시 장 %d장이 91_02_01_대표지시 폴더에 없음 또는 다름 — python3 tools/ceo_pc_sync.py pending → PC 올림 → 다시 받기 → verify (이력 1180)'%wait);bad+=wait
     print('대표 지시 장 점검: 이력의 대표님 줄 %d · 장 없음 %d · 폴더 올림 대기 %d'%(tot,bad,wait));sys.exit(1 if bad else 0)
 if __name__=='__main__': (check if sys.argv[1:2]==['check'] else gen)()
