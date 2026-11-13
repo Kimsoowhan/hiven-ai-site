@@ -1,10 +1,10 @@
 게시 문서	생성 도구	표출 화면	존재	행 수	마지막 갱신	커밋
-ctl/action_lifecycle.tsv	tools/gen_lifecycle.py	SC-02·SC-16	있음	935	2026-11-13 10:03	fae0a7f
-ctl/action_lifecycle.json	tools/gen_lifecycle.py	SC-02	있음		2026-11-13 10:03	fae0a7f
+ctl/action_lifecycle.tsv	tools/gen_lifecycle.py	SC-02·SC-16	있음	936	2026-11-13 10:05	f0666e9
+ctl/action_lifecycle.json	tools/gen_lifecycle.py	SC-02	있음		2026-11-13 10:05	f0666e9
 ctl/trace_sum.json	tools/gen_trace_sum.py	SC-02	있음		2026-11-13 09:56	7926996
 ctl/trace_v.tsv	tools/gen_trace_supp.py	SC-16	있음	752	2026-11-13 09:56	7926996
 ctl/trace_h.tsv	tools/gen_trace_supp.py	SC-16	있음	181	2026-11-04 18:28	9e59566
 ctl/bg_contact.tsv	tools/gen_contact.py	SC-05	있음	30	2026-11-12 16:42	08b1822
-progress.json	tools/gen_meta.py	SC-10	있음		2026-11-13 10:03	fae0a7f
+progress.json	tools/gen_meta.py	SC-10	있음		2026-11-13 10:05	f0666e9
 reports/index.json	tools/gen_meta.py	SC-10	있음		2026-11-12 17:03	f3878a7
-publish_meta.json	tools/gen_meta.py	SC-10	있음		2026-11-13 10:03	fae0a7f
+publish_meta.json	tools/gen_meta.py	SC-10	있음		2026-11-13 10:05	f0666e9
