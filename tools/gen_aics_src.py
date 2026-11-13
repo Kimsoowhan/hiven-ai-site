@@ -19,7 +19,8 @@ def gitlast(path):
 # SC-15 문서 자동 생성: 산출 스크립트가 만든 게시 문서(실제 파일) — 행 수·갱신 커밋
 gen=[('ctl/action_lifecycle.tsv','tools/gen_lifecycle.py','SC-02·SC-16'),('ctl/action_lifecycle.json','tools/gen_lifecycle.py','SC-02'),
      ('ctl/trace_sum.json','tools/gen_trace_sum.py','SC-02'),('ctl/trace_v.tsv','tools/gen_trace_supp.py','SC-16'),('ctl/trace_h.tsv','tools/gen_trace_supp.py','SC-16'),
-     ('ctl/bg_contact.tsv','tools/gen_contact.py','SC-05'),('progress.json','tools/gen_meta.py','SC-10'),('reports/index.json','tools/gen_meta.py','SC-10'),('publish_meta.json','tools/gen_meta.py','SC-10')]
+     ('ctl/bg_contact.tsv','tools/gen_contact.py','SC-05'),('progress.json','tools/gen_meta.py','SC-10'),('reports/index.json','tools/gen_meta.py','SC-10'),('publish_meta.json','tools/gen_meta.py','SC-10'),
+     ('ctl/aics_doccheck.tsv','tools/hibiz_doc_check.py','SC-15'),('ctl/aics_docfolder.tsv','tools/hibiz_doc_check.py','SC-15')]
 d=[]
 if 'docgen' in SEL:
  for f,tool,sc in gen:

@@ -3,9 +3,22 @@ function hv5Tsv(t){var L=t.replace(/\r/g,'').split('\n').filter(function(x){retu
 function hv5Base(){return (location.pathname.indexOf('/test/')>=0?'../':'')+'cowork/ctl/'}
 function hv5(id,name,lead,file,render){return function(){var el='hv5-'+id;setTimeout(function(){hvFetch(hv5Base()+file,'text').then(function(t){var d=hv5Tsv(t),n=document.getElementById(el);if(n)n.innerHTML=render(d)+'<p class="note">원천: cowork/ctl/'+file+' (게시본 실측 · tools/gen_aics_src.py 산출) · 원천에 없는 값은 「확인 안 됨」으로 둡니다.</p>'}).catch(function(e){var n=document.getElementById(el);if(n)n.innerHTML='<p class="note">'+tag('원천 읽기 실패','bad')+' cowork/ctl/'+file+' ('+hvEsc(e.message)+') — 값을 추정하지 않습니다.</p>'})},0);
  return '<h2>'+id+' '+name+'</h2><p class="lead">'+lead+'</p><div id="'+el+'">읽는 중…</div>'}}
-V['SC-15']=hv5('SC-15','문서 자동 생성','산출 스크립트가 원천(이력·보고서·상황판)에서 자동으로 만든 게시 문서와 마지막 갱신을 봅니다.','aics_docgen.tsv',function(d){
- var ok=d.r.filter(function(r){return r[3]==='있음'}).length,last=d.r.map(function(r){return r[5]}).sort().pop()||'확인 안 됨';
- return '<div class="grid">'+card('자동 생성 문서',d.r.length+'건','존재 '+ok+' · 없음 '+(d.r.length-ok))+card('마지막 생성',last,'게시 커밋 기준')+card('생성 도구',(new Set(d.r.map(function(r){return r[1]}))).size+'개','tools/gen_*.py')+'</div>'+tbl(['게시 문서','생성 도구','화면','행 수','마지막 갱신','커밋'],d.r.map(function(r){return [r[0],r[1],r[2],r[4]===''?'—':r[4],r[5],r[6]]}))});
+/* SC-15 문서 자동 생성(2026-11-13 대표님 18:07~18:11 지시): HiBiz 실측 × 문서 규칙표 대조 결과를 게시 원천(tools/hibiz_doc_check.py 산출)으로 표출. 손으로 적은 값 없음. */
+V['SC-15']=function(){var el='hv5-SC-15',B=hv5Base(),F=['aics_docfolder.tsv','aics_doccheck.tsv','doc_rules.tsv','doc_life.tsv','aics_docgen.tsv','aics_docsync.tsv'];
+ setTimeout(function(){Promise.all(F.map(function(f){return hvFetch(B+f,'text').then(hv5Tsv)})).then(function(D){var fo=D[0],ck=D[1],ru=D[2],li=D[3],ge=D[4],sy=D[5],n=document.getElementById(el);if(!n)return;
+  function S(r,i){return r.reduce(function(a,x){return a+(+x[i]||0)},0)}
+  var when=(fo.r[0]||[])[6]||'확인 안 됨',bad=S(ck.r,4),al=ck.r.filter(function(r){return r[3]==='얼럿'}),aln=S(al,4);
+  var h='<div class="grid">'+card('HiBiz 실측',when,'1층 폴더 '+fo.r.length+'개')+card('폴더 · 파일',S(fo.r,1).toLocaleString()+' · '+S(fo.r,2).toLocaleString(),'실측 전체')+card('규칙에 어긋난 것',bad.toLocaleString()+'건','검사 '+ck.r.length+'가지')+card('얼럿',aln.toLocaleString()+'건','정리할 것')+'</div>';
+  if(aln>0)h+='<p class="note">'+tag('얼럿','bad')+' '+al.filter(function(r){return +r[4]>0}).map(function(r){return hvEsc(r[1])+' '+r[4]+'건'}).join(' · ')+' — 처리가 끝나 다시 실측하면 사라집니다.</p>';
+  else h+='<p class="note">'+tag('정상','ok')+' 얼럿 없음</p>';
+  var ls=sy.r[sy.r.length-1]||[];h+='<h3>실측 싱크 (SC-15 목록 = Dell XPS 15 HiBiz)</h3><p class="note">'+(+ls[8]>0?tag('얼럿','bad')+' 새로 생긴 파일 중 규칙 밖 '+ls[8]+'건':tag('맞음','ok')+' 앞 실측 뒤 규칙 밖으로 새로 생긴 파일 없음')+' · 목록 지문 '+hvEsc(String(ls[2]||'').slice(0,16))+'…</p>'+tbl(['실측 시각','기기','파일 수','폴더 수','새로 생김','없어짐','바뀜','새로 생긴 것 중 규칙 밖','어긋난 건수'],sy.r.slice().reverse().map(function(r){return [r[0],r[1],r[3],r[4],r[5],r[6],r[7],r[8],r[9]]}));
+  h+='<h3>검사 결과 (규칙 대조)</h3>'+tbl(['검사','무엇을 보는가','규칙','등급','어긋난 건수','폴더별(번호:건수)','처리'],ck.r.map(function(r){return [r[0],r[1],r[2],tag(r[3],r[3]==='얼럿'?'bad':(r[3]==='주의'?'warn':'ok')),r[4],r[5],r[6]]}));
+  h+='<h3>폴더별 실측과 색인 자동 생성</h3>'+tbl(['1층 폴더','폴더 수','파일 수','어긋난 건수','얼럿','색인 자동 생성본'],fo.r.map(function(r){return [r[0],r[1],r[2],r[3],+r[4]>0?tag(r[4],'bad'):r[4],r[5]]}));
+  h+='<h3>문서 규칙표 (DR)</h3>'+tbl(ru.h,ru.r);
+  h+='<h3>문서 생애 절차 (생성 → 파기)</h3>'+tbl(li.h,li.r);
+  h+='<h3>통합관제 게시 문서 (산출 도구가 만든 것, 커밋 기준)</h3>'+tbl(['게시 문서','생성 도구','화면','행 수','마지막 갱신','커밋'],ge.r.map(function(r){return [r[0],r[1],r[2],r[4]===''?'—':r[4],r[5],r[6]]}));
+  n.innerHTML=h+'<p class="note">원천: cowork/ctl/aics_docfolder.tsv · aics_doccheck.tsv · doc_rules.tsv · doc_life.tsv · aics_docgen.tsv (tools/hibiz_doc_check.py · tools/gen_aics_src.py 산출). 파일마다의 줄은 비공개 「HiBiz 전체 펼침표」에 있습니다. 잇는 곳: HiDAM 자산원장(14_10_11) · GS 인증(14_13_GS인증).</p>'}).catch(function(e){var n=document.getElementById(el);if(n)n.innerHTML='<p class="note">'+tag('원천 읽기 실패','bad')+' ('+hvEsc(e.message)+') — 값을 추정하지 않습니다.</p>'})},0);
+ return '<h2>SC-15 문서 자동 생성</h2><p class="lead">HiBiz 폴더를 실측해 문서 규칙표와 대조합니다. 폴더별 색인을 자동으로 만들고, 규칙에 어긋난 것과 맨 위에 남은 옛 판을 얼럿으로 띄웁니다.</p><div id="'+el+'">읽는 중…</div>'};
 V['SC-08']=hv5('SC-08','체계 배포','분류 체계·규칙 문서의 최종본·작업본 판을 노트북 원천 폴더(HV_STD) 목록으로 봅니다.','aics_deploy.tsv',function(d){
  var w=d.r.filter(function(r){return r[3]==='작업본 승인 대기'}).length;
  return '<div class="grid">'+card('분류·규칙 문서',d.r.length+'종','HV_STD_DM_표준_기준')+card('작업본 승인 대기',w+'종','최종화는 Fable')+card('적용 폴더 수·불일치','확인 안 됨','D2(12월) 배포 원장 생성 뒤')+'</div>'+tbl(d.h,d.r.map(function(r){return [r[0],r[1],r[2],r[3]==='작업본 승인 대기'?tag(r[3],'warn'):tag(r[3],'ok'),r[4]]}))});

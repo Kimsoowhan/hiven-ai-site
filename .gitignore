@@ -8,3 +8,4 @@ sched.enc.json.tmp
 cowork/ctl/notes/HIVEN_WBS_*
 cowork/ctl/watch_targets.tsv
 cowork/ctl/watch_log.tsv
+cowork/ctl/hibiz/
