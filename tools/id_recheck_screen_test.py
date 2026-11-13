@@ -16,8 +16,10 @@ W = 400
 
 
 def serve(root):
-    h = functools.partial(http.server.SimpleHTTPRequestHandler, directory=root)
-    h.log_message = lambda *a: None
+    class Q(http.server.SimpleHTTPRequestHandler):
+        def log_message(self, *a):
+            pass
+    h = functools.partial(Q, directory=root)
     s = socketserver.ThreadingTCPServer(('127.0.0.1', 0), h)
     s.daemon_threads = True
     threading.Thread(target=s.serve_forever, daemon=True).start()

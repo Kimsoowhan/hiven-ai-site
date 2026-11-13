@@ -1,0 +1,6 @@
+{
+ "v": 2,
+ "curve": "P-256",
+ "잠그는 값": "AjbjY7MzESyO-ITiXKG3JA_6sUIlbsGUdKQe2IfcYzwe",
+ "설명": "대표 일정 묶음을 잠그는 공개 값. 공개해도 되며 이 값으로 열쇠를 알 수 없다(이력 1249)."
+}
